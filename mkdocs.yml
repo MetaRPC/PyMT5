@@ -1,0 +1,26 @@
+site_name: MetaRPC MT4 Golang Documentation
+
+nav:
+  - Home: index.md
+  - API Reference: api.md
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - palette.toggle
+    - palette.auto
+
+markdown_extensions:
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.superfences
