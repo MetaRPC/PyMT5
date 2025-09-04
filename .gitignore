@@ -206,3 +206,6 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 /examples/.vs
+/package/.vs
+/package/bin
+/package/obj

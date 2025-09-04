@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0e55848a-f39a-409a-ad5c-64c6243642eb}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>tests\test.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{e614c764-6d9e-4607-9337-b7073809a0bd};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <InterpreterId />
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <PythonDebugWebServerCommandArguments>--debug $(CommandLineArguments)</PythonDebugWebServerCommandArguments>
+    <PythonWsgiHandler>{StartupModule}.wsgi_app()</PythonWsgiHandler>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <Name>mt5_term_api</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="MetaRpcMT5\mrpc_mt5_error_pb2.py" />
+    <Compile Include="MetaRpcMT5\mrpc_mt5_error_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_account.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MetaRpcMT5\mt5_term_api_account_helper_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_account_helper_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_account_information_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_account_information_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_charts_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_charts_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_connection_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_connection_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_health_check_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_health_check_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_internal_charts_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_internal_charts_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_market_info_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_market_info_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_subscriptions_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_subscriptions_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_trade_functions_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_trade_functions_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_trading_helper_pb2.py" />
+    <Compile Include="MetaRpcMT5\mt5_term_api_trading_helper_pb2_grpc.py" />
+    <Compile Include="MetaRpcMT5\__init__.py" />
+    <Compile Include="tests\test.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tests\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MetaRpcMT5\" />
+    <Folder Include="tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="pyproject.toml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
