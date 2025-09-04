@@ -1,4 +1,4 @@
-site_name: MetaRPC MT4 Golang Documentation
+site_name: MetaRPC MT5 Python Documentation
 
 nav:
   - Home: index.md
@@ -24,3 +24,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.superfences
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
