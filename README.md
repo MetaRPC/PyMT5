@@ -4,7 +4,7 @@ To start using library run:
 ```
 pip install MetaRpcMT5 
 ```
-And use MT5Account class to iterract with MT5 account.
+Use MT5Account class to iterract with MT5 account.
 
 Check /examples folder to see different usage scenarios and examples for each MT5Account method.
 
