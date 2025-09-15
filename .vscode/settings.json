@@ -1,0 +1,9 @@
+{
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/package",
+    "${workspaceFolder}/ext",
+    "${workspaceFolder}/examples",
+    "${workspaceFolder}"
+  ]
+}

@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 from MetaRpcMT5.mt5_account import MT5Account
 
 
@@ -14,7 +14,7 @@ async def test_account_summary():
     await account.connect_by_server_name(server_name=server_name, base_chart_symbol="EURUSD")
 
     summary = await account.account_summary()
-    print("✅ Account summary:")
+    print("? Account summary:")
     print(summary)
 
     async for tick in account.on_symbol_tick(["EURUSD", "GBPUSD"]):

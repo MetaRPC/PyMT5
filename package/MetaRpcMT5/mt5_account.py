@@ -144,7 +144,7 @@ class MT5Account:
         res = await self.connection_client.Connect(
             request,
             metadata=headers,
-            timeout=30.0 if deadline is None else (deadline - datetime.utcnow()).total_seconds(),
+            timeout=30.0 if deadline is None else (deadline - datetime.now(datetime.UTC)).total_seconds(),
         )
         
         if res.HasField("error") and res.error.message:
@@ -180,7 +180,7 @@ class MT5Account:
         res = await self.connection_client.ConnectEx(
             request,
             metadata=headers,
-            timeout=30.0 if deadline is None else (deadline - datetime.utcnow()).total_seconds(),
+            timeout=30.0 if deadline is None else (deadline - datetime.now(datetime.UTC)).total_seconds(),
         )
 
         if res.HasField("error") and res.error.message:
@@ -221,7 +221,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.AccountSummary(
@@ -271,7 +271,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.OpenedOrders(
@@ -335,7 +335,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.OrderHistory(
@@ -380,7 +380,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.OpenedOrdersTickets(
@@ -425,7 +425,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.SymbolParamsMany(
@@ -474,7 +474,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.TickValueWithSize(
@@ -538,7 +538,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.account_client.PositionsHistory(
@@ -587,7 +587,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.trade_client.OrderSend(
@@ -633,7 +633,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.trade_client.OrderModify(
@@ -678,7 +678,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 if timeout < 0:
                     timeout = 0
             return await self.trade_client.OrderClose(
@@ -978,7 +978,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 timeout = max(timeout, 0)
             return await self.trade_functions_client.OrderCalcMargin(
                 request,
@@ -1022,7 +1022,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 timeout = max(timeout, 0)
             return await self.trade_functions_client.OrderCheck(
                 request,
@@ -1066,7 +1066,7 @@ class MT5Account:
         async def grpc_call(headers):
             timeout = None
             if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
+                timeout = (deadline - datetime.now(datetime.UTC)).total_seconds()
                 timeout = max(timeout, 0)
             return await self.trade_functions_client.PositionsTotal(
                 request,
@@ -1110,7 +1110,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolsTotalRequest(mode=selected_only)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolsTotal(
                 request,
                 metadata=headers,
@@ -1153,7 +1153,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolExistRequest(name=symbol)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolExist(
                 request,
                 metadata=headers,
@@ -1198,7 +1198,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolNameRequest(index=index, selected=selected)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolName(
                 request,
                 metadata=headers,
@@ -1243,7 +1243,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolSelectRequest(symbol=symbol, select=select)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolSelect(
                 request,
                 metadata=headers,
@@ -1286,7 +1286,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolIsSynchronizedRequest(symbol=symbol)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolIsSynchronized(
                 request,
                 metadata=headers,
@@ -1331,7 +1331,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolInfoDoubleRequest(symbol=symbol, type=property)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoDouble(
                 request,
                 metadata=headers,
@@ -1376,7 +1376,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolInfoIntegerRequest(symbol=symbol, type=property)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoInteger(
                 request,
                 metadata=headers,
@@ -1421,7 +1421,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolInfoStringRequest(symbol=symbol, type=property)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoString(
                 request,
                 metadata=headers,
@@ -1466,7 +1466,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolInfoMarginRateRequest(symbol=symbol, orderType=order_type)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoMarginRate(
                 request,
                 metadata=headers,
@@ -1509,7 +1509,7 @@ class MT5Account:
         request = account_helper_pb2.SymbolInfoTickRequest(symbol=symbol)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoTick(
                 request,
                 metadata=headers,
@@ -1555,7 +1555,7 @@ class MT5Account:
         )
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoSessionQuote(
                 request,
                 metadata=headers,
@@ -1601,7 +1601,7 @@ class MT5Account:
         )
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.SymbolInfoSessionTrade(
                 request,
                 metadata=headers,
@@ -1639,7 +1639,7 @@ class MT5Account:
         request = account_helper_pb2.MarketBookAddRequest(symbol=symbol)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.MarketBookAdd(
                 request,
                 metadata=headers,
@@ -1677,7 +1677,7 @@ class MT5Account:
         request = account_helper_pb2.MarketBookReleaseRequest(symbol=symbol)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.market_info_client.MarketBookRelease(
                 request,
                 metadata=headers,
@@ -1761,7 +1761,7 @@ class MT5Account:
         request = account_helper_pb2.AccountInfoDoubleRequest(propertyId=property_id)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.account_information_client.AccountInfoDouble(
                 request,
                 metadata=headers,
@@ -1804,7 +1804,7 @@ class MT5Account:
         request = account_helper_pb2.AccountInfoIntegerRequest(propertyId=property_id)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.account_information_client.AccountInfoInteger(
                 request,
                 metadata=headers,
@@ -1847,7 +1847,7 @@ class MT5Account:
         request = account_helper_pb2.AccountInfoStringRequest(propertyId=property_id)
 
         async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
+            timeout = (deadline - datetime.now(datetime.UTC)).total_seconds() if deadline else None
             return await self.account_information_client.AccountInfoString(
                 request,
                 metadata=headers,
