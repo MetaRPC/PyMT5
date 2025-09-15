@@ -43,7 +43,7 @@ class MT5Service:
     acc: Optional["MT5Account"]
 
     # ╔═══════════════════════════╗
-    # ║ 0) Connectivity & Account ║
+    # ║   Connectivity & Account  ║
     # ╚═══════════════════════════╝
     async def connect(self) -> bool:
         from app.core.mt5_connect_helper import connect_via_helper
@@ -58,7 +58,7 @@ class MT5Service:
         return await ensure_connected(self)
 
     # ╔═════════════════════╗
-    # ║ 7) Internal Helpers ║
+    # ║   Internal Helpers  ║
     # ╚═════════════════════╝
     def __init__(self, cfg: "MT5Config"):
         self.cfg = cfg
@@ -128,7 +128,7 @@ Delegating unknown attributes/methods to self.acc.
         return False
 
     # ╔══════════╗
-    # ║ 8) Other ║
+    # ║   Other  ║
     # ╚══════════╝
     async def opened_snapshot(self) -> dict:
        
