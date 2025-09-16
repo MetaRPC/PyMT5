@@ -25,8 +25,9 @@
 
 ```python
 # Minimal canonical example: how many positions are open now?
-count = await acct.positions_total()
-print(f"Open positions: {int(count)}")
+data = await acct.positions_total()               # PositionsTotalData
+print(int(data.total_positions))
+
 ```
 
 ---
@@ -38,7 +39,7 @@ async def positions_total(
     self,
     deadline: datetime | None = None,
     cancellation_event: asyncio.Event | None = None,
-) -> int
+) -> trade_functions_pb2.PositionsTotalData
 ```
 
 ---
@@ -75,7 +76,8 @@ No required input parameters.
 
 | Field   | Proto Type | Description                         |
 | ------- | ---------- | ----------------------------------- |
-| `total` | `int32`    | Number of currently open positions. |
+| total_positions | int32 | Number of currently open positions. |
+
 
 ---
 
