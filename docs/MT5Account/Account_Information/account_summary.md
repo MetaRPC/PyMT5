@@ -46,7 +46,19 @@ async def account_summary(
     cancellation_event: asyncio.Event | None = None,
 ) -> account_helper_pb2.AccountSummaryData
 ```
+## Usage Examples
 
+```python
+# MT5Account usage (Python, async)
+acct: MT5Account = ... # created after connect_by_*()
+summary = await acct.account_summary()
+print(
+f"[MT5] Balance={summary.account_balance:.2f}, "
+f"Equity={summary.account_equity:.2f}, Cur={summary.account_currency}, "
+f"Login={summary.account_login}, Lev={summary.account_leverage}, "
+f"Mode={summary.account_trade_mode}"
+)
+```
 ---
 
 ## 💬 Just about the main thing
