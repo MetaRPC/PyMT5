@@ -1,4 +1,4 @@
-# Getting an Account Summary
+# ✅ Getting an Account Summary
 
 > **Request:** full account summary (`AccountSummaryData`) from MT5.
 > Fetch all core account metrics in a single call.
@@ -17,7 +17,7 @@
 
 ---
 
-### Code Example
+### 🔗 Code Example
 
 ```python
 # High-level (prints formatted summary):
