@@ -46,19 +46,7 @@ async def account_summary(
     cancellation_event: asyncio.Event | None = None,
 ) -> account_helper_pb2.AccountSummaryData
 ```
-## Usage Examples
 
-```python
-# MT5Account usage (Python, async)
-acct: MT5Account = ... # created after connect_by_*()
-summary = await acct.account_summary()
-print(
-f"[MT5] Balance={summary.account_balance:.2f}, "
-f"Equity={summary.account_equity:.2f}, Cur={summary.account_currency}, "
-f"Login={summary.account_login}, Lev={summary.account_leverage}, "
-f"Mode={summary.account_trade_mode}"
-)
-```
 ---
 
 ## 💬 Just about the main thing
@@ -113,3 +101,95 @@ Use to display real-time account state and sanity‑check connectivity:
 * Wrapper uses `execute_with_reconnect(...)` to retry on transient gRPC errors.
 * Consider a short per‑call timeout (3–5s) and retry if the terminal is syncing symbols.
 
+## 🟢 Usage Examples
+
+# 1) Per‑call deadline
+
+```python
+# Enforce a short absolute deadline to avoid hanging calls
+from datetime import datetime, timedelta, timezone
+
+
+summary = await acct.account_summary(
+deadline=datetime.now(timezone.utc) + timedelta(seconds=3)
+)
+print(f"[deadline] Equity={summary.account_equity:.2f}")
+```
+
+# 2) Cooperative cancellation (with asyncio.Event)
+```python
+# Pass a cancellation_event to allow graceful stop from another task
+import asyncio
+from datetime import datetime, timedelta, timezone
+
+
+cancel_event = asyncio.Event()
+
+
+# somewhere else: cancel_event.set() to request cancellation
+summary = await acct.account_summary(
+deadline=datetime.now(timezone.utc) + timedelta(seconds=3),
+cancellation_event=cancel_event,
+)
+print(f"[cancel] Currency={summary.account_currency}")
+
+```
+# 3) Compact status line for UI/CLI
+
+```python
+# Produce a short, readable one‑liner for dashboards/CLI
+s = await acct.account_summary()
+status = (
+f"Acc {s.account_login} | {s.account_currency} | "
+f"Bal {s.account_balance:.2f} | Eq {s.account_equity:.2f} | "
+f"Lev {s.account_leverage} | Mode {s.account_trade_mode}"
+)
+print(status)
+```
+
+# 4) Human‑readable server time with timezone shift
+```python
+#Convert server_time (UTC Timestamp) + shift (minutes) to a local server time string
+from datetime import timezone, timedelta
+
+
+s = await acct.account_summary()
+server_dt_utc = s.server_time.ToDatetime().replace(tzinfo=timezone.utc)
+shift = timedelta(minutes=int(s.utc_timezone_server_time_shift_minutes))
+server_local = server_dt_utc + shift
+print(f"Server time: {server_local.isoformat()} (shift {shift})")
+```
+
+# 5) Map proto → your dataclass (thin view‑model)
+
+```python
+# Keep only the fields you actually use; fast and test‑friendly
+from dataclasses import dataclass
+
+
+@dataclass
+class AccountSummaryView:
+login: int
+currency: str
+balance: float
+equity: float
+leverage: int
+mode: int # enum value; map to label if needed
+
+
+@staticmethod
+def from_proto(p):
+return AccountSummaryView(
+login=int(p.account_login),
+currency=str(p.account_currency),
+balance=float(p.account_balance),
+equity=float(p.account_equity),
+leverage=int(p.account_leverage),
+mode=int(p.account_trade_mode),
+)
+
+
+s = await acct.account_summary()
+view = AccountSummaryView.from_proto(s)
+print(view)
+```
