@@ -83,24 +83,27 @@ No required input besides the enum.
 
 | Field            | Proto Type | Description                         |
 | ---------------- | ---------- | ----------------------------------- |
-| `requestedValue` | `int64`    | The value of the selected property. |
+| `requested_Value` | `int64`    | The value of the selected property. |
 
 ---
 
 ### Enum: `AccountInfoIntegerPropertyType`
 
 
-| Value                     | Meaning                                        |
-| ------------------------- | ---------------------------------------------- |
-| `ACCOUNT_LOGIN`           | Account login (ID).                            |
-| `ACCOUNT_LEVERAGE`        | Leverage (e.g., 100 for 1:100).                |
-| `ACCOUNT_LIMIT_ORDERS`    | Current limit for pending orders (if set).     |
-| `ACCOUNT_TRADE_ALLOWED`   | Trading allowed flag (0/1).                    |
-| `ACCOUNT_TRADE_EXPERT`    | Expert Advisors allowed flag (0/1).            |
-| `ACCOUNT_TRADE_MODE`      | Trade mode code (map to label if needed).      |
-| `ACCOUNT_MARGIN_SO_MODE`  | Stop‑out mode code (percent/money).            |
-| `ACCOUNT_CURRENCY_DIGITS` | Number of digits for money formatting.         |
-| `ACCOUNT_FIFO_CLOSE`      | FIFO close flag (0/1), if supported by broker. |
+| Number | Value                     | Meaning                                    |
+| -----: | ------------------------- | ------------------------------------------ |
+|      0 | `ACCOUNT_LOGIN`           | Account login (ID).                        |
+|      1 | `ACCOUNT_TRADE_MODE`      | Trade mode code (map to label if needed).  |
+|      2 | `ACCOUNT_LEVERAGE`        | Leverage (e.g., 100 for 1:100).            |
+|      3 | `ACCOUNT_LIMIT_ORDERS`    | Current limit for pending orders (if set). |
+|      4 | `ACCOUNT_MARGIN_SO_MODE`  | Stop-out mode code (percent/money).        |
+|      5 | `ACCOUNT_TRADE_ALLOWED`   | Trading allowed flag (0/1).                |
+|      6 | `ACCOUNT_TRADE_EXPERT`    | Expert Advisors allowed flag (0/1).        |
+|      7 | `ACCOUNT_MARGIN_MODE`     | Margin mode code (netting/hedging).        |
+|      8 | `ACCOUNT_CURRENCY_DIGITS` | Number of digits for money formatting.     |
+|      9 | `ACCOUNT_FIFO_CLOSE`      | FIFO close flag (0/1), if supported.       |
+|     10 | `ACCOUNT_HEDGE_ALLOWED`   | Hedging allowed flag (0/1).                |
+
 
 ---
 
