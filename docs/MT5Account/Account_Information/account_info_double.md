@@ -1,4 +1,4 @@
-# ✅ AccountInfoDouble
+# ✅ Account Info Double
 
 > **Request:** single numeric account property (double) from MT5.
 > Fetch one metric (e.g., Balance, Equity, Margin, MarginLevel, …) by enum.
