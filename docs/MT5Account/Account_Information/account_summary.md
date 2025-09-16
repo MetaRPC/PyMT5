@@ -96,17 +96,17 @@ Use to display real-time account state and sanity‑check connectivity:
 * Dashboard/CLI status
 * Verify free margin & equity before trading
 
-## 🧩 Notes & Tips
+### 🧩 Notes & Tips
 
 * Wrapper uses `execute_with_reconnect(...)` to retry on transient gRPC errors.
 * Consider a short per‑call timeout (3–5s) and retry if the terminal is syncing symbols.
 
-## 🟢 Usage Examples
+### Usage Examples
 
 # 1) Per‑call deadline
 
 ```python
-# Enforce a short absolute deadline to avoid hanging calls
+ Enforce a short absolute deadline to avoid hanging calls
 from datetime import datetime, timedelta, timezone
 
 
@@ -118,7 +118,7 @@ print(f"[deadline] Equity={summary.account_equity:.2f}")
 
 # 2) Cooperative cancellation (with asyncio.Event)
 ```python
-# Pass a cancellation_event to allow graceful stop from another task
+ Pass a cancellation_event to allow graceful stop from another task
 import asyncio
 from datetime import datetime, timedelta, timezone
 
@@ -126,7 +126,7 @@ from datetime import datetime, timedelta, timezone
 cancel_event = asyncio.Event()
 
 
-# somewhere else: cancel_event.set() to request cancellation
+ somewhere else: cancel_event.set() to request cancellation
 summary = await acct.account_summary(
 deadline=datetime.now(timezone.utc) + timedelta(seconds=3),
 cancellation_event=cancel_event,
@@ -137,7 +137,7 @@ print(f"[cancel] Currency={summary.account_currency}")
 # 3) Compact status line for UI/CLI
 
 ```python
-# Produce a short, readable one‑liner for dashboards/CLI
+ Produce a short, readable one‑liner for dashboards/CLI
 s = await acct.account_summary()
 status = (
 f"Acc {s.account_login} | {s.account_currency} | "
@@ -149,7 +149,7 @@ print(status)
 
 # 4) Human‑readable server time with timezone shift
 ```python
-#Convert server_time (UTC Timestamp) + shift (minutes) to a local server time string
+Convert server_time (UTC Timestamp) + shift (minutes) to a local server time string
 from datetime import timezone, timedelta
 
 
@@ -163,7 +163,7 @@ print(f"Server time: {server_local.isoformat()} (shift {shift})")
 # 5) Map proto → your dataclass (thin view‑model)
 
 ```python
-# Keep only the fields you actually use; fast and test‑friendly
+ Keep only the fields you actually use; fast and test‑friendly
 from dataclasses import dataclass
 
 
