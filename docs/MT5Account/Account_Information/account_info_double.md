@@ -66,8 +66,6 @@ async def account_info_double(
 | `deadline`           | \`datetime                                       | None\`                                       | The absolute call deadline → is converted to timeout.   |
 | `cancellation_event` | \`asyncio.Event                                  | None\`                                       | Cooperative cancellation (graceful stop) for the retry wrapper. |
 
-> **Request message:** `AccountInfoDoubleRequest { property_id }`
-
 ---
 
 ## ⬆️ Output
