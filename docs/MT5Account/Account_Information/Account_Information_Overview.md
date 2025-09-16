@@ -2,7 +2,7 @@
 
 > Quick guide to the four primitives that expose **account metadata** via gRPC. Use this page to choose the right call fast. Links below jump to the full specs.
 
-## What lives here
+## 📁 What lives here
 
 * **[AccountSummary](./account_summary.md)** — one call, core metrics bundle (balance, equity, leverage, currency, trade mode, server time, credit).
 * **[AccountInfoDouble](./account_info_double.md)** — one **numeric** metric by enum (equity, margin, margin level, etc.).
@@ -11,7 +11,7 @@
 
 ---
 
-## Plain English
+## 🧭 Plain English
 
 * **AccountSummary** → the **"full blood panel"** for your account: a compact bundle you can print to see if things look sane.
 * **AccountInfoDouble** → one **gauge reading** (a single float).
@@ -33,7 +33,7 @@
 
 ---
 
-## Cross‑refs & gotchas
+## 🟡 Cross‑refs & gotchas
 
 * **Formatting money?** Combine `AccountInfoString.ACCOUNT_CURRENCY` with `AccountInfoInteger.ACCOUNT_CURRENCY_DIGITS`.
 * **Margin level is percent.** `AccountInfoDouble.ACCOUNT_MARGIN_LEVEL` is already **%**, not a fraction.
