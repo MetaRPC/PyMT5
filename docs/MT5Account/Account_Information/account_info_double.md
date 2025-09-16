@@ -17,7 +17,7 @@
 
 ---
 
-### 🔗 Code Example (Python, async)
+### 🔗 Code Example
 
 ```python
 # Minimal canonical example: get Balance
@@ -31,7 +31,7 @@ print(f"Balance: {value:.2f}")
 
 ---
 
-### Method Signature (SDK)
+### Method Signature
 
 ```python
 async def account_info_double(
