@@ -48,63 +48,94 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-## 📚 Full Index · All Method Specs
-
-### Account Information
-
-* [account\_info\_double.md](./Account_Information/account_info_double.md)
-* [account\_info\_integer.md](./Account_Information/account_info_integer.md)
-* [account\_info\_string.md](./Account_Information/account_info_string.md)
-* [account\_summary.md](./Account_Information/account_summary.md)
+# 📚 Full Index · All Method Specs
 
 ---
 
-### Orders · Positions · History
+## 📄 Account Information
 
-* [opened\_orders.md](./Orders_Positions_History/opened_orders.md)
-* [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md)
-* [order\_history.md](./Orders_Positions_History/order_history.md)
-* [positions\_history.md](./Orders_Positions_History/positions_history.md)
-* [positions\_total.md](./Orders_Positions_History/positions_total.md)
+* **Overview:** [Account\_Information\_Overview.md](./Account_Information/Account_Information_Overview.md)
+* **Single‑value getters**
+  – [account\_info\_double.md](./Account_Information/account_info_double.md)
+  – [account\_info\_integer.md](./Account_Information/account_info_integer.md)
+  – [account\_info\_string.md](./Account_Information/account_info_string.md)
+* **Summary**
+  – [account\_summary.md](./Account_Information/account_summary.md)
 
 ---
 
-### Symbols and Market
+## 📦 Orders · Positions · History
+
+* **Overview:** [OrdersPositionsHistory\_Overview.md](./Orders_Positions_History/OrdersPositionsHistory_Overview.md)
+* **Live now**
+  – [opened\_orders.md](./Orders_Positions_History/opened_orders.md)
+  – [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md)
+  – [positions\_total.md](./Orders_Positions_History/positions_total.md)
+* **History**
+  – [order\_history.md](./Orders_Positions_History/order_history.md)
+  – [positions\_history.md](./Orders_Positions_History/positions_history.md)
+
+---
+
+## 🏷️ Symbols and Market
+
+* **Overview:** [SymbolsandMarket\_Overview.md](./Symbols_and_Market/SymbolsandMarket_Overview.md)
+
+### Inventory
 
 * [symbols\_total.md](./Symbols_and_Market/symbols_total.md)
 * [symbol\_exist.md](./Symbols_and_Market/symbol_exist.md)
 * [symbol\_name.md](./Symbols_and_Market/symbol_name.md)
 * [symbol\_select.md](./Symbols_and_Market/symbol_select.md)
 * [symbol\_is\_synchronized.md](./Symbols_and_Market/symbol_is_synchronized.md)
+
+### Properties & Quotes
+
 * [symbol\_params\_many.md](./Symbols_and_Market/symbol_params_many.md)
 * [symbol\_info\_double.md](./Symbols_and_Market/symbol_info_double.md)
 * [symbol\_info\_integer.md](./Symbols_and_Market/symbol_info_integer.md)
 * [symbol\_info\_string.md](./Symbols_and_Market/symbol_info_string.md)
 * [symbol\_info\_tick.md](./Symbols_and_Market/symbol_info_tick.md)
-* [symbol\_info\_margin\_rate.md](./Symbols_and_Market/symbol_info_margin_rate.md)
+
+### Sessions & Margin
+
 * [symbol\_info\_session\_quote.md](./Symbols_and_Market/symbol_info_session_quote.md)
 * [symbol\_info\_session\_trade.md](./Symbols_and_Market/symbol_info_session_trade.md)
-* Market Book (DOM): [market\_book\_add.md](./Symbols_and_Market/market_book_add.md), [market\_book\_get.md](./Symbols_and_Market/market_book_get.md), [market\_book\_release.md](./Symbols_and_Market/market_book_release.md)
-* Pricing utils: [tick\_value\_with\_size.md](./Symbols_and_Market/tick_value_with_size.md)
+* [symbol\_info\_margin\_rate.md](./Symbols_and_Market/symbol_info_margin_rate.md)
+* **Pricing utils:** [tick\_value\_with\_size.md](./Symbols_and_Market/tick_value_with_size.md)
+
+### Market Book (DOM)
+
+* [market\_book\_add.md](./Symbols_and_Market/market_book_add.md)
+* [market\_book\_get.md](./Symbols_and_Market/market_book_get.md)
+* [market\_book\_release.md](./Symbols_and_Market/market_book_release.md)
 
 ---
 
-### Trading Operations
+## 🛠 Trading Operations
 
-* [order\_send.md](./Trading_Operations/order_send.md)
-* [order\_modify.md](./Trading_Operations/order_modify.md)
-* [order\_close.md](./Trading_Operations/order_close.md)
-* [order\_check.md](./Trading_Operations/order_check.md)
-* [order\_calc\_margin.md](./Trading_Operations/order_calc_margin.md)
+* **Overview:** [TradingOperations\_Overview.md](./Trading_Operations/TradingOperations_Overview.md)
+* **Placement & lifecycle**
+  – [order\_send.md](./Trading_Operations/order_send.md)
+  – [order\_modify.md](./Trading_Operations/order_modify.md)
+  – [order\_close.md](./Trading_Operations/order_close.md)
+* **Feasibility & costs**
+  – [order\_check.md](./Trading_Operations/order_check.md)
+  – [order\_calc\_margin.md](./Trading_Operations/order_calc_margin.md)
 
 ---
 
-### Subscriptions · Streaming
+## 📡 Subscriptions · Streaming
 
-* [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md)
-* [on\_trade.md](./Subscriptions_Streaming/on_trade.md)
-* [on\_trade\_transaction.md](./Subscriptions_Streaming/on_trade_transaction.md)
-* [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md)
-* [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
+* **Overview:** [SubscriptionsStreaming\_Overview.md](./Subscriptions_Streaming/SubscriptionsStreaming_Overview.md)
+* **Prices & symbols**
+  – [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md)
+* **Trading events**
+  – [on\_trade.md](./Subscriptions_Streaming/on_trade.md)
+  – [on\_trade\_transaction.md](./Subscriptions_Streaming/on_trade_transaction.md)
+* **P/L & IDs snapshots**
+  – [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md)
+  – [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
+
 
 
