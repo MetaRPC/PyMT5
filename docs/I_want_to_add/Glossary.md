@@ -53,7 +53,7 @@
 
 ---
 
-## 🧑‍💻 Account Terms (links fixed)
+## 🧑‍💻 Account Terms
 
 * **Login / Server** — broker account ID and server name.
 * **Balance / Equity / Margin / Free** — see cheat sheet; numbers come from:
@@ -63,7 +63,7 @@
 
 ---
 
-## 📈 Market Info Terms (links fixed)
+## 📈 Market Info Terms
 
 * **Symbol Inventory** — size & presence checks:
 
@@ -99,7 +99,7 @@
 
 ---
 
-## 📦 Orders & History Terms (links fixed)
+## 📦 Orders & History Terms
 
 * **Live snapshot**
 
@@ -117,8 +117,7 @@
 
 ---
 
-## 🔌 RPC & Streaming Terms (links fixed)
-
+## 🔌 RPC & Streaming Terms
 * **Unary RPC** — one request → one reply; returns `*.Data` payload already unwrapped.
 
 * **Streaming RPC** — server pushes events until you cancel:
