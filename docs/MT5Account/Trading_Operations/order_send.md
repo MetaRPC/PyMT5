@@ -1,4 +1,4 @@
-# ✅ OrderSend
+# ✅ Order Send
 
 > **Request:** send a **market or pending order** to the trading server.
 
