@@ -119,6 +119,8 @@ async def order_close(
 
 ---
 
+**See also:** [order\_send.md](./order_send.md), [on\_trade.md](../Subscriptions_Streaming/on_trade.md), [opened\_orders.md](../Orders_Positions_History/opened_orders.md)
+
 ## Usage Examples
 
 ### 1) Full close at market
