@@ -94,6 +94,8 @@ async def symbol_info_integer(
 
 ---
 
+**See also:** [symbol\_info\_double.md](./symbol_info_double.md), [symbol\_info\_string.md](./symbol_info_string.md), [symbol\_info\_tick.md](./symbol_info_tick.md)
+
 ## Usage Examples
 
 ### 1) Get spread (points)
