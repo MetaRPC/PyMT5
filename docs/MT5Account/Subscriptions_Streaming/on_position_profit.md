@@ -139,6 +139,9 @@ async def on_position_profit(
 
 ---
 
+**See also:** [opened\_orders.md](../Orders_Positions_History/opened_orders.md), [positions\_history.md](../Orders_Positions_History/positions_history.md), [on\_trade.md](./on_trade.md)
+
+
 ## Usage Examples
 
 ### 1) Running sum of current P/L
