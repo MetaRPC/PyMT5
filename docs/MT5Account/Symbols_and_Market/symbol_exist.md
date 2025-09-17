@@ -86,6 +86,8 @@ async def symbol_exist(
 * Combine with `symbols_total(...)` and `symbol_name(...)` to page through and validate symbol lists.
 * If `exists=False`, skip any downstream price/spec requests to avoid server noise.
 
+**See also:** [symbols\_total.md](./symbols_total.md), [symbol\_name.md](./symbol_name.md), [symbol\_select.md](./symbol_select.md)
+
 ## Usage Examples
 
 ### 1) Single symbol — guard before heavy calls
