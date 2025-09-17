@@ -79,7 +79,7 @@ async def symbols_total(
 > SDK returns `reply.data`.
 
 ---
-**See also:** [SymbolName](./Symbols_and_Market/symbol_name.md), [SymbolExist](./Symbols_and_Market/symbol_exist.md), [SymbolSelect](./Symbols_and_Market/symbol_select.md).
+**See also:** [symbol\_name.md](./symbol_name.md), [symbol\_exist.md](./symbol_exist.md), [symbol\_select.md](./symbol_select.md)
 
 ### 🎯 Purpose
 
