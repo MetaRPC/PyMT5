@@ -102,11 +102,12 @@ ception → check connectivity and the error spec.
 * For money formatting: pair `ACCOUNT_CURRENCY` with `ACCOUNT_CURRENCY_DIGITS` (from `AccountInfoInteger`).
 * The SDK wrapper already handles transient gRPC hiccups via `execute_with_reconnect(...)`.
 
-**See also:** `AccountInfoInteger`, `AccountInfoDouble`, `AccountSummary`.
+**See also:** [AccountInfoInteger](../Account_Information/account_info_integer.md), [AccountInfoDouble](../Account_Information/account_info_double.md), [AccountSummary](../Account_Information/account_summary.md).
+
 
 ---
 
-## Usage Examples (MT5 only)
+## Usage Examples
 
 ### 1) Currency + digits → proper amount formatting
 
