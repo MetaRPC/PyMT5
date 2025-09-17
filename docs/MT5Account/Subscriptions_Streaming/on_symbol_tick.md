@@ -1,4 +1,4 @@
-# ✅ OnSymbolTick (subscription)
+# ✅ On Symbol Tick
 
 > **Request:** subscribe to **live ticks** for one or more **symbols**. Server‑streaming RPC that emits events with Bid/Ask/Last, volumes, flags, and time.
 
