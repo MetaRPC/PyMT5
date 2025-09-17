@@ -157,3 +157,6 @@ print(res.returned_code)
 * Use `symbol_info_integer(SYMBOL_TRADE_STOPS_LEVEL)` and freeze levels to validate SL/TP distances **before** modify.
 * For positions vs pending orders, your UI should adapt fields (no `price` for market positions).
 * Combine with `order_send` and `order_close` for full trade lifecycle.
+
+**See also:** [order\_send.md](./order_send.md), [order\_close.md](./order_close.md), [on\_trade\_transaction.md](../Subscriptions_Streaming/on_trade_transaction.md)
+
