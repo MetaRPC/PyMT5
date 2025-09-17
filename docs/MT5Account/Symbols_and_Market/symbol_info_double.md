@@ -98,7 +98,9 @@ async def symbol_info_double(
 * For tick economics across many symbols, consider `tick_value_with_size(...)`.
 * Pair with `symbol_is_synchronized(...)` to avoid stale/empty values.
 
----
+--
+
+**See also:** [symbol\_info\_integer.md](./symbol_info_integer.md), [symbol\_info\_string.md](./symbol_info_string.md), [symbol\_info\_tick.md](./symbol_info_tick.md)
 
 ## Usage Examples
 
