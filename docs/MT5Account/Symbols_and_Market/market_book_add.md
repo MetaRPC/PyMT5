@@ -93,6 +93,8 @@ async def market_book_add(
 
 ---
 
+**See also:** [market\_book\_get.md](./market_book_get.md), [market\_book\_release.md](./market_book_release.md), [symbol\_info\_tick.md](./symbol_info_tick.md)
+
 ## Usage Examples
 
 ### 1) Subscribe then fetch the book
