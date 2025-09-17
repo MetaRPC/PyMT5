@@ -134,6 +134,8 @@ async def order_calc_margin(
 
 ---
 
+**See also:** [symbol\_info\_margin\_rate.md](../Symbols_and_Market/symbol_info_margin_rate.md), [order\_check.md](./order_check.md), [symbol\_info\_double.md](../Symbols_and_Market/symbol_info_double.md)
+
 ## Usage Examples
 
 ### 1) Quick UI ticket calculation
