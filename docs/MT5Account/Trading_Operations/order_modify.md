@@ -19,6 +19,17 @@
 
 ---
 
+### Method Signature
+
+```python
+async def order_modify(
+    self,
+    request: trading_helper_pb2.OrderModifyRequest,
+    deadline: datetime | None = None,
+    cancellation_event: asyncio.Event | None = None,
+) -> trading_helper_pb2.OrderModifyData
+```
+
 ## 💬 Plain English
 
 * **What it is.** One call to adjust **SL/TP**, **pending price**, **expiration** (GTC/DAY/SPECIFIED/SPECIFIED\_DAY), and **stop‑limit** trigger.
@@ -135,19 +146,6 @@ print(res.returned_code)
 ```
 
 ---
-
-### Method Signature
-
-```python
-async def order_modify(
-    self,
-    request: trading_helper_pb2.OrderModifyRequest,
-    deadline: datetime | None = None,
-    cancellation_event: asyncio.Event | None = None,
-) -> trading_helper_pb2.OrderModifyData
-```
-
-
 
 ### 🎯 Purpose
 
