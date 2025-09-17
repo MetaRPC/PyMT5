@@ -1,4 +1,4 @@
-# ✅ OnTrade (subscription)
+# ✅ On Trade
 
 > **Request:** subscribe to **live trading events**: new/updated/removed **orders**, **deals history**, **positions**, plus account P/L snapshot bundled with each event.
 
