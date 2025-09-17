@@ -117,6 +117,8 @@ async def on_positions_and_pending_orders_tickets(
 
 ---
 
+**See also:** [opened\_orders\_tickets.md](../Orders_Positions_History/opened_orders_tickets.md), [opened\_orders.md](../Orders_Positions_History/opened_orders.md), [on\_trade.md](./on_trade.md)
+
 ## Usage Examples
 
 ### 1) Show counts badge in UI
