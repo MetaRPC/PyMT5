@@ -90,7 +90,8 @@ No required input parameters.
 * Convert lists to **sets** for O(1) membership checks and diffs.
 * Wrapper retries transient gRPC errors via `execute_with_reconnect(...)`.
 
-**See also:** `OpenedOrders`, `PositionsTotal`.
+**See also:** [OpenedOrders](../Orders_Positions_History/opened_orders.md), [PositionsTotal](../Orders_Positions_History/positions_total.md).
+
 
 ---
 
