@@ -88,8 +88,6 @@ async def symbol_params_many(
 
 #### `mt5_term_api.SymbolParameters` (key fields)
 
-> *The exact proto exposes many fields; common ones you will typically use:*
-
 | Field                     | Proto Type | Meaning                                          |
 | ------------------------- | ---------- | ------------------------------------------------ |
 | `symbol_name`             | `string`   | Symbol name.                                     |
@@ -118,8 +116,9 @@ async def symbol_params_many(
 * Use paging for big servers; render `res.symbols_total` to drive pagination controls.
 * If you only need a handful of symbols, pass `symbol_name` per call or filter client‑side.
 * Combine with `symbol_exist`, `symbol_select`, and `symbol_is_synchronized` for robust UX.
-
 ---
+
+**See also:** [symbol\_info\_double.md](./symbol_info_double.md), [symbol\_info\_integer.md](./symbol_info_integer.md), [symbol\_info\_string.md](./symbol_info_string.md)
 
 ## Usage Examples
 
