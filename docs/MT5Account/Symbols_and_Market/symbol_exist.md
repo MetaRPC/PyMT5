@@ -63,8 +63,6 @@ async def symbol_exist(
 | `deadline`           | \`datetime           | None\`                                            | Absolute per‑call deadline → converted to timeout. |   |
 | `cancellation_event` | \`asyncio.Event      | None\`                                            | Cooperative cancel for the retry wrapper.          |   |
 
-> **Request message (verified):** `SymbolExistRequest { name: string }`
-
 ---
 
 ## ⬆️ Output
@@ -76,11 +74,7 @@ async def symbol_exist(
 | `exists`    | `bool`     | `True` if the symbol exists.                 |
 | `is_custom` | `bool`     | `True` if the symbol is a **custom** symbol. |
 
-> **Wire reply:** `SymbolExistReply { data: SymbolExistData, error: Error? }`
-> SDK returns `reply.data`.
-
 ---
-
 ### 🎯 Purpose
 
 * Validate user input before deeper calls (quotes/specs/orders).
@@ -91,3 +85,32 @@ async def symbol_exist(
 
 * Combine with `symbols_total(...)` and `symbol_name(...)` to page through and validate symbol lists.
 * If `exists=False`, skip any downstream price/spec requests to avoid server noise.
+
+## Usage Examples
+
+### 1) Single symbol — guard before heavy calls
+
+```python
+# English-only comments per project style
+check = await acct.symbol_exist("BTCUSD")
+if not check.exists:
+    raise ValueError("Symbol is not available on this server")
+```
+
+### 2) Batch validate a list
+
+```python
+symbols = ["EURUSD", "GBPUSD", "FOOBAR"]
+results = {s: (await acct.symbol_exist(s)).exists for s in symbols}
+print(results)  # {'EURUSD': True, 'GBPUSD': True, 'FOOBAR': False}
+```
+
+### 3) UI hint — mark custom symbols
+
+```python
+s = "SYNTH_X"
+info = await acct.symbol_exist(s)
+label = "(custom)" if info.is_custom else ""
+print(f"{s} {label}")
+```
+
