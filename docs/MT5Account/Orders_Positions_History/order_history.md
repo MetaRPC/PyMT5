@@ -184,7 +184,8 @@ async def order_history(
 * No server‑side symbol filter — filter client‑side.
 * Wrapper handles transient gRPC hiccups via `execute_with_reconnect(...)`.
 
-**See also:** `PositionsHistory`, `OpenedOrders`, `OpenedOrdersTickets`.
+**See also:** [PositionsHistory](../Orders_Positions_History/positions_history.md), [OpenedOrders](../Orders_Positions_History/opened_orders.md), [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md).
+
 
 ---
 
