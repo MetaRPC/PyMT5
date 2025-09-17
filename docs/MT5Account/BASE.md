@@ -23,7 +23,7 @@
 
 ---
 
-## 🧭 How to pick an API (very short)
+## 🧭 How to pick an API
 
 | If you need…                   | Go to…                   | Typical calls                                                                                                         |
 | ------------------------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -50,7 +50,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ## 📚 Full Index · All Method Specs
 
-### Account\_Information
+### Account Information
 
 * [account\_info\_double.md](./Account_Information/account_info_double.md)
 * [account\_info\_integer.md](./Account_Information/account_info_integer.md)
@@ -59,7 +59,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-### Orders\_Positions\_History
+### Orders·Positions·History
 
 * [opened\_orders.md](./Orders_Positions_History/opened_orders.md)
 * [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md)
@@ -69,7 +69,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-### Symbols\_and\_Market
+### Symbols and Market
 
 * [symbols\_total.md](./Symbols_and_Market/symbols_total.md)
 * [symbol\_exist.md](./Symbols_and_Market/symbol_exist.md)
@@ -89,7 +89,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-### Trading\_Operations
+### Trading Operations
 
 * [order\_send.md](./Trading_Operations/order_send.md)
 * [order\_modify.md](./Trading_Operations/order_modify.md)
@@ -99,7 +99,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-### Subscriptions\_Streaming
+### Subscriptions·Streaming
 
 * [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md)
 * [on\_trade.md](./Subscriptions_Streaming/on_trade.md)
