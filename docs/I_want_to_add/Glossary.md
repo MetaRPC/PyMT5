@@ -51,14 +51,13 @@
 
 *MT5 note:* in **hedging** mode multiple positions per symbol can coexist; in **netting** — one net position per symbol.
 
----
 
 ## 🧑‍💻 Account Terms
 
 * **Login / Server** — broker account ID and server name.
 * **Balance / Equity / Margin / Free** — see cheat sheet; numbers come from:
 
-  * [Account Information Overview](./Account_Information/Account_Information_Overview.md)
+  * [Account Information Overview](../MT5Account/Account_Information/Account_Information_Overview.md)
 * **Currency Digits** — use `ACCOUNT_CURRENCY_DIGITS` (integer) to format money correctly.
 
 ---
@@ -67,35 +66,35 @@
 
 * **Symbol Inventory** — size & presence checks:
 
-  * [symbols\_total.md](./Symbols_and_Market/symbols_total.md)
-  * [symbol\_exist.md](./Symbols_and_Market/symbol_exist.md)
-  * [symbol\_name.md](./Symbols_and_Market/symbol_name.md)
-  * [symbol\_select.md](./Symbols_and_Market/symbol_select.md)
+  * [symbols\_total.md](../MT5Account/Symbols_and_Market/symbols_total.md)
+  * [symbol\_exist.md](../MT5Account/Symbols_and_Market/symbol_exist.md)
+  * [symbol\_name.md](../MT5Account/Symbols_and_Market/symbol_name.md)
+  * [symbol\_select.md](../MT5Account/Symbols_and_Market/symbol_select.md)
 
 * **Properties** — double/int/string getters & bulk params:
 
-  * [symbol\_info\_double.md](./Symbols_and_Market/symbol_info_double.md)
-  * [symbol\_info\_integer.md](./Symbols_and_Market/symbol_info_integer.md)
-  * [symbol\_info\_string.md](./Symbols_and_Market/symbol_info_string.md)
-  * [symbol\_params\_many.md](./Symbols_and_Market/symbol_params_many.md)
+  * [symbol\_info\_double.md](../MT5Account/Symbols_and_Market/symbol_info_double.md)
+  * [symbol\_info\_integer.md](../MT5Account/Symbols_and_Market/symbol_info_integer.md)
+  * [symbol\_info\_string.md](../MT5Account/Symbols_and_Market/symbol_info_string.md)
+  * [symbol\_params\_many.md](../MT5Account/Symbols_and_Market/symbol_params_many.md)
 
 * **Quotes & Sessions** — tick snapshot and trading/quote sessions:
 
-  * [symbol\_info\_tick.md](./Symbols_and_Market/symbol_info_tick.md)
-  * [symbol\_info\_session\_quote.md](./Symbols_and_Market/symbol_info_session_quote.md)
-  * [symbol\_info\_session\_trade.md](./Symbols_and_Market/symbol_info_session_trade.md)
+  * [symbol\_info\_tick.md](../MT5Account/Symbols_and_Market/symbol_info_tick.md)
+  * [symbol\_info\_session\_quote.md](../MT5Account/Symbols_and_Market/symbol_info_session_quote.md)
+  * [symbol\_info\_session\_trade.md](../MT5Account/Symbols_and_Market/symbol_info_session_trade.md)
 
 * **Margin model** — per‑order type margin rate & calc helpers:
 
-  * [symbol\_info\_margin\_rate.md](./Symbols_and_Market/symbol_info_margin_rate.md)
-  * [order\_calc\_margin.md](./Trading_Operations/order_calc_margin.md)
-  * [tick\_value\_with\_size.md](./Symbols_and_Market/tick_value_with_size.md)
+  * [symbol\_info\_margin\_rate.md](../MT5Account/Symbols_and_Market/symbol_info_margin_rate.md)
+  * [order\_calc\_margin.md](../MT5Account/Trading_Operations/order_calc_margin.md)
+  * [tick\_value\_with\_size.md](../MT5Account/Symbols_and_Market/tick_value_with_size.md)
 
 * **Market Book (DOM)** — subscribe/read/release:
 
-  * [market\_book\_add.md](./Symbols_and_Market/market_book_add.md)
-  * [market\_book\_get.md](./Symbols_and_Market/market_book_get.md)
-  * [market\_book\_release.md](./Symbols_and_Market/market_book_release.md)
+  * [market\_book\_add.md](../MT5Account/Symbols_and_Market/market_book_add.md)
+  * [market\_book\_get.md](../MT5Account/Symbols_and_Market/market_book_get.md)
+  * [market\_book\_release.md](../MT5Account/Symbols_and_Market/market_book_release.md)
 
 ---
 
@@ -103,32 +102,34 @@
 
 * **Live snapshot**
 
-  * [opened\_orders.md](./Orders_Positions_History/opened_orders.md)
-  * [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md) *(IDs‑only)*
+  * [opened\_orders.md](../MT5Account/Orders_Positions_History/opened_orders.md)
+  * [opened\_orders\_tickets.md](../MT5Account/Orders_Positions_History/opened_orders_tickets.md) *(IDs‑only)*
 
 * **History**
 
-  * [order\_history.md](./Orders_Positions_History/order_history.md) *(orders + deals)*
-  * [positions\_history.md](./Orders_Positions_History/positions_history.md)
+  * [order\_history.md](../MT5Account/Orders_Positions_History/order_history.md) *(orders + deals)*
+  * [positions\_history.md](../MT5Account/Orders_Positions_History/positions_history.md)
 
 * **Count**
 
-  * [positions\_total.md](./Orders_Positions_History/positions_total.md)
+  * [positions\_total.md](../MT5Account/Orders_Positions_History/positions_total.md)
 
 ---
 
 ## 🔌 RPC & Streaming Terms
+
 * **Unary RPC** — one request → one reply; returns `*.Data` payload already unwrapped.
 
 * **Streaming RPC** — server pushes events until you cancel:
 
-  * [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md)
-  * [on\_trade.md](./Subscriptions_Streaming/on_trade.md)
-  * [on\_trade\_transaction.md](./Subscriptions_Streaming/on_trade_transaction.md)
-  * [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md)
-  * [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
+  * [on\_symbol\_tick.md](../MT5Account/Subscriptions_Streaming/on_symbol_tick.md)
+  * [on\_trade.md](../MT5Account/Subscriptions_Streaming/on_trade.md)
+  * [on\_trade\_transaction.md](../MT5Account/Subscriptions_Streaming/on_trade_transaction.md)
+  * [on\_position\_profit.md](../MT5Account/Subscriptions_Streaming/on_position_profit.md)
+  * [on\_positions\_and\_pending\_orders\_tickets.md](../MT5Account/Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
 
 * **Deadline & Cancellation** — pass `deadline` (to set timeout) and `cancellation_event` (to stop cleanly).
+
 
 ---
 
