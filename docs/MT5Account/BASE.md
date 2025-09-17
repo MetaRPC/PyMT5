@@ -59,7 +59,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-### Orders·Positions·History
+### Orders · Positions · History
 
 * [opened\_orders.md](./Orders_Positions_History/opened_orders.md)
 * [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md)
@@ -99,7 +99,7 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 
 ---
 
-### Subscriptions·Streaming
+### Subscriptions · Streaming
 
 * [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md)
 * [on\_trade.md](./Subscriptions_Streaming/on_trade.md)
