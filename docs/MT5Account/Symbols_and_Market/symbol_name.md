@@ -92,6 +92,7 @@ async def symbol_name(
 * Expect empty result for out‑of‑range `index`; handle gracefully in UI.
 
 ---
+**See also:** [symbols\_total.md](./symbols_total.md), [symbol\_select.md](./symbol_select.md), [symbol\_exist.md](./symbol_exist.md)
 
 ## Usage Examples
 
