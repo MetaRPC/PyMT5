@@ -29,7 +29,7 @@
 
 ---
 
-## 📊 Order & Position Lifecycle (MT5)
+## 📊 Order & Position Lifecycle
 
 ```text
    ┌─────────────┐
