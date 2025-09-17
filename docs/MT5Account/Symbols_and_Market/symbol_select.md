@@ -89,6 +89,8 @@ async def symbol_select(
 
 ---
 
+**See also:** [symbol\_is\_synchronized.md](./symbol_is_synchronized.md), [symbol\_name.md](./symbol_name.md), [symbols\_total.md](./symbols_total.md)
+
 ## Usage Examples
 
 ### 1) Ensure selected before subscribing
