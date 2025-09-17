@@ -1,4 +1,4 @@
-# MT5Account · Subscriptions\_Streaming — Overview
+# MT5Account · Subscriptions Streaming — Overview
 
 > Quick map of the **live streaming** APIs: ticks, trade deltas, transactions, position P/L, and IDs-only snapshots. Use this to pick the right stream fast.
 
