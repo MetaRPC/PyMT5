@@ -1,4 +1,4 @@
-# ✅ MarketBookGet
+# ✅ Market Book Get
 
 > **Request:** fetch a **snapshot of the Level II order book** (bids/asks ladder) for a **symbol**.
 
