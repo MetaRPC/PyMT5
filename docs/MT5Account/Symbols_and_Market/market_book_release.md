@@ -90,6 +90,9 @@ async def market_book_release(
 
 ---
 
+**See also:** [market\_book\_add.md](./market_book_add.md), [market\_book\_get.md](./market_book_get.md)
+
+
 ## Usage Examples
 
 ### 1) Safe cleanup on panel close
