@@ -391,6 +391,8 @@ async def on_trade(
 
 ---
 
+**See also:** [opened\_orders.md](../Orders_Positions_History/opened_orders.md), [order\_history.md](../Orders_Positions_History/order_history.md), [on\_trade\_transaction.md](./on_trade_transaction.md)
+
 ## Usage Examples
 
 ### 1) Build an event counter
