@@ -8,8 +8,6 @@
 * `MetaRpcMT5/mt5_account.py` — method `account_info_integer(...)`
 * `MetaRpcMT5/mt5_term_api_account_information_pb2.py` — `AccountInfoInteger*`, `AccountInfoIntegerPropertyType`
 
-**Menu entry:** `AccountInfoInteger`
-
 ---
 
 ### RPC
@@ -119,11 +117,12 @@ No required input besides the enum.
 * Map mode/flag integers to human labels near the UI (don’t leak raw codes to users).
 * The wrapper handles transient gRPC errors via `execute_with_reconnect(...)`.
 
-**See also:** `AccountInfoDouble`, `AccountInfoString`, `AccountSummary`.
+**See also:** [AccountInfoDouble](../Account_Information/account_info_double.md), [AccountInfoString](../Account_Information/account_info_string.md), [AccountSummary](../Account_Information/account_summary.md).
+
 
 ---
 
-## Usage Examples (MT5 only)
+## Usage Examples
 
 ### 1) Leverage & Currency Digits
 
@@ -135,7 +134,7 @@ digits = await acct.account_info_integer(account_info_pb2.AccountInfoIntegerProp
 print(f"Lev={lev} | Digits={digits}")
 ```
 
-### 2) Trading allowed / expert allowed (flags)
+### 2) Trading allowed / expert allowed
 
 ```python
 from MetaRpcMT5 import mt5_term_api_account_information_pb2 as account_info_pb2
