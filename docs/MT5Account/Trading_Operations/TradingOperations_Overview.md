@@ -1,4 +1,4 @@
-# MT5Account · Trading\_Operations — Overview
+# MT5Account · Trading Operations — Overview
 
 > Quick map of the **trading ops** APIs: send/modify/close orders, pre‑flight checks, and margin calc. Use this page to pick the right call fast.
 
