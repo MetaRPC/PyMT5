@@ -53,46 +53,82 @@
 
 ---
 
-## 🧑‍💻 Account Terms
+## 🧑‍💻 Account Terms (links fixed)
 
 * **Login / Server** — broker account ID and server name.
-* **Balance / Equity / Margin / Free** — see cheat sheet; numbers come from [Account Info methods](./Account_Information/Account_Information_Overview.md).
+* **Balance / Equity / Margin / Free** — see cheat sheet; numbers come from:
+
+  * [Account Information Overview](./Account_Information/Account_Information_Overview.md)
 * **Currency Digits** — use `ACCOUNT_CURRENCY_DIGITS` (integer) to format money correctly.
 
 ---
 
-## 📈 Market Info Terms
+## 📈 Market Info Terms (links fixed)
 
 * **Symbol Inventory** — size & presence checks:
-  – [symbols\_total.md](./Symbols_and_Market/symbols_total.md), [symbol\_exist.md](./Symbols_and_Market/symbol_exist.md), [symbol\_name.md](./Symbols_and_Market/symbol_name.md), [symbol\_select.md](./Symbols_and_Market/symbol_select.md)
+
+  * [symbols\_total.md](./Symbols_and_Market/symbols_total.md)
+  * [symbol\_exist.md](./Symbols_and_Market/symbol_exist.md)
+  * [symbol\_name.md](./Symbols_and_Market/symbol_name.md)
+  * [symbol\_select.md](./Symbols_and_Market/symbol_select.md)
+
 * **Properties** — double/int/string getters & bulk params:
-  – [symbol\_info\_double.md](./Symbols_and_Market/symbol_info_double.md), [symbol\_info\_integer.md](./Symbols_and_Market/symbol_info_integer.md), [symbol\_info\_string.md](./Symbols_and_Market/symbol_info_string.md), [symbol\_params\_many.md](./Symbols_and_Market/symbol_params_many.md)
+
+  * [symbol\_info\_double.md](./Symbols_and_Market/symbol_info_double.md)
+  * [symbol\_info\_integer.md](./Symbols_and_Market/symbol_info_integer.md)
+  * [symbol\_info\_string.md](./Symbols_and_Market/symbol_info_string.md)
+  * [symbol\_params\_many.md](./Symbols_and_Market/symbol_params_many.md)
+
 * **Quotes & Sessions** — tick snapshot and trading/quote sessions:
-  – [symbol\_info\_tick.md](./Symbols_and_Market/symbol_info_tick.md), [symbol\_info\_session\_quote.md](./Symbols_and_Market/symbol_info_session_quote.md), [symbol\_info\_session\_trade.md](./Symbols_and_Market/symbol_info_session_trade.md)
+
+  * [symbol\_info\_tick.md](./Symbols_and_Market/symbol_info_tick.md)
+  * [symbol\_info\_session\_quote.md](./Symbols_and_Market/symbol_info_session_quote.md)
+  * [symbol\_info\_session\_trade.md](./Symbols_and_Market/symbol_info_session_trade.md)
+
 * **Margin model** — per‑order type margin rate & calc helpers:
-  – [symbol\_info\_margin\_rate.md](./Symbols_and_Market/symbol_info_margin_rate.md), [order\_calc\_margin.md](./Trading_Operations/order_calc_margin.md), [tick\_value\_with\_size.md](./Symbols_and_Market/tick_value_with_size.md)
+
+  * [symbol\_info\_margin\_rate.md](./Symbols_and_Market/symbol_info_margin_rate.md)
+  * [order\_calc\_margin.md](./Trading_Operations/order_calc_margin.md)
+  * [tick\_value\_with\_size.md](./Symbols_and_Market/tick_value_with_size.md)
+
 * **Market Book (DOM)** — subscribe/read/release:
-  – [market\_book\_add.md](./Symbols_and_Market/market_book_add.md) → [market\_book\_get.md](./Symbols_and_Market/market_book_get.md) → [market\_book\_release.md](./Symbols_and_Market/market_book_release.md)
+
+  * [market\_book\_add.md](./Symbols_and_Market/market_book_add.md)
+  * [market\_book\_get.md](./Symbols_and_Market/market_book_get.md)
+  * [market\_book\_release.md](./Symbols_and_Market/market_book_release.md)
 
 ---
 
-## 📦 Orders & History Terms
+## 📦 Orders & History Terms (links fixed)
 
-* **Live snapshot** — [opened\_orders.md](./Orders_Positions_History/opened_orders.md) (orders + positions) and IDs‑only [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md).
-* **History** — [order\_history.md](./Orders_Positions_History/order_history.md) (orders+deals), [positions\_history.md](./Orders_Positions_History/positions_history.md).
-* **Count** — [positions\_total.md](./Orders_Positions_History/positions_total.md).
+* **Live snapshot**
+
+  * [opened\_orders.md](./Orders_Positions_History/opened_orders.md)
+  * [opened\_orders\_tickets.md](./Orders_Positions_History/opened_orders_tickets.md) *(IDs‑only)*
+
+* **History**
+
+  * [order\_history.md](./Orders_Positions_History/order_history.md) *(orders + deals)*
+  * [positions\_history.md](./Orders_Positions_History/positions_history.md)
+
+* **Count**
+
+  * [positions\_total.md](./Orders_Positions_History/positions_total.md)
 
 ---
 
-## 🔌 RPC & Streaming Terms
+## 🔌 RPC & Streaming Terms (links fixed)
 
 * **Unary RPC** — one request → one reply; returns `*.Data` payload already unwrapped.
+
 * **Streaming RPC** — server pushes events until you cancel:
-  – [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md),
-  – [on\_trade.md](./Subscriptions_Streaming/on_trade.md),
-  – [on\_trade\_transaction.md](./Subscriptions_Streaming/on_trade_transaction.md),
-  – [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md),
-  – [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
+
+  * [on\_symbol\_tick.md](./Subscriptions_Streaming/on_symbol_tick.md)
+  * [on\_trade.md](./Subscriptions_Streaming/on_trade.md)
+  * [on\_trade\_transaction.md](./Subscriptions_Streaming/on_trade_transaction.md)
+  * [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md)
+  * [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
+
 * **Deadline & Cancellation** — pass `deadline` (to set timeout) and `cancellation_event` (to stop cleanly).
 
 ---
