@@ -24,7 +24,7 @@
 ```python
 # Subscribe to DOM (order book) updates for a symbol
 ok = await acct.market_book_add("EURUSD")
-print(ok.subscribed)  # True if subscription is active
+print(ok.opened_successfully)  # True if subscription is active
 ```
 
 ---
@@ -70,9 +70,9 @@ async def market_book_add(
 
 ### Payload: `MarketBookAddData`
 
-| Field        | Proto Type | Description                                     |
-| ------------ | ---------- | ----------------------------------------------- |
-| `subscribed` | `bool`     | `True` if the terminal subscribed successfully. |
+| Field                | Proto Type | Description                                      |
+| -------------------- | ---------- | ------------------------------------------------ |
+| `opened_successfully`| `bool`     | `True` if the book subscription was opened.     |
 
 > **Wire reply:** `MarketBookAddReply { data: MarketBookAddData, error: Error? }`
 > SDK returns `reply.data`.
@@ -99,10 +99,11 @@ async def market_book_add(
 
 ```python
 ok = await acct.market_book_add("XAUUSD")
-if ok.subscribed:
+if ok.opened_successfully:
     book = await acct.market_book_get("XAUUSD")  # separate RPC
     for row in book.Bids + book.Asks:
         print(row.Price, row.Volume)
+
 ```
 
 ### 2) Ensure symbol is ready first
@@ -127,5 +128,6 @@ res = await acct.market_book_add(
     deadline=datetime.now(timezone.utc) + timedelta(seconds=2),
     cancellation_event=cancel_event,
 )
-print(res.subscribed)
+print(res.opened_successfully)
+
 ```
