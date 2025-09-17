@@ -1,4 +1,4 @@
-# ✅ OpenedOrders
+# ✅ Opened Orders
 
 > **Request:** fetch all currently opened **orders** and active **positions** for the connected MT5 account.
 > Returns a combined payload so you can render an immediate “what’s live now” view.
@@ -170,7 +170,8 @@ async def opened_orders(
 * Convert `Timestamp` to local time **once** and reuse; don’t recompute in every render tick.
 * The SDK wrapper retries transient gRPC errors via `execute_with_reconnect(...)`.
 
-**See also:** `OpenedOrdersTickets`, `OrderHistory`, `PositionsHistory`, `PositionsTotal`.
+**See also:** [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md), [OrderHistory](../Orders_Positions_History/order_history.md), [PositionsHistory](../Orders_Positions_History/positions_history.md), [PositionsTotal](../Orders_Positions_History/positions_total.md).
+
 
 ---
 
