@@ -207,6 +207,8 @@ print(res.mql_trade_check_result.returned_code)
 
 ---
 
+**See also:** [order\_send.md](./order_send.md), [order\_calc\_margin.md](./order_calc_margin.md), [symbol\_info\_margin\_rate.md](../Symbols_and_Market/symbol_info_margin_rate.md)
+
 ## Usage Examples
 
 ### 1) Check partial close feasibility
