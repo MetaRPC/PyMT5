@@ -181,6 +181,8 @@ async def order_send(
 
 ---
 
+**See also:** [order\_check.md](./order_check.md), [order\_modify.md](./order_modify.md), [order\_close.md](./order_close.md)
+
 ## Usage Examples
 
 ### 1) Simple market BUY with SL/TP
