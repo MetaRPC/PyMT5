@@ -94,6 +94,8 @@ async def symbol_info_string(
 
 ---
 
+**See also:** [symbol\_info\_double.md](./symbol_info_double.md), [symbol\_info\_integer.md](./symbol_info_integer.md), [symbol\_info\_tick.md](./symbol_info_tick.md)
+
 ## Usage Examples
 
 ### 1) Get path and group by folders
