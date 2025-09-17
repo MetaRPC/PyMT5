@@ -107,35 +107,4 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
 * [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md)
 * [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
 
----
-
-## 🪪 Common enums (where to find)
-
-* **Order/Position enums** — in the method pages; proto sources: `mt5_term_api_trading_helper_pb2.py`, `mt5_term_api_market_info_pb2.py`.
-* **Trading request/transaction enums** — see Trading\_Operations & Subscriptions; proto sources: `mt5_term_api_trade_functions_pb2.py`, `mt5_term_api_subscriptions_pb2.py`, and error codes in `mrpc_mt5_error_pb2.py` (`MqlErrorTradeCode`).
-
----
-
-## 🧩 Cross‑cutting notes & tips
-
-* **Timezones:** all times are **UTC**. Convert once for UI.
-* **Money formatting:** use account currency digits from `account_info_integer` (`ACCOUNT_CURRENCY_DIGITS`).
-* **Filling & time policies:** set explicitly (`*_FOK/IOC/RETURN/BOC`, `*_GTC/DAY/SPECIFIED/SPECIFIED_DAY`).
-* **Streams:** always wire a `cancellation_event` and keep handlers lightweight (fan‑out to queues if needed).
-* **Retries:** SDK wrappers use `execute_with_reconnect(...)` to handle transient gRPC issues.
-
----
-
-## 🔗 Also useful
-
-* Top‑level docs:
-
-  * [`docs/index.md`](../index.md) — portal page
-  * [`docs/api.md`](../api.md) — project API notes (if present)
-* Examples:
-
-  * `examples/quick_start_connect.py` — minimal connect
-  * `examples/mt5_account_ex.py` — end‑to‑end usage
-
-> If you add a new method doc, place it in the right folder and add the link here **and** to the folder’s own Overview page.
 
