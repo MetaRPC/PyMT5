@@ -151,7 +151,8 @@ async def positions_history(
 * Filter by `symbol`/`type` client‑side as needed.
 * Wrapper retries transient gRPC errors via `execute_with_reconnect(...)`.
 
-**See also:** `OrderHistory`, `OpenedOrders`, `OpenedOrdersTickets`.
+**See also:** [OrderHistory](../Orders_Positions_History/order_history.md), [OpenedOrders](../Orders_Positions_History/opened_orders.md), [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md).
+
 
 ---
 
