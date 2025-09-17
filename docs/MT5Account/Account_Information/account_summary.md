@@ -101,9 +101,9 @@ Use to display real-time account state and sanity‑check connectivity:
 * Wrapper uses `execute_with_reconnect(...)` to retry on transient gRPC errors.
 * Consider a short per‑call timeout (3–5s) and retry if the terminal is syncing symbols.
 
-### «Notes & Tips»: (Доделать)
 
-See also: AccountInfoDouble, AccountInfoInteger, AccountInfoString, PositionsTotal, OpenedOrders.  
+**See also:** [AccountInfoDouble](../Account_Information/account_info_double.md), [AccountInfoInteger](../Account_Information/account_info_integer.md), [AccountInfoString](../Account_Information/account_info_string.md), [PositionsTotal](../Orders_Positions_History/positions_total.md), [OpenedOrders](../Orders_Positions_History/opened_orders.md).
+ 
 
 ## Usage Examples
 
@@ -197,7 +197,7 @@ s = await acct.account_summary()
 view = AccountSummaryView.from_proto(s)
 print(view)
 ```
-### What this teaches
+###🟢  What this teaches
 
  * How to call account_summary() safely with deadline and cancellation.
 
