@@ -111,6 +111,8 @@ async def tick_value_with_size(
 
 ---
 
+**See also:** [symbol\_params\_many.md](./symbol_params_many.md), [symbol\_info\_double.md](./symbol_info_double.md), [order\_calc\_margin.md](../Trading_Operations/order_calc_margin.md)
+
 ## Usage Examples
 
 ### 1) Batch calculate per‑lot pip value table
