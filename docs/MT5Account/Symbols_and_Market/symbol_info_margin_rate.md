@@ -98,6 +98,8 @@ async def symbol_info_margin_rate(
 * Pair with `symbol_info_double(SYMBOL_TRADE_CONTRACT_SIZE)` and current price to project **absolute margin** per lot.
 ---
 
+**See also:** [order\_calc\_margin.md](../Trading_Operations/order_calc_margin.md), [order\_check.md](../Trading_Operations/order_check.md), [tick\_value\_with\_size.md](./tick_value_with_size.md)
+
 ## Usage Examples
 
 ### 1) Show rates for BUY vs SELL
