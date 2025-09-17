@@ -92,7 +92,8 @@ No required input parameters.
 * For details per position (symbol, PnL, volume) use `OpenedOrders` or historical RPCs.
 * Wrapper retries transient gRPC errors via `execute_with_reconnect(...)`.
 
-**See also:** `OpenedOrders`, `OpenedOrdersTickets`.
+**See also:** [OpenedOrders](../Orders_Positions_History/opened_orders.md), [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md).
+
 
 ---
 
