@@ -195,6 +195,8 @@ async def on_trade_transaction(
 
 ---
 
+**See also:** [on\_trade.md](./on_trade.md), [order\_send.md](../Trading_Operations/order_send.md), [order\_modify.md](../Trading_Operations/order_modify.md)
+
 ## Usage Examples
 
 ### 1) Log every DEAL\_ADD with concise info
