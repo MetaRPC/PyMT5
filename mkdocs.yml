@@ -24,18 +24,18 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-    # Navigation
+    
     - navigation.instant
     - navigation.tracking
     - navigation.sections
     - navigation.top
     - navigation.tabs
     - toc.integrate
-    # Content UX
+    
     - content.code.copy
     - content.action.edit
     - content.tabs.link
-    # Search & palette
+   
     - search.highlight
     - search.suggest
     - palette.toggle
@@ -149,7 +149,7 @@ plugins:
       handlers:
         python:
           options:
-            docstring_style: google     # or sphinx / pep257
+            docstring_style: google    
             show_source: true
             members_order: source
-            filters: ["!^_"]            # hide private members
+            filters: ["!^_"]          
