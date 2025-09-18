@@ -260,21 +260,6 @@ docs/
 4. **Patch carefully** — if you hit pb2 differences, look at `app/compat/mt5_patch.py` and `app/patches/*`.
 5. **Stream or poll** — for ticks/transactions use `streams_service.py`; for history use `history_service.py`.
 6. **Wire up config** via `core/config.py` (env, defaults) and reuse `core/mt5_connect_helper.py`.
-
----
-
-## 5) “What lives where” — quick reference
-
-* **Connection**: [`app/core/mt5_connect_helper.py`](../../app/core/mt5_connect_helper.py)
-* **Service façade**: [`app/core/mt5_service.py`](../../app/core/mt5_service.py)
-* **Trading ops**: [`app/services/trading_service.py`](../../app/services/trading_service.py)
-* **Streams/subscriptions**: [`app/services/streams_service.py`](../../app/services/streams_service.py)
-* **History**: [`app/services/history_service.py`](../../app/services/history_service.py)
-* **Phases**: [`app/services/phases.py`](../../app/services/phases.py)
-* **Compat/patches**: [`app/compat/mt5_patch.py`](../../app/compat/mt5_patch.py), [`app/patches/*`](../../app/patches)
-* **Extended adapter**: [`ext/MetaRpcMT5Ex/mt5_account_ex.py`](../../ext/MetaRpcMT5Ex/mt5_account_ex.py)
-* **Generated stubs**: [`package/MetaRpcMT5/*`](../../package/MetaRpcMT5)
-
 ---
 
 “Wishing you green candles, quiet terminals, and reproducible wins. 🟢”
