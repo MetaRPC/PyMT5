@@ -1,5 +1,5 @@
 site_name: MetaRPC MT5 Python Documentation
-site_url: https://metarpc.github.io/PyMT5/   
+site_url: https://metarpc.github.io/PyMT5/
 repo_name: MetaRPC/PyMT5
 repo_url: https://github.com/MetaRPC/PyMT5
 edit_uri: edit/main/docs/
@@ -24,18 +24,15 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-    # Navigation
     - navigation.instant
     - navigation.tracking
     - navigation.sections
     - navigation.top
     - navigation.tabs
     - toc.integrate
-    # Content UX
     - content.code.copy
     - content.action.edit
     - content.tabs.link
-    # Search & palette
     - search.highlight
     - search.suggest
     - palette.toggle
@@ -55,23 +52,19 @@ copyright: >
   © {{ date | strftime("%Y") }} MetaRPC. MT5 is a MetaQuotes software. This site is a community-made documentation.
 
 nav:
-  - Home: index.md
-
+  - Home: Getting_Started.md
   - Guides:
       - Architecture & Data Flow: I_want_to_add/Architecture_DataFlow.md
       - Glossary: I_want_to_add/Glossary.md
-
   - MT5Account:
       - Overview: MT5Account/BASE.md
       - Under the Hood: MT5Account/Under_the_Hood.md
-
       - Account Information:
           - Account Information Overview: MT5Account/Account_Information/Account_Information_Overview.md
           - Account Info Double: MT5Account/Account_Information/account_info_double.md
           - Account Info Integer: MT5Account/Account_Information/account_info_integer.md
           - Account Info String: MT5Account/Account_Information/account_info_string.md
           - Account Summary: MT5Account/Account_Information/account_summary.md
-
       - Orders / Positions / History:
           - OrdersPositionsHistory Overview: MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md
           - Opened Orders: MT5Account/Orders_Positions_History/opened_orders.md
@@ -79,7 +72,6 @@ nav:
           - Order History: MT5Account/Orders_Positions_History/order_history.md
           - Positions History: MT5Account/Orders_Positions_History/positions_history.md
           - Positions Total: MT5Account/Orders_Positions_History/positions_total.md
-
       - Symbols & Market:
           - SymbolsandMarket Overview: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
           - Market Book Add: MT5Account/Symbols_and_Market/market_book_add.md
@@ -99,7 +91,6 @@ nav:
           - Symbol Select: MT5Account/Symbols_and_Market/symbol_select.md
           - Symbols Total: MT5Account/Symbols_and_Market/symbols_total.md
           - Tick Value With Size: MT5Account/Symbols_and_Market/tick_value_with_size.md
-
       - Subscriptions & Streaming:
           - SubscriptionsStreaming Overview: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
           - On Position Profit: MT5Account/Subscriptions_Streaming/on_position_profit.md
@@ -107,7 +98,6 @@ nav:
           - On Symbol Tick: MT5Account/Subscriptions_Streaming/on_symbol_tick.md
           - On Trade: MT5Account/Subscriptions_Streaming/on_trade.md
           - On Trade Transaction: MT5Account/Subscriptions_Streaming/on_trade_transaction.md
-
       - Trading Operations:
           - TradingOperations Overview: MT5Account/Trading_Operations/TradingOperations_Overview.md
           - Order Calc Margin: MT5Account/Trading_Operations/order_calc_margin.md
@@ -115,7 +105,6 @@ nav:
           - Order Close: MT5Account/Trading_Operations/order_close.md
           - Order Modify: MT5Account/Trading_Operations/order_modify.md
           - Order Send: MT5Account/Trading_Operations/order_send.md
-
   - API Reference: api.md
 
 markdown_extensions:
@@ -149,7 +138,7 @@ plugins:
       handlers:
         python:
           options:
-            docstring_style: google     
+            docstring_style: google    
             show_source: true
             members_order: source
-            filters: ["!^_"]           
+            filters: ["!^_"]          
