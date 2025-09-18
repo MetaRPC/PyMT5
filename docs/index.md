@@ -4,7 +4,7 @@ Welcome to the MetaRPC MT5 Python docs. This page gives a fast, structured entry
 
 ---
 
-## Start here
+## 🟢 Start here
 
 <div class="tiles" markdown>
 
@@ -33,7 +33,7 @@ Service architecture, modules, and key data contracts.
 
 ---
 
-## Project guides
+## 🟡 Project guides
 
 <div class="tiles" markdown>
 
@@ -62,7 +62,7 @@ From request to result: calls, streams, and data transformations.
 
 ---
 
-## Quick access (overviews)
+## 🔴 Quick access
 
 Shortcuts to key overview pages. These are also in the top navigation.
 
