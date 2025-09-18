@@ -158,11 +158,3 @@ print(len(od.opened_orders), len(od.position_infos))
 * Log transport issues with `app/utils/grpc_debug.py`.
 * Keep both **retcode int** and **string** (see `mrpc_mt5_error_pb2.py`).
 * If a stream "goes quiet", check that your handler isn’t blocking and the **release** was not called prematurely (DOM).
-
----
-
-## ❓FAQ
-
-**Can I skip `deadline`?** You can, but stable timeouts make ops happy.
-**Why IDs‑only streams?** They’re cheap and perfect for set‑diff; pull details on demand.
-**Where are enums?** In the relevant `mt5_term_api_*_pb2.py` files next to each method’s doc.
