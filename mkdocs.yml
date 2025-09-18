@@ -1,5 +1,5 @@
 site_name: MetaRPC MT5 Python Documentation
-site_url: https://metarpc.github.io/PyMT5/ 
+site_url: https://metarpc.github.io/PyMT5/   # ← поменяй на фактический URL, если нужен
 repo_name: MetaRPC/PyMT5
 repo_url: https://github.com/MetaRPC/PyMT5
 edit_uri: edit/main/docs/
@@ -24,18 +24,18 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-    
+    # Navigation
     - navigation.instant
     - navigation.tracking
     - navigation.sections
     - navigation.top
     - navigation.tabs
     - toc.integrate
-    
+    # Content UX
     - content.code.copy
     - content.action.edit
     - content.tabs.link
-   
+    # Search & palette
     - search.highlight
     - search.suggest
     - palette.toggle
@@ -149,7 +149,7 @@ plugins:
       handlers:
         python:
           options:
-            docstring_style: google    
+            docstring_style: google     # or sphinx / pep257
             show_source: true
             members_order: source
-            filters: ["!^_"]          
+            filters: ["!^_"]            # hide private members
