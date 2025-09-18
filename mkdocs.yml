@@ -1,5 +1,5 @@
 site_name: MetaRPC MT5 Python Documentation
-site_url: https://metarpc.github.io/PyMT5/   # ← поменяй на фактический URL, если нужен
+site_url: https://metarpc.github.io/PyMT5/   
 repo_name: MetaRPC/PyMT5
 repo_url: https://github.com/MetaRPC/PyMT5
 edit_uri: edit/main/docs/
@@ -149,7 +149,7 @@ plugins:
       handlers:
         python:
           options:
-            docstring_style: google     # or sphinx / pep257
+            docstring_style: google     
             show_source: true
             members_order: source
-            filters: ["!^_"]            # hide private members
+            filters: ["!^_"]           
