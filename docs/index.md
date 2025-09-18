@@ -1,1 +1,1 @@
-# Getting Started with MetaTrader 4
+# Getting Started with MetaTrader 5
