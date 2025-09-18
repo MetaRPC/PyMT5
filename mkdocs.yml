@@ -52,10 +52,12 @@ copyright: >
   © {{ date | strftime("%Y") }} MetaRPC. MT5 is a MetaQuotes software. This site is a community-made documentation.
 
 nav:
-  - Home: Getting_Started.md
+  - Home: Getting_Started.md  # Ссылка на стартовую страницу Getting Started
+
   - Guides:
       - Architecture & Data Flow: I_want_to_add/Architecture_DataFlow.md
       - Glossary: I_want_to_add/Glossary.md
+
   - MT5Account:
       - Overview: MT5Account/BASE.md
       - Under the Hood: MT5Account/Under_the_Hood.md
@@ -105,7 +107,7 @@ nav:
           - Order Close: MT5Account/Trading_Operations/order_close.md
           - Order Modify: MT5Account/Trading_Operations/order_modify.md
           - Order Send: MT5Account/Trading_Operations/order_send.md
-  - API Reference: api.md
+  - API Reference: api.md  # API ссылку оставил в конце
 
 markdown_extensions:
   - admonition
