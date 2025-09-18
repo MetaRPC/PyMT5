@@ -137,5 +137,6 @@ Timestamps = **UTC** (`google.protobuf.Timestamp`). For long‑lived streams, pa
   – [on\_position\_profit.md](./Subscriptions_Streaming/on_position_profit.md)
   – [on\_positions\_and\_pending\_orders\_tickets.md](./Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
 
+“May your risk stay capped and your curiosity uncapped.”
 
 
