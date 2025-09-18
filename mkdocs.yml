@@ -63,7 +63,6 @@ extra:
 copyright: >
   © {{ date | strftime("%Y") }} MetaRPC. MT5 is a MetaQuotes software. This site is a community-made documentation.
 
-
 nav:
   - "🏁 Home": MT5Account/Getting_Started.md
 
@@ -149,11 +148,9 @@ markdown_extensions:
   - footnotes
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.emoji:               
+  - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
-
 
 plugins:
   - search:
@@ -167,9 +164,6 @@ plugins:
             show_source: true
             members_order: source
             filters: ["!^_"]
-  - minify:
-      minify_html: true
-  - glightbox
 
 extra_css:
   - styles/overrides.css
