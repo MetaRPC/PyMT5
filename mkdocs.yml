@@ -64,14 +64,23 @@ copyright: >
   © {{ date | strftime("%Y") }} MetaRPC. MT5 is a MetaQuotes software. This site is a community-made documentation.
 
 nav:
-  - Home: MT5Account/BASE.md
+  - Home: index.md
 
+  # Top bar shortcuts (short labels)
+  - Account Info: MT5Account/Account_Information/Account_Information_Overview.md
+  - Orders & History: MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md
+  - Streaming: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
+  - Symbols & Market: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
+  - Trading Ops: MT5Account/Trading_Operations/TradingOperations_Overview.md
+
+  # Full sections
   - Guides:
       - Architecture & Data Flow: I_want_to_add/Architecture_DataFlow.md
       - Glossary: I_want_to_add/Glossary.md
       - Project Map & Layers: I_want_to_add/Project_Map_and_Layers.md
 
   - MT5Account:
+      - BASE: MT5Account/BASE.md
       - Under the Hood: MT5Account/Under_the_Hood.md
 
       - Account Information:
@@ -126,6 +135,7 @@ nav:
           - Order Send: MT5Account/Trading_Operations/order_send.md
 
   - API Reference: api.md
+
 
 markdown_extensions:
   - admonition
