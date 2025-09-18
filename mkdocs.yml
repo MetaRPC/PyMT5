@@ -1,52 +1,155 @@
 site_name: MetaRPC MT5 Python Documentation
-site_url: https://example.com # optional; set your docs URL if you have one
-repo_url: https://github.com/MetaRPC/PyMT5
+site_url: https://metarpc.github.io/PyMT5/ 
 repo_name: MetaRPC/PyMT5
-edit_uri: blob/main/docs/
-
-
-nav:
-- Home: index.md
-- Guides:
-- Architecture & Data Flow: I_want_to_add/Architecture_DataFlow.md
-- Glossary: I_want_to_add/Glossary.md
-- MT5Account:
-- Overview: MT5Account/BASE.md
-- Under the Hood: MT5Account/Under_the_Hood.md
-- API Reference: api.md
-
+repo_url: https://github.com/MetaRPC/PyMT5
+edit_uri: edit/main/docs/
 
 theme:
-name: material
-palette:
-- scheme: default
-primary: indigo
-toggle:
-icon: material/weather-night
-name: Switch to dark mode
-- scheme: slate
-primary: indigo
-toggle:
-icon: material/weather-sunny
-name: Switch to light mode
-features:
-- palette.toggle
-- palette.auto
-- navigation.instant
-- navigation.tracking
-- navigation.top
-- search.suggest
-- search.highlight
-- toc.follow
-- content.code.copy
-- content.tabs.link
+  name: material
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    # Navigation
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.tabs
+    - toc.integrate
+    # Content UX
+    - content.code.copy
+    - content.action.edit
+    - content.tabs.link
+    # Search & palette
+    - search.highlight
+    - search.suggest
+    - palette.toggle
+    - palette.auto
 
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/MetaRPC/PyMT5
+      name: GitHub
+  generator: false
+  consent:
+    title: Cookies & telemetry
+    description: We use GitHub Pages basic analytics only. No tracking cookies.
+
+copyright: >
+  © {{ date | strftime("%Y") }} MetaRPC. MT5 is a MetaQuotes software. This site is a community-made documentation.
+
+nav:
+  - Home: index.md
+
+  - Guides:
+      - Architecture & Data Flow: I_want_to_add/Architecture_DataFlow.md
+      - Glossary: I_want_to_add/Glossary.md
+
+  - MT5Account:
+      - Overview: MT5Account/BASE.md
+      - Under the Hood: MT5Account/Under_the_Hood.md
+
+      - Account Information:
+          - Account Information Overview: MT5Account/Account_Information/Account_Information_Overview.md
+          - Account Info Double: MT5Account/Account_Information/account_info_double.md
+          - Account Info Integer: MT5Account/Account_Information/account_info_integer.md
+          - Account Info String: MT5Account/Account_Information/account_info_string.md
+          - Account Summary: MT5Account/Account_Information/account_summary.md
+
+      - Orders / Positions / History:
+          - OrdersPositionsHistory Overview: MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md
+          - Opened Orders: MT5Account/Orders_Positions_History/opened_orders.md
+          - Opened Orders Tickets: MT5Account/Orders_Positions_History/opened_orders_tickets.md
+          - Order History: MT5Account/Orders_Positions_History/order_history.md
+          - Positions History: MT5Account/Orders_Positions_History/positions_history.md
+          - Positions Total: MT5Account/Orders_Positions_History/positions_total.md
+
+      - Symbols & Market:
+          - SymbolsandMarket Overview: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
+          - Market Book Add: MT5Account/Symbols_and_Market/market_book_add.md
+          - Market Book Get: MT5Account/Symbols_and_Market/market_book_get.md
+          - Market Book Release: MT5Account/Symbols_and_Market/market_book_release.md
+          - Symbol Exist: MT5Account/Symbols_and_Market/symbol_exist.md
+          - Symbol Info Double: MT5Account/Symbols_and_Market/symbol_info_double.md
+          - Symbol Info Integer: MT5Account/Symbols_and_Market/symbol_info_integer.md
+          - Symbol Info Margin Rate: MT5Account/Symbols_and_Market/symbol_info_margin_rate.md
+          - Symbol Info Session Quote: MT5Account/Symbols_and_Market/symbol_info_session_quote.md
+          - Symbol Info Session Trade: MT5Account/Symbols_and_Market/symbol_info_session_trade.md
+          - Symbol Info String: MT5Account/Symbols_and_Market/symbol_info_string.md
+          - Symbol Info Tick: MT5Account/Symbols_and_Market/symbol_info_tick.md
+          - Symbol Is Synchronized: MT5Account/Symbols_and_Market/symbol_is_synchronized.md
+          - Symbol Name: MT5Account/Symbols_and_Market/symbol_name.md
+          - Symbol Params Many: MT5Account/Symbols_and_Market/symbol_params_many.md
+          - Symbol Select: MT5Account/Symbols_and_Market/symbol_select.md
+          - Symbols Total: MT5Account/Symbols_and_Market/symbols_total.md
+          - Tick Value With Size: MT5Account/Symbols_and_Market/tick_value_with_size.md
+
+      - Subscriptions & Streaming:
+          - SubscriptionsStreaming Overview: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
+          - On Position Profit: MT5Account/Subscriptions_Streaming/on_position_profit.md
+          - On Positions And Pending Orders Tickets: MT5Account/Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md
+          - On Symbol Tick: MT5Account/Subscriptions_Streaming/on_symbol_tick.md
+          - On Trade: MT5Account/Subscriptions_Streaming/on_trade.md
+          - On Trade Transaction: MT5Account/Subscriptions_Streaming/on_trade_transaction.md
+
+      - Trading Operations:
+          - TradingOperations Overview: MT5Account/Trading_Operations/TradingOperations_Overview.md
+          - Order Calc Margin: MT5Account/Trading_Operations/order_calc_margin.md
+          - Order Check: MT5Account/Trading_Operations/order_check.md
+          - Order Close: MT5Account/Trading_Operations/order_close.md
+          - Order Modify: MT5Account/Trading_Operations/order_modify.md
+          - Order Send: MT5Account/Trading_Operations/order_send.md
+
+  - API Reference: api.md
 
 markdown_extensions:
-- admonition
-- def_list
-- attr_list
-- footnotes
-- pymdownx.details
-- pymdownx.superfences
-filters: ["!^_"]
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - codehilite
+  - pymdownx.inlinehilite
+  - pymdownx.highlight
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - def_list
+  - abbr
+  - footnotes
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google     # or sphinx / pep257
+            show_source: true
+            members_order: source
+            filters: ["!^_"]            # hide private members
