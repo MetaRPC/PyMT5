@@ -1,4 +1,4 @@
-# PyMT5 — Project Map & Layers (Docs Template)
+# PyMT5 — Project Map & Layers
 
 ## 0) TL;DR (Read this first)
 
