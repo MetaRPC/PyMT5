@@ -1,31 +1,52 @@
 site_name: MetaRPC MT5 Python Documentation
+site_url: https://example.com # optional; set your docs URL if you have one
+repo_url: https://github.com/MetaRPC/PyMT5
+repo_name: MetaRPC/PyMT5
+edit_uri: blob/main/docs/
+
 
 nav:
-  - Home: index.md
-  - API Reference: api.md
+- Home: index.md
+- Guides:
+- Architecture & Data Flow: I_want_to_add/Architecture_DataFlow.md
+- Glossary: I_want_to_add/Glossary.md
+- MT5Account:
+- Overview: MT5Account/BASE.md
+- Under the Hood: MT5Account/Under_the_Hood.md
+- API Reference: api.md
+
+
 theme:
-  name: material
-  palette:
-    - scheme: default
-      primary: indigo
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-    - scheme: slate
-      primary: indigo
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
-  features:
-    - palette.toggle
-    - palette.auto
+name: material
+palette:
+- scheme: default
+primary: indigo
+toggle:
+icon: material/weather-night
+name: Switch to dark mode
+- scheme: slate
+primary: indigo
+toggle:
+icon: material/weather-sunny
+name: Switch to light mode
+features:
+- palette.toggle
+- palette.auto
+- navigation.instant
+- navigation.tracking
+- navigation.top
+- search.suggest
+- search.highlight
+- toc.follow
+- content.code.copy
+- content.tabs.link
+
 
 markdown_extensions:
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.superfences
-
-plugins:
-  - search
-  - mkdocstrings:
-      default_handler: python
+- admonition
+- def_list
+- attr_list
+- footnotes
+- pymdownx.details
+- pymdownx.superfences
+filters: ["!^_"]
