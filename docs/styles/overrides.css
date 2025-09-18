@@ -1,0 +1,17 @@
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 1rem 0 2rem;
+}
+.tile {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.tile h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
+.tile p  { margin: 0 0 .75rem; }
+.tile a  { text-decoration: none; border-bottom: 1px dashed var(--md-accent-fg-color); }
+.tile a:hover { border-bottom-style: solid; }
