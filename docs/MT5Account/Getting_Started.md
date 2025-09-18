@@ -185,7 +185,7 @@ TRADE_DRY_RUN=1
 ```
 ---
 
-## 13) Run after setting `.env` ▶️
+## 11) Run after setting `.env` ▶️
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
