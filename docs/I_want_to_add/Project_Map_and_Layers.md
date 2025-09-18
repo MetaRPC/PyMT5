@@ -1,6 +1,6 @@
 # PyMT5 — Project Map & Layers
 
-## 0) TL;DR (Read this first)
+## 0) TL;DR
 
 * **You edit** (green): `app/`, `examples/`, `ext/`, `docs/`, `main.py`, `settings.json`.
 * **Don’t edit** (lock): `package/MetaRpcMT5/*_pb2*.py` (generated gRPC stubs), build artifacts.
@@ -40,7 +40,7 @@ app/
 └── __init__.py
 ```
 
-Key files (quick mental model):
+Key files:
 
 * `core/mt5_service.py` — central async client/service wrapper. 🔌
 * `core/mt5_connect_helper.py` — resilient connect/disconnect/ensure logic. 🧠
@@ -51,7 +51,7 @@ Key files (quick mental model):
 * `compat/mt5_patch.py` & `patches/*` — targeted fallbacks/aliases for shaky pb2s. 🧩
 * `utils/grpc_debug.py` — introspection/log helpers for gRPC calls. 🛠️
 
-### 1.2 `examples/` (copy‑paste to start scenarios)
+### 1.2 `examples/`
 
 ```
 examples/
