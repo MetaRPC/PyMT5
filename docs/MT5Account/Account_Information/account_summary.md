@@ -197,7 +197,7 @@ s = await acct.account_summary()
 view = AccountSummaryView.from_proto(s)
 print(view)
 ```
-###🟢  What this teaches
+### 🟢  What this teaches
 
  * How to call account_summary() safely with deadline and cancellation.
 
