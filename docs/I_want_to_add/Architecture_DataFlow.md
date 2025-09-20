@@ -1,4 +1,4 @@
-# 🏗️ Architecture & Data Flow (PyMT5 + MT5)
+# 🏗️ Architecture & Data Flow
 
 *A practical map of how our Python SDK, gRPC services, and the MT5 terminal talk to each other — with just enough humor to keep the margin level above 100%.*
 
