@@ -65,13 +65,13 @@ async def account_info_integer(
 
 No required input besides the enum.
 
-| Parameter            | Type                                              | Description                                     |                                                    |
-| -------------------- | ------------------------------------------------- | ----------------------------------------------- | -------------------------------------------------- |
-| `property_id`        | `AccountInfoIntegerPropertyType` (enum, required) | Which integer metric to fetch (see list below). |                                                    |
-| `deadline`           | \`datetime                                        | None\`                                          | Absolute per‑call deadline → converted to timeout. |
-| `cancellation_event` | \`asyncio.Event                                   | None\`                                          | Cooperative cancel for the retry wrapper.          |
+| Parameter            | Type                                              | Description                                        |
+| -------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| `property_id`        | `AccountInfoIntegerPropertyType` (enum, required) | Which integer metric to fetch (see list below).    |
+| `deadline`           | `datetime \| None`                                | Absolute per‑call deadline → converted to timeout. |
+| `cancellation_event` | `asyncio.Event \| None`                           | Cooperative cancel for the retry wrapper.          |
 
-> **Request message:** `AccountInfoIntegerRequest { property_id }`
+> **Request message:** `AccountInfoIntegerRequest { propertyId }`
 
 ---
 
@@ -79,14 +79,13 @@ No required input besides the enum.
 
 ### Payload: `AccountInfoIntegerData`
 
-| Field            | Proto Type | Description                         |
-| ---------------- | ---------- | ----------------------------------- |
-| `requested_Value` | `int64`    | The value of the selected property. |
+| Field   | Proto Type | Description                         |
+| ------- | ---------- | ----------------------------------- |
+| `value` | `int64`    | The value of the selected property. |
 
 ---
 
 ### Enum: `AccountInfoIntegerPropertyType`
-
 
 | Number | Value                     | Meaning                                    |
 | -----: | ------------------------- | ------------------------------------------ |
@@ -101,7 +100,6 @@ No required input besides the enum.
 |      8 | `ACCOUNT_CURRENCY_DIGITS` | Number of digits for money formatting.     |
 |      9 | `ACCOUNT_FIFO_CLOSE`      | FIFO close flag (0/1), if supported.       |
 |     10 | `ACCOUNT_HEDGE_ALLOWED`   | Hedging allowed flag (0/1).                |
-
 
 ---
 
@@ -118,7 +116,6 @@ No required input besides the enum.
 * The wrapper handles transient gRPC errors via `execute_with_reconnect(...)`.
 
 **See also:** [AccountInfoDouble](../Account_Information/account_info_double.md), [AccountInfoString](../Account_Information/account_info_string.md), [AccountSummary](../Account_Information/account_summary.md).
-
 
 ---
 
