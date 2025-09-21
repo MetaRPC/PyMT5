@@ -17,7 +17,7 @@
 * **Service:** `mt5_term_api.TradeFunctions`
 * **Method:** `PositionsTotal(PositionsTotalRequest) → PositionsTotalReply`
 * **Low-level client:** `TradeFunctionsStub.PositionsTotal(request, metadata, timeout)`
-* **SDK wrapper:** `MT5Account.positions_total(deadline=None, cancellation_event=None) -> int`
+* **SDK wrapper:** `MT5Account.positions_total(deadline=None, cancellation_event=None) -> PositionsTotalData`
 
 ---
 
@@ -25,9 +25,8 @@
 
 ```python
 # Minimal canonical example: how many positions are open now?
-data = await acct.positions_total()               # PositionsTotalData
-print(int(data.total_positions))
-
+res = await acct.positions_total()                # PositionsTotalData
+print(int(res.total_positions))
 ```
 
 ---
@@ -47,11 +46,11 @@ async def positions_total(
 ## 💬 Plain English
 
 * **What it is.** A quick **headcount** for your exposure: “how many positions are alive right now?”
-* **Why you care.** Drive red dots and badges in UI, simple pre‑trade rules (e.g., max concurrent positions), and smoke checks.
+* **Why you care.** Drive red dots and badges in UI, simple pre-trade rules (e.g., max concurrent positions), and smoke checks.
 * **Mind the traps.**
 
   * This is **positions only** (not pending orders). For orders, see `OpenedOrders`.
-  * It returns **one integer**; if you need symbols/volumes/PnL, call richer RPCs (`OpenedOrders`).
+  * It returns **one integer** inside `PositionsTotalData`; if you need symbols/volumes/PnL, call richer RPCs (`OpenedOrders`).
   * Consider your netting/hedging mode when interpreting counts.
 * **When to call.** On screen open, periodic refresh, before opening new positions.
 
@@ -61,12 +60,12 @@ async def positions_total(
 
 No required input parameters.
 
-| Parameter            | Type            | Description |                                                    |
-| -------------------- | --------------- | ----------- | -------------------------------------------------- |
-| `deadline`           | \`datetime      | None\`      | Absolute per‑call deadline → converted to timeout. |
-| `cancellation_event` | \`asyncio.Event | None\`      | Cooperative cancel for the retry wrapper.          |
+| Parameter            | Type                      | Description                                        |   |
+| -------------------- | ------------------------- | -------------------------------------------------- | - |
+| `deadline`           | `datetime` \| `None`      | Absolute per-call deadline → converted to timeout. |   |
+| `cancellation_event` | `asyncio.Event` \| `None` | Cooperative cancel for the retry wrapper.          |   |
 
-> **Request message:** `PositionsTotalRequest` has **no fields**.
+> **Request message:** `PositionsTotalRequest {}` has **no fields**.
 
 ---
 
@@ -74,10 +73,9 @@ No required input parameters.
 
 ### Payload: `PositionsTotalData`
 
-| Field   | Proto Type | Description                         |
-| ------- | ---------- | ----------------------------------- |
-| total_positions | int32 | Number of currently open positions. |
-
+| Field             | Proto Type | Description                         |
+| ----------------- | ---------- | ----------------------------------- |
+| `total_positions` | `int32`    | Number of currently open positions. |
 
 ---
 
@@ -94,7 +92,6 @@ No required input parameters.
 
 **See also:** [OpenedOrders](../Orders_Positions_History/opened_orders.md), [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md).
 
-
 ---
 
 ## Usage Examples
@@ -102,11 +99,11 @@ No required input parameters.
 ### 1) Simple print & guard
 
 ```python
-n = await acct.positions_total()
-if int(n) > 10:
+res = await acct.positions_total()
+if int(res.total_positions) > 10:
     print("Too many open positions — consider reducing exposure.")
 else:
-    print(f"Open positions: {int(n)}")
+    print(f"Open positions: {int(res.total_positions)}")
 ```
 
 ### 2) With deadline & cancellation
@@ -116,19 +113,19 @@ import asyncio
 from datetime import datetime, timedelta, timezone
 
 cancel_event = asyncio.Event()
-count = await acct.positions_total(
+res = await acct.positions_total(
     deadline=datetime.now(timezone.utc) + timedelta(seconds=3),
     cancellation_event=cancel_event,
 )
-print(int(count))
+print(int(res.total_positions))
 ```
 
-### 3) Cross‑check vs OpenedOrders (client‑side sanity)
+### 3) Cross-check vs OpenedOrders (client-side sanity)
 
 ```python
 from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as ah_pb2
 
-n = int(await acct.positions_total())
+n = int((await acct.positions_total()).total_positions)
 od = await acct.opened_orders(
     ah_pb2.BMT5_ENUM_OPENED_ORDER_SORT_TYPE.BMT5_OPENED_ORDER_SORT_BY_OPEN_TIME_ASC
 )
