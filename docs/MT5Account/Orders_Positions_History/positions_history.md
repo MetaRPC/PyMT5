@@ -35,7 +35,7 @@ res = await acct.positions_history(
     size=100,
 )
 
-print(res.arrayTotal, len(res.positions_data))  # total items, items on this page
+print(res.array_total, len(res.positions_data))  # total items, items on this page
 ```
 
 ---
@@ -63,7 +63,7 @@ async def positions_history(
 * **Why you care.** PnL reporting, compliance/audit, and troubleshooting sequences (“when/why did this position close?”).
 * **Mind the traps.**
 
-  * It’s **paginated**; read `arrayTotal/page/size` to loop properly.
+  * It’s **paginated**; read `array_total/page_number/items_per_page` to loop properly.
   * All times are UTC `Timestamp`s; convert once before rendering.
   * Positions history ≠ order/deal history; fields are position‑level (aggregated), not individual deal lines.
 
@@ -71,17 +71,17 @@ async def positions_history(
 
 ## 🔽 Input
 
-| Parameter            | Type                                                         | Description                                 |                                                    |
-| -------------------- | ------------------------------------------------------------ | ------------------------------------------- | -------------------------------------------------- |
-| `sort_type`          | `BMT5_ENUM_POSITIONS_HISTORY_SORT_TYPE` (enum, **required**) | Server‑side sort (see enum below).          |                                                    |
-| `open_from`          | `datetime` (UTC)                                             | Start of the time window for **open time**. |                                                    |
-| `open_to`            | `datetime` (UTC)                                             | End of the time window for **open time**.   |                                                    |
-| `page`               | `int`                                                        | 1‑based page number.                        |                                                    |
-| `size`               | `int`                                                        | Items per page (e.g., 50/100/500).          |                                                    |
-| `deadline`           | \`datetime                                                   | None\`                                      | Absolute per‑call deadline → converted to timeout. |
-| `cancellation_event` | \`asyncio.Event                                              | None\`                                      | Cooperative cancel for the retry wrapper.          |
+| Parameter            | Type                                                         | Description                                 |                                           |
+| -------------------- | ------------------------------------------------------------ | ------------------------------------------- | ----------------------------------------- |
+| `sort_type`          | `BMT5_ENUM_POSITIONS_HISTORY_SORT_TYPE` (enum, **required**) | Server‑side sort (see enum below).          |                                           |
+| `open_from`          | `datetime` (UTC)                                             | Start of the time window for **open time**. |                                           |
+| `open_to`            | `datetime` (UTC)                                             | End of the time window for **open time**.   |                                           |
+| `page`               | `int`                                                        | 1‑based page number.                        |                                           |
+| `size`               | `int`                                                        | Items per page (e.g., 50/100/500).          |                                           |
+| `deadline`           | \`datetime                                                   | None\`                                      | Absolute per‑call deadline → timeout.     |
+| `cancellation_event` | \`asyncio.Event                                              | None\`                                      | Cooperative cancel for the retry wrapper. |
 
-> **Request message:** `PositionsHistoryRequest { sortType, openFrom, openTo, page, size }`
+> **Request message:** `PositionsHistoryRequest { position_open_time_from, position_open_time_to, sort_type, page_number, items_per_page }`
 
 ---
 
@@ -91,9 +91,9 @@ async def positions_history(
 
 | Field            | Proto Type                     | Description                         |
 | ---------------- | ------------------------------ | ----------------------------------- |
-| `arrayTotal`     | `int32`                        | Total number of items across pages. |
-| `page`           | `int32`                        | Page number of this reply.          |
-| `size`           | `int32`                        | Items per page of this reply.       |
+| `array_total`    | `int32`                        | Total number of items across pages. |
+| `page_number`    | `int32`                        | Page number of this reply.          |
+| `items_per_page` | `int32`                        | Items per page of this reply.       |
 | `positions_data` | `repeated PositionHistoryData` | Page of closed/opened positions.    |
 
 #### Message: `PositionHistoryData`
@@ -135,24 +135,6 @@ async def positions_history(
 |      5 | `BMT5_POSHIST_SORT_BY_POSITION_TICKET_ID_DESC` | Ticket descending.     |
 
 > Related enums used above: `BMT5_ENUM_POSITION_TYPE`, `BMT5_ENUM_POSITION_REASON`.
-
----
-
-### 🎯 Purpose
-
-* Build PnL/fee reports for given periods.
-* Show scrollable positions history with stable server‑side sorting.
-* Investigate close reasons and execution timelines.
-
-### 🧩 Notes & Tips
-
-* Pagination: first call → read `arrayTotal` → compute page count → iterate.
-* Convert timestamps once; format consistently across rows.
-* Filter by `symbol`/`type` client‑side as needed.
-* Wrapper retries transient gRPC errors via `execute_with_reconnect(...)`.
-
-**See also:** [OrderHistory](../Orders_Positions_History/order_history.md), [OpenedOrders](../Orders_Positions_History/opened_orders.md), [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md).
-
 
 ---
 
