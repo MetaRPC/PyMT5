@@ -55,18 +55,18 @@ async def account_info_string(
   * Values are **strings**; don’t parse numbers from here — use `AccountInfoInteger/Double` for numerics.
   * Broker naming can vary (`SERVER`/`COMPANY` branding). Treat them as display-only labels.
   * Currency codes are **ISO-like** (e.g., `"USD"`), but formatting still depends on `ACCOUNT_CURRENCY_DIGITS` (see `AccountInfoInteger`).
-ception → check connectivity and the error spec.
 
 ---
 
 ## 🔽 Input
 
-| Parameter            | Type                                             | Description                            |                                                    |
-| -------------------- | ------------------------------------------------ | -------------------------------------- | -------------------------------------------------- |
-| `property_id`        | `AccountInfoStringPropertyType` (enum, required) | Which label to fetch (see enum below). |                                                    |
-| `deadline`           | \`datetime                                       | None\`                                 | Absolute per-call deadline → converted to timeout. |
-| `cancellation_event` | \`asyncio.Event                                  | None\`                                 | Cooperative cancel for the retry wrapper.          |
+| Parameter            | Type                                             | Description                                        |
+| -------------------- | ------------------------------------------------ | -------------------------------------------------- |
+| `property_id`        | `AccountInfoStringPropertyType` (enum, required) | Which label to fetch (see enum below).             |
+| `deadline`           | `datetime \| None`                               | Absolute per-call deadline → converted to timeout. |
+| `cancellation_event` | `asyncio.Event \| None`                          | Cooperative cancel for the retry wrapper.          |
 
+**Request message:** `AccountInfoStringRequest { propertyId }`
 
 ---
 
@@ -74,9 +74,9 @@ ception → check connectivity and the error spec.
 
 ### Payload: `AccountInfoStringData`
 
-| Field             | Proto Type | Description                               |
-| ----------------- | ---------- | ----------------------------------------- |
-| `requested_value` | `string`   | The label value of the selected property. |
+| Field            | Proto Type | Description                               |
+| ---------------- | ---------- | ----------------------------------------- |
+| `requestedValue` | `string`   | The label value of the selected property. |
 
 ---
 
@@ -103,7 +103,6 @@ ception → check connectivity and the error spec.
 * The SDK wrapper already handles transient gRPC hiccups via `execute_with_reconnect(...)`.
 
 **See also:** [AccountInfoInteger](../Account_Information/account_info_integer.md), [AccountInfoDouble](../Account_Information/account_info_double.md), [AccountSummary](../Account_Information/account_summary.md).
-
 
 ---
 
