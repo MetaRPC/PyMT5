@@ -8,6 +8,8 @@
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2.py` — `OnTrade*` messages and event payloads
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2_grpc.py` — service stub `SubscriptionServiceStub`
 
+---
+
 ### RPC
 
 * **Service:** `mt5_term_api.SubscriptionService`
@@ -70,9 +72,9 @@ async def on_trade(
 
 ## 🔽 Input
 
-| Parameter            | Type                      | Description         |                                         |
-| -------------------- | ------------------------- | ------------------- | --------------------------------------- |
-| `cancellation_event` | \`asyncio.Event           | None\`              | Cooperative stop for the streaming RPC. |
+| Parameter            | Type                    | Description                             |   |
+| -------------------- | ----------------------- | --------------------------------------- | - |
+| `cancellation_event` | `asyncio.Event \| None` | Cooperative stop for the streaming RPC. |   |
 
 > **Request message:** `OnTradeRequest {}`
 
@@ -85,11 +87,11 @@ async def on_trade(
 | Field                       | Proto Type                      | Description                               |
 | --------------------------- | ------------------------------- | ----------------------------------------- |
 | `type`                      | `MT5_SUB_ENUM_EVENT_GROUP_TYPE` | Event group marker (e.g., `OrderUpdate`). |
-| `event_data`                | `OnTadeEventData`               | Batched deltas (lists below).             |
+| `event_data`                | `OnTradeEventData`              | Batched deltas (lists below).             |
 | `account_info`              | `OnEventAccountInfo`            | Balance/Equity/Margins snapshot.          |
 | `terminal_instance_guid_id` | `string`                        | Source terminal GUID.                     |
 
-#### `OnTadeEventData` (batched lists)
+#### `OnTradeEventData` (batched lists)
 
 | List name                      | Item type                   | What it carries                        |
 | ------------------------------ | --------------------------- | -------------------------------------- |
@@ -132,7 +134,7 @@ async def on_trade(
 |  7 | `stop_limit`              | double                        |
 |  8 | `price_current`           | double                        |
 |  9 | `time_expiration`         | `Timestamp`                   |
-| 10 | `time_type`               | `SUB_ENUM_ORDER_TYPE_TIME`    |
+| 10 | `type_time`               | `SUB_ENUM_ORDER_TYPE_TIME`    |
 | 11 | `comment`                 | string                        |
 | 12 | `symbol`                  | string                        |
 | 13 | `magic`                   | int64                         |
@@ -176,7 +178,7 @@ async def on_trade(
 | 15 | `volume_initial`          | double                        |
 | 19 | `magic`                   | int64                         |
 | 20 | `position_by`             | int64                         |
-| 21 | `reason`                  | `SUB_ENUM_DEAL_REASON`        |
+| 21 | `reason`                  | `SUB_ENUM_ORDER_REASON`       |
 | 22 | `comment`                 | string                        |
 | 23 | `symbol`                  | string                        |
 | 24 | `time_expiration_seconds` | int64                         |
@@ -255,7 +257,7 @@ async def on_trade(
 
 ---
 
-## Enums (used here)
+## Enums
 
 ### `MT5_SUB_ENUM_EVENT_GROUP_TYPE`
 
