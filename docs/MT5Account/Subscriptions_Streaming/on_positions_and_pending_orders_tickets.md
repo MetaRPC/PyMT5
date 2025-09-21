@@ -8,6 +8,8 @@
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2.py` — `OnPositionsAndPendingOrdersTickets*` messages
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2_grpc.py` — service stub `SubscriptionServiceStub`
 
+---
+
 ### RPC
 
 * **Service:** `mt5_term_api.SubscriptionService`
@@ -57,7 +59,7 @@ async def on_positions_and_pending_orders_tickets(
 
 ## 💬 Just about the main thing
 
-* **What is it.** A timed **IDs-only** stream for open **positions** and **pending orders**.
+* **What it is.** A timed **IDs-only** stream for open **positions** and **pending orders**.
 * **Why.** Super‑cheap heartbeat to drive UI badges and **set‑diff** logic. Fetch full details only when something changed.
 * **Be careful.**
 
@@ -69,12 +71,12 @@ async def on_positions_and_pending_orders_tickets(
 
 ## 🔽 Input
 
-| Parameter            | Type                 | Description                                         |                                         |
-| -------------------- | -------------------- | --------------------------------------------------- | --------------------------------------- |
-| `interval_ms`        | `int` (**required**) | Sampling period in **milliseconds** (server timer). |                                         |
-| `cancellation_event` | \`asyncio.Event      | None\`                                              | Cooperative stop for the streaming RPC. |
+| Parameter            | Type                    | Description                                         |   |
+| -------------------- | ----------------------- | --------------------------------------------------- | - |
+| `interval_ms`        | `int` (**required**)    | Sampling period in **milliseconds** (server timer). |   |
+| `cancellation_event` | `asyncio.Event \| None` | Cooperative stop for the streaming RPC.             |   |
 
-> **Request message:** `OnPositionsAndPendingOrdersTicketsRequest { timer_period_milliseconds: int32 }`
+> **Request message:** `OnPositionsAndPendingOrdersTicketsRequest { timerPeriodMilliseconds: int32 }`
 
 ---
 
