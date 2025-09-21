@@ -8,6 +8,8 @@
 * `MetaRpcMT5/mt5_term_api_trade_functions_pb2.py` — `OrderCalcMargin*` messages (`OrderCalcMarginRequest`, `OrderCalcMarginReply`, `OrderCalcMarginData`) and enum `ENUM_ORDER_TYPE_TF`
 * `MetaRpcMT5/mt5_term_api_trade_functions_pb2_grpc.py` — service stub `TradeFunctionsStub`
 
+---
+
 ### RPC
 
 * **Service:** `mt5_term_api.TradeFunctions`
@@ -27,7 +29,7 @@ req = tf_pb2.OrderCalcMarginRequest(
     order_type=tf_pb2.ENUM_ORDER_TYPE_TF.ORDER_TYPE_TF_BUY,
     symbol="EURUSD",
     volume=0.10,
-    price=0.0,  # market: server uses current price
+    open_price=0.0,  # market: server uses current price
 )
 res = await acct.order_calc_margin(req)
 print(res.margin)
@@ -41,7 +43,7 @@ req = tf_pb2.OrderCalcMarginRequest(
     order_type=tf_pb2.ENUM_ORDER_TYPE_TF.ORDER_TYPE_TF_BUY_LIMIT,
     symbol="XAUUSD",
     volume=0.05,
-    price=2300.00,
+    open_price=2300.00,
 )
 res = await acct.order_calc_margin(req)
 print("required margin:", res.margin)
@@ -69,7 +71,7 @@ async def order_calc_margin(
 * **Be careful.**
 
   * `order_type` controls direction & kind (BUY/SELL/LIMIT/STOP/STOP\_LIMIT/etc.).
-  * For market scenarios, `price=0.0` is fine — server uses current price; for pendings, pass the **entry price**.
+  * For market scenarios, `open_price=0.0` is fine — server uses current price; for pendings, pass the **entry price**.
   * The result is sensitive to account type, leverage, symbol settings, and current quotes.
 * **When to call.** Right before `OrderSend`, or when a user edits **volume** or **price** in the ticket.
 * **Quick check.** You should get `OrderCalcMarginData` with a single `margin: double`.
@@ -85,9 +87,9 @@ async def order_calc_margin(
 |  1 | `order_type` | `enum ENUM_ORDER_TYPE_TF` |    yes   | BUY/SELL/*\_LIMIT/*\_STOP/\*\_STOP\_LIMIT/etc.    |
 |  2 | `symbol`     | `string`                  |    yes   | Symbol name.                                      |
 |  3 | `volume`     | `double`                  |    yes   | Volume in lots.                                   |
-|  4 | `price`      | `double`                  |    yes   | `0.0` for market; entry price for pending orders. |
+|  4 | `open_price` | `double`                  |    yes   | `0.0` for market; entry price for pending orders. |
 
-> **Request message:** `OrderCalcMarginRequest { order_type, symbol, volume, price }`
+> **Request message:** `OrderCalcMarginRequest { order_type, symbol, volume, open_price }`
 
 ---
 
@@ -147,7 +149,7 @@ req = tf_pb2.OrderCalcMarginRequest(
     order_type=tf_pb2.ENUM_ORDER_TYPE_TF.ORDER_TYPE_TF_SELL,
     symbol="BTCUSD",
     volume=0.02,
-    price=0.0,
+    open_price=0.0,
 )
 print((await acct.order_calc_margin(req)).margin)
 ```
@@ -159,7 +161,7 @@ req = tf_pb2.OrderCalcMarginRequest(
     order_type=tf_pb2.ENUM_ORDER_TYPE_TF.ORDER_TYPE_TF_SELL_LIMIT,
     symbol="EURUSD",
     volume=1.0,
-    price=1.12345,
+    open_price=1.12345,
 )
 res = await acct.order_calc_margin(req)
 print(res.margin)
@@ -170,6 +172,6 @@ print(res.margin)
 ```python
 async def calc(symbol, order_type, volume, price):
     from MetaRpcMT5 import mt5_term_api_trade_functions_pb2 as tf_pb2
-    req = tf_pb2.OrderCalcMarginRequest(order_type=order_type, symbol=symbol, volume=volume, price=price)
+    req = tf_pb2.OrderCalcMarginRequest(order_type=order_type, symbol=symbol, volume=volume, open_price=price)
     return (await acct.order_calc_margin(req)).margin
 ```
