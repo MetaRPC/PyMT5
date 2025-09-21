@@ -22,13 +22,18 @@
 ### 🔗 Code Example
 
 ```python
-# Fetch current DOM snapshot and print top-of-book
+# Fetch current DOM snapshot and print top-of-book (best bid/ask)
 book = await acct.market_book_get("EURUSD")
-if book.Bids and book.Asks:
-    best_bid = book.Bids[0]
-    best_ask = book.Asks[0]
-    spread = best_ask.Price - best_bid.Price
-    print(best_bid.Price, best_ask.Price, spread)
+levels = getattr(book, "levels", None) or getattr(book, "entries", None)
+if levels:
+    bids = [e for e in levels if int(getattr(e, "entry_type", getattr(e, "type", 0))) == 1]
+    asks = [e for e in levels if int(getattr(e, "entry_type", getattr(e, "type", 0))) == 2]
+    bids.sort(key=lambda x: float(x.price), reverse=True)
+    asks.sort(key=lambda x: float(x.price))
+    if bids and asks:
+        best_bid, best_ask = bids[0], asks[0]
+        spread = float(best_ask.price) - float(best_bid.price)
+        print(best_bid.price, best_ask.price, spread)
 ```
 
 ---
@@ -48,13 +53,13 @@ async def market_book_get(
 
 ## 💬 Plain English
 
-* **What it is.** A one-shot **depth snapshot**: aggregated **Bids** and **Asks** with price/volume per level.
+* **What it is.** A one-shot **depth snapshot**: aggregated price/volume levels tagged as **BID** or **ASK**.
 * **Why you care.** Power depth widgets, slippage models, and liquidity checks before order placement.
 * **Mind the traps.**
 
-  * Some brokers expose limited depth (e.g., 5 levels); others none → arrays can be **empty**.
-  * Ensure you’ve called `market_book_add(symbol)` to enable streaming; without it, snapshots may still work but won’t update automatically.
-  * Prices ascend on **Asks** and descend on **Bids** (server‑side convention). Sort client‑side if you need a different order.
+  * Some brokers expose limited depth (e.g., 5 levels) or none → the level list can be **empty**.
+  * Call `market_book_add(symbol)` beforehand to enable the feed; snapshots may still work but won’t auto-update.
+  * Price order convention: **BIDs** descending, **ASKs** ascending; sort client‑side as needed.
 
 ---
 
@@ -74,17 +79,17 @@ async def market_book_get(
 
 ### Payload: `MarketBookGetData`
 
-| Field  | Proto Type                     | Description                        |
-| ------ | ------------------------------ | ---------------------------------- |
-| `Bids` | `repeated MarketBookPriceData` | Bid ladder (price levels to buy).  |
-| `Asks` | `repeated MarketBookPriceData` | Ask ladder (price levels to sell). |
+| Field    | Proto Type               | Description                                     |
+| -------- | ------------------------ | ----------------------------------------------- |
+| `levels` | `repeated MarketBookRow` | Unified list of depth levels (**BID**/**ASK**). |
 
-#### `MarketBookPriceData`
+#### `MarketBookRow`
 
-| Field    | Proto Type | Description                 |
-| -------- | ---------- | --------------------------- |
-| `Price`  | `double`   | Price for this level.       |
-| `Volume` | `double`   | Volume at this price level. |
+| Field        | Proto Type | Description                      |
+| ------------ | ---------- | -------------------------------- |
+| `entry_type` | `int32`    | **1 = BID**, **2 = ASK**.        |
+| `price`      | `double`   | Price for this level.            |
+| `volume`     | `double`   | Volume/size at this price level. |
 
 > **Wire reply:** `MarketBookGetReply { data: MarketBookGetData, error: Error? }`
 > SDK returns `reply.data`.
@@ -105,18 +110,21 @@ async def market_book_get(
 
 **See also:** [market\_book\_add.md](./market_book_add.md), [market\_book\_release.md](./market_book_release.md), [on\_symbol\_tick.md](../Subscriptions_Streaming/on_symbol_tick.md)
 
-
 ## Usage Examples
 
 ### 1) Render a compact depth table
 
 ```python
 book = await acct.market_book_get("XAUUSD")
+levels = getattr(book, "levels", None) or getattr(book, "entries", None) or []
+# split and sort
+bids = sorted((e for e in levels if int(getattr(e, "entry_type", getattr(e, "type", 0))) == 1), key=lambda x: x.price, reverse=True)
+asks = sorted((e for e in levels if int(getattr(e, "entry_type", getattr(e, "type", 0))) == 2), key=lambda x: x.price)
 print("BID       VOL   |   ASK       VOL")
-for i in range(max(len(book.Bids), len(book.Asks))):
-    b = book.Bids[i] if i < len(book.Bids) else None
-    a = book.Asks[i] if i < len(book.Asks) else None
-    print(f"{getattr(b,'Price',None):>8} {getattr(b,'Volume',None):>6} | {getattr(a,'Price',None):>8} {getattr(a,'Volume',None):>6}")
+for i in range(max(len(bids), len(asks))):
+    b = bids[i] if i < len(bids) else None
+    a = asks[i] if i < len(asks) else None
+    print(f"{getattr(b,'price',None):>8} {getattr(b,'volume',None):>6} | {getattr(a,'price',None):>8} {getattr(a,'volume',None):>6}")
 ```
 
 ### 2) With deadline & cancel
@@ -131,21 +139,23 @@ res = await acct.market_book_get(
     deadline=datetime.now(timezone.utc) + timedelta(seconds=2),
     cancellation_event=cancel_event,
 )
-print(len(res.Bids), len(res.Asks))
+levels = getattr(res, "levels", None) or getattr(res, "entries", None) or []
+print(len(levels))
 ```
 
-### 3) Compute VWAP of top N levels
+### 3) Compute VWAP of top N bids/asks
 
 ```python
 N = 5
 book = await acct.market_book_get("BTCUSD")
+levels = getattr(book, "levels", None) or getattr(book, "entries", None) or []
+bids = sorted((e for e in levels if int(getattr(e, "entry_type", getattr(e, "type", 0))) == 1), key=lambda x: x.price, reverse=True)[:N]
+asks = sorted((e for e in levels if int(getattr(e, "entry_type", getattr(e, "type", 0))) == 2), key=lambda x: x.price)[:N]
 
-# English-only comments per project style
-def vwap(levels):
-    take = levels[:N]
-    vol = sum(l.Volume for l in take)
-    return sum(l.Price * l.Volume for l in take) / vol if vol else None
+def vwap(rows):
+    vol = sum(r.volume for r in rows)
+    return sum(r.price * r.volume for r in rows) / vol if vol else None
 
-print("vwap bid:", vwap(book.Bids))
-print("vwap ask:", vwap(book.Asks))
+print("vwap bid:", vwap(bids))
+print("vwap ask:", vwap(asks))
 ```
