@@ -3,7 +3,7 @@
 > **Request:** single string account property from MT5.
 > Fetch one label (name, server, currency, company) by enum.
 
-**Source files:**
+**Source files (SDK):**
 
 * `MetaRpcMT5/mt5_account.py` — method `account_info_string(...)`
 * `MetaRpcMT5/mt5_term_api_account_information_pb2.py` — `AccountInfoString*`, `AccountInfoStringPropertyType`
