@@ -76,7 +76,7 @@ async def account_info_double(
 
 ---
 
-## Enum: `AccountInfoDoublePropertyType` (complete)
+## Enum: `AccountInfoDoublePropertyType`
 
 | Value                        | Meaning                    |
 | ---------------------------- | -------------------------- |
