@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Quick start: connect by server name and fetch a simple string property."""
 import asyncio
 import uuid

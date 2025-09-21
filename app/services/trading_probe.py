@@ -1,4 +1,3 @@
-# comments in English only
 
 from __future__ import annotations
 import inspect

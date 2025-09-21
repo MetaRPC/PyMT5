@@ -21,7 +21,6 @@
 ╚══════════════════════════════════════════════════════════════╝
 """
 
-# comments in English only
 from __future__ import annotations
 
 # correct class import from core
