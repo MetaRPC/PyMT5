@@ -9,6 +9,8 @@
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2_grpc.py` — service stub `SubscriptionServiceStub`
 * `MetaRpcMT5/mrpc_mt5_error_pb2.py` — `MqlErrorTradeCode` (for `trade_return_code`)
 
+---
+
 ### RPC
 
 * **Service:** `mt5_term_api.SubscriptionService`
@@ -134,9 +136,9 @@ async def on_trade_transaction(
 |  4 | `symbol`                        | `string`                         |
 |  5 | `requested_deal_volume_lots`    | `double`                         |
 |  6 | `price`                         | `double`                         |
-|  7 | `stopl_imit`                    | `double`                         |
-|  8 | `stop_loss`                     | `double`                         |
-|  9 | `take_profit`                   | `double`                         |
+|  7 | `stoplimit`                     | `double`                         |
+|  8 | `sl`                            | `double`                         |
+|  9 | `tp`                            | `double`                         |
 | 10 | `deviation`                     | `uint32`                         |
 | 11 | `order_type`                    | `SUB_ENUM_ORDER_TYPE`            |
 | 12 | `order_type_filling`            | `SUB_ENUM_ORDER_TYPE_FILLING`    |
@@ -177,7 +179,6 @@ async def on_trade_transaction(
 |      4 | `TRADE_TRANSACTION_HISTORY_ADD`    | History record added.     |
 |      5 | `TRADE_TRANSACTION_HISTORY_UPDATE` | History record updated.   |
 |      6 | `TRADE_TRANSACTION_HISTORY_DELETE` | History record deleted.   |
-
 
 ---
 
