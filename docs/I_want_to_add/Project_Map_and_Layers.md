@@ -117,13 +117,22 @@ PyMT5/
 │   └── index.md
 ├── examples/
 │   ├── __init__.py
-│   ├── list_account_methods.py
-│   ├── mt5_account_ex.py
-│   ├── PyMT5.py
-│   ├── PyMT5.pyproj
-│   ├── PyMT5.sln
-│   ├── quick_start_connect.py
-│   └── requirements.txt
+│   ├── cli.py
+│   ├── common/
+│   ├── account_info.py
+│   ├── opened_snapshot.py
+│   ├── orders_history.py
+│   ├── positions_history.py
+│   ├── quickstart.py
+│   ├── streaming.py
+│   ├── streaming_position_profit.py
+│   ├── streaming_positions_tickets.py
+│   ├── streaming_trade_events.py
+│   ├── streaming_trade_tx.py
+│   ├── symbols_market.py
+│   ├── trading_basics.py
+│   ├── trading_safe.py
+│   └── test_connection.py
 ├── ext/
 │   ├── MetaRpcMT5Ex/
 │   └── setup.py
@@ -141,6 +150,7 @@ PyMT5/
 ├── README.md
 ├── settings.json
 └── tree.txt
+
 ```
 
 ### 3.2 `app/` (depth 3)
@@ -177,21 +187,8 @@ app/
 └── __init__.py
 ```
 
-### 3.3 `examples/`
 
-```
-examples/
-├── __init__.py
-├── list_account_methods.py
-├── mt5_account_ex.py
-├── PyMT5.py
-├── PyMT5.pyproj
-├── PyMT5.sln
-├── quick_start_connect.py
-└── requirements.txt
-```
-
-### 3.4 `package/MetaRpcMT5`
+### 3.3 `package/MetaRpcMT5`
 
 ```
 MetaRpcMT5/
@@ -221,7 +218,7 @@ MetaRpcMT5/
 └── mt5_term_api_trading_helper_pb2_grpc.py
 ```
 
-### 3.5 `ext/`
+### 3.4 `ext/`
 
 ```
 ext/
@@ -231,7 +228,7 @@ ext/
 └── setup.py
 ```
 
-### 3.6 `docs/`
+### 3.5 `docs/`
 
 ```
 docs/
