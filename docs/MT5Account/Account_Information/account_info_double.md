@@ -65,16 +65,18 @@ async def account_info_double(
 | `deadline`           | `datetime \| None`                               | Absolute deadline; converted to client‑side timeout. |
 | `cancellation_event` | `asyncio.Event \| None`                          | Cooperative cancellation for reconnect/retry logic.  |
 
+**Request message:** `AccountInfoDoubleRequest { propertyId }`
+
 ---
 
 ## ⬆️ Output
 
 * **SDK return:** `float` — the requested numeric value.
-* **Underlying proto (for reference):** reply commonly carries **`value: double`** (aliases like `requested_value`/`requestedValue` may exist in intermediate wrappers). The SDK returns an unpacked `float` already.
+* **Underlying proto:** `AccountInfoDoubleReply { data: AccountInfoDoubleData { requestedValue: double } }`
 
 ---
 
-## Enum: `AccountInfoDoublePropertyType` (excerpt)
+## Enum: `AccountInfoDoublePropertyType` (complete)
 
 | Value                        | Meaning                    |
 | ---------------------------- | -------------------------- |
