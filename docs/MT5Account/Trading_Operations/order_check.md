@@ -32,7 +32,7 @@ async def order_check(
 
 ## 💬 Just about the main thing
 
-* **What is it.** Server‑side **pre‑validation** of a trade request (like MT5 `OrderCheck`): returns margins & a code.
+* **What it is.** Server‑side **pre‑validation** of a trade request (like MT5 `OrderCheck`): returns margins & a code.
 * **Why.** Use it to **fail fast** in UI/strategies before `OrderSend` — avoid rejections and needless noise.
 * **Be careful.**
 
@@ -59,7 +59,7 @@ rq = tf_pb2.MrpcMqlTradeRequest(
 )
 res = await acct.order_check(tf_pb2.OrderCheckRequest(mql_trade_request=rq))
 chk = res.mql_trade_check_result
-print(chk.returned_code, chk.margin, chk.free_margin)  # numeric code + margins
+print(chk.retcode, chk.margin, chk.free_margin)  # numeric code + margins
 ```
 
 ```python
@@ -83,8 +83,9 @@ rq = tf_pb2.MrpcMqlTradeRequest(
     comment="limit preflight",
 )
 res = await acct.order_check(tf_pb2.OrderCheckRequest(mql_trade_request=rq))
-print(res.mql_trade_check_result.returned_code)
+print(res.mql_trade_check_result.retcode)
 ```
+
 ---
 
 ## 🔽 Input
@@ -99,25 +100,25 @@ print(res.mql_trade_check_result.returned_code)
 
 ### Message: `MrpcMqlTradeRequest`
 
-|  # | Field                         | Proto Type                             | Notes                                     |
-| -: | ----------------------------- | -------------------------------------- | ----------------------------------------- |
-|  1 | `action`                      | `enum MRPC_ENUM_TRADE_REQUEST_ACTIONS` | DEAL/PENDING/SLTP/MODIFY/REMOVE/CLOSE\_BY |
-|  2 | `expert_advisor_magic_number` | `uint64`                               | Magic/EA id                               |
-|  3 | `order`                       | `uint64`                               | Order ticket (when applicable)            |
-|  4 | `symbol`                      | `string`                               | Symbol name                               |
-|  5 | `volume`                      | `double`                               | Lots                                      |
-|  6 | `price`                       | `double`                               | Entry/close price; `0.0` for market       |
-|  7 | `stop_limit`                  | `double`                               | Stop‑limit trigger (for \*\_STOP\_LIMIT)  |
-|  8 | `stop_loss`                   | `double`                               | SL                                        |
-|  9 | `take_profit`                 | `double`                               | TP                                        |
-| 10 | `deviation`                   | `uint64`                               | Max deviation in **points** (market ops)  |
-| 11 | `order_type`                  | `enum ENUM_ORDER_TYPE_TF`              | BUY/SELL/LIMIT/STOP/STOP\_LIMIT/CLOSE\_BY |
-| 12 | `type_filling`                | `enum MRPC_ENUM_ORDER_TYPE_FILLING`    | FOK/IOC/RETURN/BOC                        |
-| 13 | `type_time`                   | `enum MRPC_ENUM_ORDER_TYPE_TIME`       | GTC/DAY/SPECIFIED/SPECIFIED\_DAY          |
-| 14 | `expiration`                  | `google.protobuf.Timestamp`            | Expiration (UTC)                          |
-| 15 | `comment`                     | `string`                               | Optional note                             |
-| 16 | `position`                    | `uint64`                               | Position ticket (when applicable)         |
-| 17 | `position_by`                 | `uint64`                               | Close‑by ticket                           |
+|  # | Field          | Proto Type                             | Notes                                     |
+| -: | -------------- | -------------------------------------- | ----------------------------------------- |
+|  1 | `action`       | `enum MRPC_ENUM_TRADE_REQUEST_ACTIONS` | DEAL/PENDING/SLTP/MODIFY/REMOVE/CLOSE\_BY |
+|  2 | `magic`        | `uint64`                               | Expert Advisor magic id                   |
+|  3 | `order`        | `uint64`                               | Order ticket (when applicable)            |
+|  4 | `symbol`       | `string`                               | Symbol name                               |
+|  5 | `volume`       | `double`                               | Lots                                      |
+|  6 | `price`        | `double`                               | Entry/close price; `0.0` for market       |
+|  7 | `stop_limit`   | `double`                               | Stop‑limit trigger (for \*\_STOP\_LIMIT)  |
+|  8 | `stop_loss`    | `double`                               | SL                                        |
+|  9 | `take_profit`  | `double`                               | TP                                        |
+| 10 | `deviation`    | `uint32`                               | Max deviation in **points** (market ops)  |
+| 11 | `order_type`   | `enum ENUM_ORDER_TYPE_TF`              | BUY/SELL/LIMIT/STOP/STOP\_LIMIT/CLOSE\_BY |
+| 12 | `type_filling` | `enum MRPC_ENUM_ORDER_TYPE_FILLING`    | FOK/IOC/RETURN/BOC                        |
+| 13 | `type_time`    | `enum MRPC_ENUM_ORDER_TYPE_TIME`       | GTC/DAY/SPECIFIED/SPECIFIED\_DAY          |
+| 14 | `expiration`   | `google.protobuf.Timestamp`            | Expiration (UTC)                          |
+| 15 | `comment`      | `string`                               | Optional note                             |
+| 16 | `position`     | `uint64`                               | Position ticket (when applicable)         |
+| 17 | `position_by`  | `uint64`                               | Close‑by ticket                           |
 
 ---
 
@@ -133,7 +134,7 @@ print(res.mql_trade_check_result.returned_code)
 
 |  # | Field                | Proto Type | Description                                             |
 | -: | -------------------- | ---------: | ------------------------------------------------------- |
-|  1 | `returned_code`      |   `uint32` | Numeric return code (0 = ok; non‑zero → error/warning). |
+|  1 | `retcode`            |   `uint32` | Numeric return code (0 = ok; non‑zero → error/warning). |
 |  2 | `balance_after_deal` |   `double` | Balance projected **after** execution.                  |
 |  3 | `equity_after_deal`  |   `double` | Equity projected **after** execution.                   |
 |  4 | `profit`             |   `double` | Expected P/L (may be 0 for opens).                      |
@@ -180,8 +181,8 @@ print(res.mql_trade_check_result.returned_code)
 | -----: | ---------------------- |
 |      0 | `ORDER_FILLING_FOK`    |
 |      1 | `ORDER_FILLING_IOC`    |
-|      3 | `ORDER_FILLING_BOC`    |
 |      2 | `ORDER_FILLING_RETURN` |
+|      3 | `ORDER_FILLING_BOC`    |
 
 ### `MRPC_ENUM_ORDER_TYPE_TIME`
 
@@ -198,7 +199,7 @@ print(res.mql_trade_check_result.returned_code)
 
 * Pre‑flight validation for **OrderSend/OrderModify** in UI and algos.
 * Show **required margin/free margin after** before committing.
-* Explain failures to users via `returned_code` + `comment`.
+* Explain failures to users via `retcode` + `comment`.
 
 ### 🧩 Notes & Tips
 
@@ -207,7 +208,7 @@ print(res.mql_trade_check_result.returned_code)
 
 ---
 
-**See also:** [order\_send.md](./order_send.md), [order\_calc\_margin.md](./order_calc_margin.md), [symbol\_info\_margin\_rate.md](../Symbols_and_Market/symbol_info_margin_rate.md)
+**See also:** [order\_check.md](./order_check.md), [order\_calc\_margin.md](./order_calc_margin.md), [symbol\_info\_margin\_rate.md](../Symbols_and_Market/symbol_info_margin_rate.md)
 
 ## Usage Examples
 
@@ -237,7 +238,7 @@ rq = tf_pb2.MrpcMqlTradeRequest(
     take_profit=2325.0,
 )
 res = await acct.order_check(tf_pb2.OrderCheckRequest(mql_trade_request=rq))
-print(res.mql_trade_check_result.returned_code, res.mql_trade_check_result.comment)
+print(res.mql_trade_check_result.retcode, res.mql_trade_check_result.comment)
 ```
 
 ### 3) Pending STOP\_LIMIT with stop trigger
