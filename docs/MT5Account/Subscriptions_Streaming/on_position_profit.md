@@ -8,11 +8,13 @@
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2.py` — `OnPositionProfit*` messages and payloads
 * `MetaRpcMT5/mt5_term_api_subscriptions_pb2_grpc.py` — service stub `SubscriptionServiceStub`
 
+---
+
 ### RPC
 
 * **Service:** `mt5_term_api.SubscriptionService`
 * **Method:** `OnPositionProfit(OnPositionProfitRequest) → stream OnPositionProfitReply`
-* **Low-level client:** `SubscriptionServiceStub.OnPositionProfit(request, metadata, timeout)` *(server‑streaming iterator)*
+* **Low‑level client:** `SubscriptionServiceStub.OnPositionProfit(request, metadata, timeout)` *(server‑streaming iterator)*
 * **SDK wrapper:** `MT5Account.on_position_profit(interval_ms, ignore_empty, cancellation_event=None) → async stream of OnPositionProfitData`
 
 ---
@@ -23,8 +25,8 @@
 # Minimal: stream profit updates every 1s, skip empty batches
 async for ev in acct.on_position_profit(interval_ms=1000, ignore_empty=True):
     # ev: OnPositionProfitData
-    total = sum(p.profit for p in ev.updated_positions) if ev.updated_positions else 0.0
-    print("updated:", len(ev.updated_positions), "total pnl:", total)
+    total = sum(p.profit for p in (getattr(ev, 'updated_positions', []) or []))
+    print("updated:", len(getattr(ev, 'updated_positions', []) or []), "total pnl:", total)
 ```
 
 ```python
@@ -33,8 +35,8 @@ import asyncio
 cancel = asyncio.Event()
 
 async for ev in acct.on_position_profit(500, True, cancellation_event=cancel):
-    if ev.new_positions or ev.updated_positions or ev.deleted_positions:
-        print("non‑empty batch; equity:", ev.account_info.equity)
+    if (getattr(ev, 'new_positions', None) or getattr(ev, 'updated_positions', None) or getattr(ev, 'deleted_positions', None)):
+        print("non‑empty batch; equity:", getattr(ev, 'account_info', None).equity)
         cancel.set()
 ```
 
@@ -48,14 +50,14 @@ async def on_position_profit(
     interval_ms: int,
     ignore_empty: bool,
     cancellation_event: asyncio.Event | None = None,
-) -> subscription_client.OnPositionProfit  # async iterable of OnPositionProfitData
+) -> AsyncIterator[subscription_pb2.OnPositionProfitData]
 ```
 
 ---
 
 ## 💬 Just about the main thing
 
-* **What is it.** Timed **profit snapshots** for positions with deltas (new/updated/deleted) and an account P/L frame.
+* **What it is.** Timed **profit snapshots** for positions with deltas (new/updated/deleted) and an account P/L frame.
 * **Why.** Keep dashboards, badges, and risk widgets fresh without polling multiple services.
 * **Be careful.**
 
@@ -72,7 +74,7 @@ async def on_position_profit(
 | `ignore_empty`       | `bool` (**required**) | Skip frames with **no changes** (positions lists empty). |                                         |
 | `cancellation_event` | \`asyncio.Event       | None\`                                                   | Cooperative stop for the streaming RPC. |
 
-> **Request message:** `OnPositionProfitRequest { timer_period_milliseconds: int32, ignore_empty_data: bool }`
+> **Request message:** `OnPositionProfitRequest { timerPeriodMilliseconds: int32, ignoreEmptyData: bool }`
 
 ---
 
@@ -80,14 +82,14 @@ async def on_position_profit(
 
 ### Stream payload: `OnPositionProfitData`
 
-| Field                       | Proto Type                      | Description                                   |
-| --------------------------- | ------------------------------- | --------------------------------------------- |
-| `type`                      | `MT5_SUB_ENUM_EVENT_GROUP_TYPE` | Event group marker (e.g., `OrderProfit`).     |
-| `new_positions[]`           | `OnPositionProfitPositionInfo`  | Positions that **appeared** since last frame. |
-| `updated_positions[]`       | `OnPositionProfitPositionInfo`  | Positions with **profit change**/update.      |
-| `deleted_positions[]`       | `OnPositionProfitPositionInfo`  | Positions that **disappeared** (closed).      |
-| `account_info`              | `OnEventAccountInfo`            | Account snapshot (balance/equity/margins).    |
-| `terminal_instance_guid_id` | `string`                        | Source terminal GUID.                         |
+| Field                       | Proto Type                              | Description                                   |
+| --------------------------- | --------------------------------------- | --------------------------------------------- |
+| `type`                      | `MT5_SUB_ENUM_EVENT_GROUP_TYPE`         | Event group marker (e.g., `OrderProfit`).     |
+| `new_positions`             | `repeated OnPositionProfitPositionInfo` | Positions that **appeared** since last frame. |
+| `updated_positions`         | `repeated OnPositionProfitPositionInfo` | Positions with **profit change**/update.      |
+| `deleted_positions`         | `repeated OnPositionProfitPositionInfo` | Positions that **disappeared** (closed).      |
+| `account_info`              | `OnEventAccountInfo`                    | Account snapshot (balance/equity/margins).    |
+| `terminal_instance_guid_id` | `string`                                | Source terminal GUID.                         |
 
 #### `OnPositionProfitPositionInfo`
 
@@ -134,13 +136,12 @@ async def on_position_profit(
 ### 🧩 Notes & Tips
 
 * For **orders/positions life‑cycle** deltas (beyond profit), see `OnTrade`.
-* For low‑level **transaction** auditing (request/result), see `OnTradeTransaction`.
+* For low-level **transaction** auditing (request/result), see `OnTradeTransaction`.
 * Use `symbol_info_*` calls to enrich rows with digits/format if you render money values.
 
 ---
 
 **See also:** [opened\_orders.md](../Orders_Positions_History/opened_orders.md), [positions\_history.md](../Orders_Positions_History/positions_history.md), [on\_trade.md](./on_trade.md)
-
 
 ## Usage Examples
 
@@ -152,7 +153,7 @@ async for ev in acct.on_position_profit(1000, True):
     print("P/L:", pnl)
 ```
 
-### 2) Only show non‑empty frames
+### 2) Only show non-empty frames
 
 ```python
 async for ev in acct.on_position_profit(500, True):
