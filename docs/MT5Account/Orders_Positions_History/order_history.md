@@ -15,7 +15,7 @@
 * **Service:** `mt5_term_api.AccountHelper`
 * **Method:** `OrderHistory(OrderHistoryRequest) → OrderHistoryReply`
 * **Low-level client:** `AccountHelperStub.OrderHistory(request, metadata, timeout)`
-* **SDK wrapper:** `MT5Account.order_history(from_dt, to_dt, sort_mode, page_number=0, items_per_page=0, deadline=None, cancellation_event=None)`
+* **SDK wrapper:** `MT5Account.order_history(from_dt, to_dt, sort_mode, page_number=1, items_per_page=100, deadline=None, cancellation_event=None)`
 
 ---
 
@@ -24,7 +24,6 @@
 ```python
 # Minimal canonical example: last 7 days, sort by CLOSE_TIME desc, first page
 from datetime import datetime, timedelta, timezone
-from google.protobuf.timestamp_pb2 import Timestamp
 from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as ah_pb2
 
 now = datetime.now(timezone.utc)
@@ -38,7 +37,7 @@ res = await acct.order_history(
     items_per_page=100,
 )
 
-print(res.arrayTotal, len(res.history_data))  # total items, items on this page
+print(res.array_total, len(res.history_data))  # total items, items on this page
 ```
 
 ---
@@ -66,23 +65,24 @@ async def order_history(
 * **Why you care.** Audit, reporting, and troubleshooting (“what actually happened between X and Y?”) with stable server‑side sorting.
 * **Mind the traps.**
 
-  * This call is **paginated** — you get `arrayTotal`, `pageNumber`, `itemsPerPage` and a **page** of `history_data`.
+  * This call is **paginated** — you get `array_total`, `page_number`, `items_per_page` and a **page** of `history_data`.
   * The server returns a **mix**: each `HistoryData` has **either** `history_order` **or** `history_deal` set (the other is empty).
+
 ---
 
 ## 🔽 Input
 
-| Parameter            | Type                                                     | Description                                                                                             |                                                    |
-| -------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| `from_dt`            | `datetime` (UTC)                                         | Start of the time window (inclusive).                                                                   |                                                    |
-| `to_dt`              | `datetime` (UTC)                                         | End of the time window (exclusive/inclusive per broker, safe to treat as inclusive for 1s granularity). |                                                    |
-| `sort_mode`          | `BMT5_ENUM_ORDER_HISTORY_SORT_TYPE` (enum, **required**) | Server‑side sort to apply (see enum below).                                                             |                                                    |
-| `page_number`        | `int`                                                    | 1‑based page number. Use `1` for the first page.                                                        |                                                    |
-| `items_per_page`     | `int`                                                    | Items per page (e.g., 50/100/500). `0` may mean “all” (broker‑dependent).                               |                                                    |
-| `deadline`           | \`datetime                                               | None\`                                                                                                  | Absolute per‑call deadline → converted to timeout. |
-| `cancellation_event` | \`asyncio.Event                                          | None\`                                                                                                  | Cooperative cancel for the retry wrapper.          |
+| Parameter            | Type                                                     | Description                                                               |                                                    |
+| -------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------- |
+| `from_dt`            | `datetime` (UTC)                                         | Start of the time window (inclusive).                                     |                                                    |
+| `to_dt`              | `datetime` (UTC)                                         | End of the time window (commonly inclusive; 1s granularity is safe).      |                                                    |
+| `sort_mode`          | `BMT5_ENUM_ORDER_HISTORY_SORT_TYPE` (enum, **required**) | Server‑side sort to apply (see enum below).                               |                                                    |
+| `page_number`        | `int`                                                    | 1‑based page number. Use `1` for the first page.                          |                                                    |
+| `items_per_page`     | `int`                                                    | Items per page (e.g., 50/100/500). `0` may mean “all” (broker‑dependent). |                                                    |
+| `deadline`           | \`datetime                                               | None\`                                                                    | Absolute per‑call deadline → converted to timeout. |
+| `cancellation_event` | \`asyncio.Event                                          | None\`                                                                    | Cooperative cancel for the retry wrapper.          |
 
-> **Request message:** `OrderHistoryRequest { inputFrom, inputTo, inputSortMode, pageNumber, itemsPerPage }`
+> **Request message:** `OrderHistoryRequest { input_from, input_to, input_sort_mode, page_number, items_per_page }`
 
 ---
 
@@ -90,12 +90,12 @@ async def order_history(
 
 ### Payload: `OrdersHistoryData`
 
-| Field          | Proto Type             | Description                             |
-| -------------- | ---------------------- | --------------------------------------- |
-| `arrayTotal`   | `int32`                | Total number of items across all pages. |
-| `pageNumber`   | `int32`                | Page number in this reply.              |
-| `itemsPerPage` | `int32`                | Items per page in this reply.           |
-| `history_data` | `repeated HistoryData` | Mixed list of **orders** and **deals**. |
+| Field            | Proto Type             | Description                             |
+| ---------------- | ---------------------- | --------------------------------------- |
+| `array_total`    | `int32`                | Total number of items across all pages. |
+| `page_number`    | `int32`                | Page number in this reply.              |
+| `items_per_page` | `int32`                | Items per page in this reply.           |
+| `history_data`   | `repeated HistoryData` | Mixed list of **orders** and **deals**. |
 
 #### Message: `HistoryData`
 
@@ -110,8 +110,8 @@ async def order_history(
 | Field             | Type                           | Notes                                       |
 | ----------------- | ------------------------------ | ------------------------------------------- |
 | `ticket`          | `uint64`                       | Order ticket ID.                            |
-| `setup_time`      | `Timestamp`                    | When the order was created.                 |
-| `done_time`       | `Timestamp`                    | When the order was filled/canceled/expired. |
+| `time_setup`      | `Timestamp`                    | When the order was created.                 |
+| `time_done`       | `Timestamp`                    | When the order was filled/canceled/expired. |
 | `state`           | `BMT5_ENUM_ORDER_STATE`        | STARTED/PLACED/CANCELED/PARTIAL/FILLED/…    |
 | `price_current`   | `double`                       | Current price at fetch.                     |
 | `price_open`      | `double`                       | Order price.                                |
@@ -179,13 +179,12 @@ async def order_history(
 
 ### 🧩 Notes & Tips
 
-* **Pagination 101:** fetch first page → read `arrayTotal` to estimate total pages → loop.
+* **Pagination 101:** fetch first page → read `array_total` to estimate total pages → loop.
 * Convert all `Timestamp` values once and reuse; don’t reparse per render.
 * No server‑side symbol filter — filter client‑side.
 * Wrapper handles transient gRPC hiccups via `execute_with_reconnect(...)`.
 
 **See also:** [PositionsHistory](../Orders_Positions_History/positions_history.md), [OpenedOrders](../Orders_Positions_History/opened_orders.md), [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md).
-
 
 ---
 
@@ -206,7 +205,7 @@ res = await acct.order_history(
     ah_pb2.BMT5_ENUM_ORDER_HISTORY_SORT_TYPE.BMT5_SORT_BY_CLOSE_TIME_DESC,
     page, page_size
 )
-print(f"page {res.pageNumber}/{(res.arrayTotal + page_size - 1)//page_size}")
+print(f"page {res.page_number}/{(res.array_total + page_size - 1)//page_size}")
 ```
 
 ### 2) Fetch all pages (be kind to the server)
@@ -271,5 +270,5 @@ res = await acct.order_history(
     deadline=datetime.now(timezone.utc) + timedelta(seconds=3),
     cancellation_event=cancel_event,
 )
-print(res.itemsPerPage)
+print(res.items_per_page)
 ```
