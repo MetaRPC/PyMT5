@@ -15,7 +15,11 @@
 * **Service:** `mt5_term_api.AccountHelper`
 * **Method:** `OpenedOrders(OpenedOrdersRequest) → OpenedOrdersReply`
 * **Low-level client:** `AccountHelperStub.OpenedOrders(request, metadata, timeout)`
-* **SDK wrapper:** `MT5Account.opened_orders(sort_mode, deadline=None, cancellation_event=None)`
+* **SDK wrapper:** `MT5Account.opened_orders(sort_mode, deadline=None, cancellation_event=None) -> OpenedOrdersData`
+
+**Request message:** `OpenedOrdersRequest { inputSortMode: BMT5_ENUM_OPENED_ORDER_SORT_TYPE }`
+
+**Reply message:** `OpenedOrdersReply { data: OpenedOrdersData }`
 
 ---
 
@@ -63,11 +67,11 @@ async def opened_orders(
 
 ## 🔽 Input
 
-| Parameter            | Type                                                    | Description                                 |                                                    |
-| -------------------- | ------------------------------------------------------- | ------------------------------------------- | -------------------------------------------------- |
-| `sort_mode`          | `BMT5_ENUM_OPENED_ORDER_SORT_TYPE` (enum, **required**) | Server‑side sort to apply (see enum below). |                                                    |
-| `deadline`           | \`datetime                                              | None\`                                      | Absolute per‑call deadline → converted to timeout. |
-| `cancellation_event` | \`asyncio.Event                                         | None\`                                      | Cooperative cancel for the retry wrapper.          |
+| Parameter            | Type                                                    | Description                                        |
+| -------------------- | ------------------------------------------------------- | -------------------------------------------------- |
+| `sort_mode`          | `BMT5_ENUM_OPENED_ORDER_SORT_TYPE` (enum, **required**) | Server‑side sort to apply (see enum below).        |
+| `deadline`           | `datetime \| None`                                      | Absolute per‑call deadline → converted to timeout. |
+| `cancellation_event` | `asyncio.Event \| None`                                 | Cooperative cancel for the retry wrapper.          |
 
 > **Request message:** `OpenedOrdersRequest { inputSortMode: BMT5_ENUM_OPENED_ORDER_SORT_TYPE }`
 
@@ -171,7 +175,6 @@ async def opened_orders(
 * The SDK wrapper retries transient gRPC errors via `execute_with_reconnect(...)`.
 
 **See also:** [OpenedOrdersTickets](../Orders_Positions_History/opened_orders_tickets.md), [OrderHistory](../Orders_Positions_History/order_history.md), [PositionsHistory](../Orders_Positions_History/positions_history.md), [PositionsTotal](../Orders_Positions_History/positions_total.md).
-
 
 ---
 
