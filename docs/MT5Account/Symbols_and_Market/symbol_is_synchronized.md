@@ -24,7 +24,7 @@
 ```python
 # Ensure the symbol is synchronized before requesting quotes / book
 info = await acct.symbol_is_synchronized("EURUSD")
-print(info.is_synchronized)  # True/False
+print(info.synchronized)  # True/False
 ```
 
 ---
@@ -48,20 +48,20 @@ async def symbol_is_synchronized(
 * **Why you care.** Prevents calling heavier RPCs (quotes, book, orders) on symbols the terminal hasn’t synced yet.
 * **Mind the traps.**
 
-  * Request field is the **symbol name** (`name`).
+  * Request field is the **symbol name** (`symbol`).
   * If the symbol isn’t selected in Market Watch, some terminals may remain **unsynchronized** until selected.
 
 ---
 
 ## 🔽 Input
 
-| Parameter            | Type                 | Description                              |                                                    |   |
-| -------------------- | -------------------- | ---------------------------------------- | -------------------------------------------------- | - |
-| `symbol`             | `str` (**required**) | Symbol name (maps to `name` in request). |                                                    |   |
-| `deadline`           | \`datetime           | None\`                                   | Absolute per‑call deadline → converted to timeout. |   |
-| `cancellation_event` | \`asyncio.Event      | None\`                                   | Cooperative cancel for the retry wrapper.          |   |
+| Parameter            | Type                 | Description                                |                                                    |
+| -------------------- | -------------------- | ------------------------------------------ | -------------------------------------------------- |
+| `symbol`             | `str` (**required**) | Symbol name (maps to `symbol` in request). |                                                    |
+| `deadline`           | \`datetime           | None\`                                     | Absolute per‑call deadline → converted to timeout. |
+| `cancellation_event` | \`asyncio.Event      | None\`                                     | Cooperative cancel for the retry wrapper.          |
 
-> **Request message:** `SymbolIsSynchronizedRequest { name: string }`
+> **Request message:** `SymbolIsSynchronizedRequest { symbol: string }`
 
 ---
 
@@ -69,9 +69,9 @@ async def symbol_is_synchronized(
 
 ### Payload: `SymbolIsSynchronizedData`
 
-| Field             | Proto Type | Description                                 |
-| ----------------- | ---------- | ------------------------------------------- |
-| `is_synchronized` | `bool`     | `True` if the terminal considers it synced. |
+| Field          | Proto Type | Description                                 |
+| -------------- | ---------- | ------------------------------------------- |
+| `synchronized` | `bool`     | `True` if the terminal considers it synced. |
 
 > **Wire reply:** `SymbolIsSynchronizedReply { data: SymbolIsSynchronizedData, error: Error? }`
 > SDK returns `reply.data`.
@@ -93,21 +93,20 @@ async def symbol_is_synchronized(
 
 **See also:** [symbol\_select.md](./symbol_select.md), [symbol\_name.md](./symbol_name.md), [symbol\_info\_tick.md](./symbol_info_tick.md)
 
-
 ## Usage Examples
 
 ### 1) Guard before subscribing to book/quotes
 
 ```python
 s = "XAUUSD"
-if (await acct.symbol_is_synchronized(s)).is_synchronized:
+if (await acct.symbol_is_synchronized(s)).synchronized:
     # safe to proceed
     ...
 else:
     # fall back: force select and retry
     await acct.symbol_select(s, True)
     again = await acct.symbol_is_synchronized(s)
-    assert again.is_synchronized
+    assert again.synchronized
 ```
 
 ### 2) Batch sync check with auto‑select
@@ -116,7 +115,7 @@ else:
 symbols = ["EURUSD", "BTCUSD", "US500.cash"]
 for s in symbols:
     info = await acct.symbol_is_synchronized(s)
-    if not info.is_synchronized and (await acct.symbol_exist(s)).exists:
+    if not info.synchronized and (await acct.symbol_exist(s)).exists:
         await acct.symbol_select(s, True)
 ```
 
@@ -129,5 +128,5 @@ info = await acct.symbol_is_synchronized(
     "EURUSD",
     deadline=datetime.now(timezone.utc) + timedelta(seconds=2),
 )
-print("synced:", info.is_synchronized)
+print("synced:", info.synchronized)
 ```
