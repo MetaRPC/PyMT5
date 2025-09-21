@@ -57,6 +57,17 @@ async def on_symbol_tick(
 
 ---
 
+## 💬 Just about the main thing
+
+* **What it is.** A **live stream** of tick updates for specified symbols.
+* **Why.** Drive real‑time widgets, alerts, and execution logic without polling.
+* **Be careful.**
+
+  * Symbols must exist and be **synchronized**; otherwise events may be sparse/empty.
+  * This is a **long‑lived** call — remember to cancel via `cancellation_event` when your UI page closes.
+  * Timestamps are UTC; `time_msc` is milliseconds since epoch if provided.
+
+
 ## 🔽 Input
 
 | Parameter            | Type                 | Description                  |                                                     |
