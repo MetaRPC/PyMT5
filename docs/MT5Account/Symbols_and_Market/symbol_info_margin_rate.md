@@ -1,11 +1,11 @@
 # ✅ Symbol Info Margin Rate
 
-> **Request:** get **margin rates** for a **symbol** given an **order type** (e.g., BUY/SELL), returning initial/maintenance/hedged rates.
+> **Request:** get **margin rates** for a **symbol** given an **order type** (BUY/SELL). Returns **initial** and **maintenance** rates.
 
 **Source files:**
 
 * `MetaRpcMT5/mt5_account.py` — method `symbol_info_margin_rate(...)`
-* `MetaRpcMT5/mt5_term_api_market_info_pb2.py` — `SymbolInfoMarginRat*` messages (`SymbolInfoMarginRatRequest`, `SymbolInfoMarginRatReply`, `SymbolInfoMarginRat`) and enum `BMT5_ENUM_ORDER_TYPE`
+* `MetaRpcMT5/mt5_term_api_market_info_pb2.py` — `SymbolInfoMarginRate*` messages (`SymbolInfoMarginRateRequest`, `SymbolInfoMarginRateReply`, `SymbolInfoMarginRateData`) and enum `ENUM_ORDER_TYPE`
 * `MetaRpcMT5/mt5_term_api_market_info_pb2_grpc.py` — service stub `MarketInfoStub`
 
 ---
@@ -13,9 +13,9 @@
 ### RPC
 
 * **Service:** `mt5_term_api.MarketInfo`
-* **Method:** `SymbolInfoMarginRate(SymbolInfoMarginRatRequest) → SymbolInfoMarginRatReply`
+* **Method:** `SymbolInfoMarginRate(SymbolInfoMarginRateRequest) → SymbolInfoMarginRateReply`
 * **Low-level client:** `MarketInfoStub.SymbolInfoMarginRate(request, metadata, timeout)`
-* **SDK wrapper:** `MT5Account.symbol_info_margin_rate(symbol, order_type, deadline=None, cancellation_event=None)`
+* **SDK wrapper:** `MT5Account.symbol_info_margin_rate(symbol, order_type, deadline=None, cancellation_event=None)` → returns `SymbolInfoMarginRateData`
 
 ---
 
@@ -27,9 +27,18 @@ from MetaRpcMT5 import mt5_term_api_market_info_pb2 as mi_pb2
 
 rates = await acct.symbol_info_margin_rate(
     "EURUSD",
-    mi_pb2.BMT5_ENUM_ORDER_TYPE.BMT5_ORDER_TYPE_BUY,
+    mi_pb2.ENUM_ORDER_TYPE.ORDER_TYPE_BUY,
 )
-print(rates.MarginInitial, rates.MarginMaintenance, rates.MarginHedged)
+print(rates.initial_margin_rate, rates.maintenance_margin_rate)
+```
+
+```python
+# Compare BUY vs SELL
+from MetaRpcMT5 import mt5_term_api_market_info_pb2 as mi_pb2
+
+buy = await acct.symbol_info_margin_rate("XAUUSD", mi_pb2.ENUM_ORDER_TYPE.ORDER_TYPE_BUY)
+sell = await acct.symbol_info_margin_rate("XAUUSD", mi_pb2.ENUM_ORDER_TYPE.ORDER_TYPE_SELL)
+print("BUY initial:", buy.initial_margin_rate, "SELL initial:", sell.initial_margin_rate)
 ```
 
 ---
@@ -40,91 +49,97 @@ print(rates.MarginInitial, rates.MarginMaintenance, rates.MarginHedged)
 async def symbol_info_margin_rate(
     self,
     symbol: str,
-    order_type: market_info_pb2.BMT5_ENUM_ORDER_TYPE,
+    order_type: market_info_pb2.ENUM_ORDER_TYPE,
     deadline: datetime | None = None,
     cancellation_event: asyncio.Event | None = None,
-) -> market_info_pb2.SymbolInfoMarginRat
+) -> market_info_pb2.SymbolInfoMarginRateData
 ```
 
 ---
 
 ## 💬 Plain English
 
-* **What it is.** Server-calculated **margin rates** for a symbol and a specific **order type**.
-* **Why you care.** Use these rates to estimate **required margin** before submitting orders or sizing positions.
+* **What it is.** Server-calculated **margin rates** (initial & maintenance) for a symbol under a specific **order type**.
+* **Why you care.** Use these to estimate **required margin** before placing orders or sizing positions.
 * **Mind the traps.**
 
-  * Margin rates are **broker- and symbol-specific** and can differ by **order type** (BUY vs SELL) and hedging settings.
-  * For some symbols, **hedged margin** can be lower than initial.
+  * Rates are **broker/symbol specific** and can vary by **order type** (BUY vs SELL) and account settings.
+  * Returned values are **rates**, not absolute money — multiply by contract/price to project margin.
 
 ---
 
 ## 🔽 Input
 
-| Parameter            | Type                                  | Description                                           |                                                    |   |
-| -------------------- | ------------------------------------- | ----------------------------------------------------- | -------------------------------------------------- | - |
-| `symbol`             | `str` (**required**)                  | Symbol name.                                          |                                                    |   |
-| `order_type`         | `BMT5_ENUM_ORDER_TYPE` (**required**) | Order type context for which to compute margin rates. |                                                    |   |
-| `deadline`           | \`datetime                            | None\`                                                | Absolute per‑call deadline → converted to timeout. |   |
-| `cancellation_event` | \`asyncio.Event                       | None\`                                                | Cooperative cancel for the retry wrapper.          |   |
+| Parameter            | Type                             | Description                                       |                                                    |
+| -------------------- | -------------------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| `symbol`             | `str` (**required**)             | Symbol name.                                      |                                                    |
+| `order_type`         | `ENUM_ORDER_TYPE` (**required**) | BUY/SELL/etc. context for which to compute rates. |                                                    |
+| `deadline`           | \`datetime                       | None\`                                            | Absolute per‑call deadline → converted to timeout. |
+| `cancellation_event` | \`asyncio.Event                  | None\`                                            | Cooperative cancel for the retry wrapper.          |
 
-> **Request message:** `SymbolInfoMarginRatRequest { symbol: string, order_type: BMT5_ENUM_ORDER_TYPE }`
+> **Request message:** `SymbolInfoMarginRateRequest { symbol: string, order_type: ENUM_ORDER_TYPE }`
 
 ---
 
 ## ⬆️ Output
 
-### Payload: `SymbolInfoMarginRat`
+### Payload: `SymbolInfoMarginRateData`
 
-| Field               | Proto Type | Description                                       |
-| ------------------- | ---------- | ------------------------------------------------- |
-| `MarginInitial`     | `double`   | Initial margin rate for the given order type.     |
-| `MarginMaintenance` | `double`   | Maintenance margin rate.                          |
-| `MarginHedged`      | `double`   | Margin rate for hedged positions (if applicable). |
+| Field                     | Proto Type | Description                  |
+| ------------------------- | ---------- | ---------------------------- |
+| `maintenance_margin_rate` | `double`   | Maintenance margin **rate**. |
+| `initial_margin_rate`     | `double`   | Initial margin **rate**.     |
 
-> **Wire reply:** `SymbolInfoMarginRatReply { data: SymbolInfoMarginRat, error: Error? }`
+> **Wire reply:** `SymbolInfoMarginRateReply { data: SymbolInfoMarginRateData, error: Error? }`
 > SDK returns `reply.data`.
+
+
+---
+
+## Enum: `ENUM_ORDER_TYPE`
+
+| Number | Value                        |
+| -----: | ---------------------------- |
+|      0 | `ORDER_TYPE_BUY`             |
+|      1 | `ORDER_TYPE_SELL`            |
+|      2 | `ORDER_TYPE_BUY_LIMIT`       |
+|      3 | `ORDER_TYPE_SELL_LIMIT`      |
+|      4 | `ORDER_TYPE_BUY_STOP`        |
+|      5 | `ORDER_TYPE_SELL_STOP`       |
+|      6 | `ORDER_TYPE_BUY_STOP_LIMIT`  |
+|      7 | `ORDER_TYPE_SELL_STOP_LIMIT` |
+|      8 | `ORDER_TYPE_CLOSE_BY`        |
 
 ---
 
 ### 🎯 Purpose
 
-* Pre-check margin requirements before placing or modifying orders.
-* Display margin components in UI (initial/maintenance/hedged).
+* Pre‑check margin requirements before placing or modifying orders.
+* Display margin components in UI (initial & maintenance).
 * Audit broker settings across instruments.
 
 ### 🧩 Notes & Tips
 
 * Pair with `symbol_info_double(SYMBOL_TRADE_CONTRACT_SIZE)` and current price to project **absolute margin** per lot.
+* For precise feasibility (free margin after/retcode), use `OrderCheck`.
+
 ---
 
-**See also:** [order\_calc\_margin.md](../Trading_Operations/order_calc_margin.md), [order\_check.md](../Trading_Operations/order_check.md), [tick\_value\_with\_size.md](./tick_value_with_size.md)
+**See also:** [order\_calc\_margin.md](../Trading_Operations/order_calc_margin.md), [order\_check.md](../Trading_Operations/order_check.md), [symbol\_info\_double.md](./symbol_info_double.md)
 
 ## Usage Examples
 
-### 1) Show rates for BUY vs SELL
+### 1) Rough initial margin per 1 lot (illustrative)
 
 ```python
 from MetaRpcMT5 import mt5_term_api_market_info_pb2 as mi_pb2
 
-buy = await acct.symbol_info_margin_rate("XAUUSD", mi_pb2.BMT5_ENUM_ORDER_TYPE.BMT5_ORDER_TYPE_BUY)
-sell = await acct.symbol_info_margin_rate("XAUUSD", mi_pb2.BMT5_ENUM_ORDER_TYPE.BMT5_ORDER_TYPE_SELL)
-print("BUY:", buy.MarginInitial, "SELL:", sell.MarginInitial)
-```
-
-### 2) Compute rough initial margin per 1 lot (illustrative)
-
-```python
-from MetaRpcMT5 import mt5_term_api_market_info_pb2 as mi_pb2
-
-rates = await acct.symbol_info_margin_rate("EURUSD", mi_pb2.BMT5_ENUM_ORDER_TYPE.BMT5_ORDER_TYPE_BUY)
+rates = await acct.symbol_info_margin_rate("EURUSD", mi_pb2.ENUM_ORDER_TYPE.ORDER_TYPE_BUY)
 contract = await acct.symbol_info_double("EURUSD", mi_pb2.SymbolInfoDoubleProperty.SYMBOL_TRADE_CONTRACT_SIZE)
-point = await acct.symbol_info_double("EURUSD", mi_pb2.SymbolInfoDoubleProperty.SYMBOL_POINT)
-# Example: use returned rate with contract size and price model in your app logic
-print("rate:", rates.MarginInitial, "contract:", contract.value)
+print("rate:", rates.initial_margin_rate, "contract:", contract.value)
 ```
 
-### 3) With deadline & cancel
+### 2) With deadline & cancel
 
 ```python
 import asyncio
@@ -134,9 +149,9 @@ from MetaRpcMT5 import mt5_term_api_market_info_pb2 as mi_pb2
 cancel_event = asyncio.Event()
 res = await acct.symbol_info_margin_rate(
     "BTCUSD",
-    mi_pb2.BMT5_ENUM_ORDER_TYPE.BMT5_ORDER_TYPE_BUY,
+    mi_pb2.ENUM_ORDER_TYPE.ORDER_TYPE_BUY,
     deadline=datetime.now(timezone.utc) + timedelta(seconds=2),
     cancellation_event=cancel_event,
 )
-print(res.MarginInitial, res.MarginMaintenance)
+print(res.initial_margin_rate, res.maintenance_margin_rate)
 ```
