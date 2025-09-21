@@ -57,12 +57,12 @@ async def symbol_info_string(
 
 ## 🔽 Input
 
-| Parameter            | Type                                      | Description                                        |   |
-| -------------------- | ----------------------------------------- | -------------------------------------------------- | - |
-| `symbol`             | `str` (**required**)                      | Symbol name (maps to `symbol` in request).         |   |
-| `property`           | `SymbolInfoStringProperty` (**required**) | Which string property to retrieve (see enum).      |   |
-| `deadline`           | `datetime \| None`                        | Absolute per‑call deadline → converted to timeout. |   |
-| `cancellation_event` | `asyncio.Event \| None`                   | Cooperative cancel for the retry wrapper.          |   |
+| Parameter            | Type                                      | Description                                   |                                                    |
+| -------------------- | ----------------------------------------- | --------------------------------------------- | -------------------------------------------------- |
+| `symbol`             | `str` (**required**)                      | Symbol name (maps to `symbol` in request).    |                                                    |
+| `property`           | `SymbolInfoStringProperty` (**required**) | Which string property to retrieve (see enum). |                                                    |
+| `deadline`           | \`datetime                                | None\`                                        | Absolute per‑call deadline → converted to timeout. |
+| `cancellation_event` | \`asyncio.Event                           | None\`                                        | Cooperative cancel for the retry wrapper.          |
 
 > **Request message:** `SymbolInfoStringRequest { symbol: string, type: SymbolInfoStringProperty }`
 
@@ -79,6 +79,24 @@ async def symbol_info_string(
 > **Wire reply:** `SymbolInfoStringReply { data: SymbolInfoStringData, error: Error? }`
 > SDK returns `reply.data`.
 
+## Enum: `SymbolInfoStringProperty`
+
+> *Full list from pb:*
+
+* `SYMBOL_BASIS`
+* `SYMBOL_CATEGORY`
+* `SYMBOL_COUNTRY`
+* `SYMBOL_SECTOR_NAME`
+* `SYMBOL_INDUSTRY_NAME`
+* `SYMBOL_CURRENCY_BASE`
+* `SYMBOL_CURRENCY_PROFIT`
+* `SYMBOL_CURRENCY_MARGIN`
+* `SYMBOL_BANK`
+* `SYMBOL_DESCRIPTION`
+* `SYMBOL_EXCHANGE`
+* `SYMBOL_FORMULA`
+* `SYMBOL_ISIN`
+* `SYMBOL_PAGE`
 ---
 
 ### 🎯 Purpose
@@ -131,16 +149,5 @@ print(isin.value, page.value)
 
 ---
 
-## Enum: `SymbolInfoStringProperty`
 
-* `SYMBOL_BASIS`
-* `SYMBOL_CURRENCY_BASE`
-* `SYMBOL_CURRENCY_PROFIT`
-* `SYMBOL_CURRENCY_MARGIN`
-* `SYMBOL_BANK_HOLIDAYS`
-* `SYMBOL_DESCRIPTION`
-* `SYMBOL_FORMULA`
-* `SYMBOL_ISIN`
-* `SYMBOL_NAME`
-* `SYMBOL_PAGE`
 * `SYMBOL_PATH`
