@@ -25,7 +25,7 @@
 # Ensure a symbol appears in Market Watch
 # (English-only comments per project style)
 res = await acct.symbol_select("EURUSD", True)
-print(res.selected)  # True if listed in Market Watch after the call
+print(res.success)  # True if operation succeeded
 ```
 
 ---
@@ -51,18 +51,18 @@ async def symbol_select(
 * **Mind the traps.**
 
   * `select=True` → add to Market Watch; `False` → remove.
-  * If the symbol does not exist, the server may keep it **unselected**. Guard with `symbol_exist(...)` when in doubt.
+  * If the symbol does not exist, the server may not select it. Guard with `symbol_exist(...)` when in doubt.
 
 ---
 
 ## 🔽 Input
 
-| Parameter            | Type                  | Description                                                       |                                                    |   |
-| -------------------- | --------------------- | ----------------------------------------------------------------- | -------------------------------------------------- | - |
-| `symbol`             | `str` (**required**)  | Symbol to toggle (maps to `name` in request).                     |                                                    |   |
-| `select`             | `bool` (**required**) | `True` → add to Market Watch; `False` → remove from Market Watch. |                                                    |   |
-| `deadline`           | \`datetime            | None\`                                                            | Absolute per-call deadline → converted to timeout. |   |
-| `cancellation_event` | \`asyncio.Event       | None\`                                                            | Cooperative cancel for the retry wrapper.          |   |
+| Parameter            | Type                  | Description                                                       |                                                    |
+| -------------------- | --------------------- | ----------------------------------------------------------------- | -------------------------------------------------- |
+| `symbol`             | `str` (**required**)  | Symbol to toggle (maps to `symbol` in request).                   |                                                    |
+| `select`             | `bool` (**required**) | `True` → add to Market Watch; `False` → remove from Market Watch. |                                                    |
+| `deadline`           | \`datetime            | None\`                                                            | Absolute per-call deadline → converted to timeout. |
+| `cancellation_event` | \`asyncio.Event       | None\`                                                            | Cooperative cancel for the retry wrapper.          |
 
 ---
 
@@ -70,9 +70,12 @@ async def symbol_select(
 
 ### Payload: `SymbolSelectData`
 
-| Field      | Proto Type | Description                                                   |
-| ---------- | ---------- | ------------------------------------------------------------- |
-| `selected` | `bool`     | Final state: `True` if the symbol is in Market Watch after op |
+| Field     | Proto Type | Description                        |
+| --------- | ---------- | ---------------------------------- |
+| `success` | `bool`     | `True` if the operation succeeded. |
+
+> **Wire reply:** `SymbolSelectReply { data: SymbolSelectData, error: Error? }`
+> SDK returns `reply.data`.
 
 ---
 
@@ -85,7 +88,7 @@ async def symbol_select(
 ### 🧩 Notes & Tips
 
 * For batch flows, **check existence first** (`symbol_exist`) to avoid noisy ops.
-* Idempotent usage: calling `select=True` when already selected keeps `selected=True`.
+* Idempotent usage: calling `select=True` when already selected will still return `success=True`.
 
 ---
 
@@ -98,14 +101,14 @@ async def symbol_select(
 ```python
 if (await acct.symbol_exist("BTCUSD")).exists:
     state = await acct.symbol_select("BTCUSD", True)
-    assert state.selected
+    assert state.success
 ```
 
 ### 2) Remove from Market Watch
 
 ```python
 state = await acct.symbol_select("USDRUB", False)
-print("Now selected?", state.selected)  # should be False
+print("Operation ok?", state.success)
 ```
 
 ### 3) Batch ensure a list is present
@@ -114,5 +117,7 @@ print("Now selected?", state.selected)  # should be False
 wanted = ["EURUSD", "GBPUSD", "XAUUSD"]
 for s in wanted:
     if (await acct.symbol_exist(s)).exists:
-        await acct.symbol_select(s, True)
+        ok = (await acct.symbol_select(s, True)).success
+        if not ok:
+            print("Failed to select:", s)
 ```
