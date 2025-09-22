@@ -55,18 +55,18 @@ async def tick_value_with_size(
 * **Why you care.** Avoids N separate calls when populating pricing/risk tables or validating strategy params.
 * **Mind the traps.**
 
-  * The request expects **symbol names**; unknown symbols will simply return **no entry** for that name.
-  * The wrapper returns `reply.data` → you get a `TickValueWithSizeData` with a list of rows.
+  * The request expects **symbol names**; unknown symbols will simply return **no entry** in the output list.
+  * The wrapper returns **`reply.data`** → you get a `TickValueWithSizeData` with a list of rows.
 
 ---
 
 ## 🔽 Input
 
-| Parameter            | Type                       | Description                                     |                                                    |   |
-| -------------------- | -------------------------- | ----------------------------------------------- | -------------------------------------------------- | - |
-| `symbols`            | `list[str]` (**required**) | List of symbol names. Maps to `symbol_names[]`. |                                                    |   |
-| `deadline`           | \`datetime                 | None\`                                          | Absolute per‑call deadline → converted to timeout. |   |
-| `cancellation_event` | \`asyncio.Event            | None\`                                          | Cooperative cancel for the retry wrapper.          |   |
+| Parameter            | Type                       | Description                                              |                                                    |   |
+| -------------------- | -------------------------- | -------------------------------------------------------- | -------------------------------------------------- | - |
+| `symbols`            | `list[str]` (**required**) | List of symbol names (maps to request.`symbol_names[]`). |                                                    |   |
+| `deadline`           | \`datetime                 | None\`                                                   | Absolute per‑call deadline → converted to timeout. |   |
+| `cancellation_event` | \`asyncio.Event            | None\`                                                   | Cooperative cancel for the retry wrapper.          |   |
 
 > **Request message:** `TickValueWithSizeRequest { symbol_names: repeated string }`
 
@@ -86,6 +86,7 @@ async def tick_value_with_size(
 
 | Field                  | Proto Type | Meaning                                        |
 | ---------------------- | ---------- | ---------------------------------------------- |
+| `Index`                | `int32`    | Row index (server-provided ordering).          |
 | `Name`                 | `string`   | Symbol name.                                   |
 | `TradeTickValue`       | `double`   | Tick value (account currency).                 |
 | `TradeTickValueProfit` | `double`   | Tick value used for profit calc (if distinct). |
