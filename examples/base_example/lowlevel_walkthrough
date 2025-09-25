@@ -1,0 +1,2626 @@
+import grpc
+import os
+import sys
+import asyncio
+from datetime import datetime, timedelta, timezone
+import asyncio, time
+
+# Ensure local package imports when running as a module from project root
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+for p in (ROOT, os.path.join(ROOT, "package")):
+    if p not in sys.path:
+        sys.path.append(p)
+
+from examples.common.pb2_shim import apply_patch
+apply_patch()
+
+from MetaRpcMT5.mt5_account import MT5Account, ConnectExceptionMT5, ApiExceptionMT5
+from MetaRpcMT5 import mt5_term_api_account_information_pb2 as acc_info_pb2
+from MetaRpcMT5 import mt5_term_api_market_info_pb2 as sym_info_pb2
+from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as acc_helper_pb2
+from google.protobuf.timestamp_pb2 import Timestamp
+from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI
+from MetaRpcMT5 import mt5_term_api_trading_helper_pb2 as trade_pb2
+from MetaRpcMT5 import mt5_term_api_trade_functions_pb2 as TF
+from google.protobuf.json_format import MessageToDict
+
+
+
+# ---- Config from environment ---------------------------------------------------
+LOGIN  = int(os.getenv("MT5_LOGIN", "0"))
+PASS   = os.getenv("MT5_PASSWORD", "")
+SERVER = os.getenv("MT5_SERVER", "")        # cluster/server name for ConnectEx
+GRPC   = os.getenv("GRPC_SERVER", "mt5.mrpc.pro:443")
+SYMBOL = os.getenv("MT5_SYMBOL", "EURUSD")
+TO_S   = int(os.getenv("TIMEOUT_SECONDS", "90"))
+
+# --------------------------------------------------------------------------------
+RUN_DOM      = os.getenv("RUN_DOM", "0") == "1"       # 0 — do not run, 1 — run DOM
+RUN_DOM_SCAN = os.getenv("RUN_DOM_SCAN", "0") == "1"  # 0 — do not scan, 1 - scan symbols with DOM
+
+# ---- Trading config flags -----------------------------------------------------
+RUN_TRADING      = os.getenv("RUN_TRADING", "0") == "1"  # main switch: 0=off, 1=on (only safe steps)
+TRADE_SIDE       = os.getenv("TRADE_SIDE", "BUY").upper()  # BUY / SELL
+TRADE_VOLUME     = float(os.getenv("TRADE_VOLUME", "0.01"))
+
+# --------------------------------------------------------------------------------
+"""
+Resilient wrapper for async gRPC calls: runs coro_factory(timeout) and awaits the result.
+Retries on transient errors (DEADLINE_EXCEEDED, UNAVAILABLE) up to retries, sleeping sleep_s between attempts.
+Logs warnings for retriable failures; logs and exits on other gRPC errors.
+Returns the call result on success; returns None if all retries are exhausted.
+"""
+async def _safe_call(label, coro_factory, *, timeout=None, retries=0, sleep_s=0.5):
+    for attempt in range(retries + 1):
+        try:
+            return await coro_factory(timeout)
+        except grpc.aio.AioRpcError as e:
+            code = e.code()
+            if code in (grpc.StatusCode.DEADLINE_EXCEEDED, grpc.StatusCode.UNAVAILABLE):
+                if attempt < retries:
+                    print(f"[warn] {label}: {code.name}. retry {attempt+1}/{retries} …")
+                    await asyncio.sleep(sleep_s)
+                    continue
+                print(f"[warn] {label}: {code.name}. skip.")
+                return None
+            # other errors
+            print(f"[Error] {label}: {e!r}")
+            return None
+
+
+"""
+Utility to resolve a protobuf enum constant by trying multiple candidate names.
+Checks enum attributes first (e.g., EnumType.NAME), then falls back to enum_cls.Value("NAME").
+Returns the first match—handy for schema/version aliasing.
+Raises AttributeError if none of the provided names exist.
+"""
+def _enum(enum_cls, *names: str):
+    # Try attributes then .Value(); raise if nothing matched
+    for n in names:
+        if hasattr(enum_cls, n):
+            return getattr(enum_cls, n)
+    for n in names:
+        try:
+            return enum_cls.Value(n)
+        except Exception:
+            pass
+    raise AttributeError(f"None of {names} found in {enum_cls.__name__}")
+
+
+"""
+Returns the first existing attribute of o from names; if none exist, returns o unchanged.
+Handy for schema/version aliases so callers can use a single accessor without branching.
+"""
+def _coalesce_attr(o, *names):
+    for n in names:
+        if hasattr(o, n):
+            return getattr(o, n)
+    return o
+
+
+"""
+Coerces various numeric-like objects to float: accepts plain int/float, or pulls .requested_value/.value directly or under .data.
+Raises TypeError if no numeric field is found—useful for gRPC/protobuf wrappers with nested numeric payloads.
+"""
+def _as_float(x) -> float:
+    if isinstance(x, (int, float)):
+        return float(x)
+    x1 = _coalesce_attr(x, "requested_value", "value")
+    if isinstance(x1, (int, float)):
+        return float(x1)
+    if hasattr(x, "data"):
+        x2 = _coalesce_attr(x.data, "requested_value", "value")
+        if isinstance(x2, (int, float)):
+            return float(x2)
+    raise TypeError(f"Cannot coerce to float: {type(x)}")
+
+
+"""
+Coerces to int from plain int/float, or from .requested_value / .value (directly or under .data).
+Raises TypeError if no numeric field is found—handy for protobuf/gRPC wrappers.
+"""
+def _as_int(x) -> int:
+    if isinstance(x, int):
+        return x
+    x1 = _coalesce_attr(x, "requested_value", "value")
+    if isinstance(x1, (int, float)):
+        return int(x1)
+    if hasattr(x, "data"):
+        x2 = _coalesce_attr(x.data, "requested_value", "value")
+        if isinstance(x2, (int, float)):
+            return int(x2)
+    raise TypeError(f"Cannot coerce to int: {type(x)}")
+
+
+"""
+Converts an object to str: returns it if already a string; 
+otherwise tries .requested_value / .value / .text (directly or under .data), and falls back to str(x) for anything else.
+"""
+def _as_str(x) -> str:
+    if isinstance(x, str):
+        return x
+    x1 = _coalesce_attr(x, "requested_value", "value", "text")
+    if isinstance(x1, str):
+        return x1
+    if hasattr(x, "data"):
+        x2 = _coalesce_attr(x.data, "requested_value", "value", "text")
+        if isinstance(x2, str):
+            return x2
+    return str(x)
+
+
+"""
+Normalizes a datetime to UTC: if naive, assumes it’s already UTC and sets tzinfo=UTC; if aware, converts to UTC with astimezone(UTC).
+Note: naive datetimes are treated as UTC without offset adjustment.
+"""
+def _utc(dt):
+    
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+"""
+Locates a google.protobuf.Timestamp field on msg by trying each candidate name and sets it from dt (normalized to UTC).
+Uses in-place FromDatetime if the submessage exists; otherwise creates a new Timestamp and assigns it.
+Returns True on success, False if none of the candidate fields are present.
+"""
+def _set_ts_any(msg, name_candidates, dt) -> bool:
+    """Find a Timestamp field by any name and fill it via FromDatetime()."""
+    for name in name_candidates:
+        if hasattr(msg, name):
+            try:
+                getattr(msg, name).FromDatetime(_utc(dt))
+            except Exception:
+                ts = Timestamp(); ts.FromDatetime(_utc(dt))
+                setattr(msg, name, ts)
+            return True
+    return False
+
+
+"""
+Sets value to the first matching attribute on msg from name_candidates.
+Useful for schema/version drift (renamed fields). Returns True if set, else False.
+"""
+def _set_any(msg, name_candidates, value) -> bool:
+    for name in name_candidates:
+        if hasattr(msg, name):
+            setattr(msg, name, value)
+            return True
+    return False
+
+
+# --- pb2 reflection helpers (for direct RPC fallback) -----------------------------
+"""
+Safe check for protobuf schema: returns True if msg has a field named field (via msg.DESCRIPTOR.fields_by_name).
+Catches exceptions and returns False for non-proto objects or when no descriptor is present.
+"""
+def _pb_has_field(msg, field):
+    try:
+        return field in msg.DESCRIPTOR.fields_by_name
+    except Exception:
+        return False
+
+
+def _build_order_send_request(TF, mql):
+    """
+    Try to construct whatever *OrderSend* request the pb2 defines.
+    We look for a class whose name contains 'OrderSend' and has one of:
+      mql_trade_request | trade_request | request
+    """
+    import inspect
+    candidates = []
+    for name, obj in TF.__dict__.items():
+        if not inspect.isclass(obj):
+            continue
+        if "ordersend" in name.lower() and hasattr(obj, "DESCRIPTOR"):
+            candidates.append(obj)
+
+    # Prefer exact "*OrderSendRequest"
+    exact = [c for c in candidates if name_endswith(c, "OrderSendRequest")]
+    generic = [c for c in candidates if c not in exact]
+    for cls in exact + generic:
+        try:
+            req = cls()
+            # set the correct field
+            for fld in ("mql_trade_request", "trade_request", "request"):
+                if _pb_has_field(req, fld):
+                    setattr(req, fld, mql)
+                    return req
+        except Exception:
+            continue
+    return None
+
+
+"""
+Returns True if the class’ name (cls.__name__) ends with the given suffix.
+Wraps the check in a try/except so non-class inputs or missing __name__ safely return False.
+Handy for filtering protobuf request types like *OrderSendRequest.
+"""
+def name_endswith(cls, suffix):
+    try:
+        return cls.__name__.endswith(suffix)
+    except Exception:
+        return False
+    
+
+"""
+Resolves an enum constant by trying multiple candidate names in a module.
+First checks module-level attributes, then scans nested enum classes and calls .Value("NAME") when available.
+Returns the first match; falls back to default if nothing matches (schema-tolerant).
+"""
+def _enum_try(module, candidates, default=0):
+    for name in candidates:
+        v = getattr(module, name, None)
+        if v is not None:
+            return v
+    # nested enums with .Value("NAME")
+    for attr in dir(module):
+        cls = getattr(module, attr, None)
+        val = getattr(cls, "Value", None)
+        if callable(val):
+            for name in candidates:
+                try:
+                    return val(name)
+                except Exception:
+                    pass
+    return default
+
+
+"""
+Formats a session time value into HH:MM.
+Accepts seconds-of-day (≤172800), Unix epoch seconds, or ISO strings (with optional Z), converting to UTC.
+Returns "—" for None, otherwise falls back to str(val) if parsing fails.
+"""
+def _fmt_session_time(val):
+    if val is None:
+        return "—"
+    if isinstance(val, (int, float)):
+        v = int(val)
+        if v <= 172800:  # treat as seconds-of-day
+            h, m = divmod(v // 60, 60)
+            return f"{h:02d}:{m:02d}"
+        try:
+            return datetime.fromtimestamp(v, timezone.utc).strftime("%H:%M")
+        except Exception:
+            return str(val)
+    if isinstance(val, str):
+        try:
+            t = datetime.fromisoformat(val.replace("Z", "+00:00"))
+            return t.strftime("%H:%M")
+        except Exception:
+            return val
+    return str(val)
+
+
+# ---- Helpers for symbol properties -------------------------------------------
+"""
+Thin wrappers to fetch symbol properties via low-level RPCs: double/int/string respectively.
+Resolve the protobuf property enum from the given candidate names (_enum(...)) to stay schema-agnostic.
+Call acc.symbol_info_* and coerce the reply to native Python types via _as_float/_as_int/_as_str.
+Useful for concise reads like: _sym_double(acc, "EURUSD", "SYMBOL_BID").
+"""
+async def _sym_double(acc: MT5Account, symbol: str, *names: str) -> float:
+    prop = _enum(sym_info_pb2.SymbolInfoDoubleProperty, *names)
+    res = await acc.symbol_info_double(symbol, prop)
+    return _as_float(res)
+
+async def _sym_integer(acc: MT5Account, symbol: str, *names: str) -> int:
+    prop = _enum(sym_info_pb2.SymbolInfoIntegerProperty, *names)
+    res = await acc.symbol_info_integer(symbol, prop)
+    return _as_int(res)
+
+async def _sym_string(acc: MT5Account, symbol: str, *names: str) -> str:
+    prop = _enum(sym_info_pb2.SymbolInfoStringProperty, *names)
+    res = await acc.symbol_info_string(symbol, prop)
+    return _as_str(res)
+
+
+# --- Parameters from the environment for steps 11–12
+RUN_TRADING     = os.getenv("RUN_TRADING", "0") == "1"
+TRADE_SIDE      = os.getenv("TRADE_SIDE", "BUY").upper()
+TRADE_VOLUME    = float(os.getenv("TRADE_VOLUME", "0.01"))
+TRADE_DEVIATION = int(os.getenv("TRADE_DEVIATION", "20"))
+TRADE_FILLING   = os.getenv("TRADE_FILLING", "FOK").upper()   # FOK/IOC/RETURN
+TRADE_TIME_TYPE = os.getenv("TRADE_TIME", "GTC").upper()      # GTC/DAY/SPECIFIED
+TRADE_SL        = os.getenv("TRADE_SL", "")
+TRADE_TP        = os.getenv("TRADE_TP", "")
+
+# --- Reliable TF-ennems
+ORDER_BUY_TF   = TF.ENUM_ORDER_TYPE_TF.ORDER_TYPE_TF_BUY
+ORDER_SELL_TF  = TF.ENUM_ORDER_TYPE_TF.ORDER_TYPE_TF_SELL
+FILLING_FOK_TF = TF.MRPC_ENUM_ORDER_TYPE_FILLING.ORDER_FILLING_FOK
+FILLING_IOC_TF = TF.MRPC_ENUM_ORDER_TYPE_FILLING.ORDER_FILLING_IOC
+FILLING_RET_TF = TF.MRPC_ENUM_ORDER_TYPE_FILLING.ORDER_FILLING_RETURN
+TIME_GTC_TF    = TF.MRPC_ENUM_ORDER_TYPE_TIME.ORDER_TIME_GTC
+TIME_DAY_TF    = TF.MRPC_ENUM_ORDER_TYPE_TIME.ORDER_TIME_DAY
+TIME_SPEC_TF   = TF.MRPC_ENUM_ORDER_TYPE_TIME.ORDER_TIME_SPECIFIED
+
+
+"""
+Normalizes heterogeneous trade results into a single dict.
+Looks under .data (if present), then coalesces alternate field names to unified keys: retcode, retstr, desc, order, deal, comment.
+Missing fields become None, so callers can rely on stable keys across pb versions.
+"""
+def _unify_trade_result(obj):
+    d = getattr(obj, "data", obj)
+    return {
+        "retcode": getattr(d, "retcode", None) or getattr(d, "ret_code", None) or getattr(d, "returned_code", None),
+        "retstr": getattr(d, "returned_string_code", None),
+        "desc": getattr(d, "returned_code_description", None),
+        "order": getattr(d, "order", None) or getattr(d, "order_ticket", None),
+        "deal": getattr(d, "deal", None) or getattr(d, "deal_ticket", None),
+        "comment": getattr(d, "comment", None) or getattr(d, "message", None),
+    }
+
+
+"""
+Maps a side string to the TradeFunctions order type constant: returns ORDER_BUY_TF for 'BUY' 
+(default if empty) else ORDER_SELL_TF.Case-insensitive; handy to normalize user input to the TF enum.
+"""
+def _order_type_tf_from_side(side: str):
+    return ORDER_BUY_TF if (side or "BUY").upper() == "BUY" else ORDER_SELL_TF
+
+
+"""
+Parses an env-style filling mode string and maps it to TF constants: 
+"IOC"→FILLING_IOC_TF, "RETURN"→FILLING_RET_TF, otherwise defaults to FILLING_FOK_TF
+"""
+def _filling_tf_from_env(name: str):
+    name = (name or "FOK").upper()
+    return {"IOC": FILLING_IOC_TF, "RETURN": FILLING_RET_TF}.get(name, FILLING_FOK_TF)
+
+
+"""
+Maps a time-in-force string to TF constants (case-insensitive): 
+"SPECIFIED"/"GTD"/"GOOD_TILL_DATE"→TIME_SPEC_TF, "DAY"→TIME_DAY_TF, otherwise defaults to TIME_GTC_TF (GTC).
+"""
+def _time_tf_from_env(name: str):
+    name = (name or "GTC").upper()
+    if name in ("SPECIFIED", "GTD", "GOOD_TILL_DATE"): 
+        return TIME_SPEC_TF
+    return TIME_DAY_TF if name == "DAY" else TIME_GTC_TF
+
+
+"""
+Lenient numeric extractor: returns float(x) or, if x is a wrapper, float(x.value) / float(x.requested_value).
+On any error, returns default (0.0 by default).
+"""
+def _num(x, default=0.0):
+    try:
+        return float(getattr(x, "value", getattr(x, "requested_value", x)))
+    except Exception:
+        return default
+
+
+"""
+Parses a number or returns None: converts s to float unless it’s empty/whitespace; any parse error also yields None.
+"""
+def _num_or_none(s):
+    try:
+        return float(s) if str(s).strip() != "" else None
+    except Exception:
+        return None
+
+
+"""
+Extracts the MQL trade-check result from res (handles .data and alias fields) to get retcode and comment.
+Prints a concise summary; if neither is present, logs a truncated raw payload for debugging.
+"""
+def _print_check_result(label: str, res):
+    data = getattr(res, "data", res)
+    chk  = getattr(data, "mql_trade_check_result", data)
+    ret  = (getattr(chk, "retcode", None)
+            or getattr(chk, "ret_code", None)
+            or getattr(chk, "result_code", None))
+    com  = getattr(chk, "comment", None) or getattr(chk, "message", None)
+
+    if ret is None and com is None:
+       
+        print(f"[{label}] check: (no retcode/comment) raw={str(res).strip()[:220]}")
+    else:
+        print(f"{label}: retcode={ret} comment='{com}'")
+    
+
+"""
+Pulls a normalized (code, message) from a possibly wrapped gRPC/protobuf error.
+Looks under .data.error first, then .error, accepting alias fields (error_code/code, error_message/message).
+Returns empty strings if no error is present.
+"""
+def _extract_wrapped_error(obj):
+    data = getattr(obj, "data", None) or obj
+    err  = getattr(data, "error", None) or getattr(obj, "error", None)
+    if err:
+        code = getattr(err, "error_code", "") or getattr(err, "code", "")
+        msg  = getattr(err, "error_message", "") or getattr(err, "message", "")
+        return code, msg
+    return "", ""
+
+
+"""
+Best-effort setter: tries setattr(msg, field, value) and returns True if it succeeds.
+Swallows exceptions (e.g., missing/readonly proto fields) and returns False—handy for schema drift.
+"""
+def _set_if_supported(msg, field, value) -> bool:
+    try:
+        setattr(msg, field, value)
+        return True
+    except Exception:
+        return False
+    
+
+"""
+Sets an MQL trade request to “deal/market execution” across varying TF/protobuf schemas.
+Scans all enum classes in TF for a matching constant (TRADE_ACTION_DEAL aliases) via attr or .Value().
+Tries multiple target fields on the request (action, trade_action, request_action, type_action) and assigns the found value.
+Returns True on the first successful set, otherwise False
+"""
+def _set_trade_action_deal(mql) -> bool:
+   
+    target_fields = ("action", "trade_action", "request_action", "type_action")
+
+    constant_names = (
+        "TRADE_ACTION_DEAL",
+        "ORDER_ACTION_DEAL",
+        "ENUM_TRADE_REQUEST_ACTIONS_TF_TRADE_ACTION_DEAL", 
+        "MRPC_ENUM_TRADE_REQUEST_ACTIONS_TF_TRADE_ACTION_DEAL",
+    )
+
+    enum_classes = []
+    for attr in dir(TF):
+        cls = getattr(TF, attr, None)
+        if hasattr(cls, "Value") and callable(getattr(cls, "Value")):
+            enum_classes.append(cls)
+
+    for cls in enum_classes:
+        for name in constant_names:
+            val = getattr(cls, name, None)
+            if val is None:
+                
+                try:
+                    val = cls.Value(name)
+                except Exception:
+                    continue
+            for field in target_fields:
+                if _set_if_supported(mql, field, val):
+                    return True
+    return False
+
+
+# ---------------------------------------------------------------------------------
+async def _shutdown_channel(acc):
+    """
+    Best-effort closure of the grpc.aio channel to avoid accumulating connections between steps.
+    It calmly ignores the absence of the field in older builds.
+    """
+    for name in ("_grpc_channel", "grpc_channel", "channel", "_channel"):
+        ch = getattr(acc, name, None)
+        if ch:
+            try:
+                await ch.close()
+            except Exception:
+                pass
+            break
+
+
+# ===== Streaming utils ===========================================================
+"""
+_get_subs_pb2 — lazy import of the module mt5_term_api_subscriptions_pb2
+"""
+def _get_subs_pb2():
+    from MetaRpcMT5 import mt5_term_api_subscriptions_pb2 as subs_pb2
+    return subs_pb2
+
+STREAM_RUN_SECONDS = int(os.getenv("STREAM_RUN_SECONDS", "10"))
+
+
+async def _execute_stream_with_reconnect_local(
+    label, gen_factory, on_message, on_error=None,
+    max_seconds=STREAM_RUN_SECONDS, base_delay=0.5, max_delay=5.0
+):
+    """Local fallback if account doesn't provide execute_stream_with_reconnect."""
+    deadline = time.monotonic() + max_seconds
+    attempt, delay = 0, base_delay
+    while time.monotonic() < deadline:
+        try:
+            # gen_factory MUST return an async-iterable (NOT a coroutine)
+            async for item in gen_factory():
+                try:
+                    await on_message(item)
+                except Exception as e:
+                    if on_error:
+                        await on_error(e)
+            # stream ended naturally — small pause and retry until deadline
+            await asyncio.sleep(min(delay, max_delay))
+        except Exception as e:
+            # transient errors — backoff
+            if on_error:
+                await on_error(e)
+            await asyncio.sleep(delay)
+            delay = min(delay * 2, max_delay)
+            attempt += 1
+
+
+async def _run_stream(acc, label, client_attr, method_names, req_builder, on_message):
+    """Prefer account.execute_stream_with_reconnect; otherwise use local reconnect loop."""
+    import asyncio, time
+
+    client = getattr(acc, client_attr)
+    method = None
+    for name in method_names:
+        if hasattr(client, name):
+            method = getattr(client, name)
+            break
+    if method is None:
+        print(f"[stream:{label}] no method on {client_attr}. Available:",
+              [n for n in dir(client) if n[:1].isupper()])
+        return
+
+    req = req_builder()
+
+    # ---------- Primary path: use account helper but enforce a hard timeout ----------
+    if hasattr(acc, "execute_stream_with_reconnect"):
+        try:
+            # Hard timeout regardless of internal cancellation handling
+            async with asyncio.timeout(STREAM_RUN_SECONDS):
+                async for item in acc.execute_stream_with_reconnect(
+                    request=req,
+                    stream_invoker=lambda rq, hdrs: method(rq, metadata=hdrs),
+                    get_error=lambda reply: getattr(reply, "error", None),
+                    get_data=lambda reply: getattr(reply, "data", reply),
+                    cancellation_event=asyncio.Event(),  # we still pass one, but rely on timeout
+                ):
+                    await on_message(item)
+            return
+        except (asyncio.TimeoutError, TimeoutError):
+            # Normal end by our hard timeout
+            return
+        except asyncio.CancelledError:
+            # Normal shutdown if task was cancelled externally
+            return
+        except Exception as e:
+            print(f"[stream:{label}] acc.execute_stream_with_reconnect failed: {e!r}")
+            # fall through to local fallback
+
+    # ---------- Fallback: manual reconnect loop with deadline ----------
+    headers = acc.get_headers()
+
+    # gen_factory must return an async-iterable (NOT a coroutine)
+    def gen_factory():
+        return method(req, metadata=headers)
+
+    async def on_err(e):
+        et = getattr(e, "__class__", type(e)).__name__
+        print(f"[stream:{label}] error: {et}: {e}")
+
+    await _execute_stream_with_reconnect_local(
+        label, gen_factory, on_message, on_error=on_err, max_seconds=STREAM_RUN_SECONDS
+    )
+
+
+
+# ╔═══════════════════════════════════════════════════════════════════════╗
+# ║ LET'S MOVE ON TO OUR METHODS                                          ║
+# ╚═══════════════════════════════════════════════════════════════════════╝
+
+
+# ---- Step 1: one-shot account_summary -----------------------------------------
+async def step1_account_summary():
+    """
+    Connect via server_name (ConnectEx) and fetch account_summary().
+    This is a direct low-level call: no helpers, no wrappers, no "safe_async".
+    """
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+
+    # Use naive UTC deadline to avoid aware/naive subtraction issues in client
+    deadline = (datetime.now(timezone.utc) + timedelta(seconds=TO_S)).replace(tzinfo=None)
+
+    await acc.connect_by_server_name(
+        server_name=SERVER,
+        base_chart_symbol=SYMBOL,
+        timeout_seconds=TO_S,
+        deadline=deadline,
+    )
+
+    # One-shot snapshot of account figures
+    s = await acc.account_summary()
+
+    # Extract fields defensively (field names follow the protobuf payload)
+    login    = getattr(s, "account_login", 0)
+    balance  = float(getattr(s, "account_balance", 0.0))
+    equity   = float(getattr(s, "account_equity",  0.0))
+    margin   = float(getattr(s, "account_margin",  0.0))
+    free     = float(getattr(s, "account_free_margin", max(0.0, equity - margin)))
+    currency = getattr(s, "account_currency", "")
+    leverage = int(getattr(s, "account_leverage", 0))
+    tz_shift = int(getattr(s, "utc_timezone_server_time_shift_minutes", 0))
+    server_ts = getattr(getattr(s, "server_time", None), "seconds", 0)
+
+    # Computed ratios with guards
+    free_ratio = (free / equity * 100.0) if equity > 0 else 0.0
+    drawdown   = ((balance - equity) / balance * 100.0) if balance > 0 else 0.0
+
+    # Pretty minimal output
+    print("=== Account Summary ===")
+    print(f"login={login} | equity={equity:.2f} {currency} | balance={balance:.2f} | lev=1:{leverage}")
+    print(f"margin={margin:.2f} | free={free:.2f} | free_ratio={free_ratio:.2f}% | drawdown={drawdown:.2f}%")
+    print(f"server_time(unix)={server_ts} | tz_shift_min={tz_shift}")
+    await _shutdown_channel(acc)
+
+
+# ---- Step 2: account_info_* ---------------------------------------------------
+async def step2_account_info():
+    """
+    Demonstrate low-level account info via direct stub calls:
+    - AccountInfoDouble
+    - AccountInfoInteger
+    - AccountInfoString
+    Uses request/response shapes exactly as in pb2.
+    """
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+
+    # Simple connect (timeout only)
+    await acc.connect_by_server_name(
+        server_name=SERVER,
+        base_chart_symbol=SYMBOL,
+        timeout_seconds=TO_S,
+    )
+
+    # Direct stub + headers
+    hdrs = acc.get_headers()
+    stub = acc.account_information_client
+
+    # --- Double properties ---
+    d_res = await stub.AccountInfoDouble(
+        acc_info_pb2.AccountInfoDoubleRequest(
+            property_id=acc_info_pb2.AccountInfoDoublePropertyType.ACCOUNT_BALANCE
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    balance = d_res.data.requested_value
+
+    d_res = await stub.AccountInfoDouble(
+        acc_info_pb2.AccountInfoDoubleRequest(
+            property_id=acc_info_pb2.AccountInfoDoublePropertyType.ACCOUNT_EQUITY
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    equity = d_res.data.requested_value
+
+    d_res = await stub.AccountInfoDouble(
+        acc_info_pb2.AccountInfoDoubleRequest(
+            property_id=acc_info_pb2.AccountInfoDoublePropertyType.ACCOUNT_MARGIN
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    margin = d_res.data.requested_value
+
+        # --- Free margin (enum name differs across builds) ---
+    try:
+        free_prop = _enum(
+            acc_info_pb2.AccountInfoDoublePropertyType,
+            "ACCOUNT_FREE_MARGIN",   
+            "ACCOUNT_MARGIN_FREE",  
+        )
+        d_res = await stub.AccountInfoDouble(
+            acc_info_pb2.AccountInfoDoubleRequest(property_id=free_prop),
+            metadata=hdrs,
+            timeout=None,
+        )
+        free_margin = d_res.data.requested_value
+    except Exception:
+        # Safe fallback if enum not present: compute from equity - margin
+        free_margin = max(0.0, equity - margin)
+
+
+    # ---------- Integer properties --------
+    i_res = await stub.AccountInfoInteger(
+        acc_info_pb2.AccountInfoIntegerRequest(
+            property_id=acc_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_LOGIN
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    login = i_res.data.requested_value
+
+    i_res = await stub.AccountInfoInteger(
+        acc_info_pb2.AccountInfoIntegerRequest(
+            property_id=acc_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_LEVERAGE
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    leverage = i_res.data.requested_value
+
+    # --------- String properties ---------
+    s_res = await stub.AccountInfoString(
+        acc_info_pb2.AccountInfoStringRequest(
+            property_id=acc_info_pb2.AccountInfoStringPropertyType.ACCOUNT_NAME
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    acc_name = s_res.data.requested_value
+
+    s_res = await stub.AccountInfoString(
+        acc_info_pb2.AccountInfoStringRequest(
+            property_id=acc_info_pb2.AccountInfoStringPropertyType.ACCOUNT_CURRENCY
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    acc_currency = s_res.data.requested_value
+
+    s_res = await stub.AccountInfoString(
+        acc_info_pb2.AccountInfoStringRequest(
+            property_id=acc_info_pb2.AccountInfoStringPropertyType.ACCOUNT_SERVER
+        ),
+        metadata=hdrs,
+        timeout=None,
+    )
+    acc_server = s_res.data.requested_value
+
+    print("=== Account Info (low-level) ===")
+    print(f"login={login} name='{acc_name}' server='{acc_server}'")
+    print(f"balance={balance:.2f} {acc_currency} | equity={equity:.2f} | "
+          f"margin={margin:.2f} | free_margin={free_margin:.2f}")
+    print(f"leverage=1:{int(leverage)}")
+    await _shutdown_channel(acc)
+
+
+# ---- Step 3: Symbols & Market (basic) -----------------------------------------
+async def step3_symbols_basic():
+    """
+    Low-level symbol operations:
+    - symbol_exist / symbol_select
+    - symbols_total
+    - symbol_info_{double,integer,string} for common props
+    - tick_value_with_size
+    - symbol_is_synchronized
+    """
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+
+    await acc.connect_by_server_name(
+        server_name=SERVER,
+        base_chart_symbol=SYMBOL,
+        timeout_seconds=TO_S,
+    )
+
+    # Ensure symbol is available/selected (coerce pb -> primitives)
+    exists_msg = await acc.symbol_exist(SYMBOL)
+    exists = bool(getattr(exists_msg, "exists", exists_msg))
+
+    selected_msg = await acc.symbol_select(SYMBOL, True)
+    selected = bool(getattr(selected_msg, "success", selected_msg))
+
+    total_msg = await acc.symbols_total(selected_only=True)
+    total = int(getattr(total_msg, "total", total_msg))
+
+    # Common properties (already coerced to primitives by helpers)
+    ask   = await _sym_double(acc, SYMBOL, "SYMBOL_ASK")
+    bid   = await _sym_double(acc, SYMBOL, "SYMBOL_BID")
+    point = await _sym_double(acc, SYMBOL, "SYMBOL_POINT")
+
+    digits = await _sym_integer(acc, SYMBOL, "SYMBOL_DIGITS")
+    try:
+        spread = await _sym_integer(acc, SYMBOL, "SYMBOL_SPREAD")
+    except Exception:
+        spread = await _sym_double(acc, SYMBOL, "SYMBOL_SPREAD_FLOAT")
+
+    vol_min  = await _sym_double(acc, SYMBOL, "SYMBOL_VOLUME_MIN")
+    vol_max  = await _sym_double(acc, SYMBOL, "SYMBOL_VOLUME_MAX")
+    vol_step = await _sym_double(acc, SYMBOL, "SYMBOL_VOLUME_STEP")
+    tick_val = await _sym_double(acc, SYMBOL, "SYMBOL_TRADE_TICK_VALUE", "SYMBOL_TICK_VALUE")
+    tick_sz  = await _sym_double(acc, SYMBOL, "SYMBOL_TRADE_TICK_SIZE",  "SYMBOL_TICK_SIZE")
+
+    cur_base   = await _sym_string(acc, SYMBOL, "SYMBOL_CURRENCY_BASE")
+    cur_profit = await _sym_string(acc, SYMBOL, "SYMBOL_CURRENCY_PROFIT")
+    cur_margin = await _sym_string(acc, SYMBOL, "SYMBOL_CURRENCY_MARGIN")
+    descr      = await _sym_string(acc, SYMBOL, "SYMBOL_DESCRIPTION")
+
+    synced_msg = await acc.symbol_is_synchronized(SYMBOL)
+    synced = bool(getattr(synced_msg, "synchronized", synced_msg))
+
+    # Concrete tick value for 1.0 lot (fallback to static prop)
+    try:
+        tv = await acc.tick_value_with_size(SYMBOL, 1.0)
+        tick_value_lot1 = _as_float(tv)
+    except Exception:
+        tick_value_lot1 = tick_val
+
+    print("=== Symbols & Market (basic) ===")
+    print(f"symbol={SYMBOL} exists={exists} selected={selected} total={total} synced={synced}")
+    print(f"bid/ask={bid:.{digits}f}/{ask:.{digits}f} point={point} spread={spread}")
+    print(f"vol[min={vol_min}, step={vol_step}, max={vol_max}] tick[value={tick_val}, size={tick_sz}]")
+    print(f"currencies: base={cur_base} profit={cur_profit} margin={cur_margin}")
+    print(f"description: {descr}")
+    print(f"tick_value(volume=1.0 lot) ≈ {tick_value_lot1}")
+    await _shutdown_channel(acc)
+
+
+# ---- Step 4: symbol_params_many (batch) ---------------------------------------
+async def step4_symbol_params_many():
+    """
+    Low-level batch: account_helper_pb2.SymbolParamsManyRequest -> SymbolParameters.
+    Reads real pb2 fields without guesses.
+    """
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    await acc.connect_by_server_name(
+        server_name=SERVER,
+        base_chart_symbol=SYMBOL,
+        timeout_seconds=TO_S,
+    )
+
+    # Build request from pb2
+    req = acc_helper_pb2.SymbolParamsManyRequest(
+        symbol_name=SYMBOL,
+        sort_type=acc_helper_pb2.AH_SYMBOL_PARAMS_MANY_SORT_TYPE.AH_PARAMS_MANY_SORT_TYPE_SYMBOL_NAME_ASC,
+        page_number=0,
+        items_per_page=1,  # single symbol
+    )
+
+    data = await acc.symbol_params_many(req)  # -> SymbolParamsManyData
+    infos = getattr(data, "symbol_infos", [])
+    if not infos:
+        print("=== Symbols: symbol_params_many ===")
+        print("no data for symbol:", SYMBOL)
+        return
+
+    sp = infos[0]  # SymbolParameters
+
+    # Read primitive fields
+    bid    = sp.bid
+    ask    = sp.ask
+    point  = sp.point
+    digits = sp.digits
+
+    # spread may be int/float/bool; prefer numeric, else fallback to spread_float
+    spread = None
+    if hasattr(sp, "spread"):
+        v = getattr(sp, "spread")
+        if isinstance(v, bool):
+            spread = int(v)
+        elif isinstance(v, (int, float)):
+            spread = v
+    if spread is None:
+        spread = getattr(sp, "spread_float", 0)
+
+    vol_min  = sp.volume_min
+    vol_max  = sp.volume_max
+    vol_step = sp.volume_step
+
+    tick_val = sp.trade_tick_value
+    tick_sz  = sp.trade_tick_size
+
+    cur_base   = sp.currency_base
+    cur_profit = sp.currency_profit
+    cur_margin = sp.currency_margin
+    descr      = sp.sym_description  # pb2 uses sym_description
+
+    print("=== Symbols: symbol_params_many ===")
+    print("batch_called=True")
+    print(f"symbol={sp.name}")
+    print(f"bid/ask={bid:.{digits}f}/{ask:.{digits}f} point={point} spread={spread}")
+    print(f"VOL[min={vol_min}, step={vol_step}, max={vol_max}]")
+    print(f"TICK[value={tick_val}, size={tick_sz}]")
+    print(f"CURRENCIES base={cur_base} profit={cur_profit} margin={cur_margin}")
+    print(f"DESC: {descr}")
+    await _shutdown_channel(acc)
+
+
+    # ---- Step 5: Opened Orders (snapshot) -----------------------------------------
+async def step5_opened_orders():
+    """Low-level snapshot of opened orders; prints compact rows."""
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+    resp = await acc.opened_orders()
+
+    # Resolve container (orders/items/data.orders)
+    orders = None
+    for name in ("orders", "items"):
+        if hasattr(resp, name):
+            orders = getattr(resp, name)
+            break
+    if orders is None and hasattr(resp, "data") and hasattr(resp.data, "orders"):
+        orders = resp.data.orders
+    if orders is None:
+        orders = list(resp) if hasattr(resp, "__iter__") else []
+
+    def _f(o, default=None, *names):
+        for n in names:
+            if hasattr(o, n):
+                return getattr(o, n)
+        return default
+
+    print("=== Opened Orders (snapshot) ===")
+    print(f"count={len(orders)}")
+    if not orders:
+        print("no opened orders")
+        return
+
+    for o in orders[:10]:
+        ticket     = _f(o, 0,   "ticket", "order_ticket")
+        symbol     = _f(o, "",  "symbol", "symbol_name")
+        type_name  = _f(o, "",  "type_name", "type", "order_type")
+        volume     = _f(o, 0.0, "volume", "lots", "volume_initial")
+        price_open = _f(o, 0.0, "price_open", "open_price")
+        sl         = _f(o, 0.0, "sl", "stop_loss")
+        tp         = _f(o, 0.0, "tp", "take_profit")
+        print(f"#{ticket} {symbol} type={type_name} vol={volume} open={price_open} SL={sl} TP={tp}")
+    if len(orders) > 10:
+        print(f"... and {len(orders)-10} more")
+        await _shutdown_channel(acc)
+
+
+# ---- Step 6: Opened Orders Tickets -------------------------------------------
+async def step6_opened_orders_tickets():
+    """Low-level list of opened order tickets."""
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+    resp = await acc.opened_orders_tickets()
+
+    # tickets / items / data.tickets
+    tickets = None
+    if hasattr(resp, "tickets"):
+        t = getattr(resp, "tickets")
+        tickets = list(t) if hasattr(t, "__iter__") else [t]
+    if tickets is None and hasattr(resp, "items"):
+        tickets = list(resp.items)
+    if tickets is None and hasattr(resp, "data") and hasattr(resp.data, "tickets"):
+        t = resp.data.tickets
+        tickets = list(t) if hasattr(t, "__iter__") else [t]
+    if tickets is None:
+        tickets = list(resp) if hasattr(resp, "__iter__") else []
+
+    # Normalize to ints
+    norm = []
+    for x in tickets:
+        if isinstance(x, int):
+            norm.append(x)
+        elif hasattr(x, "ticket"):
+            norm.append(int(getattr(x, "ticket")))
+        elif hasattr(x, "value"):
+            norm.append(int(getattr(x, "value")))
+    print("=== Opened Orders Tickets ===")
+    print(f"count={len(norm)}")
+    if norm:
+        print("tickets:", ", ".join(str(t) for t in norm[:20]))
+        if len(norm) > 20:
+            print(f"... and {len(norm)-20} more")
+    else:
+        print("no tickets")
+        await _shutdown_channel(acc)
+
+
+# -------- step6f_symbol_info_tick -----------------------------
+"""
+Fetches a one-shot tick snapshot for SYMBOL via MT5Account.symbol_info_tick, with a fallback to the raw market_info_client stub.
+Parses the reply (schema-tolerant) to extract bid/ask/last and time, then prints them.
+Handles auth/connection, and always closes the channel in finally.
+"""
+
+async def step6f_symbol_info_tick():
+    print("=== Symbol: symbol_info_tick ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+    from google.protobuf.json_format import MessageToDict
+    from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI  # <-- FIXED
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        try:
+            snap = await acc.symbol_info_tick(SYMBOL)
+        except Exception:
+            req = MI.SymbolInfoTickRequest()
+            _set_if_supported(req, "symbol", SYMBOL) or _set_if_supported(req, "symbol_name", SYMBOL)
+            snap = await acc.market_info_client.SymbolInfoTick(req, metadata=acc.get_headers())  # <-- FIXED
+
+        d = MessageToDict(snap, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        tick = data.get("tick") or data.get("symbol_tick") or data
+        bid  = tick.get("bid") or tick.get("current_bid")
+        ask  = tick.get("ask") or tick.get("current_ask")
+        last = tick.get("last") or tick.get("last_price")
+        tsec = tick.get("time") or tick.get("time_msc") or tick.get("timestamp")
+        print(f"[tick:snapshot] bid={bid} ask={ask} last={last} time={tsec}")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ------- step6g_symbol_info_session_quote ---------------------------
+"""
+Retrieves quote session hours for SYMBOL (today, session index 0) via MT5Account.symbol_info_session_quote, with a fallback to the raw market_info_client stub.
+Resolves the day-of-week enum schema-tolerantly, requests the session, and parses open/close times.
+Prints the session window using _fmt_session_time(...); handles connect/cleanup in finally.
+"""
+
+async def step6g_symbol_info_session_quote():
+    print("=== Symbol: symbol_info_session_quote ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+    from datetime import datetime
+    from google.protobuf.json_format import MessageToDict
+    from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI  # <-- FIXED
+
+    dow_map = {
+        0: ["MONDAY", "DAY_OF_WEEK_MONDAY"],
+        1: ["TUESDAY", "DAY_OF_WEEK_TUESDAY"],
+        2: ["WEDNESDAY", "DAY_OF_WEEK_WEDNESDAY"],
+        3: ["THURSDAY", "DAY_OF_WEEK_THURSDAY"],
+        4: ["FRIDAY", "DAY_OF_WEEK_FRIDAY"],
+        5: ["SATURDAY", "DAY_OF_WEEK_SATURDAY"],
+        6: ["SUNDAY", "DAY_OF_WEEK_SUNDAY"],
+    }
+    weekday = datetime.now(timezone.utc).weekday()
+    day_enum = _enum_try(MI, dow_map.get(weekday, ["MONDAY"]), default=weekday)
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        try:
+            resp = await acc.symbol_info_session_quote(SYMBOL, int(day_enum), 0)
+        except Exception:
+            req = MI.SymbolInfoSessionQuoteRequest()
+            _set_if_supported(req, "symbol", SYMBOL) or _set_if_supported(req, "symbol_name", SYMBOL)
+            _set_if_supported(req, "day_of_week", int(day_enum))
+            _set_if_supported(req, "session_index", 0)
+            resp = await acc.market_info_client.SymbolInfoSessionQuote(req, metadata=acc.get_headers())  # <-- FIXED
+
+        d = MessageToDict(resp, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        o = data.get("open")  or data.get("from") or data.get("time_open")
+        c = data.get("close") or data.get("to")   or data.get("time_close")
+        print(f"[session_quote] day={weekday} session=0 open={_fmt_session_time(o)} close={_fmt_session_time(c)}")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ---------- step6h_symbol_info_session_trade -----------------------------------
+"""
+Retrieves trade session hours for SYMBOL (today, session index 0) via MT5Account.symbol_info_session_trade, with a fallback to the raw market_info_client stub.
+Resolves the day-of-week enum schema-tolerantly, sends the request, and parses open/close from the response.
+Formats session times to HH:MM (supports seconds-of-day, epoch seconds, ISO strings).
+Handles connect/cleanup reliably in try/finally.
+"""
+
+async def step6h_symbol_info_session_trade():
+    print("=== Symbol: symbol_info_session_trade ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+    from datetime import datetime, timezone
+    from google.protobuf.json_format import MessageToDict
+    from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI 
+
+    def _fmt_session_time(val):
+        # HH:MM from iso/epoch/seconds-of-day
+        if val is None: return "—"
+        if isinstance(val, (int, float)):
+            v = int(val)
+            if v <= 172800:  # seconds-of-day
+                h, m = divmod(v // 60, 60)
+                return f"{h:02d}:{m:02d}"
+            try:
+                return datetime.fromtimestamp(v, timezone.utc).strftime("%H:%M")
+            except Exception:
+                return str(val)
+        if isinstance(val, str):
+            try:
+                t = datetime.fromisoformat(val.replace("Z", "+00:00"))
+                return t.strftime("%H:%M")
+            except Exception:
+                return val
+        return str(val)
+
+    weekday = datetime.now(timezone.utc).weekday()
+    dow_map = {
+        0: ["MONDAY", "DAY_OF_WEEK_MONDAY"],
+        1: ["TUESDAY", "DAY_OF_WEEK_TUESDAY"],
+        2: ["WEDNESDAY", "DAY_OF_WEEK_WEDNESDAY"],
+        3: ["THURSDAY", "DAY_OF_WEEK_THURSDAY"],
+        4: ["FRIDAY", "DAY_OF_WEEK_FRIDAY"],
+        5: ["SATURDAY", "DAY_OF_WEEK_SATURDAY"],
+        6: ["SUNDAY", "DAY_OF_WEEK_SUNDAY"],
+    }
+    day_enum = _enum_try(MI, dow_map.get(weekday, ["MONDAY"]), default=weekday)
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        try:
+            resp = await acc.symbol_info_session_trade(SYMBOL, int(day_enum), 0)
+        except Exception:
+            req = MI.SymbolInfoSessionTradeRequest()
+            _set_if_supported(req, "symbol", SYMBOL) or _set_if_supported(req, "symbol_name", SYMBOL)
+            _set_if_supported(req, "day_of_week", int(day_enum))
+            _set_if_supported(req, "session_index", 0)
+            resp = await acc.market_info_client.SymbolInfoSessionTrade(req, metadata=acc.get_headers())
+
+        d = MessageToDict(resp, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        o = data.get("open")  or data.get("from") or data.get("time_open")
+        c = data.get("close") or data.get("to")   or data.get("time_close")
+        print(f"[session_trade] day={weekday} session=0 open={_fmt_session_time(o)} close={_fmt_session_time(c)}")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ------------- step6i_symbol_info_margin_rate -------------------------------------
+"""
+Retrieves margin parameters for SYMBOL on both sides (BUY/SELL) via MT5Account.symbol_info_margin_rate, falling back to the raw market_info_client stub.
+Parses a schema-tolerant payload into initial_margin, maintenance, rate, and leverage.
+If the server returns nothing, computes a fallback by calling OrderCalcMargin(1 lot) and derives an implied leverage estimate.
+Handles connect/cleanup reliably and prints a normalized summary per side.
+"""
+
+async def step6i_symbol_info_margin_rate():
+    print("=== Symbol: symbol_info_margin_rate ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+    from google.protobuf.json_format import MessageToDict
+    from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI  # fixed
+
+    def _op(side):
+        return (_enum_try(MI, [f"TRADE_OPERATION_{side}"], default=None)
+                or _enum_try(MI, [f"ORDER_TYPE_{side}", side], default=None)
+                or (0 if side == "BUY" else 1))
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        for side in ("BUY", "SELL"):
+            op = int(_op(side))
+            try:
+                resp = await acc.symbol_info_margin_rate(SYMBOL, op)
+            except Exception:
+                req = MI.SymbolInfoMarginRateRequest()
+                _set_if_supported(req, "symbol", SYMBOL) or _set_if_supported(req, "symbol_name", SYMBOL)
+                _set_if_supported(req, "operation", op) or _set_if_supported(req, "order_type", op)
+                resp = await acc.market_info_client.SymbolInfoMarginRate(req, metadata=acc.get_headers())
+
+            d = MessageToDict(resp, preserving_proto_field_name=True)
+            data = d.get("data", d)
+            out = {
+                "initial_margin":  data.get("margin_initial") or data.get("initial_margin") or data.get("required_margin"),
+                "maintenance":     data.get("margin_maintenance") or data.get("maintenance_margin"),
+                "rate":            data.get("rate") or data.get("margin_rate") or data.get("coefficient"),
+                "leverage":        data.get("leverage"),
+            }
+
+            # Fallback: compute margin for 1 lot if server returns empty
+            if not any(v is not None for v in out.values()):
+                try:
+                    ask = await _sym_double(acc, SYMBOL, "SYMBOL_ASK")
+                    bid = await _sym_double(acc, SYMBOL, "SYMBOL_BID")
+                    price = float(_num(ask) if side == "BUY" else _num(bid))
+                    req_tf = TF.OrderCalcMarginRequest(
+                        symbol=SYMBOL,
+                        order_type=ORDER_BUY_TF if side == "BUY" else ORDER_SELL_TF,
+                        volume=1.0,
+                        open_price=price,
+                    )
+                    resp_tf = await _safe_call(
+                        f"order_calc_margin({side.lower()})",
+                        lambda t: acc.trade_functions_client.OrderCalcMargin(req_tf, metadata=acc.get_headers(), timeout=t),
+                        retries=1
+                    )
+                    if resp_tf:
+                        data_tf = getattr(resp_tf, "data", resp_tf)
+                        margin1 = _num(getattr(data_tf, "required_margin", getattr(data_tf, "margin", 0.0)))
+                        implied = (price * 100000.0 / margin1) if margin1 else None  # rough FX estimate
+                        out.update({"initial_margin": margin1, "leverage": implied})
+                except Exception:
+                    pass
+
+            print(f"[margin_rate:{side}] {out}")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ------ step6j_symbol_name ------------------------------------
+"""
+Retrieves the server-canonical symbol name using MT5Account.symbol_name( index=0, selected=True ), with a fallback to the raw market_info_client.SymbolName stub.
+Handles schema differences by setting index/selected fields tolerantly and then parses the reply to get symbol/symbol_name/name.
+Prints the resolved name and always closes the channel in finally.
+"""
+
+async def step6j_symbol_name():
+    print("=== Symbol: symbol_name ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+    from google.protobuf.json_format import MessageToDict
+    from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI  # <-- FIXED
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        try:
+            resp = await acc.symbol_name(0, True) 
+        except Exception:
+            req = MI.SymbolNameRequest()
+            _set_if_supported(req, "index", 0)
+            _set_if_supported(req, "selected", True)
+            resp = await acc.market_info_client.SymbolName(req, metadata=acc.get_headers())  # <-- FIXED
+
+        d = MessageToDict(resp, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        name = data.get("symbol") or data.get("symbol_name") or data.get("name")
+        print(f"[symbol_name] => {name}")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ------ Step 7: Positions Total --------------------------------------------------
+async def step7_positions_total():
+    """Low-level positions_total; robust extraction with direct stub fallback."""
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+    def _pick_total(obj):
+        # try top-level fields
+        for name in ("positions_total", "total", "value", "count", "requested_value"):
+            if hasattr(obj, name):
+                try:
+                    return int(getattr(obj, name))
+                except Exception:
+                    pass
+        # nested .data.*
+        if hasattr(obj, "data"):
+            data = getattr(obj, "data")
+            for name in ("positions_total", "total", "value", "count", "requested_value"):
+                if hasattr(data, name):
+                    try:
+                        return int(getattr(data, name))
+                    except Exception:
+                        pass
+        # raw int
+        if isinstance(obj, int):
+            return int(obj)
+        return None
+
+    # 1) Try via MT5Account method
+    resp = await acc.positions_total()
+    total = _pick_total(resp)
+
+    # 2) Fallback: direct gRPC helper call if not parsed
+    if total is None:
+        try:
+            hdrs = acc.get_headers()
+            stub = acc.account_client  # AccountHelperStub
+            req = acc_helper_pb2.PositionsTotalRequest()  # empty request is fine
+            resp2 = await stub.PositionsTotal(req, metadata=hdrs, timeout=None)
+            total = _pick_total(resp2)
+        except Exception:
+            total = None
+
+    print("=== Positions Total ===")
+    print(f"total={total if total is not None else 0}")
+    await _shutdown_channel(acc)
+
+
+# ---- Step 8: Order History (last 7 days) -------------------------------------
+async def step8_order_history_last7d():
+    """Low-level order_history for the last 7 days via direct stub; prints compact rows."""
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+    hdrs = acc.get_headers()
+    stub = acc.account_client  # AccountHelperStub
+
+    to_dt = datetime.now(timezone.utc)
+    from_dt = to_dt - timedelta(days=7)
+
+    req = acc_helper_pb2.OrderHistoryRequest()
+    # robust field setting (snake/camel/alt names)
+    ok_from = _set_ts_any(req, ["input_from", "inputFrom", "from_", "from"], from_dt)
+    ok_to   = _set_ts_any(req, ["input_to",   "inputTo",   "to_",   "to"],   to_dt)
+
+    # sort + pagination
+    sort_default = getattr(getattr(acc_helper_pb2, "BMT5_ENUM_ORDER_HISTORY_SORT_TYPE", object()),
+                           "BMT5_SORT_BY_CLOSE_TIME_ASC", 0)
+    _set_any(req, ["input_sort_mode", "inputSortMode", "sort_mode"], sort_default)
+    _set_any(req, ["page_number", "pageNumber"], 0)
+    _set_any(req, ["items_per_page", "itemsPerPage"], 200)
+
+    if not (ok_from and ok_to):
+        print("=== Order History (last 7d) ===")
+        print("skipped: cannot set from/to timestamps")
+        return
+
+    try:
+        resp = await stub.OrderHistory(req, metadata=hdrs, timeout=None)
+    except Exception as e:
+        print("=== Order History (last 7d) ===")
+        print(f"rpc error: {type(e).__name__}: {e}")
+        return
+
+    # Resolve container
+    orders = None
+    for name in ("orders", "orders_history", "items"):
+        if hasattr(resp, name):
+            orders = getattr(resp, name)
+            break
+    if orders is None and hasattr(resp, "data") and hasattr(resp.data, "orders"):
+        orders = resp.data.orders
+    if orders is None:
+        orders = list(resp) if hasattr(resp, "__iter__") else []
+
+    def _f(o, default=None, *names):
+        for n in names:
+            if hasattr(o, n):
+                return getattr(o, n)
+        return default
+
+    print("=== Order History (last 7d) ===")
+    print(f"count={len(orders)}")
+    for o in orders[:10]:
+        ticket  = _f(o, 0, "ticket", "order_ticket", "deal_ticket")
+        symbol  = _f(o, "", "symbol", "symbol_name")
+        type_nm = _f(o, "", "type_name", "type", "order_type")
+        vol     = _f(o, 0.0, "volume", "lots", "volume_initial")
+        price   = _f(o, 0.0, "price", "price_open", "open_price")
+        tsetup  = _f(o, 0, "time_setup", "time_setup_msc")
+        tdone   = _f(o, 0, "time_done",  "time_done_msc")
+        print(f"#{ticket} {symbol} type={type_nm} vol={vol} price={price} setup={tsetup} done={tdone}")
+    if len(orders) > 10:
+        print(f"... and {len(orders)-10} more")
+        await _shutdown_channel(acc)
+
+
+# ---- Step 9: Positions History (last 7 days) ----------------------------------
+async def step9_positions_history_last7d():
+    """Low-level positions_history via direct stub; prints compact rows."""
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        hdrs = acc.get_headers()
+        stub = acc.account_client  # AccountHelperStub
+
+        to_dt = datetime.now(timezone.utc)
+        from_dt = to_dt - timedelta(days=7)
+
+        req = acc_helper_pb2.PositionsHistoryRequest()
+        # sort enum (fallback to 0)
+        sort_enum_cls = getattr(acc_helper_pb2, "AH_ENUM_POSITIONS_HISTORY_SORT_TYPE", None)
+        sort_default = getattr(sort_enum_cls, "AH_SORT_BY_OPEN_TIME_ASC", 0) if sort_enum_cls else 0
+        _set_any(req, ["sort_type", "sortType"], sort_default)
+        # time range
+        _set_ts_any(req, ["position_open_time_from", "positionOpenTimeFrom", "open_time_from", "openFrom"], from_dt)
+        _set_ts_any(req, ["position_open_time_to",   "positionOpenTimeTo",   "open_time_to",   "openTo"],   to_dt)
+        # pagination
+        _set_any(req, ["page_number", "pageNumber"], 0)
+        _set_any(req, ["items_per_page", "itemsPerPage"], 200)
+
+        try:
+            resp = await stub.PositionsHistory(req, metadata=hdrs, timeout=None)
+        except Exception as e:
+            print("=== Positions History (last 7d) ===")
+            print(f"rpc error: {type(e).__name__}: {e}")
+            return 
+
+        # Resolve container
+        poss = None
+        for name in ("positions", "position_infos", "deals", "items"):
+            if hasattr(resp, name):
+                poss = getattr(resp, name)
+                break
+        if poss is None and hasattr(resp, "data") and hasattr(resp.data, "positions"):
+            poss = resp.data.positions
+        if poss is None:
+            poss = list(resp) if hasattr(resp, "__iter__") else []
+
+        def _f(o, default=None, *names):
+            for n in names:
+                if hasattr(o, n):
+                    return getattr(o, n)
+            return default
+
+        print("=== Positions History (last 7d) ===")
+        print(f"count={len(poss)}")
+        for p in poss[:10]:
+            ticket   = _f(p, 0, "ticket", "position_ticket", "deal_ticket")
+            symbol   = _f(p, "", "symbol", "symbol_name")
+            type_nm  = _f(p, "", "type_name", "type")
+            vol      = _f(p, 0.0, "volume", "lots")
+            price_o  = _f(p, 0.0, "price_open", "open_price")
+            price_c  = _f(p, 0.0, "price_close", "close_price", "price")
+            time_op  = _f(p, 0,   "time_open", "time_setup")
+            time_cl  = _f(p, 0,   "time_close", "time_done")
+            profit   = _f(p, 0.0, "profit", "closed_profit")
+            print(f"#{ticket} {symbol} {type_nm} vol={vol} open={price_o} close={price_c} "
+                  f"t_open={time_op} t_close={time_cl} profit={profit}")
+        if len(poss) > 10:
+            print(f"... and {len(poss)-10} more")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ---- Step 10: Market Book Dom ------------------------------------------------
+async def step10_market_book_dom():
+    """
+1) We clearly print markers around CONNECT and perform backoff retries (10/20/30s). 
+2) If the connection fails — we write the reason and exit without an exception. 
+3) If the connection is successful — quick DOM: BOOKDEPTH probe → add → get(2/4/8s) → release.
+    """
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("=== Market Book (DOM) ===")
+        print("[dom] missing env: MT5_LOGIN/MT5_PASSWORD/MT5_SERVER/GRPC_SERVER")
+        return
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+
+    print("=== Market Book (DOM) ===")
+    print(f"[connect] start server='{SERVER}' grpc='{GRPC}' symbol='{SYMBOL}'")
+
+    # ---- CONNECT with backoff -------------------------------------------------
+    connected = False
+    last_err = None
+    for secs in (10, 20, 30):
+        try:
+            await acc.connect_by_server_name(
+                server_name=SERVER,
+                base_chart_symbol=SYMBOL,
+                timeout_seconds=min(TO_S, secs),
+                deadline=_deadline_in(secs),
+            )
+            connected = True
+            print(f"[connect] ok in <= {secs}s")
+            break
+        except Exception as e:
+            last_err = e
+            print(f"[connect] attempt {secs}s → {type(e).__name__}: {e}")
+            await asyncio.sleep(0.3)
+
+    if not connected:
+        print("[dom] skip: connect failed (see attempts above).")
+        
+        try: await _shutdown_channel(acc)
+        except Exception: pass
+        return
+
+    try:
+        # ensure symbol in MW
+        try:
+            await acc.symbol_select(SYMBOL, True)
+        except Exception:
+            pass
+
+        # ---- probe depth ------------------------------------------------------
+        depth = 0
+        try:
+            depth = await asyncio.wait_for(
+                _sym_integer(acc, SYMBOL, "SYMBOL_TICKS_BOOKDEPTH"),
+                timeout=2.0
+            )
+            depth = int(depth or 0)
+        except Exception as e:
+            print(f"[dom] depth probe failed: {type(e).__name__}: {e}")
+            depth = 0
+
+        if depth <= 0:
+            print(f"{SYMBOL}: DOM not supported here (BOOKDEPTH<=0).")
+            return
+
+        # ---- subscribe --------------------------------------------------------
+        try:
+            await asyncio.wait_for(
+                acc.market_book_add(SYMBOL, deadline=_deadline_in(min(TO_S, 10))),
+                timeout=2.5
+            )
+        except Exception as e:
+            print(f"[dom] add failed: {type(e).__name__}: {e}")
+            return
+
+        await asyncio.sleep(0.4)
+
+        # ---- get with short retries ------------------------------------------
+        get_data = None
+        for secs in (2.0, 4.0, 8.0):
+            try:
+                get_data = await asyncio.wait_for(
+                    acc.market_book_get(SYMBOL, deadline=_deadline_in(secs)),
+                    timeout=secs + 0.5
+                )
+                break
+            except Exception as e:
+                print(f"[dom] get attempt {int(secs)}s → {type(e).__name__}: {e}")
+
+        if get_data is None:
+            print("snapshot failed: no book data (server didn't provide DOM in time)")
+            return
+
+        # ---- parse + print ----------------------------------------------------
+        entries = getattr(get_data, "mql_book_infos", None) \
+               or getattr(get_data, "entries", None) \
+               or getattr(get_data, "book", None) \
+               or []
+        rows = []
+        for e in entries:
+            t = getattr(e, "type", None)
+            side = "BID" if t == 1 else ("ASK" if t == 2 else str(t))
+            price = float(getattr(e, "price", 0.0) or 0.0)
+            vol = getattr(e, "volume_real", None)
+            if not vol:
+                vol = getattr(e, "volume", 0)
+            try:
+                vol = float(vol)
+            except Exception:
+                try: vol = float(int(vol))
+                except Exception: vol = 0.0
+            tmsc = int(getattr(e, "time_msc", 0) or 0)
+            rows.append({"side": side, "price": price, "volume": vol, "time_msc": tmsc})
+
+        bids = [r for r in rows if r["side"] == "BID"]
+        asks = [r for r in rows if r["side"] == "ASK"]
+        bids.sort(key=lambda r: r["price"], reverse=True)
+        asks.sort(key=lambda r: r["price"])
+
+        print(f"symbol={SYMBOL} depth={depth} levels={len(rows)} bids={len(bids)} asks={len(asks)}")
+        if bids or asks:
+            bb = bids[0]["price"] if bids else None
+            ba = asks[0]["price"] if asks else None
+            print(f"top_of_book: best_bid={bb} best_ask={ba}")
+            print("-- BIDS (top 10) --")
+            for r in bids[:10]:
+                print(f"BID  price={r['price']}  vol={r['volume']}  t_msc={r['time_msc']}")
+            print("-- ASKS (top 10) --")
+            for r in asks[:10]:
+                print(f"ASK  price={r['price']}  vol={r['volume']}  t_msc={r['time_msc']}")
+        else:
+            print("book is empty")
+    finally:
+        
+        try:
+            await asyncio.wait_for(acc.market_book_release(SYMBOL, deadline=_deadline_in(2.0)), timeout=2.5)
+        except Exception:
+            pass
+        await _shutdown_channel(acc)
+
+
+# ----------- Step 10a: scan symbols that have DOM------------------
+
+def _deadline_in(sec: float):
+    
+    return (datetime.now(timezone.utc) + timedelta(seconds=sec)).replace(tzinfo=None)
+
+async def step10a_dom_scan(limit=50, page_size=100, max_pages=5):
+    """
+   Consistently scans for symbols and prints those with SYMBOL_TICKS_BOOKDEPTH > 0.
+   Performs backoff connection (10/20/30s) and gracefully terminates without exceptions.
+    """
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("=== DOM Scan ===")
+        print("[scan] missing env: MT5_LOGIN/MT5_PASSWORD/MT5_SERVER/GRPC_SERVER")
+        return
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+
+    print("=== DOM Scan ===")
+    print(f"[connect] start server='{SERVER}' grpc='{GRPC}' base_symbol='{SYMBOL}'")
+
+    # ---- CONNECT with backoff -------------------------------------------------
+    connected = False
+    last_err = None
+    for secs in (10, 20, 30):
+        try:
+            await acc.connect_by_server_name(
+                server_name=SERVER,
+                base_chart_symbol=SYMBOL,
+                timeout_seconds=min(TO_S, secs),
+                deadline=_deadline_in(secs),
+            )
+            connected = True
+            print(f"[connect] ok in <= {secs}s")
+            break
+        except Exception as e:
+            last_err = e
+            print(f"[connect] attempt {secs}s → {type(e).__name__}: {e}")
+            await asyncio.sleep(0.3)
+
+    if not connected:
+        print("[scan] skip: connect failed (see attempts above).")
+        try: await _shutdown_channel(acc)
+        except Exception: pass
+        return
+
+    # ---- SCAN ---------------------------------------------------------------
+    found = []
+    checked = 0
+    try:
+        for page in range(max_pages):
+            # neat timeout for page request
+            try:
+                req = acc_helper_pb2.SymbolParamsManyRequest(
+                    symbol_name="",
+                    sort_type=acc_helper_pb2.AH_SYMBOL_PARAMS_MANY_SORT_TYPE.AH_PARAMS_MANY_SORT_TYPE_SYMBOL_NAME_ASC,
+                    page_number=page,
+                    items_per_page=page_size,
+                )
+                data = await asyncio.wait_for(acc.symbol_params_many(req), timeout=min(5.0, TO_S))
+            except Exception as e:
+                print(f"[scan] page {page} load failed: {type(e).__name__}: {e}")
+                break
+
+            infos = getattr(data, "symbol_infos", []) or []
+            if not infos:
+                print(f"[scan] page {page}: no items (end).")
+                break
+
+            for sp in infos:
+                sym = getattr(sp, "name", "") or getattr(sp, "symbol", "")
+                if not sym:
+                    continue
+                checked += 1
+                try:
+                    depth = await asyncio.wait_for(_sym_integer(acc, sym, "SYMBOL_TICKS_BOOKDEPTH"), timeout=1.5)
+                    depth = int(depth or 0)
+                except Exception:
+                    continue
+                if depth > 0:
+                    found.append((sym, depth))
+                    print(f"[DOM] {sym} depth={depth}")
+                    if len(found) >= limit:
+                        break
+            if len(found) >= limit:
+                break
+            await asyncio.sleep(0.05)  # light throttling between the pages
+
+        print("=== DOM Scan RESULT ===")
+        print(f"checked={checked} | with_DOM={len(found)}")
+        for sym, d in found[:30]:
+            print(f"  {sym}  depth={d}")
+        if not found:
+            print("no symbols with DOM found on this server (within scan limits)")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ---- Step 11: Trading — order_calc_margin (safe) ------------------------------
+"""
+Reads env flags (RUN_TRADING, TRADE_SIDE, TRADE_VOLUME) and skips unless RUN_TRADING=1; validates creds.
+Connects MT5Account, fetches ASK/BID, picks price based on side.
+Builds TradeFunctions.OrderCalcMarginRequest and calls OrderCalcMargin via _safe_call (with retry).
+Prints inputs and computed required margin; always closes the channel in finally
+"""
+RUN_TRADING  = os.getenv("RUN_TRADING", "0") == "1"
+TRADE_SIDE   = os.getenv("TRADE_SIDE", "BUY").upper()
+TRADE_VOLUME = float(os.getenv("TRADE_VOLUME", "0.01"))
+
+
+async def step11_order_calc_margin():
+    print("=== Trading: order_calc_margin ===")
+    if not RUN_TRADING:
+        print("skipped (RUN_TRADING=0). To run: set RUN_TRADING=1")
+        return
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        ask = await acc.symbol_info_double(SYMBOL, MI.SymbolInfoDoubleProperty.SYMBOL_ASK)
+        bid = await acc.symbol_info_double(SYMBOL, MI.SymbolInfoDoubleProperty.SYMBOL_BID)
+        price = _num(ask) if TRADE_SIDE == "BUY" else _num(bid)
+
+        order_type = ORDER_BUY_TF if TRADE_SIDE == "BUY" else ORDER_SELL_TF
+        req = TF.OrderCalcMarginRequest(
+            symbol=SYMBOL,
+            order_type=order_type,
+            volume=float(TRADE_VOLUME),
+            open_price=price,
+        )
+
+        resp = await _safe_call(
+            "order_calc_margin",
+            lambda t: acc.trade_functions_client.OrderCalcMargin(req, metadata=acc.get_headers(), timeout=t),
+            retries=1
+        )
+        if not resp:
+            print("[margin] skipped due to timeout/unavailable")
+            return
+
+        data   = getattr(resp, "data", resp)
+        margin = _num(getattr(data, "required_margin", getattr(data, "margin", 0.0)))
+        print(f"symbol={SYMBOL} side={TRADE_SIDE} volume={TRADE_VOLUME} price={price}")
+        print(f"calc_margin={margin}")
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ----------------- Step 12: TF OrderCheck — MARKET with mandatory expiration ----------------
+"""
+Builds a schema-agnostic market MQL request (BUY/SELL) and runs a safe OrderCheck without placing an order.
+Fetches current ASK/BID, sets price/volume/deviation, filling and time-in-force; forces SPECIFIED and writes expiration (+1 day) via Timestamp.
+Ensures TRADE_ACTION_DEAL is set (with fallbacks), and optionally applies SL/TP if provided.
+Calls TradeFunctions.OrderCheck through _safe_call (with retry), prints a concise retcode/comment summary, and always closes the channel.
+"""
+async def step12_order_check():
+    print("=== Trading: order_check (safe) ===")
+    if not RUN_TRADING:
+        print("skipped (RUN_TRADING=0). To run: set RUN_TRADING=1")
+        return
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+
+    # Helper: set google.protobuf.Timestamp via CopyFrom (now + seconds)
+    def _set_expiration_copyfrom(mql, seconds: int = 86400) -> int:
+        """Set expiration Timestamp onto the first matching field; return epoch seconds if set."""
+        try:
+            from datetime import datetime, timedelta, UTC
+            from google.protobuf.timestamp_pb2 import Timestamp
+            ts = Timestamp(); ts.FromDatetime(datetime.now(UTC) + timedelta(seconds=seconds))
+        except Exception:
+            return 0
+        for name in ("expiration", "time_expiration", "expiration_time", "time_specified", "specified_time"):
+            if hasattr(mql, name):
+                try:
+                    getattr(mql, name).CopyFrom(ts)
+                    return int(ts.seconds)
+                except Exception:
+                    pass
+        return 0
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        ask = await _sym_double(acc, SYMBOL, "SYMBOL_ASK")
+        bid = await _sym_double(acc, SYMBOL, "SYMBOL_BID")
+        price = float(_num(ask) if TRADE_SIDE == "BUY" else _num(bid))
+
+        # Build MrpcMqlTradeRequest (MARKET)
+        mql = TF.MrpcMqlTradeRequest(
+            order_type=_order_type_tf_from_side(TRADE_SIDE),
+            symbol=SYMBOL,
+            volume=float(TRADE_VOLUME),
+            deviation=int(TRADE_DEVIATION),
+            type_filling=_filling_tf_from_env(TRADE_FILLING),
+            type_time=_time_tf_from_env("SPECIFIED"),  # force SPECIFIED when expiration is present
+        )
+        _set_if_supported(mql, "type", getattr(mql, "order_type", None))  # alt name safety
+
+        # Price into any supported field
+        if not (_set_if_supported(mql, "price", price)
+                or _set_if_supported(mql, "open_price", price)
+                or _set_if_supported(mql, "order_price", price)):
+            raise RuntimeError("Failed to set price (price/open_price/order_price)")
+
+        # action = DEAL (must)
+        _set_trade_action_deal(mql)
+        if int(getattr(mql, "action", 0) or getattr(mql, "trade_action", 0)
+               or getattr(mql, "request_action", 0) or getattr(mql, "type_action", 0) or 0) == 0:
+            _set_if_supported(mql, "action", 1) or _set_if_supported(mql, "trade_action", 1) \
+                or _set_if_supported(mql, "request_action", 1) or _set_if_supported(mql, "type_action", 1)
+
+        # Server workaround: always set expiration (+1 day)
+        _ = _set_expiration_copyfrom(mql, 86400)
+
+        # Optional SL/TP
+        sl = _num_or_none(TRADE_SL); tp = _num_or_none(TRADE_TP)
+        if sl is not None: _set_if_supported(mql, "stop_loss", sl)
+        if tp is not None: _set_if_supported(mql, "take_profit", tp)
+
+        req  = TF.OrderCheckRequest(mql_trade_request=mql)
+        resp = await _safe_call(
+            "order_check",
+            lambda t: acc.trade_functions_client.OrderCheck(req, metadata=acc.get_headers(), timeout=t),
+            retries=1
+        )
+        print(f"symbol={SYMBOL} side={TRADE_SIDE} volume={TRADE_VOLUME} price={price}")
+        if not resp:
+            print("[check] skipped due to timeout/unavailable")
+            return
+
+        _print_check_result("check", resp)
+
+    finally:
+        await _shutdown_channel(acc)
+
+
+# -------------- Step 12b: OrderCheck DIAG — print payload with expiration = +1 day -------------
+"""
+Diagnostic OrderCheck: builds a schema-agnostic market MrpcMqlTradeRequest and calls TradeFunctions.OrderCheck purely for validation (no order placement).
+Guards on RUN_TRADING=1, verifies creds, fetches ASK/BID, sets price/volume/deviation, filling, SPECIFIED TIF, and writes expiration +1 day; optional SL/TP included.
+Prints a normalized request dict ([diag] request: …) for visibility, then sends the check via _safe_call (with retry).
+Parses the reply: first surfaces any wrapped server error; otherwise logs retcode, comment, margin, and free_margin; always closes the channel in finally.
+"""
+
+async def step12_order_check_diag():
+    print("=== Trading: order_check DIAG ===")
+    if not RUN_TRADING:
+        print("skipped (RUN_TRADING=0)")
+        return
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    def _set_expiration_copyfrom_and_epoch(mql, seconds: int = 86400) -> int:
+        try:
+            from datetime import datetime, timedelta, UTC
+            from google.protobuf.timestamp_pb2 import Timestamp
+            ts = Timestamp(); ts.FromDatetime(datetime.now(UTC) + timedelta(seconds=seconds))
+        except Exception:
+            return 0
+        for name in ("expiration", "time_expiration", "expiration_time", "time_specified", "specified_time"):
+            if hasattr(mql, name):
+                try:
+                    getattr(mql, name).CopyFrom(ts)
+                    return int(ts.seconds)
+                except Exception:
+                    pass
+        return 0
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        ask = await _sym_double(acc, SYMBOL, "SYMBOL_ASK")
+        bid = await _sym_double(acc, SYMBOL, "SYMBOL_BID")
+        price = float(_num(ask) if TRADE_SIDE == "BUY" else _num(bid))
+
+        mql = TF.MrpcMqlTradeRequest(
+            order_type=_order_type_tf_from_side(TRADE_SIDE),
+            symbol=SYMBOL,
+            volume=float(TRADE_VOLUME),
+            deviation=int(TRADE_DEVIATION),
+            type_filling=_filling_tf_from_env(TRADE_FILLING),
+            type_time=_time_tf_from_env("SPECIFIED"),
+        )
+        _set_if_supported(mql, "type", getattr(mql, "order_type", None))
+        _set_if_supported(mql, "price", price) or _set_if_supported(mql, "open_price", price) or _set_if_supported(mql, "order_price", price)
+
+        _set_trade_action_deal(mql)
+        if int(getattr(mql, "action", 0) or getattr(mql, "trade_action", 0)
+               or getattr(mql, "request_action", 0) or getattr(mql, "type_action", 0) or 0) == 0:
+            _set_if_supported(mql, "action", 1) or _set_if_supported(mql, "trade_action", 1) \
+                or _set_if_supported(mql, "request_action", 1) or _set_if_supported(mql, "type_action", 1)
+
+        exp_epoch = _set_expiration_copyfrom_and_epoch(mql, 86400)
+
+        sl = _num_or_none(TRADE_SL); tp = _num_or_none(TRADE_TP)
+        if sl is not None: _set_if_supported(mql, "stop_loss", sl)
+        if tp is not None: _set_if_supported(mql, "take_profit", tp)
+
+        req  = TF.OrderCheckRequest(mql_trade_request=mql)
+        resp = await _safe_call(
+            "order_check(diag)",
+            lambda t: acc.trade_functions_client.OrderCheck(req, metadata=acc.get_headers(), timeout=t),
+            retries=1
+        )
+        if not resp:
+            print("[diag] skipped due to timeout/unavailable")
+            return
+
+        req_dict = {
+            "mql_trade_request": {
+                "symbol": getattr(mql, "symbol", ""),
+                "volume": float(getattr(mql, "volume", 0.0) or 0.0),
+                "price": float(getattr(mql, "price", 0.0) or getattr(mql, "open_price", 0.0) or getattr(mql, "order_price", 0.0) or 0.0),
+                "deviation": int(getattr(mql, "deviation", 0) or 0),
+                "action": int(getattr(mql, "action", 0) or getattr(mql, "trade_action", 0) or getattr(mql, "request_action", 0) or getattr(mql, "type_action", 0) or 0),
+                "order_type": int(getattr(mql, "order_type", 0) or getattr(mql, "type", 0) or 0),
+                "type_filling": int(getattr(mql, "type_filling", 0) or 0),
+                "type_time": int(getattr(mql, "type_time", 0) or 0),
+                "expiration_epoch": int(exp_epoch or 0),
+            }
+        }
+        print(f"[diag] request: {req_dict}")
+
+        code, msg = _extract_wrapped_error(resp)
+        if code or msg:
+            print(f"[diag] SERVER_ERROR code={code!r} msg={msg!r}")
+        else:
+            data = getattr(resp, "data", resp)
+            chk  = getattr(data, "mql_trade_check_result", data)
+            out  = {
+                "retcode": getattr(chk, "retcode", None) or getattr(chk, "ret_code", None),
+                "comment": getattr(chk, "comment", None) or getattr(chk, "message", None),
+                "margin": getattr(chk, "margin", None) or getattr(chk, "required_margin", None),
+                "free_margin": getattr(chk, "free_margin", None),
+            }
+            print(f"[diag] response: {out}")
+
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ----- Step 13: order_send (market — direct TradingHelper RPC) ---------------
+"""
+Places a market order via TradingHelper: resolves BUY/SELL enum, reads TRADE_SIDE/TRADE_VOLUME, picks price from ASK/BID, and builds trade_pb2.OrderSendRequest.
+Adds optional fields tolerantly (slippage/deviation, SL/TP, time-in-force, filling), and—if FORCE_EXP=1—sets an expiration Timestamp (+1 day).
+Sends with acc.order_send(...) (account wrapper handles headers/reconnect) and prints a normalized response (retcode/order/deal/comment/ask/bid).
+Skips unless RUN_TRADING=1; validates creds; always closes the channel in finally.
+"""
+
+async def step13_order_send():
+    print("=== Trading: order_send (market via TradingHelper) ===")
+    if not RUN_TRADING:
+        print("skipped (RUN_TRADING=0)")
+        return
+    if not (LOGIN and PASS and SERVER and GRPC):
+        raise RuntimeError("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+
+    import os
+    FORCE_EXP = str(os.getenv("TRADE_FORCE_EXPIRATION", "0")).strip() == "1"
+
+    # Resolve TradingHelper enum for operation (BUY/SELL MARKET)
+    def _th_operation(side: str) -> int:
+        side_u = (side or "BUY").upper()
+        # Prefer ORDER_TYPE_*; fallback to TF_ORDER_TYPE_TF_*
+        candidates = (
+            ("ORDER_TYPE_BUY", "TF_ORDER_TYPE_TF_BUY") if side_u == "BUY"
+            else ("ORDER_TYPE_SELL", "TF_ORDER_TYPE_TF_SELL")
+        )
+        for name in candidates:
+            if hasattr(trade_pb2, name):
+                return int(getattr(trade_pb2, name))
+        # Last resort: scan any const with suffix BUY/SELL
+        pool = {n: getattr(trade_pb2, n) for n in dir(trade_pb2)
+                if n.isupper() and isinstance(getattr(trade_pb2, n), int)}
+        for k, v in pool.items():
+            if side_u in k:
+                return int(v)
+        raise RuntimeError(f"TradingHelper enum not found for side={side_u}")
+
+    def _maybe_set_expiration_ts(req, seconds: int = 86400):
+        if not FORCE_EXP:
+            return
+        try:
+            from datetime import datetime, timedelta, UTC
+            from google.protobuf.timestamp_pb2 import Timestamp
+            ts = Timestamp(); ts.FromDatetime(datetime.now(UTC) + timedelta(seconds=seconds))
+            if hasattr(req, "expiration"):
+                req.expiration.CopyFrom(ts)
+        except Exception:
+            pass
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        # Quotes & price by side
+        ask = await _sym_double(acc, SYMBOL, "SYMBOL_ASK")
+        bid = await _sym_double(acc, SYMBOL, "SYMBOL_BID")
+        price = float(_num(ask) if TRADE_SIDE == "BUY" else _num(bid))
+
+        op = _th_operation(TRADE_SIDE)
+
+        # Build TradingHelper.OrderSendRequest
+        req = trade_pb2.OrderSendRequest(
+            symbol=SYMBOL,
+            operation=op,                     # BUY/SELL (MARKET)
+            volume=float(TRADE_VOLUME),
+            price=float(price),
+        )
+        # Optional fields (tolerant names)
+        _set_if_supported(req, "slippage", int(TRADE_DEVIATION))
+        _set_if_supported(req, "deviation", int(TRADE_DEVIATION))
+        # SL/TP from env (absolute price); ignore if not set
+        sl = _num_or_none(os.getenv("MODIFY_SL", ""))
+        tp = _num_or_none(os.getenv("MODIFY_TP", ""))
+        if sl is not None:
+            _set_if_supported(req, "stop_loss", float(sl)) or _set_if_supported(req, "sl", float(sl))
+        if tp is not None:
+            _set_if_supported(req, "take_profit", float(tp)) or _set_if_supported(req, "tp", float(tp))
+
+        # Time-in-force & filling from our existing mappers
+        ttime  = _time_tf_from_env("GTC" if not FORCE_EXP else "SPECIFIED")
+        tfill  = _filling_tf_from_env(TRADE_FILLING)
+        _set_if_supported(req, "type_time", int(ttime)) or _set_if_supported(req, "time_type", int(ttime)) or _set_if_supported(req, "time_in_force", int(ttime))
+        _set_if_supported(req, "type_filling", int(tfill)) or _set_if_supported(req, "filling_type", int(tfill))
+
+        _maybe_set_expiration_ts(req, 86400)  # only if FORCE_EXP=1
+
+        # Send via account wrapper (it adds headers & reconnect)
+        resp = await acc.order_send(request=req)
+        data = getattr(resp, "data", resp)
+
+        out = {
+            "retcode": getattr(data, "retcode", None) or getattr(data, "ret_code", None),
+            "order": getattr(data, "order", None) or getattr(data, "order_ticket", None),
+            "deal": getattr(data, "deal", None) or getattr(data, "deal_ticket", None),
+            "comment": getattr(data, "comment", None) or getattr(data, "message", None),
+            "ask": getattr(data, "ask", None),
+            "bid": getattr(data, "bid", None),
+        }
+        print(f"[send:trading_helper] response:", out)
+
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ----- Step 13a: discover POSITION_TICKET via one-shot stream ------------------
+"""
+One-shot discovery helper: opens OnPositionsAndPendingOrdersTickets stream, takes the first snapshot only (breaks immediately).
+Recursively scans the snapshot (MessageToDict) for the first positive position or pending order ticket and sets POSITION_TICKET env var.
+Sets stream period to ~500 ms if the request supports it; prints the chosen ticket or a hint to set it manually.
+Useful to auto-populate a ticket for subsequent examples (modify/close/SL-TP).
+"""
+
+async def step13a_autopick_position_ticket():
+    print("=== Discover: position ticket via stream (one-shot) ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+        return
+
+    import os
+    from google.protobuf.json_format import MessageToDict
+    from MetaRpcMT5 import mt5_term_api_subscriptions_pb2 as subs_pb2
+
+    def _first_ticket_from_dict(obj):
+        if isinstance(obj, dict):
+            d = obj.get("data") if "data" in obj else obj
+            for key in ("position_tickets", "pending_order_tickets"):
+                if isinstance(d, dict) and key in d and isinstance(d[key], list) and d[key]:
+                    try:
+                        t = int(d[key][0])
+                        if t > 0:
+                            return t
+                    except Exception:
+                        pass
+            for v in obj.values():
+                t = _first_ticket_from_dict(v)
+                if t:
+                    return t
+        elif isinstance(obj, list):
+            for v in obj:
+                t = _first_ticket_from_dict(v)
+                if t:
+                    return t
+        else:
+            try:
+                iv = int(obj)
+                if iv > 0:
+                    return iv
+            except Exception:
+                pass
+        return None
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        req = subs_pb2.OnPositionsAndPendingOrdersTicketsRequest()
+        for fld in ("timer_period_milliseconds", "period_milliseconds", "timer_period_ms", "period_ms"):
+            if hasattr(req, fld):
+                setattr(req, fld, 500)  # 0.5s
+                break
+
+        stream = acc.subscription_client.OnPositionsAndPendingOrdersTickets(
+            req, metadata=acc.get_headers()
+        )
+
+        ticket = None
+        async for reply in stream:
+            snap = MessageToDict(reply, preserving_proto_field_name=True)
+            ticket = _first_ticket_from_dict(snap)
+            break  # one-shot
+
+        if ticket:
+            os.environ["POSITION_TICKET"] = str(ticket)
+            print(f"[tickets] POSITION_TICKET set to {ticket}")
+        else:
+            print("[tickets] No ticket in first snapshot. Set POSITION_TICKET manually from MT5 Trade tab.")
+
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ---- Step 14: order_modify_sltp — direct via MT5Account.order_modify ------------------
+"""
+Modifies SL/TP for an existing position via TradingHelper.OrderModifyRequest.
+Reads target prices from env MODIFY_SL / MODIFY_TP; auto-discovers POSITION_TICKET (via step13a_autopick_position_ticket) if not set.
+Builds a schema-tolerant request (tries multiple field names for ticket/SL/TP/deviation) and sends it with _safe_call(acc.order_modify).
+Prints a normalized result (retcode/order/deal/comment) plus a raw proto dict; guarded by RUN_TRADING=1 and credential checks.
+"""
+
+async def step14_order_modify_sltp():
+    print("=== Trading: order_modify SL/TP (direct via order_modify) ===")
+    if not RUN_TRADING:
+        print("skipped (RUN_TRADING=0)")
+        return
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+        return
+
+    import os
+    from google.protobuf.json_format import MessageToDict
+
+    sl = _num_or_none(os.getenv("MODIFY_SL", ""))
+    tp = _num_or_none(os.getenv("MODIFY_TP", ""))
+    if sl is None and tp is None:
+        print("No MODIFY_SL/MODIFY_TP set — nothing to change.")
+        return
+
+    # ensure we have a ticket (try env → stream one-shot)
+    pos_ticket = os.getenv("POSITION_TICKET", "").strip()
+    if not pos_ticket:
+        await step13a_autopick_position_ticket()
+        pos_ticket = os.getenv("POSITION_TICKET", "").strip()
+    if not pos_ticket:
+        print("POSITION_TICKET is still unknown. Set it from MT5 and rerun.")
+        return
+    pos_ticket = int(pos_ticket)
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        # Build TradingHelper.OrderModifyRequest (field names may vary → try common ones)
+        req = trade_pb2.OrderModifyRequest()
+        _set_if_supported(req, "symbol", SYMBOL)
+        (_set_if_supported(req, "position_ticket", pos_ticket) or
+         _set_if_supported(req, "ticket", pos_ticket) or
+         _set_if_supported(req, "position", pos_ticket) or
+         _set_if_supported(req, "position_id", pos_ticket))
+        if sl is not None:
+            _set_if_supported(req, "stop_loss", float(sl)) or _set_if_supported(req, "sl", float(sl))
+        if tp is not None:
+            _set_if_supported(req, "take_profit", float(tp)) or _set_if_supported(req, "tp", float(tp))
+        if TRADE_DEVIATION:
+            _set_if_supported(req, "deviation", int(TRADE_DEVIATION)) or _set_if_supported(req, "slippage", int(TRADE_DEVIATION))
+
+        # Safe RPC call (handles timeouts/unavailable)
+        resp = await _safe_call("order_modify", lambda t: acc.order_modify(request=req), retries=1)
+        if not resp:
+            print("[modify] skipped due to timeout/unavailable")
+            return
+
+        out = _unify_trade_result(resp)
+        print("[modify] response:", out)
+        try:
+            print("[modify:raw]", MessageToDict(resp, preserving_proto_field_name=True))
+        except Exception:
+            pass
+
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ------------------- Step 15: order_close — direct via MT5Account.order_close ---------------------
+"""
+Closes an existing position via TradingHelper.OrderCloseRequest (full or partial).
+Reads optional CLOSE_VOLUME (partial close); auto-discovers POSITION_TICKET if not set.
+Builds a schema-tolerant request (tries multiple field names for ticket/volume/deviation) and sends with _safe_call(acc.order_close).
+Prints a normalized trade result and a raw proto dict; guarded by RUN_TRADING=1 and credential checks
+"""
+
+async def step15_order_close():
+    print("=== Trading: order_close (direct via order_close) ===")
+    if not RUN_TRADING:
+        print("skipped (RUN_TRADING=0)")
+        return
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER")
+        return
+
+    import os
+    from google.protobuf.json_format import MessageToDict
+
+    # optional partial volume; empty → close full
+    close_volume = _num_or_none(os.getenv("CLOSE_VOLUME", ""))
+
+    # ensure ticket (env → stream)
+    pos_ticket = os.getenv("POSITION_TICKET", "").strip()
+    if not pos_ticket:
+        await step13a_autopick_position_ticket()
+        pos_ticket = os.getenv("POSITION_TICKET", "").strip()
+    if not pos_ticket:
+        print("POSITION_TICKET is still unknown. Set it from MT5 and rerun.")
+        return
+    pos_ticket = int(pos_ticket)
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+
+        # Build TradingHelper.OrderCloseRequest
+        req = trade_pb2.OrderCloseRequest()
+        _set_if_supported(req, "symbol", SYMBOL)
+        (_set_if_supported(req, "position_ticket", pos_ticket) or
+         _set_if_supported(req, "ticket", pos_ticket) or
+         _set_if_supported(req, "position", pos_ticket) or
+         _set_if_supported(req, "position_id", pos_ticket))
+        if close_volume is not None:
+            _set_if_supported(req, "volume", float(close_volume)) or _set_if_supported(req, "lots", float(close_volume))
+        if TRADE_DEVIATION:
+            _set_if_supported(req, "deviation", int(TRADE_DEVIATION)) or _set_if_supported(req, "slippage", int(TRADE_DEVIATION))
+
+        # Safe RPC call (handles timeouts/unavailable)
+        resp = await _safe_call("order_close", lambda t: acc.order_close(request=req), retries=1)
+        if not resp:
+            print("[close] skipped due to timeout/unavailable")
+            return
+
+        out = _unify_trade_result(resp)
+        print("[close] response:", out)
+        try:
+            print("[close:raw]", MessageToDict(resp, preserving_proto_field_name=True))
+        except Exception:
+            pass
+
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ------------------ Step 16a: on_symbol_tick -----------------------
+"""
+Opens a live tick stream for SYMBOL by building OnSymbolTickRequest (symbol_names=[SYMBOL]) and subscribing via subscription_client.OnSymbolTick.
+Connects an MT5Account and uses _run_stream (with the global timeout) to iterate messages reliably.
+For each reply, converts to dict and schema-tolerantly extracts symbol/bid/ask/last from the nested symbol_tick (fallback key names supported).
+Prints a concise line per tick and always closes the channel in finally.
+"""
+
+async def step16a_on_symbol_tick():
+    print("=== Streaming: on_symbol_tick ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+
+    subs_pb2 = _get_subs_pb2()
+
+    def build_req():
+        req = subs_pb2.OnSymbolTickRequest()
+        # Correct request field is a list: symbol_names
+        if hasattr(req, "symbol_names"):
+            req.symbol_names.append(SYMBOL)
+        else:
+            # fallback just in case schema differs
+            setattr(req, "symbol_names", [SYMBOL])
+        return req
+
+    def pick(dct, *keys):
+        for k in keys:
+            v = dct.get(k)
+            if v is not None:
+                return v
+        return None
+
+    async def on_msg(msg):
+        d = MessageToDict(msg, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        tick = data.get("symbol_tick") or data.get("tick") or data
+
+        sym  = pick(tick, "symbol", "symbol_name", "name") or SYMBOL
+        bid  = pick(tick, "bid", "current_bid", "bid_price", "best_bid", "buy")
+        ask  = pick(tick, "ask", "current_ask", "ask_price", "best_ask", "sell")
+        last = pick(tick, "last", "last_price", "price", "lastdeal_price")
+
+        print(f"[tick] {sym} bid={bid} ask={ask} last={last}")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+        await _run_stream(acc, "on_symbol_tick", "subscription_client",
+                          ["OnSymbolTick"], build_req, on_msg)
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ----------------- Step 16c: on_position_profit -------------------------
+"""
+Subscribes to periodic position-profit updates via subscription_client.OnPositionProfit.
+Builds a request with a ~700 ms timer and ignore_empty_data=True to reduce noise.
+For each message, reads data.{new_positions, updated_positions, deleted_positions} and prints a compact summary (#ticket symbol profit).
+Runs through _run_stream (with global timeout) and always closes the channel in finally.
+"""
+
+async def step16c_on_position_profit():
+    print("=== Streaming: on_position_profit ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+
+    subs_pb2 = _get_subs_pb2()
+
+    def build_req():
+        req = subs_pb2.OnPositionProfitRequest()
+        _set_if_supported(req, "timer_period_milliseconds", 700)
+        _set_if_supported(req, "ignore_empty_data", True)
+        return req
+
+    async def on_msg(msg):
+        d = MessageToDict(msg, preserving_proto_field_name=True)
+        data = d.get("data", d)
+
+        new_pos = data.get("new_positions", []) or []
+        upd_pos = data.get("updated_positions", []) or []
+        del_pos = data.get("deleted_positions", []) or []
+
+        # Compact summary
+        def fmt_first(arr):
+            if not arr:
+                return "None"
+            p = arr[0]
+            return f"#{p.get('ticket')} {p.get('position_symbol')} profit={p.get('profit')}"
+
+        print(
+            "[pos_profit]"
+            f" new={len(new_pos)}({fmt_first(new_pos)})"
+            f" upd={len(upd_pos)}({fmt_first(upd_pos)})"
+            f" del={len(del_pos)}({fmt_first(del_pos)})"
+        )
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+        await _run_stream(acc, "on_position_profit", "subscription_client",
+                          ["OnPositionProfit"], build_req, on_msg)
+    finally:
+        await _shutdown_channel(acc)
+
+
+# -------------------------- Step 16b: on_trade ----------------------------
+"""
+Subscribes to trade events via subscription_client.OnTrade (falls back to OnDeals/OnOrders), using an empty request most servers accept.
+Runs through _run_stream (global timeout enforced) and, for each message, drills into data.event_data.
+Prints compact counters for keys like new_orders, new_history_deals, updated_positions, etc., plus a sample item (ticket/symbol/price) when present.
+Useful to observe order/deal/position lifecycle changes; silent when there are no events.
+"""
+
+async def step16b_on_trade():
+    print("=== Streaming: on_trade ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+
+    subs_pb2 = _get_subs_pb2()
+
+    def build_req():
+        # Most servers accept empty request
+        return subs_pb2.OnTradeRequest()
+
+    interesting_keys = [
+        "new_orders", "disappeared_orders", "state_changed_orders",
+        "new_history_deals", "updated_history_deals",
+        "new_positions", "updated_positions", "disappeared_positions",
+    ]
+
+    async def on_msg(msg):
+        d = MessageToDict(msg, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        ev   = data.get("event_data", {})
+
+        # Prepare compact counts
+        parts = []
+        for k in interesting_keys:
+            arr = ev.get(k)
+            if arr:
+                parts.append(f"{k}={len(arr)}")
+
+        # Show 1–2 examples if present
+        sample = None
+        for k in ("new_orders", "new_history_deals", "new_positions"):
+            arr = ev.get(k)
+            if arr:
+                sample = (k, arr[0])
+                break
+
+        if sample:
+            k, obj = sample
+            sym = obj.get("symbol") or obj.get("position_symbol")
+            price = obj.get("price") or obj.get("price_open")
+            ticket = obj.get("ticket") or obj.get("position_id") or obj.get("deal_ticket")
+            print(f"[trade] {' '.join(parts)} | sample {k}: ticket={ticket} {sym} price={price}")
+        else:
+            print(f"[trade] {' '.join(parts) if parts else 'no changes'}")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+        await _run_stream(acc, "on_trade", "subscription_client",
+                          ["OnTrade","OnDeals","OnOrders"], build_req, on_msg)
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ===== Step 16d: on_positions_and_pending_orders_tickets ========================
+"""
+Subscribes to the positions & pending orders tickets stream and enforces a ~700 ms polling interval with ignore_empty_data=True.
+For each snapshot, reads data.tickets and schema-tolerantly extracts position_tickets / pending_order_tickets (with fallbacks).
+Prints counts and the first ticket from each list: positions=… pending=… first_pos=… first_pend=….
+Runs through _run_stream (global timeout applied) and always closes the MT5Account channel in finally.
+"""
+
+async def step16d_on_positions_and_pending_orders_tickets():
+    print("=== Streaming: on_positions_and_pending_orders_tickets ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+
+    subs_pb2 = _get_subs_pb2()
+
+    def build_req():
+        req = subs_pb2.OnPositionsAndPendingOrdersTicketsRequest()
+        # periodic timer + skip empties to avoid spam
+        if hasattr(req, "timer_period_milliseconds"):
+            req.timer_period_milliseconds = 700
+        if hasattr(req, "ignore_empty_data"):
+            req.ignore_empty_data = True
+        return req
+
+    async def on_msg(msg):
+        d = MessageToDict(msg, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        t = data.get("tickets") or data
+
+        # Try several likely field names to be schema-agnostic
+        pos = (t.get("position_tickets")
+               or t.get("positions_tickets")
+               or t.get("positions")
+               or [])
+        pend = (t.get("pending_order_tickets")
+                or t.get("pending_tickets")
+                or t.get("pending_orders")
+                or [])
+
+        first_pos = pos[0] if pos else None
+        first_pend = pend[0] if pend else None
+        print(f"[tickets] positions={len(pos)} pending={len(pend)} "
+              f"first_pos={first_pos} first_pend={first_pend}")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+        await _run_stream(acc, "on_positions_and_pending_orders_tickets", "subscription_client",
+                          ["OnPositionsAndPendingOrdersTickets"], build_req, on_msg)
+    finally:
+        await _shutdown_channel(acc)
+
+
+
+# ----------------------- Step 16e: on_trade_transaction ------------------------------
+"""
+Subscribes to trade-transaction updates; builds OnTradeTransactionRequest (500 ms timer if supported).
+For each reply, digs into data.trade_transaction and schema-tolerantly extracts type/order/deal/symbol/price/volume.
+Prints a one-line normalized summary per transaction.
+Runs via _run_stream (global timeout enforced), with proper connect/cleanup in finally.
+"""
+
+async def step16e_on_trade_transaction():
+    print("=== Streaming: on_trade_transaction ===")
+    if not (LOGIN and PASS and SERVER and GRPC):
+        print("Please set MT5_LOGIN, MT5_PASSWORD, MT5_SERVER, GRPC_SERVER"); return
+
+    subs_pb2 = _get_subs_pb2()
+
+    def build_req():
+        req = subs_pb2.OnTradeTransactionRequest()
+        _set_if_supported(req, "timer_period_milliseconds", 500)
+        return req
+
+    async def on_msg(msg):
+        d = MessageToDict(msg, preserving_proto_field_name=True)
+        data = d.get("data", d)
+        tx   = data.get("trade_transaction", data)
+
+        typ   = tx.get("type") or tx.get("trade_transaction_type")
+        order = tx.get("order_ticket") or tx.get("order")
+        deal  = tx.get("deal_ticket") or tx.get("deal")
+        sym   = tx.get("symbol")
+        price = tx.get("price")
+        vol   = tx.get("volume")
+        print(f"[tx] type={typ} order={order} deal={deal} {sym} price={price} vol={vol}")
+
+    acc = MT5Account(user=LOGIN, password=PASS, grpc_server=GRPC)
+    try:
+        await acc.connect_by_server_name(server_name=SERVER, base_chart_symbol=SYMBOL, timeout_seconds=TO_S)
+        await _run_stream(acc, "on_trade_transaction", "subscription_client",
+                          ["OnTradeTransaction","OnTrade"], build_req, on_msg)
+    finally:
+        await _shutdown_channel(acc)
+
+
+# ---- Entry point --------------------------------------------------------------
+
+
+async def main():
+    try:
+        
+        await step1_account_summary()
+        await step2_account_info()
+        await step3_symbols_basic()
+        await step4_symbol_params_many()
+        await step6f_symbol_info_tick()
+        await step6g_symbol_info_session_quote()
+        await step6h_symbol_info_session_trade()
+        await step6i_symbol_info_margin_rate()
+        await step6j_symbol_name()
+        """
+        await step5_opened_orders()
+        await step6_opened_orders_tickets()
+        await step7_positions_total()
+        await step8_order_history_last7d()
+        await step9_positions_history_last7d() 
+
+        
+       # DOM      
+        await step10_market_book_dom()   
+        await step10a_dom_scan()
+
+        
+       # Trading
+        await step11_order_calc_margin()
+        await step12_order_check()
+        await step12_order_check_diag()
+        await step13_order_send()
+        await step13a_autopick_position_ticket()  # optional, used by modify/close
+
+       # --- run in sequence after successful order_send ---
+        await step14_order_modify_sltp()
+        await step15_order_close()
+        """
+
+       # --- streaming (run one by one for demo; Ctrl-C to stop) ---
+        await step16a_on_symbol_tick()
+        await step16b_on_trade()
+        await step16c_on_position_profit()
+        await step16d_on_positions_and_pending_orders_tickets()
+        await step16e_on_trade_transaction()
+        
+
+    except (ConnectExceptionMT5, ApiExceptionMT5) as e:
+        print(f"[MT5 error] {e}")
+    except Exception as e:
+        print(f"[Error] {e}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+#---------------------------------------------------
+# Fast project launch
+# Adjust the work of the necessary methods, comment or delete in main()
+# python .\examples\base_example\lowlevel_walkthrough
+
+
+#---------------------------------------------------
+# only scanner
+# $env:RUN_DOM_SCAN = "1"
+# python .\examples\base_example\lowlevel_walkthrough
+
+# or a full DOM step (if a symbol with a glass appears)
+# $env:RUN_DOM = "1"
+# python .\examples\base_example\lowlevel_walkthrough
+
+# remove the flags
+# Remove-Item Env:RUN_DOM
+# Remove-Item Env:RUN_DOM_SCAN
+
+#---------------------------------------------------
+# $env:STREAM_RUN_SECONDS = "7"
+# In order not to drown in the stream of data

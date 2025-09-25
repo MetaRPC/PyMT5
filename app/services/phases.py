@@ -38,7 +38,7 @@ if TYPE_CHECKING:
 ║ • Do not mutate service configuration. Trading presets are dry-run unless  ║
 ║   explicitly disabled.                                                     ║
 ║                                                                            ║
-║ Safety                                                                      ║
+║ Safety                                                                     ║
 ║ • Read-only in all phases except trading presets/stepwise (guarded).       ║
 ║ • Timeouts and retries are local to callers; no global side effects.       ║
 ╚════════════════════════════════════════════════════════════════════════════╝
