@@ -1,4 +1,4 @@
-# Low-Level Walkthrough — Step number two
+# Step number two
 **Covers:** Steps **7–10** (positions total, order/positions history, Market Book DOM, DOM scan).  
 
 > This part remains *read-only* (no order placement). DOM subscriptions are opened and released safely.
