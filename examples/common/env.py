@@ -1,41 +1,4 @@
-"""
-╔══════════════════════════════════════════════════════════════════════════════════╗
-║ FILE examples/env_config.py — Environment configuration and account setup        ║
-╠══════════════════════════════════════════════════════════════════════════════════╣
-║ Purpose:                                                                         ║
-║   Apply pb2 shim, load env/.env, prepare imports, and set up an MT5 account      ║
-║   connection (preferring the extended adapter if available).                     ║
-║                                                                                  ║
-║ Exposes:                                                                         ║
-║   1) connect()  → returns MT5Account/MT5AccountEx connected using env vars.      ║
-║   2) shutdown(acc) → best-effort graceful disconnect (disconnect/close/shutdown).║
-║                                                                                  ║
-║ Key Variables (from env/.env):                                                   ║
-║   - MT5_LOGIN, MT5_PASSWORD, MT5_SERVER                                          ║
-║   - GRPC_SERVER (e.g., "mt5.mrpc.pro:443")                                       ║
-║   - TIMEOUT_SECONDS (default 90), CONNECT_RETRIES (default 3)                    ║
-║   - ENABLE_TRADING, SYMBOL, VOLUME                                               ║
-║                                                                                  ║
-║ Strategy (connect):                                                              ║
-║   1) Try connect_by_server_name(server_name, …).                                 ║
-║   2) Fallback connect_by_host_port(host, port, …).                               ║
-║   3) Fallback connect(host, port, timeout_seconds=…) or with deadline.           ║
-║   Uses small backoff between retries.                                            ║
-║                                                                                  ║
-║ Adapter preference:                                                              ║
-║   Use MetaRpcMT5Ex.MT5AccountEx if present; otherwise MetaRpcMT5.MT5Account.     ║
-╚══════════════════════════════════════════════════════════════════════════════════╝
-"""
-
 from __future__ import annotations
-
-# --- auto-apply pb2 shim for all examples ---
-try:
-    from .pb2_shim import apply_patch as _pb2_apply_patch
-    _pb2_apply_patch()
-except Exception:
-    pass
-# --------------------------------------------
 
 import os, sys, asyncio
 from datetime import datetime, timedelta
@@ -50,24 +13,39 @@ except Exception:
 # gRPC error type
 try:
     from grpc.aio import AioRpcError
-except Exception: 
+except Exception:
     AioRpcError = Exception
 
+# 1) Ensure project paths are on sys.path (ROOT, package/, ext/)
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 for p in (ROOT, os.path.join(ROOT, "package"), os.path.join(ROOT, "ext")):
     if p not in sys.path:
         sys.path.append(p)
 
-# prefer the extended adapter if available
+# 2) Apply pb2 shim NOW (MetaRpcMT5 is importable because sys.path is ready)
+try:
+    from .pb2_shim import apply_patch as _pb2_apply_patch
+    _pb2_apply_patch()
+except Exception:
+    # soft-fail: we'll try again after imports
+    pass
+
+# 3) Prefer extended adapter if available, otherwise base
 try:
     from MetaRpcMT5Ex import MT5AccountEx as MT5Account
 except Exception:
     from MetaRpcMT5.mt5_account import MT5Account  # fallback
 
+# 4) Re-apply shim AFTER imports (idempotent safety)
+try:
+    _pb2_apply_patch()
+except Exception:
+    pass
 
 ENABLE_TRADING = os.getenv("MT5_ENABLE_TRADING", "0") == "1"
 SYMBOL = os.getenv("MT5_SYMBOL", "EURUSD")
 VOLUME = float(os.getenv("MT5_VOLUME", "0.10"))
+
 
 async def connect() -> MT5Account:
     """
@@ -156,3 +134,74 @@ async def shutdown(acc) -> None:
             except Exception:
                 
                 pass
+"""
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/common/env.py — environment bootstrap & resilient MT5 connect  ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Purpose:                                                                     ║
+║   Prepare PYTHONPATH, load .env, apply the pb2 shim, pick the account        ║
+║   adapter (extended/base), and establish a gRPC connection to an MT5         ║
+║   terminal with retries and timeouts. Also provides a gentle shutdown.       ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ What it does (happy path):                                                   ║
+║   1) Appends project paths to sys.path: repo root, ./package, ./ext.         ║
+║   2) Applies pb2_shim.apply_patch() early to expose pb2 modules/aliases      ║
+║      (important across different MetaRpcMT5 builds).                         ║
+║   3) Imports MT5AccountEx from MetaRpcMT5Ex if available; otherwise falls    ║
+║      back to MetaRpcMT5.mt5_account.MT5Account.                              ║
+║   4) Re-applies the pb2 shim (idempotent) after imports for safety.          ║
+║   5) Reads settings from environment and optional .env.                      ║
+║   6) connect():                                                              ║
+║      • collects credentials & endpoints (login/password/server/host:port),   ║
+║      • tries connect_by_server_name(...),                                    ║
+║      • if not available/failed — tries connect_by_host_port(...),            ║
+║      • else falls back to a generic connect(...),                            ║
+║      • between attempts: small backoff; respects retry/timeout limits.       ║
+║   7) Returns a ready-to-use MT5Account instance.                             ║
+║   8) shutdown(): performs best-effort graceful disconnect (disconnect/close/ ║
+║      shutdown — whichever exists), awaiting coroutines when needed.          ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Environment variables (inputs):                                              ║
+║   MT5_LOGIN            (int, default 0)                                      ║
+║   MT5_PASSWORD         (str, "")                                             ║
+║   MT5_SERVER           (str, "MetaQuotes-Demo")                              ║
+║   GRPC_SERVER          (str, "mt5.mrpc.pro:443") → parsed into host/port     ║
+║   TIMEOUT_SECONDS      (int, 90)                                             ║
+║   CONNECT_RETRIES      (int, 3)                                              ║
+║   MT5_ENABLE_TRADING   ("1"/"0", default "0")                                ║
+║   MT5_SYMBOL           (str, "EURUSD")                                       ║
+║   MT5_VOLUME           (float, "0.10")                                       ║
+║  * .env is loaded automatically via dotenv.load_dotenv().                    ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Connection behavior (details):                                               ║
+║   • For connect_by_server_name / connect_by_host_port the code sets          ║
+║     base_chart_symbol=SYMBOL and wait_for_terminal_is_alive=True.            ║
+║   • Generic connect(...) tries two signatures:                               ║
+║       - with timeout_seconds, or                                             ║
+║       - with deadline = utcnow + timeout_s (fallback signature).             ║
+║   • Retries: up to CONNECT_RETRIES with small exponential-ish backoff.       ║
+║   • The last exception is re-raised for clear diagnostics.                   ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Exported constants (used by examples):                                       ║
+║   ENABLE_TRADING: bool  — toggles live trading via env.                      ║
+║   SYMBOL: str          — default symbol (ensured in Market Watch).           ║
+║   VOLUME: float        — default lot size.                                   ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Helpers / utilities used:                                                    ║
+║   • dotenv.load_dotenv() — loads .env if present.                            ║
+║   • pb2_shim.apply_patch() — exposes pb2 modules/classes and smooths build   ║
+║     differences (aliases, AccountHelper*Stub name variants, request classes).║
+║   • grpc.aio.AioRpcError — gRPC error type (soft fallback to Exception if    ║
+║     grpc isn't available during static checks).                              ║
+║   • Adapter methods from MT5Account/MT5AccountEx:                            ║
+║       connect_by_server_name / connect_by_host_port / connect,               ║
+║       and disconnect/close/shutdown for teardown.                            ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Public API of this file:                                                     ║
+║   async def connect() -> MT5Account                                          ║
+║       Establishes a connection and returns the ready account object.         ║
+║                                                                              ║
+║   async def shutdown(acc) -> None                                            ║
+║       Gracefully closes the connection (best effort), awaiting coroutines.   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+"""

@@ -599,9 +599,9 @@ async def _run_stream(acc, label, client_attr, method_names, req_builder, on_mes
 
 
 
-# ╔═══════════════════════════════════════════════════════════════════════╗
-# ║ LET'S MOVE ON TO OUR METHODS                                          ║
-# ╚═══════════════════════════════════════════════════════════════════════╝
+#  -------------=========== ╔═══════════════════════════════════════════════════════════════════════╗ ===========-------------
+#  -------------=========== ║ LET'S MOVE ON TO OUR METHODS                                          ║ ===========-------------
+#  -------------=========== ╚═══════════════════════════════════════════════════════════════════════╝ ===========-------------
 
 
 # ---- Step 1: one-shot account_summary -----------------------------------------
@@ -651,7 +651,7 @@ async def step1_account_summary():
     await _shutdown_channel(acc)
 
 
-# ---- Step 2: account_info_* ---------------------------------------------------
+# ---- Step 2: account_info ---------------------------------------------------
 async def step2_account_info():
     """
     Demonstrate low-level account info via direct stub calls:
@@ -777,7 +777,7 @@ async def step2_account_info():
     await _shutdown_channel(acc)
 
 
-# ---- Step 3: Symbols & Market (basic) -----------------------------------------
+# ---- Step 3: Symbols_Market (basic) -----------------------------------------
 async def step3_symbols_basic():
     """
     Low-level symbol operations:
@@ -1615,7 +1615,7 @@ async def step10_market_book_dom():
         await _shutdown_channel(acc)
 
 
-# ----------- Step 10a: scan symbols that have DOM------------------
+# ----------- Step 10a: scan symbols that have DOM ------------------
 
 def _deadline_in(sec: float):
     
@@ -2282,7 +2282,7 @@ async def step15_order_close():
         await _shutdown_channel(acc)
 
 
-# ------------------ Step 16a: on_symbol_tick -----------------------
+# -------------- Step 16a: on_symbol_tick -----------------------
 """
 Opens a live tick stream for SYMBOL by building OnSymbolTickRequest (symbol_names=[SYMBOL]) and subscribing via subscription_client.OnSymbolTick.
 Connects an MT5Account and uses _run_stream (with the global timeout) to iterate messages reliably.
