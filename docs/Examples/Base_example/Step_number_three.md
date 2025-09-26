@@ -6,7 +6,7 @@
 
 ---
 
-# Step 11: Trading — order_calc_margin 🧮
+### Step 11: Trading — order_calc_margin 🧮
 
 **Goal:** dry‑run margin calculation for the selected parameters (symbol/side/volume).
 
@@ -22,7 +22,7 @@ OrderCalcMargin(OrderCalcMarginRequest) -> OrderCalcMarginReply
 
 ---
 
-# Step 12: TF OrderCheck — MARKET + mandatory expiration ✅
+### Step 12: TF OrderCheck — MARKET + mandatory expiration ✅
 
 **Goal:** validate placing a MARKET order with a mandatory `expiration`.
 
@@ -38,7 +38,7 @@ OrderCheck(OrderCheckRequest) -> OrderCheckReply
 
 ---
 
-# Step 12b: OrderCheck DIAG — print payload with expiration = +1 day 🔍
+### Step 12b: OrderCheck DIAG — print payload with expiration = +1 day 🔍
 
 **Goal:** repeat the check with `expiration = now + 1 day`, and **print the full response** (diagnostic field/reason breakdown).
 
@@ -52,7 +52,7 @@ OrderCheck(OrderCheckRequest) -> OrderCheckReply
 
 ---
 
-# Step 13: order_send (market — TradingHelper) 🚀
+### Step 13: order_send (market — TradingHelper) 🚀
 
 **Goal:** send a market order using env parameters (`TRADE_SIDE`, `TRADE_VOLUME`, `SL/TP`, `DEVIATION`, `TIME`, `FILLING`).
 
@@ -68,7 +68,7 @@ OrderSend(OrderSendRequest) -> OrderSendReply
 
 ---
 
-# Step 13a: discover POSITION_TICKET via one‑shot stream 🎯
+### Step 13a: discover POSITION_TICKET via one‑shot stream 🎯
 
 **Goal:** if a position ticket is not provided, obtain it from the tickets stream (short‑lived subscription).
 
@@ -82,7 +82,7 @@ OnPositionsAndPendingOrdersTickets(OnPositionsAndPendingOrdersTicketsRequest) ->
 
 ---
 
-# Step 14: order_modify_sltp — TradingHelper ✏️
+### Step 14: order_modify_sltp — TradingHelper ✏️
 
 **Goal:** modify SL/TP for an existing position.
 
@@ -98,7 +98,7 @@ OrderModify(OrderModifyRequest) -> OrderModifyReply
 
 ---
 
-# Step 15: order_close — TradingHelper 🧹
+### Step 15: order_close — TradingHelper 🧹
 
 **Goal:** close a position fully or partially (`CLOSE_VOLUME`).
 
@@ -112,7 +112,7 @@ OrderClose(OrderCloseRequest) -> OrderCloseReply
 
 ---
 
-# Step 16a: on_symbol_tick ⏱️
+### Step 16a: on_symbol_tick ⏱️
 
 **Goal:** subscribe to symbol ticks and handle several events; terminate cleanly via `STREAM_RUN_SECONDS`.
 
@@ -126,7 +126,7 @@ OnSymbolTick(OnSymbolTickRequest) -> stream OnSymbolTickReply
 
 ---
 
-# Step 16b: on_trade 💹
+### Step 16b: on_trade 💹
 
 **Goal:** listen to trade (deal) events and print key fields.
 
@@ -140,7 +140,7 @@ OnTrade(OnTradeRequest) -> stream OnTradeReply
 
 ---
 
-# Step 16c: on_position_profit 💰
+### Step 16c: on_position_profit 💰
 
 **Goal:** subscribe to profit updates for open positions.
 
@@ -154,7 +154,7 @@ OnPositionProfit(OnPositionProfitRequest) -> stream OnPositionProfitReply
 
 ---
 
-# Step 16d: on_positions_and_pending_orders_tickets 🎟️
+### Step 16d: on_positions_and_pending_orders_tickets 🎟️
 
 **Goal:** receive tickets for positions and pending orders (also used in Step 13a).
 
@@ -168,7 +168,7 @@ OnPositionsAndPendingOrdersTickets(OnPositionsAndPendingOrdersTicketsRequest) ->
 
 ---
 
-# Step 16e: on_trade_transaction 🔄
+### Step 16e: on_trade_transaction 🔄
 
 **Goal:** subscribe to trade‑transaction events (low‑level changes of orders/positions).
 
