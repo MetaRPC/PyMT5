@@ -17,7 +17,7 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_two
 
 ---
 
-# Step 7: positions_total 📊
+### Step 7: positions_total 📊
 **Goal:** Return the count of open positions (with a hard fallback to the direct stub if helper path fails).  
 **Docs:** [`positions_total.md`](../../MT5Account/Orders_Positions_History/positions_total.md)
 
@@ -28,7 +28,7 @@ PositionsTotal(request: Empty) -> PositionsTotalReply
 
 ---
 
-# Step 8: order_history (last 7 days) 🕰️
+### Step 8: order_history (last 7 days) 🕰️
 **Goal:** Fetch order history within a time window using pb2 `Timestamp` (UTC).  
 **Docs:** [`order_history.md`](../../MT5Account/Orders_Positions_History/order_history.md)
 
@@ -39,7 +39,7 @@ OrderHistory(request: OrderHistoryRequest) -> OrderHistoryReply
 
 ---
 
-# Step 9: positions_history 📜
+### Step 9: positions_history 📜
 **Goal:** Fetch positions history within a time window; prints compact rows with key PnL/time fields.  
 **Docs:** [`positions_history.md`](../../MT5Account/Orders_Positions_History/positions_history.md)
 
@@ -50,7 +50,7 @@ PositionsHistory(request: PositionsHistoryRequest) -> PositionsHistoryReply
 
 ---
 
-# Step 10: Market Book (DOM) 📈
+### Step 10: Market Book (DOM) 📈
 **Goal:** Probe DOM carefully — check depth, subscribe, read a few snapshots, then release.  
 **Docs:** [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md),  
 [`market_book_get.md`](../../MT5Account/Symbols_and_Market/market_book_get.md),  
@@ -66,7 +66,7 @@ MarketBookRelease(request: MarketBookReleaseRequest) -> MarketBookReleaseReply
 
 ---
 
-# Step 10a: scan symbols that have DOM 🔎
+### Step 10a: scan symbols that have DOM 🔎
 **Goal:** Iterate symbols and print those with available DOM by attempting a lightweight subscribe/release.  
 **Docs:** [`symbols_total.md`](../../MT5Account/Symbols_and_Market/symbols_total.md),  
 [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md),  
