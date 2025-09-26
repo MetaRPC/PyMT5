@@ -70,6 +70,16 @@ nav:
   - Streaming: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
   - Symbols & Market: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
   - Trading Ops: MT5Account/Trading_Operations/TradingOperations_Overview.md
+  - Examples:
+    - Base example:
+      - Step number one: Examples/Base_example/Step_number_one.md
+      - Step number two: Examples/Base_example/Step_number_two.md
+      - Step number three: Examples/Base_example/Step_number_three.md
+    - Common:
+      - pb2_shim: Examples/Common/pb2_shim.md
+      - utils: Examples/Common/utils.md
+      - env: Examples/Common/env.md
+      - diag_connect: Examples/Common/diag_connect.md
   - API: api.md
 
 markdown_extensions:
