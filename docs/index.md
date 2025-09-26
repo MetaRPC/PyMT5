@@ -62,13 +62,47 @@ From request to result: calls, streams, and data transformations.
 
 ---
 
-## 🔴 Quick access
+## 🔴 Low level examples
 
-Shortcuts to key overview pages. These are also in the top navigation.
+## Examples — quick start
 
-- [Account Info Overview](MT5Account/Account_Information/Account_Information_Overview.md)
-- [Orders & History Overview](MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md)
-- [Streaming Overview](MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md)
-- [Symbols & Market Overview](MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
-- [Trading Ops Overview](MT5Account/Trading_Operations/TradingOperations_Overview.md)
+<div class="grid cards" markdown>
+
+-   :material-clipboard-text-multiple: **Base example · Step number one**  
+    Steps **1–6**, **6f–6j**, **8** (connect, symbols, params, orders snapshot, history)  
+    [:octicons-arrow-right-24: Open →](Examples/Base_example/Step_number_one.md)
+
+-   :material-clipboard-check-outline: **Base example · Step number two**  
+    Steps **7–10a** (positions total, orders/positions history, DOM, DOM scan)  
+    [:octicons-arrow-right-24: Open →](Examples/Base_example/Step_number_two.md)
+
+-   :material-rocket-launch-outline: **Base example · Step number three**  
+    Steps **11–16e** (trading & streaming)  
+    [:octicons-arrow-right-24: Open →](Examples/Base_example/Step_number_three.md)
+
+</div>
+
+---
+
+## Common helpers
+
+<div class="grid cards" markdown>
+
+-   :material-puzzle-outline: **pb2 shim**  
+    Compatibility layer for enums/fields  
+    [:octicons-arrow-right-24: Open →](Examples/Common/pb2_shim.md)
+
+-   :material-wrench-outline: **utils**  
+    Price/volume normalization, printers, safe-get  
+    [:octicons-arrow-right-24: Open →](Examples/Common/utils.md)
+
+-   :material-cog-outline: **env**  
+    Environment variables & setup  
+    [:octicons-arrow-right-24: Open →](Examples/Common/env.md)
+
+-   :material-heart-pulse: **diag_connect**  
+    Connectivity diagnostics checklist  
+    [:octicons-arrow-right-24: Open →](Examples/Common/diag_connect.md)
+
+</div>
 
