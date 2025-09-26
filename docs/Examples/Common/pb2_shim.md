@@ -115,4 +115,4 @@ from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI
 
 This file does **not** touch the package itself and lives entirely under `examples/common/`. Removing it simply removes the compatibility layer — your core SDK remains unchanged.
 
-👌 That’s it. Keep it at the top of your examples and enjoy smoother runs across different MetaRpcMT5 builds.
+That’s it. Keep it at the top of your examples and enjoy smoother runs across different MetaRpcMT5 builds.
