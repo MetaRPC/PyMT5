@@ -1,4 +1,4 @@
-# Low-Level Walkthrough — Step number one
+# Step number one
 **Covers:** Steps **1–6**
 
  This part focuses on *read-only* and safe operations. No trading actions here.
