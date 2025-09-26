@@ -103,7 +103,7 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 
 # Step 3: symbol_* basics 🏷️
 **Goal:** Ensure the symbol is available and read key attributes.  
-**Docs (overview only):** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
+**Docs:** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
 
 **Method signatures (pb):**
 ```python
