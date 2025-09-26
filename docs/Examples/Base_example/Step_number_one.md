@@ -39,7 +39,7 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_one
 
 ### Step 1: one-shot account_summary 📊
 **Goal:** Connect via `server_name` (ConnectEx) and print key account metrics: equity, balance, margin, free, free_ratio, drawdown, server_time.  
-**Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md), [`Getting_Started.md`](../../MT5Account/Getting_Started.md)
+**Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md)
 
 **Method signatures:**
 ```python
