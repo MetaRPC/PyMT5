@@ -2,11 +2,11 @@
 
 **Covers:** Steps **11–16** (trading and event streaming).
 
-> ⚠️ This is where account state changes begin. Use a **demo** account or minimal volumes. Always double‑check parameters before sending.
+> ⚠️ This is where account state changes begin. Use a **demo** account or minimal volumes.
 
 ---
 
-# Step 11: Trading — order_calc_margin (safe) 🧮
+# Step 11: Trading — order_calc_margin 🧮
 
 **Goal:** dry‑run margin calculation for the selected parameters (symbol/side/volume).
 
@@ -44,7 +44,7 @@ OrderCheck(OrderCheckRequest) -> OrderCheckReply
 
 **Docs:** [`order_check.md`](../../MT5Account/Trading_Operations/order_check.md)
 
-**Signatures (pb):**
+**Signatures:**
 
 ```python
 OrderCheck(OrderCheckRequest) -> OrderCheckReply
@@ -132,7 +132,7 @@ OnSymbolTick(OnSymbolTickRequest) -> stream OnSymbolTickReply
 
 **Docs:** [`on_trade.md`](../../MT5Account/Subscriptions_Streaming/on_trade.md)
 
-**Signatures (pb):**
+**Signatures:**
 
 ```python
 OnTrade(OnTradeRequest) -> stream OnTradeReply
