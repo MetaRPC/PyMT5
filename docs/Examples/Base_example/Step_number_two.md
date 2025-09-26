@@ -17,40 +17,6 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_two
 
 ---
 
-## How to run this part
-PowerShell (Windows):
-```powershell
-# Optional toggles for DOM steps
-$env:RUN_DOM=1        # enables Step 10
-$env:RUN_DOM_SCAN=1   # enables Step 10a
-
-python - <<'PY'
-import asyncio
-from examples.common.pb2_shim import apply_patch
-apply_patch()
-
-from examples.base_example.lowlevel_walkthrough import main
-# Run steps 7..10; Step 10a is gated by RUN_DOM_SCAN=1
-asyncio.run(main(only_steps=[7,8,9,10]))
-PY
-```
-
-Bash:
-```bash
-export RUN_DOM=1        # enables Step 10
-export RUN_DOM_SCAN=1   # enables Step 10a
-python - <<'PY'
-import asyncio
-from examples.common.pb2_shim import apply_patch
-apply_patch()
-
-from examples.base_example.lowlevel_walkthrough import main
-asyncio.run(main(only_steps=[7,8,9,10]))
-PY
-```
-
----
-
 # Step 7: positions_total 📊
 **Goal:** Return the count of open positions (with a hard fallback to the direct stub if helper path fails).  
 **Docs:** [`positions_total.md`](../../MT5Account/Orders_Positions_History/positions_total.md)
@@ -111,4 +77,37 @@ MarketBookRelease(request: MarketBookReleaseRequest) -> MarketBookReleaseReply
 SymbolsTotal(SymbolsTotalRequest) -> SymbolsTotalReply
 MarketBookAdd(MarketBookAddRequest) -> MarketBookAddReply
 MarketBookRelease(MarketBookReleaseRequest) -> MarketBookReleaseReply
+```
+
+## How to run this part
+PowerShell (Windows):
+```powershell
+# Optional toggles for DOM steps
+$env:RUN_DOM=1        # enables Step 10
+$env:RUN_DOM_SCAN=1   # enables Step 10a
+
+@'
+import asyncio
+from examples.common.pb2_shim import apply_patch
+apply_patch()
+
+from examples.base_example.lowlevel_walkthrough import main
+# Run steps 7..10; Step 10a is gated by RUN_DOM_SCAN=1
+asyncio.run(main(only_steps=[7,8,9,10]))
+'@ | python -
+
+```
+
+Bash:
+```bash
+export RUN_DOM=1        # enables Step 10
+export RUN_DOM_SCAN=1   # enables Step 10a
+python - <<'PY'
+import asyncio
+from examples.common.pb2_shim import apply_patch
+apply_patch()
+
+from examples.base_example.lowlevel_walkthrough import main
+asyncio.run(main(only_steps=[7,8,9,10]))
+PY
 ```
