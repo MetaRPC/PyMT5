@@ -1,8 +1,8 @@
-# Low‑Level Walkthrough — Step number one
-**Covers:** Steps **1–8** (connect, account summary/info, symbols basics & params, opened orders, positions, order history).  
+# Low-Level Walkthrough — Step number one
+**Covers:** Steps **1–6**, **6f–6j**, and **8** (connect, account summary/info, symbols basics & params, opened orders, symbol detail calls, order history).  
 **Audience:** Beginners who want to understand raw MT5 gRPC calls without wrappers.
 
-> This part focuses on *read‑only* and safe operations. No trading actions here.
+> This part focuses on *read-only* and safe operations. No trading actions here.
 
 ---
 
@@ -52,7 +52,7 @@ from examples.common.pb2_shim import apply_patch
 apply_patch()
 
 from examples.base_example.lowlevel_walkthrough import main  # entrypoint
-asyncio.run(main(only_steps=range(1,9)))  # run steps 1..8
+asyncio.run(main(only_steps=range(1,9)))  # run steps 1..8 (Step 7 is handled in part two)
 PY
 ```
 
@@ -68,15 +68,15 @@ from examples.common.pb2_shim import apply_patch  # comments in English only
 apply_patch()
 
 from examples.base_example.lowlevel_walkthrough import main
-asyncio.run(main(only_steps=range(1,9)))  # 1..8
+asyncio.run(main(only_steps=range(1,9)))  # 1..8 (Step 7 is handled in part two)
 PY
 ```
 
 ---
 
-# Step 1: one‑shot account_summary 🔌📊
+# Step 1: one-shot account_summary 🔌📊
 **Goal:** Connect via `server_name` (ConnectEx) and print key account metrics: equity, balance, margin, free, free_ratio, drawdown, server_time.  
-**Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md)
+**Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md), [`Getting_Started.md`](../../MT5Account/Getting_Started.md)
 
 **Method signatures (pb):**
 ```python
@@ -103,22 +103,7 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 
 # Step 3: symbol_* basics 🏷️
 **Goal:** Ensure the symbol is available and read key attributes.  
-**Docs:** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
-
-**Method signatures (pb):**
-```python
-SymbolsTotal(request: SymbolsTotalRequest) -> SymbolsTotalReply
-SymbolExist(request: SymbolExistRequest) -> SymbolExistReply
-SymbolName(request: SymbolNameRequest) -> SymbolNameReply
-SymbolSelect(request: SymbolSelectRequest) -> SymbolSelectReply
-SymbolIsSynchronized(request: SymbolIsSynchronizedRequest) -> SymbolIsSynchronizedReply
-SymbolInfoDouble(request: SymbolInfoDoubleRequest) -> SymbolInfoDoubleReply
-SymbolInfoInteger(request: SymbolInfoIntegerRequest) -> SymbolInfoIntegerReply
-SymbolInfoString(request: SymbolInfoStringRequest) -> SymbolInfoStringReply
-SymbolInfoTick(request: SymbolInfoTickRequest) -> SymbolInfoTickRequestReply
-TickValueWithSize(request: TickValueWithSizeRequest) -> TickValueWithSizeReply
-```
-**Gotchas:** Call `symbol_select(SYMBOL, True)` before `symbol_info_*`; otherwise many fields come back empty.
+**Docs (overview only):** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
 
 ---
 
@@ -157,35 +142,65 @@ OpenedOrdersTickets(request: OpenedOrdersTicketsRequest) -> OpenedOrdersTicketsR
 
 ---
 
-# Step 7: positions_total 📊
-**Goal:** Show the count of open positions (with a fallback to direct stub if helper path fails).  
-**Docs:** [`positions_total.md`](../../MT5Account/Orders_Positions_History/positions_total.md)
+# Step 6f: symbol_info_tick ⏱️
+**Goal:** Get last tick for the symbol.  
+**Docs:** [`symbol_info_tick.md`](../../MT5Account/Symbols_and_Market/symbol_info_tick.md)
 
 **Method signatures (pb):**
 ```python
-PositionsTotal(request: Empty) -> PositionsTotalReply
+SymbolInfoTick(request: SymbolInfoTickRequest) -> SymbolInfoTickRequestReply
 ```
 
 ---
 
-# Step 8: order_history (last 7d) 🕰️
-**Goal:** Fetch order history within a time window using pb2 `Timestamp` (UTC).  
-**Docs:** [`order_history.md`](../../MT5Account/Orders_Positions_History/order_history.md)
+# Step 6g: symbol_info_session_quote 🕒
+**Goal:** Read current **quote** session info for the symbol.  
+**Docs:** [`symbol_info_session_quote.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_quote.md)
 
 **Method signatures (pb):**
 ```python
-OrderHistory(request: OrderHistoryRequest) -> OrderHistoryReply
+SymbolInfoSessionQuote(request: SymbolInfoSessionQuoteRequest) -> SymbolInfoSessionQuoteReply
 ```
 
+---
+
+# Step 6h: symbol_info_session_trade 🕒
+**Goal:** Read current **trade** session info for the symbol.  
+**Docs:** [`symbol_info_session_trade.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_trade.md)
+
+**Method signatures (pb):**
+```python
+SymbolInfoSessionTrade(request: SymbolInfoSessionTradeRequest) -> SymbolInfoSessionTradeReply
+```
+
+---
+
+# Step 6i: symbol_info_margin_rate 🧮
+**Goal:** Read margin rate information for the symbol.  
+**Docs:** [`symbol_info_margin_rate.md`](../../MT5Account/Symbols_and_Market/symbol_info_margin_rate.md)
+
+**Method signatures (pb):**
+```python
+SymbolInfoMarginRate(request: SymbolInfoMarginRateRequest) -> SymbolInfoMarginRateReply
+```
+
+---
+
+# Step 6j: symbol_name 🏷️
+**Goal:** Read the canonical symbol name.  
+**Docs:** [`symbol_name.md`](../../MT5Account/Symbols_and_Market/symbol_name.md)
+
+**Method signatures (pb):**
+```python
+SymbolName(request: SymbolNameRequest) -> SymbolNameReply
+```
 ---
 
 ## Gotchas (quick)
 - `MT5_SERVER` must exactly match the broker’s server string.
-- If `symbol_info_*` returns empty values — call `symbol_select(SYMBOL, True)` first.
+- If symbol details return empty values — call `symbol_select(SYMBOL, True)` first.
 - Normalize time to UTC for history endpoints.
 - Increase `TIMEOUT_SECONDS` if you observe high latency.
 
 ---
 
-## Next
-Continue with **Step_number_(two).md** for DOM and pre‑trade checks (Steps 9–12).
