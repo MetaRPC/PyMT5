@@ -55,9 +55,7 @@ MarketBookRelease(request: MarketBookReleaseRequest) -> MarketBookReleaseReply
 
 ### Step 10a: scan symbols that have DOM 🔎
 **Goal:** Iterate symbols and print those with available DOM by attempting a lightweight subscribe/release.  
-**Docs:** [`symbols_total.md`](../../MT5Account/Symbols_and_Market/symbols_total.md),  
-[`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md),  
-[`market_book_release.md`](../../MT5Account/Symbols_and_Market/market_book_release.md)
+**Docs:** [`symbols_total.md`](../../MT5Account/Symbols_and_Market/symbols_total.md), [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md), [`market_book_release.md`](../../MT5Account/Symbols_and_Market/market_book_release.md)
 
 **Method signatures:**
 ```python
