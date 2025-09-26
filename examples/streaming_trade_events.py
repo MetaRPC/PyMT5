@@ -90,69 +90,66 @@ if __name__ == "__main__":
 
 #  python -m examples.streaming_trade_events
 
+
 """
-    Example: Tick streaming @ ~1 Hz (push preferred, poll as fallback)
-    =================================================================
-
-    | Section | What happens | Why / Notes |
-    |---|---|---|
-    | Connect | `acc = await connect()` | Opens async session; must be closed with `shutdown()`. |
-    | Heading | `title("Streaming: up to 1Hz (push preferred)")` | Cosmetic header. |
-    | Ensure symbol | `symbol_select(SYMBOL, True)` | Guarantees the symbol is in Market Watch to receive ticks. |
-    | Start push | `on_symbol_tick(SYMBOL, None, cancel_evt)` → async generator | Primary source of ticks; lower latency and less load than polling. |
-    | Start poll | loop of `symbol_info_tick(SYMBOL)` + `sleep(POLL_INTERVAL_S)` | Fallback path to still show data if push isn’t available yet. |
-    | 1 Hz gate | Print no more than once per second (shared throttle) | Keeps console readable; doesn’t flood logs even if ticks are frequent. |
-    | Auto switch | Stop polling once the first push tick arrives | Saves resources when streaming is confirmed (`got_push` event). |
-    | Counters | Track totals: `ticks_total`, `push_ticks`, `poll_ticks`, `last_price` | Final summary line shows how data arrived. |
-    | Cleanup | Set `cancel_evt`, cancel tasks, `await shutdown(acc)` | Graceful teardown even if tasks are mid-await. |
-
-    Tick fields & normalization
-    ---------------------------
-    - For both push and poll we try `evt.last or evt.bid or evt.ask` (poll: `ti.last|bid|ask`).
-    - If a field is present and numeric, it becomes `last_price`.
-    - Printed lines are tagged by source: `[push] 1.08457` or `[poll] 1.08457`.
-
-    Concurrency model
-    -----------------
-    - Three tasks:
-      1) `consume_push()` — async-gen over `on_symbol_tick(...)`
-      2) `consume_poll()` — while-loop polling every `POLL_INTERVAL_S`
-      3) `stop_poll_on_push()` — waits for first push tick, then cancels polling
-    - Shared `last_print` throttles output to ~1 Hz across both sources.
-
-    Parameters
-    ----------
-    - `RUN_SECONDS = 10.0` — total run duration.
-    - `POLL_INTERVAL_S = 0.3` — polling cadence (tweak 0.2–1.0 depending on provider limits).
-
-    When you might see zero or only polling
-    ---------------------------------------
-    - Market closed or no market data → no push ticks; polling may also return stale/none.
-    - Provider disables tick streaming for this symbol/account → only polling shows changes.
-    - Symbol not selected/allowed → both paths may be silent (ensure `symbol_select` success).
-    - Very quiet markets → ticks are rare; increase `RUN_SECONDS`.
-
-    Output (typical)
-    ----------------
-    Streaming: up to 1Hz (push preferred)
-    Symbol EURUSD selected
-    [poll] 1.08456
-    [push] 1.08457
-    Push engaged → stop polling.
-    [push] 1.08460
-    ...
-    ticks total: 23 | push: 19 | polled: 4 | last: 1.08460
-
-    Notes & tips
-    ------------
-    - If push never engages, the guard keeps polling for the whole window and prints from polling only.
-    - If `on_symbol_tick` supports deadlines in your build, prefer **client-side** cancellation (as here) to avoid server-time skew issues.
-    - For stress testing, set `RUN_SECONDS=60` and reduce `POLL_INTERVAL_S` cautiously; watch provider throttling.
-
-    How to run
-    ----------
-    From project root:
-      `python -m examples.streaming_tick_push_poll`
-    Or via CLI (if present):
-      `python -m examples.cli run streaming_tick_push_poll`
-    """
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/streaming.py — hybrid tick streaming (push-preferred, 1 Hz IO) ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Purpose                                                                      ║
+║   Demonstrate a resilient tick stream: subscribe to server “push” ticks and  ║
+║   simultaneously poll as a fallback, then automatically stop polling once    ║
+║   push activity is detected. Prints at most ~1 line per second.              ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ What it does (main flow)                                                     ║
+║   1) Connects (connect()), selects SYMBOL, shows a header (title).           ║
+║   2) Starts two tasks in parallel:                                           ║
+║        • consume_push(): async-iterates `acc.on_symbol_tick(...)`.           ║
+║        • consume_poll(): periodically calls `acc.symbol_info_tick(...)`.     ║
+║   3) A guard task waits for first push event, then cancels the poll task.    ║
+║   4) Runs for RUN_SECONDS, cancels tasks, prints counters, and shuts down.   ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Concurrency & cancellation                                                   ║
+║   • `cancel_evt` stops the push generator.                                   ║
+║   • `got_push` is set on the first push event → cancels the poll task.       ║
+║   • All tasks are awaited with suppression to ensure clean teardown.         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Data selection & printing                                                    ║
+║   • From events/ticks, the code prefers `last`, then `bid`, then `ask`.      ║
+║   • Prints no more than once per second (monotonic time throttle).           ║
+║   • Final line reports totals:                                               ║
+║       `ticks total | push | polled | last price`.                            ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Tunables (top of file)                                                       ║
+║   • `RUN_SECONDS`      — total demo duration (default: 10.0 s).              ║
+║   • `POLL_INTERVAL_S`  — polling cadence (default: 0.3 s).                   ║
+║   • Push cadence is driven by the server; poll is used only until push hits. ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Key APIs used                                                                ║
+║   • `await acc.symbol_select(SYMBOL, True)`                                  ║
+║   • Push: `async for evt in acc.on_symbol_tick(SYMBOL, None, cancel_evt)`    ║
+║   • Poll: `await acc.symbol_info_tick(SYMBOL)`                               ║
+║   • Session lifecycle: `connect()`, `shutdown()`                             ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Robustness notes                                                             ║
+║   • Works even if push never arrives (keeps polling).                        ║
+║   • Stops polling as soon as push is confirmed (“Push engaged → stop…”).     ║
+║   • Exception-safe teardown via `contextlib.suppress` and task cancellation. ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Output example                                                               ║
+║   Symbol EURUSD selected                                                     ║
+║   [poll] 1.12345                                                             ║
+║   [push] 1.12347                                                             ║
+║   Push engaged → stop polling.                                               ║
+║   ...                                                                        ║
+║   ticks total: 57 | push: 44 | polled: 13 | last: 1.12389                    ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Dependencies / helpers                                                       ║
+║   • Env/setup: `examples/common/env.py` (connect, shutdown, SYMBOL).         ║
+║   • Console helpers: `examples/common/utils.py` (title).                     ║
+║   • pb2 compatibility layer: `examples/common/pb2_shim.py` (apply_patch).    ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ How to run                                                                   ║
+║   • `python -m examples.cli run streaming`                                   ║
+║     (or run this module directly).                                           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+"""

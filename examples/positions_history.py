@@ -198,79 +198,78 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 
+
 # python -m examples.positions_history
 
-async def main():
-    """
-    Example: Positions History (paged, schema-tolerant)
-    ===================================================
 
-    | Section | What happens | Why / Notes |
-    |---|---|---|
-    | Connect | `acc = await connect()` | Opens async session to the MT5 bridge; must be closed with `shutdown()`. |
-    | Patch | Attach `acc.positions_history = _positions_history(...)` | Provides a robust wrapper over `AccountHelper.PositionsHistory` that survives field/enum differences across builds. |
-    | Time window | `open_from = now-30d`, `open_to = now` (UTC) | Consistent UTC handling; printed as a header row. |
-    | Sort | Detect sort enum (OPEN_TIME_* or TICKET_*) else `0` | Works even if enum names differ or are absent. |
-    | Paging loop | Request pages until a short page (< size) arrives | Streams results in deterministic chunks; prints a header once. |
-    | Print rows | Aligned table with ticket, symbol, vol, open/close time, open/close price, profit | Missing fields are rendered as “-”; numbers formatted safely. |
-    | Cleanup | `await shutdown(acc)` | Ensures clean disconnect on any path. |
-
-    RPCs used
-    ---------
-    - `AccountHelper.PositionsHistory(PositionsHistoryRequest)` (or `account_client` equivalent)
-      - Sort type: `sort_type|sortType`
-      - Open time range (any of): `position_open_time_from|open_time_from|openFrom|positionOpenTimeFrom`
-                                  `position_open_time_to|open_time_to|openTo|positionOpenTimeTo`
-      - Pagination: `page|page_index|page_number|pageNumber`, `size|items_per_page|itemsPerPage`
-
-    Portability helpers
-    -------------------
-    - `_set_any(obj, names, value)` — assigns the first existing field among candidates (snake/camel tolerant).
-    - `_set_ts_any(req, names, dt)` — writes protobuf `Timestamp` (`FromDatetime`) or `seconds` fallback.
-    - `_fmt_ts(ts)` — prints `YYYY-MM-DD HH:MM:SS` (UTC) from `ts.seconds`.
-    - `_fmt_num(x, nd)` — safe float formatter (fallback “-”).
-
-    Data sources (where rows come from)
-    -----------------------------------
-    - The page payload may use different containers; code checks, in order:
-      `positions_data` → `items` → `positions` → `history_positions`.
-    - Per-row fields (best-effort):
-      - ticket: `position_ticket | ticket`
-      - symbol: `symbol`
-      - volume: `volume`
-      - times:  `open_time`, `close_time`
-      - prices: `open_price | price_open`, `close_price | price_close`
-      - P/L:    `profit`
-
-    Output format (example)
-    -----------------------
-    Ticket        Symbol        Vol  Open Time (UTC)       Close Time (UTC)         Open        Close     Profit
-    ---------------------------------------------------------------------------------------------------------------
-       12345678   EURUSD       0.10  2025-09-01 10:30:00   2025-09-01 12:05:07     1.08350     1.08510       15.20
-       12345679   XAUUSD       0.02  2025-09-03 09:00:00   2025-09-03 09:45:55  2350.00000  2351.10000        2.20
-    ---------------------------------------------------------------------------------------------------------------
-    Total rows shown: N
-
-    Pagination & limits
-    -------------------
-    - Starts with `page=1`, `size=50`. If a page returns fewer than `size` rows, iteration stops.
-    - Adjust `page/size` in code as needed; prints at most what the server returns.
-
-    Timeouts & deadlines
-    --------------------
-    - If `deadline` is provided to the wrapper, a client-side gRPC `timeout` is derived from it.
-    - If your server time is skewed, prefer omitting `deadline` and rely on client timeouts.
-
-    Edge cases
-    ----------
-    - Empty/unknown containers → prints a warning on the first page and exits gracefully.
-    - Mixed field naming (snake/camel) is handled automatically.
-    - If `account_helper_client` is absent, the code falls back to `account_client`.
-
-    How to run
-    ----------
-    From project root:
-      `python -m examples.positions_history`
-    Or via your CLI (if present):
-      `python -m examples.cli run positions_history`
-    """
+"""
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/positions_history.py — paged positions (deals) history             ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Purpose                                                                          ║
+║   Fetch position/deal history for a time window (with pagination) and print      ║
+║   it as a table. The code is resilient to heterogeneous pb2 builds: it           ║
+║   supports alternate field names and multiple response container shapes.         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ What it does (main flow)                                                         ║
+║   1) Applies the pb2 shim (apply_patch) and connects to MT5 (connect()).         ║
+║   2) Monkey-patches a universal method `positions_history(...)` onto `acc`:      ║
+║        • Builds `AH.PositionsHistoryRequest`, tolerating field name variants;    ║
+║        • Calls low-level RPC via `execute_with_reconnect()`.                     ║
+║   3) Sets the period to the last 30 days (UTC).                                  ║
+║   4) Tries to infer `sort_type` from enum                                        ║
+║      otherwise uses 0.                                                           ║
+║   5) Paginates with `size=50`, starting from `page=1`, until a short page.       ║
+║   6) Prints a formatted table (header + rows) and a final total counter.         ║
+║   7) Gracefully shuts down (shutdown()).                                         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Request fields (tolerant setters)                                                ║
+║   • sort_type | sortType                                                         ║
+║   • time window (any of):                                                        ║
+║       position_open_time_from | open_time_from | openFrom | positionOpenTimeFrom ║
+║       position_open_time_to   | open_time_to   | openTo   | positionOpenTimeTo   ║
+║   • pagination (any of): page | page_index | page_number | pageNumber            ║
+║                       and: size | items_per_page | itemsPerPage                  ║
+║   • Timestamps are set via `FromDatetime` or `{seconds}`, always in UTC.         ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Response extraction                                                              ║
+║   • Tries containers in order: `positions_data` | `items` | `positions` |        ║
+║     `history_positions`.                                                         ║
+║   • For each entry it prints user-friendly fields:                               ║
+║       ticket: position_ticket | ticket                                           ║
+║       symbol: symbol                                                             ║
+║       volume: volume                                                             ║
+║       open/close time: open_time | close_time  (formatted via `seconds→UTC`)     ║
+║       prices: open_price | price_open, close_price | price_close                 ║
+║       profit: profit                                                             ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Output                                                                           ║
+║   Table columns:                                                                 ║
+║     Ticket | Symbol | Vol | Open Time (UTC) | Close Time (UTC) | Open | Close    ║
+║     | Profit                                                                     ║
+║   • Numbers are formatted robustly (`_fmt_num`); times via `_fmt_ts` (UTC).      ║
+║   • If the first page is empty, prints a warning.                                ║
+║   • Ends with a separator and “Total number of lines shown: N”.                  ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Direct calls                                                                     ║
+║   • `client.PositionsHistory(AH.PositionsHistoryRequest, metadata, timeout)`     ║
+║     where `client = acc.account_helper_client` or `acc.account_client`.          ║
+║   • Uses `acc.execute_with_reconnect(..., error_selector=lambda r: r.error)`.    ║
+║   • No `safe_async` wrapper in this example.                                     ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Local helpers                                                                    ║
+║   `_set_any` / `_set_ts_any` — safe setters for scalars and Timestamps.          ║
+║   `_fmt_ts` / `_fmt_num` — formatting for times and numbers.                     ║
+║   Logging is configured at INFO (logging.basicConfig).                           ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ Error handling & timeouts                                                        ║
+║   • Timeout is derived from `deadline` inside `execute_with_reconnect`.          ║
+║   • If no client is present (account_helper_client/account_client) →             ║
+║     RuntimeError.                                                                ║
+║   • Empty/Unexpected container shapes are handled gracefully.                    ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║ How to run                                                                       ║
+║   `python -m examples.cli run positions_history`                                 ║
+║   (connection settings via `.env` / environment variables).                      ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
+"""

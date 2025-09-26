@@ -3,33 +3,29 @@ import os
 import re
 import asyncio
 import logging
-from typing import Any, Tuple
+from typing import Any, Tuple, Optional
 
-from .common.pb2_shim import apply_patch
-apply_patch()
-
-from .common.env import connect, shutdown, SYMBOL, VOLUME
-from .common.utils import title, safe_async
+from .common.env import connect, shutdown, SYMBOL, VOLUME, ENABLE_TRADING
+from .common.utils import title
 from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI
+from MetaRpcMT5 import mt5_term_api_trading_helper_pb2 as TH  # requests + enums
 
-# ───────────────────────── logging ─────────────────────────
 log = logging.getLogger(__name__)
-
 logging.basicConfig(level=logging.WARNING)
 
-ENABLE_TRADING = os.getenv("MT5_ENABLE_TRADING", "0") == "1"
 DEBUG_RPC = os.getenv("MT5_DEBUG", "0") == "1"
 
+
 # ───────────────────────── helpers ─────────────────────────
-def _fval(x: Any, default: float = 0.0) -> float:
-    """We are trying to call float from different response forms (number/proto/string)."""
+
+def _fval(x: Any, default: Optional[float] = None) -> Optional[float]:
+    """Coerce various response shapes to float."""
     try:
         if x is None:
-            return float(default)
+            return default
         if isinstance(x, (int, float)):
             return float(x)
 
-        # proto.value
         v = getattr(x, "value", None)
         if isinstance(v, (int, float, str)):
             try:
@@ -37,7 +33,6 @@ def _fval(x: Any, default: float = 0.0) -> float:
             except Exception:
                 pass
 
-        # proto.data.value
         data = getattr(x, "data", None)
         if data is not None:
             dv = getattr(data, "value", None)
@@ -53,146 +48,57 @@ def _fval(x: Any, default: float = 0.0) -> float:
                 return float(m.group(1))
     except Exception:
         pass
-    return float(default)
+    return default
 
-def _set(obj: Any, names, value) -> bool:
-    """We try to set the field by any of the name options."""
-    for n in names:
-        try:
-            setattr(obj, n, value)
-            return True
-        except Exception:
-            continue
-    return False
 
-async def _get_bid_ask(acc, symbol: str) -> Tuple[float, float]:
-    bid = await safe_async(
-        "symbol_info_double(BID)",
-        acc.symbol_info_double, symbol, MI.SymbolInfoDoubleProperty.SYMBOL_BID
-    )
-    ask = await safe_async(
-        "symbol_info_double(ASK)",
-        acc.symbol_info_double, symbol, MI.SymbolInfoDoubleProperty.SYMBOL_ASK
-    )
+async def _get_bid_ask(acc, symbol: str) -> Tuple[Optional[float], Optional[float]]:
+    """Read BID/ASK via proper enums, robustly cast to float."""
+    bid = await acc.symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.SYMBOL_BID)
+    ask = await acc.symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.SYMBOL_ASK)
     return _fval(bid), _fval(ask)
 
-# ─────────── dynamic search for RPC modules/methods ───────────
-_CANDIDATE_TF_MODULES = [
-    "MetaRpcMT5.mt5_term_api_trade_functions_pb2",
-    "MetaRpcMT5.mt5_term_api_trading_pb2",
-    "MetaRpcMT5.mt5_trade_functions_pb2",
-]
-_CANDIDATE_CLIENT_ATTRS = ["trade_functions_client", "trade_client", "trading_client"]
-_CANDIDATE_MARGIN_METHODS = ["OrderCalcMargin", "CalcMargin", "OrderCalcMargin2"]
-_CANDIDATE_CHECK_METHODS  = ["OrderCheck", "CheckOrder", "OrderCheckNew"]
 
-def _import_first(mod_names):
-    for name in mod_names:
-        try:
-            mod = __import__(name, fromlist=["*"])
-            return mod, name
-        except Exception:
-            continue
-    return None, None
+# ───────────────────────── margin/check (direct → fallback) ─────────────────────────
 
-def _get_first_attr(obj, names):
-    for n in names:
-        if hasattr(obj, n):
-            return getattr(obj, n), n
-    return None, None
+async def _order_calc_margin(acc, symbol: str, volume: float, side: str = "BUY", price: Optional[float] = None):
+    """
+    Preferred: TH.OrderCalcMarginRequest → acc.order_calc_margin(req)
+    Fallback: simple local estimate if RPC not available.
+    """
+    # Prepare price if needed
+    if price is None:
+        t = await acc.symbol_info_tick(symbol)
+        b = _fval(getattr(t, "bid", None), 0.0)
+        a = _fval(getattr(t, "ask", None), 0.0)
+        price = a or b or 1.0
 
-def _find_req_class(mod, prefer_suffix="Request", must_have=("Order","")):
-    if not mod:
-        return None, None
-    for nm in dir(mod):
-        if not nm.endswith(prefer_suffix):
-            continue
-        up = nm.upper()
-        if all(w.upper() in up for w in must_have if w):
-            return getattr(mod, nm), nm
-    return None, None
-
-def _enum_side(side) -> int:
+    # Try direct RPC
     try:
-        s = str(side).upper()
-        return 0 if s in ("BUY","B","LONG","0") else 1
-    except Exception:
-        try:
-            return int(side)
-        except Exception:
-            return 0
-
-async def _rpc_call_generic(acc, method_candidates, req_words, fill_fields):
-    """Single binding: find client → module → Request → method and call RPC."""
-    client, client_name = _get_first_attr(acc, _CANDIDATE_CLIENT_ATTRS)
-    if client is None:
-        raise RuntimeError("No trade_* client found in this build")
-
-    mod, mod_name = _import_first(_CANDIDATE_TF_MODULES)
-    if not mod:
-        raise RuntimeError("No suitable pb2 module trade_functions found")
-
-    ReqCls, req_cls_name = _find_req_class(mod, "Request", req_words)
-    if ReqCls is None:
-        raise RuntimeError(f"Request with keys not found in module {mod_name} {req_words}")
-
-    req = ReqCls()
-    fill_fields(req)
-
-    method = None
-    picked_method = None
-    for mn in method_candidates:
-        if hasattr(client, mn):
-            method = getattr(client, mn)
-            picked_method = mn
-            break
-    if method is None:
-        raise RuntimeError(f"There are no methods in client {client_name} {method_candidates}")
-
-    async def grpc_call(headers):
-        return await method(req, metadata=headers, timeout=5.0)
-
-    if DEBUG_RPC:
-        log.warning(
-            "RPC try: client=%s | module=%s | request=%s | method=%s | req_dump=%r",
-            client_name, mod_name, req_cls_name, picked_method, req
+        req = TH.OrderCalcMarginRequest(
+            symbol=symbol,
+            order_type=TH.TMT5_ENUM_ORDER_TYPE.ORDER_TYPE_BUY if str(side).upper() in ("BUY", "B", "LONG", "0") else TH.TMT5_ENUM_ORDER_TYPE.ORDER_TYPE_SELL,
+            volume=float(volume),
+            price=float(price),
         )
-
-    res = await acc.execute_with_reconnect(
-        grpc_call=grpc_call,
-        error_selector=lambda r: getattr(r, "error", None),
-        deadline=None,
-        cancellation_event=None,
-    )
-    return getattr(res, "data", res)
-
-# ───────────────────────── calculations ─────────────────────────
-async def _order_calc_margin(acc, symbol: str, volume: float, side: int | str = "BUY", price: float | None = None):
-    # 1) RPC
-    try:
-        if price is None:
-            t = await acc.symbol_info_tick(symbol)
-            b = float(getattr(t, "bid", 0.0) or getattr(t, "Bid", 0.0) or 0.0)
-            a = float(getattr(t, "ask", 0.0) or getattr(t, "Ask", 0.0) or 0.0)
-            price = a or b or 1.0
-
-        side_code = _enum_side(side)
-
-        def _fill(req):
-            _set(req, ["symbol"], symbol)
-            _set(req, ["order_type","type","cmd"], int(side_code))
-            _set(req, ["volume","volume_lots"], float(volume))
-            _set(req, ["price"], float(price))
-
-        data = await _rpc_call_generic(acc, _CANDIDATE_MARGIN_METHODS, ("Order","Margin"), _fill)
-        val = _fval(data, None)
-        return val if val is not None else data
+        res = await acc.order_calc_margin(req)
+        val = _fval(getattr(res, "data", res), None)
+        return val if val is not None else res
     except Exception as e:
         if DEBUG_RPC:
-            log.warning("order_calc_margin (RPC) unavailable: %s", e)
+            log.warning("order_calc_margin RPC not available, falling back: %s", e)
 
-    # 2) Local fallback
+    # Local rough estimate: (contract_size * volume / leverage) * (FX if needed)
     try:
+        # leverage from account (default 100)
+        lev = 100.0
+        try:
+            acc_sum = await acc.account_summary()
+            lev = float(getattr(acc_sum, "account_leverage", None) or 100.0)
+        except Exception:
+            pass
+        lev = max(float(lev or 1.0), 1.0)
+
+        # contract size from symbol info (default 100000)
         info = None
         for nm in ("symbol_info", "get_symbol_info", "symbol_info_get"):
             f = getattr(acc, nm, None)
@@ -202,33 +108,14 @@ async def _order_calc_margin(acc, symbol: str, volume: float, side: int | str = 
                     break
                 except Exception:
                     pass
-
-        # leverage (from account, otherwise 100)
-        lev = 100.0
-        try:
-            acc_sum = await acc.account_summary()
-            lev = float(getattr(acc_sum, "account_leverage", None) or 100.0)
-        except Exception:
-            pass
-        lev = max(float(lev or 1.0), 1.0)
-
-        # contract
         contract_size = float(
             getattr(info, "trade_contract_size", None)
-            or getattr(info, "TradeContractSize", None)
             or getattr(info, "contract_size", None)
-            or getattr(info, "ContractSize", None)
             or 100000.0
         )
 
-        if price is None:
-            bid, ask = await _get_bid_ask(acc, symbol)
-            price = float(ask or bid or 1.0)
-
-        # Basic formula: (contract_size * volume / leverage) in base currency
         margin = (contract_size * float(volume)) / lev
 
-        # If the account currency ≠ the base currency, multiply by the price
         base = symbol[:3].upper() if len(symbol) >= 6 else ""
         acct_ccy = None
         try:
@@ -243,77 +130,97 @@ async def _order_calc_margin(acc, symbol: str, volume: float, side: int | str = 
     except Exception:
         return None
 
-async def _order_check(acc, symbol: str, volume: float, price: float, side: int | str = "BUY"):
-    # 1) RPC
+
+async def _order_check(acc, symbol: str, volume: float, price: float, side: str = "BUY"):
+    """Preferred: TH.OrderCheckRequest → acc.order_check(req). Fallback: dummy OK."""
     try:
-        side_code = _enum_side(side)
-
-        def _fill(req):
-            _set(req, ["symbol"], symbol)
-            _set(req, ["order_type","type","cmd"], int(side_code))
-            _set(req, ["volume","volume_lots"], float(volume))
-            _set(req, ["price"], float(price))
-
-        data = await _rpc_call_generic(acc, _CANDIDATE_CHECK_METHODS, ("Order","Check"), _fill)
-        return data
+        req = TH.OrderCheckRequest(
+            symbol=symbol,
+            order_type=TH.TMT5_ENUM_ORDER_TYPE.ORDER_TYPE_BUY if str(side).upper() in ("BUY", "B", "LONG", "0") else TH.TMT5_ENUM_ORDER_TYPE.ORDER_TYPE_SELL,
+            volume=float(volume),
+            price=float(price),
+        )
+        return await acc.order_check(req)
     except Exception as e:
         if DEBUG_RPC:
-            log.warning("order_check (RPC) unavailable: %s", e)
+            log.warning("order_check RPC not available, falling back: %s", e)
+        return {"ok": True, "symbol": symbol, "side": str(side), "volume": float(volume), "price": float(price)}
 
-    # 2) Demo validation
-    return {"ok": True, "symbol": symbol, "side": str(side), "volume": float(volume), "price": float(price)}
 
 # ───────────────────────── sending/closing ─────────────────────────
-async def _order_send(acc, symbol, volume, price):
+
+async def _order_send(acc, symbol: str, volume: float, price: float):
+    """
+    Preferred: TH.OrderSendRequest → acc.order_send(req)
+    Fallback: legacy acc.order_send(symbol, 'BUY', volume, price)
+    """
     if not ENABLE_TRADING:
-        print("MT5_ENABLE_TRADING != 1 → Real sending is disabled.")
-        return None
-    # Minimum output; trying two options
-    try:
-        return await safe_async("order_send(symbol,'BUY',volume,price)", acc.order_send, symbol, "BUY", float(volume), float(price))
-    except Exception:
-        pass
-    try:
-        req = {
-            "symbol": symbol,
-            "action": "BUY",
-            "type": "ORDER_TYPE_BUY",
-            "volume": float(volume),
-            "price": float(price),
-            "time": "ORDER_TIME_GTC",
-            "deviation": 20,
-        }
-        return await safe_async("order_send(dict)", acc.order_send, req)
-    except Exception:
+        print("MT5_ENABLE_TRADING != 1 → real sending is disabled.")
         return None
 
-async def _order_close(acc, symbol, ticket=None):
+    # Direct request (as in docs)
+    try:
+        req = TH.OrderSendRequest(
+            symbol=symbol,
+            operation=TH.TMT5_ENUM_ORDER_TYPE.ORDER_TYPE_BUY,
+            volume=float(volume),
+            price=float(price),           # 0.0 for pure market, if allowed by server
+            slippage=20,
+            stop_loss=0.0,
+            take_profit=0.0,
+            comment="docs example",
+            expert_id=0,
+            stop_limit_price=0.0,
+            expiration_time_type=TH.TMT5_ENUM_ORDER_TYPE_TIME.ORDER_TIME_GTC,
+        )
+        return await acc.order_send(req)
+    except Exception as e:
+        if DEBUG_RPC:
+            log.warning("order_send(req) failed, trying legacy signature: %s", e)
+
+    # Legacy signature fallback (some builds)
+    try:
+        return await acc.order_send(symbol, "BUY", float(volume), float(price))
+    except Exception as e:
+        if DEBUG_RPC:
+            log.warning("order_send(legacy) failed: %s", e)
+        return None
+
+
+async def _order_close(acc, symbol: str, ticket: Optional[int] = None):
     if not ENABLE_TRADING:
         return
+    # Prefer closing by ticket if returned
     try:
         if ticket is not None:
-            return await safe_async("order_close(ticket)", acc.order_close, int(ticket))
+            return await acc.order_close(int(ticket))
     except Exception:
         pass
+    # Otherwise best-effort by symbol
     try:
-        return await safe_async("order_close(symbol)", acc.order_close, symbol)
+        return await acc.order_close(symbol)
     except Exception:
         return None
 
+
 # ───────────────────────── main ─────────────────────────
+
 async def main():
     acc = await connect()
     try:
-        title("Trading basics (safe)")
+        title("Trading basics (direct)")
 
-        # 0) symbol available
-        await safe_async("symbol_select", acc.symbol_select, SYMBOL, True)
+        # 0) ensure symbol is visible
+        await acc.symbol_select(SYMBOL, True)
 
         # 1) prices
         bid, ask = await _get_bid_ask(acc, SYMBOL)
+        if bid is None or ask is None:
+            print("Prices are unavailable; cannot proceed.")
+            return
         print(f"Prices: BID={bid} | ASK={ask} | spread={ask - bid}")
 
-        # 2) margin + validation (RPC → fallback)
+        # 2) margin + validation
         m = await _order_calc_margin(acc, SYMBOL, VOLUME, side="BUY", price=ask)
         print(f"order_calc_margin: { _fval(m, m) }")
 
@@ -322,19 +229,23 @@ async def main():
 
         # 3) real sending (if enabled by environment variable)
         send_res = await _order_send(acc, SYMBOL, VOLUME, ask)
+        if send_res is not None:
+            print("order_send result:", send_res)
 
-        # 4) closing (if sent)
+        # 4) closing (if sent and ticket is present)
         if send_res is not None:
             ticket = None
             for k in ("order", "ticket", "position", "deal"):
                 ticket = ticket or getattr(send_res, k, None)
                 if ticket:
                     break
-            await _order_close(acc, SYMBOL, ticket=ticket)
+            if ticket:
+                await _order_close(acc, SYMBOL, ticket=int(ticket))
 
         print("Done.")
     finally:
         await shutdown(acc)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -344,96 +255,81 @@ if __name__ == "__main__":
 
 
     """
-    Example: Trading basics (safe) — quotes → margin/check → (optional) send/close
-    =============================================================================
-
-    | Section | What happens | Why / Notes |
-    |---|---|---|
-    | Connect | `acc = await connect()` | Open async session to the MT5 bridge; close with `shutdown()`. |
-    | Heading | `title("Trading basics (safe)")` | Cosmetic header in console/log. |
-    | Ensure symbol | `symbol_select(SYMBOL, True)` | Guarantees the symbol is available in Market Watch. |
-    | Quotes | `_get_bid_ask(SYMBOL)` via `symbol_info_double(BID/ASK)` | Unified extraction with `_fval(...)` so both raw floats and message wrappers work. |
-    | Margin | `_order_calc_margin(symbol, volume, side="BUY", price=ask)` | Tries RPC (`OrderCalcMargin*`) and falls back to a local estimation formula. |
-    | Check | `_order_check(symbol, volume, price, side)` | Tries `OrderCheck*` RPC; otherwise returns a minimal “ok” demo result. |
-    | Send (opt) | `_order_send(acc, SYMBOL, VOLUME, ask)` | **Only** if `MT5_ENABLE_TRADING=1` — prevents accidental live trading. Two request shapes are supported. |
-    | Close (opt) | `_order_close(acc, SYMBOL, ticket)` | Closes by ticket (preferred) or by symbol as a fallback. |
-    | Cleanup | `await shutdown(acc)` | Always disconnect cleanly. |
-
-    Safety switches (env)
-    ---------------------
-    - `MT5_ENABLE_TRADING=1` → allows real `order_send` / `order_close`. Default is **off** (safe dry-run).
-    - `MT5_DEBUG=1` → verbose RPC discovery logs (client/module/method/req dump).
-    - `SYMBOL`, `VOLUME` come from `.common.env`.
-
-    RPC discovery (portable across builds)
-    --------------------------------------
-    - Candidate pb2 modules for trading:
-        * `MetaRpcMT5.mt5_term_api_trade_functions_pb2`
-        * `MetaRpcMT5.mt5_term_api_trading_pb2`
-        * `MetaRpcMT5.mt5_trade_functions_pb2`
-    - Candidate clients on `acc`:
-        * `trade_functions_client`, `trade_client`, `trading_client`
-    - Candidate margin methods:
-        * `OrderCalcMargin`, `CalcMargin`, `OrderCalcMargin2`
-    - Candidate check methods:
-        * `OrderCheck`, `CheckOrder`, `OrderCheckNew`
-    - `_rpc_call_generic(...)` locates client → module → `*Request` class (by name fragments) → method, fills fields, invokes gRPC with a 5s timeout, and returns `.data` if present.
-
-    Field/enum normalization helpers
-    --------------------------------
-    - `_fval(x)` — extracts a float from:
-        * raw number, `.value`, `.data.value`, or string dumps like `"value: 1.2345"`.
-    - `_set(obj, ["field", "altField", ...], value)` — assigns to the first available field name.
-    - `_enum_side(side)` — maps `"BUY"/"SELL"/"B"/"LONG"/"0/1"` (case-insensitive) to integer side codes 0/1.
-
-    Margin calculation fallback (when RPC is unavailable)
-    ----------------------------------------------------
-    - Contract size: from symbol info (`trade_contract_size|contract_size`, fallback `100000.0`).
-    - Leverage: from `account_summary().account_leverage` (fallback `100.0`, min `1.0`).
-    - Price: `ask` (or `bid`) if not supplied.
-    - Formula:
-        ```
-        margin_base = contract_size * volume / leverage
-        margin = margin_base if account_currency == symbol_base
-                 else margin_base * price
-        ```
-      This is a **rough estimate** for demo purposes and may differ from server `OrderCalcMargin` due to:
-      - margin mode (Forex/CFD), hedged margin settings,
-      - symbol-specific coefficients, conversion chains, or tiered margin.
-
-    Order check fallback
-    --------------------
-    - If no `OrderCheck*` RPC is available, returns a minimal dict:
-      `{"ok": True, "symbol": ..., "side": ..., "volume": ..., "price": ...}`.
-
-    Order send/close behavior
-    -------------------------
-    - `_order_send` tries:
-        1) Positional form: `order_send(symbol, "BUY", volume, price)`
-        2) Dict form compatible with some builds:
-           `{"symbol": ..., "action": "BUY", "type": "ORDER_TYPE_BUY", "volume": ..., "price": ..., "time": "ORDER_TIME_GTC", "deviation": 20}`
-      Returns the provider's response (often contains `order | ticket | position | deal`).
-    - `_order_close` prioritizes closing by explicit ticket; falls back to `order_close(symbol)` if needed.
-
-    Typical output
-    --------------
-    Prices: BID=1.08456 | ASK=1.08468 | spread=0.00012
-    order_calc_margin: 123.45
-    order_check: {'ok': True, 'symbol': 'EURUSD', 'side': 'BUY', 'volume': 0.10, 'price': 1.08468}
-    MT5_ENABLE_TRADING != 1 → Real sending is disabled.
-    Done.
-
-    Notes & edge cases
-    ------------------
-    - If quotes are missing, ensure the symbol is tradable/visible and market data is available.
-    - Different builds may rename fields in trading requests; `_set(...)` keeps the code tolerant.
-    - Live orders require permissions/margin; providers may reject for many reasons (market closed, trade mode, min volume step).
-    - For strict server-time issues, prefer client-side timeouts in your helpers (this script uses fixed 5s on trading RPCs).
-
-    How to run
-    ----------
-    From project root:
-      `python -m examples.trading_basics`
-    Or via CLI (if present):
-      `python -m examples.cli run trading_basics`
-    """
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/trading_basics.py — trading basics (direct calls)              ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Purpose                                                                      ║
+║   Show a minimal trading flow without safe_async: get prices, calc margin,   ║
+║   run OrderCheck, send an order, and attempt closing — using direct RPC      ║
+║   calls with careful fallbacks for varying pb2 builds.                       ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Happy-path flow                                                              ║
+║  1) Connect: connect() → MT5Account; ensure SYMBOL is in Market Watch.       ║
+║  2) Prices: symbol_info_double(BID/ASK) via MI enums → robust float.         ║
+║  3) Margin: TH.OrderCalcMarginRequest → acc.order_calc_margin(req).          ║
+║  4) Check : TH.OrderCheckRequest       → acc.order_check(req).               ║
+║  5) Send  : TH.OrderSendRequest        → acc.order_send(req) (if enabled).   ║
+║  6) Close : by ticket (if returned) or by symbol.                            ║
+║  7) Cleanup: shutdown(acc).                                                  ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Key API calls                                                                ║
+║  • Market info:                                                              ║
+║    - symbol_select(symbol, True)                                             ║
+║    - symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.SYMBOL_BID/ASK)  ║
+║    - symbol_info_tick(symbol) (as a price fallback)                          ║
+║    - (opt.) symbol_info / get_symbol_info / symbol_info_get (contract size)  ║
+║  • TradingHelper (TH):                                                       ║
+║    - OrderCalcMarginRequest → order_calc_margin(req)                         ║
+║    - OrderCheckRequest       → order_check(req)                              ║
+║    - OrderSendRequest        → order_send(req)                               ║
+║  • Service: account_summary(), order_close(ticket|symbol)                    ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Enums / types used                                                           ║
+║  • MI.SymbolInfoDoubleProperty: SYMBOL_BID, SYMBOL_ASK                       ║
+║  • TH.TMT5_ENUM_ORDER_TYPE: ORDER_TYPE_BUY / ORDER_TYPE_SELL                 ║
+║  • TH.TMT5_ENUM_ORDER_TYPE_TIME: ORDER_TIME_GTC                              ╟
+║ Helper functions                                                             ║
+║  • _fval(x): tolerant float coercion (value/data/string with number).        ║
+║  • _get_bid_ask(...): reads BID/ASK via MI enums and coerces to float.       ║
+║  • _order_calc_margin(...): tries TH RPC first; fallback local estimate      ║
+║    (contract_size*volume/leverage) with FX adjustment if needed.             ║
+║  • _order_check(...): tries TH RPC first; fallback to a “soft OK” dict.      ║
+║  • _order_send(...): tries TH.OrderSendRequest; falls back to legacy         ║
+║    acc.order_send(symbol, 'BUY', volume, price).                             ║
+║  • _order_close(...): by ticket (preferred) or by symbol.                    ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Behavior across builds / errors                                              ║
+║  • Missing TH.* requests or methods → graceful fallbacks (local calc/legacy).║
+║  • Missing contract_size / leverage → defaults (100000 / 100).               ║
+║  • BID/ASK not numeric → fallback to tick.bid/tick.ask.                      ║
+║  • RPC errors are contained inside helpers; extra logs when MT5_DEBUG=1.     ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Inputs / environment                                                         ║
+║  • SYMBOL, VOLUME — from .env via common.env.                                ║
+║  • MT5_ENABLE_TRADING=1 — allow real order send/close.                       ║
+║  • MT5_DEBUG=1 — verbose logging for RPC fallbacks.                          ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Output / side effects                                                        ║
+║  • Prints prices, computed margin, check and send results.                   ║
+║  • Real trading only when MT5_ENABLE_TRADING=1.                              ║
+║  • May close by returned ticket if present.                                  ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ Limitations & notes                                                          ║
+║  • No safe_async: this sample deliberately uses direct calls; helper funcs   ║
+║    absorb typical failures.                                                  ║
+║  • Margin math in fallback is simplified — prefer RPC for accuracy.          ║
+║  • Commissions/swaps are not included in the local estimate.                 ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ How to run                                                                   ║
+║  • From project root:                                                        ║
+║      python -m examples.cli run trading_basics                               ║
+║    or:                                                                       ║
+║      python -m examples.trading_basics                                       ║
+╟──────────────────────────────────────────────────────────────────────────────╢
+║ When to use this sample                                                      ║
+║  • You want an end-to-end flow with direct calls (no wrappers).              ║
+║  • You need to see behavior on servers missing parts of the TH API.          ║
+║  • You want a quick sanity check for margin/validity and sending, with real  ║
+║    trading gated by an environment flag.                                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+"""

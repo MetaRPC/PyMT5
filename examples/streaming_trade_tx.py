@@ -123,67 +123,61 @@ if __name__ == "__main__":
 
 # python -m examples.streaming_trade_tx
 
+
 """
-    Example: Tick streaming for 10s — push first, polling as backup
-    ===============================================================
-
-    | Section | What happens | Why / Notes |
-    |---|---|---|
-    | Connect | `acc = await connect()` | Opens async session; must be closed with `shutdown()`. |
-    | Heading | `title("Streaming: ticks for 10 seconds")` | Cosmetic header. |
-    | Ensure symbol | `symbol_select(SYMBOL, True)` | Puts symbol into Market Watch to receive data. |
-    | Warm-up | `symbol_is_synchronized(SYMBOL)` + `symbol_info_tick(SYMBOL)` | Gentle probe to wake feeds; all calls are timeout-guarded. |
-    | Start push | `on_symbol_tick(SYMBOL, None, cancel_evt)` → async generator | Primary, low-latency tick source; sets `got_first_push` on the first event. |
-    | Start polling | Loop of `symbol_info_tick(SYMBOL)` + `sleep(POLL_INTERVAL_S)` | Fallback while push is not yet delivering. |
-    | Auto-switch | `stop_poll_on_first_push()` cancels polling when push starts | Saves bandwidth/CPU once streaming is confirmed. |
-    | Timed run | Sleep `RUN_SECONDS` then cancel tasks with join timeout | Ensures graceful stop without hanging forever. |
-    | Summary | Print totals and the last seen price | `ticks total`, `push`, `polled`, `last price`. |
-
-    RPCs used
-    ---------
-    - `symbol_select(symbol: str, select: bool)` → ensure symbol readiness
-    - `symbol_is_synchronized(symbol: str) -> bool` → quick health/sync check
-    - `symbol_info_tick(symbol: str)` → snapshot tick (poll)
-    - `on_symbol_tick(symbol: str, deadline=None, cancellation_event=None)` → async generator (push)
-
-    Concurrency & cancellation
-    --------------------------
-    - Tasks:
-      1) `consume_push()` — iterates async-gen, counts ticks, updates `last_price`, signals `got_first_push`.
-      2) `consume_polling()` — polls with `POLL_INTERVAL_S`, guarded by `RPC_TIMEOUT_S`.
-      3) `stop_poll_on_first_push()` — waits `got_first_push`, cancels polling, waits up to `JOIN_TIMEOUT_S`.
-    - Global `cancel_evt` requests a cooperative stop for the push generator.
-    - Final teardown cancels all tasks and `gather`s them with a join timeout so the demo never hangs.
-
-    Parameters (tuning knobs)
-    -------------------------
-    - `RUN_SECONDS = 10.0` — total demo duration.
-    - `POLL_INTERVAL_S = 0.3` — polling cadence (e.g., 0.2–1.0 s).
-    - `RPC_TIMEOUT_S = 1.0` — per-RPC client-side timeout for warm-up/poll calls.
-    - `JOIN_TIMEOUT_S = 2.0` — how long we wait for tasks to finish during shutdown.
-
-    Price extraction
-    ----------------
-    - For both push events and poll snapshots we take first available of:
-      `last` → `bid` → `ask`. If numeric, it becomes `last_price`.
-
-    Typical output
-    --------------
-    Streaming: ticks for 10 seconds
-    Symbol EURUSD selected
-    Push stream engaged → stopping polling.
-    ticks total: 42 | push: 37 | polled: 5 | last price: 1.08460
-
-    Notes & edge cases
-    ------------------
-    - If you see only polling (or zero ticks): market closed, symbol not streamed, or provider throttling.
-    - Increase `RUN_SECONDS` for quiet markets. Lower `POLL_INTERVAL_S` carefully (provider limits may apply).
-    - Prefer client-side timeouts/cancellation (as in this example) if server time can be skewed.
-
-    How to run
-    ----------
-    From project root:
-      `python -m examples.streaming_ticks_10s`
-    Or via CLI (if present):
-      `python -m examples.cli run streaming_ticks_10s`
-    """
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/streaming_ticks.py — 10-second tick stream (push + poll)       ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Purpose                                                                      ║
+║   Stream symbol ticks for a short window, preferring server **push** events  ║
+║   and using periodic **polling** as a fallback. Automatically stops polling  ║
+║   once push traffic is detected. Prints basic stats at the end.              ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ What it does (main flow)                                                     ║
+║   1) Connects and selects `SYMBOL` in Market Watch.                          ║
+║   2) “Warm-up”: calls `symbol_is_synchronized` and a single                  ║
+║      `symbol_info_tick` to nudge data flow.                                  ║
+║   3) Starts two tasks:                                                       ║
+║        • **consume_push**: `async for evt in acc.on_symbol_tick(...)`        ║
+║          updates `last_price`, increments counters, signals first-push.      ║
+║        • **consume_polling**: every `POLL_INTERVAL_S` calls                  ║
+║          `symbol_info_tick` and updates counters/price.                      ║
+║   4) **Guard** task: when first push arrives, cancels the polling task.      ║
+║   5) After `RUN_SECONDS`, cancels everything, joins with a timeout, prints   ║
+║      totals (`ticks total | push | polled | last price`) and shuts down.     ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Key APIs                                                                     ║
+║   • `await acc.symbol_select(SYMBOL, True)`                                  ║
+║   • `await acc.symbol_is_synchronized(SYMBOL)`                               ║
+║   • **Push stream**: `acc.on_symbol_tick(SYMBOL, None, cancel_evt)` → async  ║
+║     generator yielding events (fields like `last`/`bid`/`ask`).              ║
+║   • **Polling**: `await acc.symbol_info_tick(SYMBOL)`                        ║
+║   • Session lifecycle: `connect()`, `shutdown()`                             ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Tunables (top of file)                                                       ║
+║   • `RUN_SECONDS`     — total demo duration (default **10.0 s**).            ║
+║   • `POLL_INTERVAL_S` — polling cadence (default **0.3 s**).                 ║
+║   • `RPC_TIMEOUT_S`   — per-RPC timeout for warm-up/poll (default **1.0 s**).║
+║   • `JOIN_TIMEOUT_S`  — graceful join timeout when stopping.                 ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Robustness & cancellation                                                    ║
+║   • Uses `asyncio.Event` (`cancel_evt`) to stop the push generator.          ║
+║   • Guard cancels polling immediately after first push.                      ║
+║   • All cancellations are awaited with a bounded `JOIN_TIMEOUT_S`.           ║
+║   • Timeouts/transport errors during polling are tolerated to keep the demo  ║
+║     running.                                                                 ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Output                                                                       ║
+║   • “Symbol <SYMBOL> selected”                                               ║
+║   • Optional “[poll] …” lines (until push shows up).                         ║
+║   • Final stats: `ticks total: N | push: A | polled: B | last price: X`.     ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Helpers / dependencies                                                       ║
+║   • `apply_patch()` from `examples/common/pb2_shim.py` (pb2 compatibility).  ║
+║   • `connect`, `shutdown`, `SYMBOL` from `examples/common/env.py`.           ║
+║   • `title` from `examples/common/utils.py`.                                 ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ How to run                                                                   ║
+║   • `python -m examples.cli run streaming`  (or invoke the module directly). ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+"""

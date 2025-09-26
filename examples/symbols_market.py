@@ -1,157 +1,190 @@
+# examples/symbols_market.py
 import asyncio
-from datetime import datetime, timezone
+import os
 
-from .common.pb2_shim import apply_patch
-apply_patch() 
+from .common.env import connect, shutdown, SYMBOL
+from .common.utils import title, pprint
+from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI  # enums
 
-from .common.env import connect, shutdown, SYMBOL, VOLUME
-from .common.utils import title, safe_async
+# gRPC error type (optional)
+try:
+    from grpc.aio import AioRpcError
+except Exception:
+    AioRpcError = Exception  # fallback
 
-# pb2 modules/elements
-from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as AH
-from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI
+# --- Fast profile (can be overridden via env) ---
+os.environ.setdefault("TIMEOUT_SECONDS", "15")   # connect timeout (env.py respects this)
+os.environ.setdefault("CONNECT_RETRIES", "1")    # fewer retries to avoid hangs
+EX_BUDGET = int(os.getenv("EXAMPLE_BUDGET_SEC", "20"))  # global cap for the whole example
 
-SDouble = MI.SymbolInfoDoubleProperty
-SInt    = MI.SymbolInfoIntegerProperty
-SStr    = MI.SymbolInfoStringProperty
+SCAN_LIMIT_ALL = int(os.getenv("SYMBOLS_SCAN_LIMIT_ALL", "30"))
+SCAN_LIMIT_WATCH = int(os.getenv("SYMBOLS_SCAN_LIMIT_WATCH", "30"))
 
+# ---------- helpers ----------
 
-def _fmt_ts(sec: int | None) -> str:
-    if sec is None:
-        sec = 0
-    sec = int(sec)
-    # 86400 seconds = "24:00:00" to avoid confusion with "00:00:00"
-    if sec % 86400 == 0 and sec != 0:
-        return "24:00:00"
-    return datetime.fromtimestamp(sec, tz=timezone.utc).strftime("%H:%M:%S")
+def _to_float(x):
+    try:
+        return float(x)
+    except Exception:
+        for attr in ("value", "data", "requestedValue", "double", "price", "bid", "ask", "point"):
+            v = getattr(x, attr, None)
+            if v is None:
+                continue
+            try:
+                return float(v)
+            except Exception:
+                pass
+        return None
 
+def _to_int(x):
+    try:
+        return int(x)
+    except Exception:
+        v = getattr(x, "value", None)
+        try:
+            return int(v)
+        except Exception:
+            return None
 
-def _print_symbol_infos_compact(resp, limit: int = 10) -> None:
-    """Compact output of symbol_params_many: maximum number of records and only key fields."""
-    infos = getattr(resp, "symbol_infos", None)
-    if not infos:
-        print("symbol_params_many: empty or the server did not return the list.")
-        return
-    print(f"symbol_params_many: total={len(infos)} (showing the first {min(limit, len(infos))})")
-    for i, info in enumerate(infos[:limit], start=1):
-        name            = getattr(info, "name", "")
-        digits          = getattr(info, "digits", None)
-        currency_base   = getattr(info, "currency_base", "")
-        currency_profit = getattr(info, "currency_profit", "")
-        trade_mode      = getattr(info, "trade_mode", "")
-        sector_name     = getattr(info, "sector_name", "")
-        industry_name   = getattr(info, "industry_name", "")
-        print(f"  #{i}: {name} | digits={digits} | {currency_base}/{currency_profit} | mode={trade_mode} | {sector_name} / {industry_name}")
+def _to_str(x):
+    if isinstance(x, str):
+        return x
+    for attr in ("value", "data", "name", "string"):
+        v = getattr(x, attr, None)
+        if isinstance(v, str):
+            return v
+    return str(x)
 
+async def _symbols_total(acc, selected: bool) -> int:
+    try:
+        r = await acc.symbols_total(selected)
+        return _to_int(r) or 0
+    except Exception:
+        return 0
+
+async def _symbol_name(acc, index: int, selected: bool) -> str | None:
+    try:
+        r = await acc.symbol_name(index, selected)
+        return r if isinstance(r, str) else getattr(r, "name", None)
+    except Exception:
+        return None
+
+async def _ensure_selected(acc, symbol: str):
+    try:
+        await acc.symbol_select(symbol, True)
+    except Exception:
+        pass
+
+async def _print_symbol_snapshot(acc, symbol: str):
+    # exist
+    try:
+        ex = await acc.symbol_exist(symbol)
+        print(f"{symbol}: exist =", bool(ex if isinstance(ex, (int, float, bool)) else getattr(ex, 'exist', True)))
+    except Exception:
+        print(f"{symbol}: exist = ?")
+
+    # tick
+    try:
+        t = await acc.symbol_info_tick(symbol)
+        b = _to_float(getattr(t, "bid", None))
+        a = _to_float(getattr(t, "ask", None))
+        print(f"  tick: BID={b}  ASK={a}  spread={None if (b is None or a is None) else (a-b)}")
+    except Exception:
+        print("  tick: <error>")
+
+    # doubles
+    try:
+        bid = await acc.symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.SYMBOL_BID)
+        ask = await acc.symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.SYMBOL_ASK)
+        point = await acc.symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.SYMBOL_POINT)
+        print(f"  doubles: BID={_to_float(bid)}  ASK={_to_float(ask)}  POINT={_to_float(point)}")
+    except Exception:
+        print("  doubles: <error>")
+
+    # integers
+    try:
+        digits = await acc.symbol_info_integer(symbol, MI.SymbolInfoIntegerProperty.SYMBOL_DIGITS)
+        trade_mode = await acc.symbol_info_integer(symbol, MI.SymbolInfoIntegerProperty.SYMBOL_TRADE_MODE)
+        print(f"  integers: DIGITS={_to_int(digits)}  TRADE_MODE={_to_int(trade_mode)}")
+    except Exception:
+        print("  integers: <error>")
+
+    # strings (best effort)
+    try:
+        desc = await acc.symbol_info_string(symbol, MI.SymbolInfoStringProperty.SYMBOL_DESCRIPTION)
+        s = _to_str(desc)
+        if s and s != "None":
+            print(f"  description: {s}")
+    except Exception:
+        pass
+
+# ---------- main ----------
 
 async def main():
-    acc = await connect()
-
-    # ── Monkey-patch: fixing field names in pb2 queries (snake_case) ──────
-    async def _symbol_info_margin_rate(self, symbol, order_type, deadline=None, cancellation_event=None):
-        req = AH.SymbolInfoMarginRateRequest(symbol=symbol, order_type=order_type)
-        async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
-            return await self.market_info_client.SymbolInfoMarginRate(
-                req, metadata=headers, timeout=max(timeout, 0) if timeout else None
-            )
-        res = await self.execute_with_reconnect(
-            grpc_call=grpc_call, error_selector=lambda r: getattr(r, "error", None),
-            deadline=deadline, cancellation_event=cancellation_event
-        )
-        return res.data
-
-    async def _symbol_info_session_quote(self, symbol, day_of_week, session_index, deadline=None, cancellation_event=None):
-        req = AH.SymbolInfoSessionQuoteRequest(symbol=symbol, day_of_week=day_of_week, session_index=session_index)
-        async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
-            return await self.market_info_client.SymbolInfoSessionQuote(
-                req, metadata=headers, timeout=max(timeout, 0) if timeout else None
-            )
-        res = await self.execute_with_reconnect(
-            grpc_call=grpc_call, error_selector=lambda r: getattr(r, "error", None),
-            deadline=deadline, cancellation_event=cancellation_event
-        )
-        return res.data
-
-    async def _symbol_info_session_trade(self, symbol, day_of_week, session_index, deadline=None, cancellation_event=None):
-        req = AH.SymbolInfoSessionTradeRequest(symbol=symbol, day_of_week=day_of_week, session_index=session_index)
-        async def grpc_call(headers):
-            timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
-            return await self.market_info_client.SymbolInfoSessionTrade(
-                req, metadata=headers, timeout=max(timeout, 0) if timeout else None
-            )
-        res = await self.execute_with_reconnect(
-            grpc_call=grpc_call, error_selector=lambda r: getattr(r, "error", None),
-            deadline=deadline, cancellation_event=cancellation_event
-        )
-        return res.data
-
-    acc.symbol_info_margin_rate   = _symbol_info_margin_rate.__get__(acc, type(acc))
-    acc.symbol_info_session_quote = _symbol_info_session_quote.__get__(acc, type(acc))
-    acc.symbol_info_session_trade = _symbol_info_session_trade.__get__(acc, type(acc))
-    # ───────────────────────────────────────────────────────────────────────────
-
+    acc = None
     try:
-        title("Symbols & Market")
+        title("Symbols & Market Info (fast-safe)")
+        # Hard global budget for the whole example
+        async with asyncio.timeout(EX_BUDGET):
+            acc = await connect()
 
-        # 1) Select a symbol
-        await safe_async("symbol_select", acc.symbol_select, SYMBOL, True)
+            # Ensure base symbol is visible
+            await _ensure_selected(acc, SYMBOL)
 
-        # 2) BID/ASK
-        bid = await safe_async("symbol_info_double(BID)", acc.symbol_info_double, SYMBOL, SDouble.SYMBOL_BID)
-        ask = await safe_async("symbol_info_double(ASK)", acc.symbol_info_double, SYMBOL, SDouble.SYMBOL_ASK)
-        if isinstance(bid, (float, int)) and isinstance(ask, (float, int)):
-            print("spread:", float(ask) - float(bid))
+            # Totals
+            total_all = await _symbols_total(acc, selected=False)
+            total_watch = await _symbols_total(acc, selected=True)
+            print(f"Symbols total: all={total_all}  market_watch={total_watch}")
 
-        # 3) Tick-cost per volume
-        await safe_async("tick_value_with_size", acc.tick_value_with_size, [SYMBOL])
+            # List a few names (all)
+            if total_all:
+                n = min(SCAN_LIMIT_ALL, total_all)
+                names_all = []
+                for i in range(n):
+                    nm = await _symbol_name(acc, i, selected=False)
+                    if nm:
+                        names_all.append(nm)
+                if names_all:
+                    print("All symbols (sample):", ", ".join(names_all[:10]) + (" ..." if len(names_all) > 10 else ""))
 
+            # List a few names (watchlist)
+            if total_watch:
+                n = min(SCAN_LIMIT_WATCH, total_watch)
+                names_w = []
+                for i in range(n):
+                    nm = await _symbol_name(acc, i, selected=True)
+                    if nm:
+                        names_w.append(nm)
+                if names_w:
+                    print("Market Watch (sample):", ", ".join(names_w[:10]) + (" ..." if len(names_w) > 10 else ""))
 
-        # 4) Total characters / name by index
-        await safe_async("symbols_total", acc.symbols_total, False)
-        await safe_async("symbol_name(0)", acc.symbol_name, 0, False)
+            # Snapshots: base + up to 2 from Watchlist
+            sample = [SYMBOL]
+            if total_watch:
+                n = min(2, total_watch)
+                for i in range(n):
+                    nm = await _symbol_name(acc, i, selected=True)
+                    if nm and nm not in sample:
+                        sample.append(nm)
 
-        # 5) Tick ​​info/sync
-        await safe_async("symbol_info_tick", acc.symbol_info_tick, SYMBOL)
-        await safe_async("symbol_is_synchronized", acc.symbol_is_synchronized, SYMBOL)
+            print("\nSnapshots:")
+            for s in sample:
+                await _ensure_selected(acc, s)
+                await _print_symbol_snapshot(acc, s)
 
-        # 6) Parameters for multiple characters (compact)
-        resp_many = await acc.symbol_params_many([SYMBOL, "XAUUSD"])
-        _print_symbol_infos_compact(resp_many, limit=10)
-
-        # 7) Marginal rates (ENUM_ORDER_TYPE → ORDER_TYPE_BUY/SELL/…)
-        mr = await safe_async(
-            "symbol_info_margin_rate",
-            acc.symbol_info_margin_rate,
-            SYMBOL, MI.ENUM_ORDER_TYPE.ORDER_TYPE_BUY
-        )
-        if mr:
-            im = getattr(mr, "initial_margin_rate", None)
-            mm = getattr(mr, "maintenance_margin_rate", None)
-            hm = getattr(mr, "hedged_margin_rate", None)
-            print(f"margin_rates: initial={im!r}, maintenance={mm!r}, hedged={hm!r}")
-
-        # 8)Sessions (DayOfWeek + session_index) - human readable text
-        sq = await safe_async("symbol_info_session_quote", acc.symbol_info_session_quote, SYMBOL, MI.DayOfWeek.MONDAY, 0)
-        if sq:
-            start = getattr(getattr(sq, "from_", None), "seconds", None)
-            end   = getattr(getattr(sq, "to", None), "seconds", None)
-            print(f"quote_session[Mon,#0]: {_fmt_ts(start)} → {_fmt_ts(end)} UTC")
-
-        st = await safe_async("symbol_info_session_trade", acc.symbol_info_session_trade, SYMBOL, MI.DayOfWeek.MONDAY, 0)
-        if st:
-            start = getattr(getattr(st, "from_", None), "seconds", None)
-            end   = getattr(getattr(st, "to", None), "seconds", None)
-            print(f"trade_session[Mon,#0]: {_fmt_ts(start)} → {_fmt_ts(end)} UTC")
-
-        # 9) Other: existence, integer/string properties
-        await safe_async("symbol_exist", acc.symbol_exist, SYMBOL)
-        await safe_async("symbol_info_integer(DIGITS)", acc.symbol_info_integer, SYMBOL, SInt.SYMBOL_DIGITS)
-        await safe_async("symbol_info_string(CURRENCY_BASE)", acc.symbol_info_string, SYMBOL, SStr.SYMBOL_CURRENCY_BASE)
-
+    except TimeoutError:
+        print(f"Stopped after global budget of {EX_BUDGET}s. Server/provider is too slow right now.")
+    except AioRpcError as e:
+        # Typical: DEADLINE_EXCEEDED on slow/muted servers
+        detail = getattr(e, "details", lambda: "")()
+        print(f"gRPC error during symbols demo: {detail or 'AioRpcError'}. "
+              f"Likely provider timeout. Try increasing TIMEOUT_SECONDS or switch server.")
     finally:
-        await shutdown(acc)
+        if acc:
+            try:
+                await shutdown(acc)
+            except Exception:
+                pass
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -161,78 +194,82 @@ if __name__ == "__main__":
 
 
 """
-    Example: Symbols & Market — quotes, params, sessions, margins
-    =============================================================
-
-    | Section | What happens | Why / Notes |
-    |---|---|---|
-    | Connect | `acc = await connect()` | Opens async session to the MT5 bridge; close with `shutdown()`. |
-    | Heading | `title("Symbols & Market")` | Cosmetic header. |
-    | Monkey-patch | Bind `symbol_info_margin_rate/session_quote/session_trade` | Normalizes pb2 field names (snake/camel) and derives client timeouts from `deadline`. |
-    | Select | `symbol_select(SYMBOL, True)` | Ensures the symbol is in Market Watch. |
-    | Prices | `symbol_info_double(..., SYMBOL_BID/ASK)` → print spread | Uses **enum** values from `mt5_term_api_market_info_pb2` (not strings). |
-    | Tick value | `tick_value_with_size([SYMBOL])` | Quick cost-per-tick probe for the symbol list. |
-    | Catalog | `symbols_total(False)` + `symbol_name(0, False)` | Demonstrates total instruments and first symbol name. |
-    | Tick/sync | `symbol_info_tick(SYMBOL)` + `symbol_is_synchronized(SYMBOL)` | Health check: last/bid/ask snapshot + feed sync status. |
-    | Bulk params | `symbol_params_many([SYMBOL, "XAUUSD"])` → compact print | Shows key fields (digits, currencies, trade mode, sector/industry). |
-    | Margin rates | `symbol_info_margin_rate(SYMBOL, ORDER_TYPE_BUY)` | Prints initial/maintenance/hedged rates if provided. |
-    | Sessions | `symbol_info_session_quote/trade(..., DayOfWeek.MONDAY, 0)` | Human-readable session window `HH:MM:SS` in UTC. |
-    | Misc | `symbol_exist`, `symbol_info_integer(DIGITS)`, `symbol_info_string(CURRENCY_BASE)` | Typical integer/string properties via enums. |
-
-    Imports & enums
-    ---------------
-    - `from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as AH`
-    - `from MetaRpcMT5 import mt5_term_api_market_info_pb2 as MI`
-      - Double: `MI.SymbolInfoDoubleProperty.SYMBOL_BID / SYMBOL_ASK`
-      - Integer: `MI.SymbolInfoIntegerProperty.SYMBOL_DIGITS`
-      - String:  `MI.SymbolInfoStringProperty.SYMBOL_CURRENCY_BASE`
-      - Order type: `MI.ENUM_ORDER_TYPE.ORDER_TYPE_BUY`
-      - Day of week: `MI.DayOfWeek.MONDAY`
-
-    Patched RPC wrappers (bound to `acc`)
-    -------------------------------------
-    - `symbol_info_margin_rate(symbol, order_type, *, deadline=None, cancellation_event=None)`
-      - Request: `AH.SymbolInfoMarginRateRequest(symbol=..., order_type=...)`
-      - Client-side timeout computed from `deadline` (avoids server-time skew).
-      - Returns `res.data` with fields like `initial_margin_rate`, `maintenance_margin_rate`, `hedged_margin_rate`.
-    - `symbol_info_session_quote(symbol, day_of_week, session_index, *, deadline=None, ...)`
-      - Request: `AH.SymbolInfoSessionQuoteRequest(...)`; output has `from_`/`to` timestamps.
-    - `symbol_info_session_trade(symbol, day_of_week, session_index, *, deadline=None, ...)`
-      - Request: `AH.SymbolInfoSessionTradeRequest(...)`; output has `from_`/`to`.
-
-    Printer helpers
-    ---------------
-    - `_fmt_ts(sec)` — formats seconds as `HH:MM:SS` (UTC); prints `24:00:00` for exact 24h boundaries.
-    - `_print_symbol_infos_compact(resp, limit)` — prints first N entries from `resp.symbol_infos` with selected fields.
-
-    Output (typical)
-    ----------------
-    > symbol_select('EURUSD', True)
-    > symbol_info_double(BID/ASK)
-    spread: 0.00012
-    symbol_params_many: total=… (first …)
-      #1: EURUSD | digits=5 | USD/USD | mode=... | Forex / Majors
-    margin_rates: initial=..., maintenance=..., hedged=...
-    quote_session[Mon,#0]: 00:00:00 → 24:00:00 UTC
-    trade_session[Mon,#0]: 00:00:00 → 24:00:00 UTC
-
-    Notes & edge cases
-    ------------------
-    - Some providers do not expose margin/session info for all symbols; corresponding calls may return empty `data`.
-    - Use **enums** from `MI` for property selectors; builds that accept strings are not guaranteed.
-    - If server time is skewed, prefer client-side timeouts (as in patched methods) over server-side deadlines.
-
-    How to run
-    ----------
-    From project root:
-      `python -m examples.symbols_and_market`
-    Or via CLI (if present):
-      `python -m examples.cli run symbols_and_market`
-
-    Environment
-    -----------
-    - `SYMBOL` and (optionally) `VOLUME` come from `.common.env`. Ensure `SYMBOL` is tradable and streamed by your provider.
-    """
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/symbols_market.py — symbols overview (fast-safe)               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Purpose                                                                      ║
+║   A quick, fault-tolerant demo that:                                         ║
+║   • connects with short timeouts,                                            ║
+║   • counts available symbols (all vs. Market Watch),                         ║
+║   • prints small samples of names,                                           ║
+║   • shows compact “snapshots” per symbol (exist, tick, BID/ASK/POINT,        ║
+║     DIGITS/TRADE_MODE, DESCRIPTION).                                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Execution flow                                                               ║
+║   1) Sets a “fast profile” via env:                                          ║
+║      TIMEOUT_SECONDS=15, CONNECT_RETRIES=1, EXAMPLE_BUDGET_SEC=20.           ║
+║   2) Creates a global deadline using `asyncio.timeout(...)`.                 ║
+║   3) `connect()` → ensures base `SYMBOL` is visible in Market Watch.         ║
+║   4) Requests totals:                                                        ║
+║        • `symbols_total(False)` — all symbols,                               ║
+║        • `symbols_total(True)`  — Market Watch.                              ║
+║   5) Prints a sampled list of names (limited by SCAN_LIMIT_*).               ║
+║   6) Builds a snapshot list: base SYMBOL + up to 2 from Watchlist.           ║
+║   7) For each symbol prints:                                                 ║
+║        • exist,                                                              ║
+║        • tick (BID/ASK + spread),                                            ║
+║        • doubles: BID/ASK/POINT,                                             ║
+║        • integers: DIGITS/TRADE_MODE,                                        ║
+║        • string DESCRIPTION (best-effort).                                   ║
+║   8) Gracefully closes the session via `shutdown()`.                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Key RPCs & enums                                                             ║
+║   • `symbols_total(selected: bool)`                                          ║
+║   • `symbol_name(index: int, selected: bool)`                                ║
+║   • `symbol_select(symbol, True)`                                            ║
+║   • `symbol_exist(symbol)`                                                   ║
+║   • `symbol_info_tick(symbol)` → fields `bid/ask`                            ║
+║   • `symbol_info_double(symbol, MI.SymbolInfoDoubleProperty.…)`              ║
+║       – `SYMBOL_BID`, `SYMBOL_ASK`, `SYMBOL_POINT`                           ║
+║   • `symbol_info_integer(symbol, MI.SymbolInfoIntegerProperty.…)`            ║
+║       – `SYMBOL_DIGITS`, `SYMBOL_TRADE_MODE`                                 ║
+║   • `symbol_info_string                                                      ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Helper utilities                                                             ║
+║   • `_to_float/_to_int/_to_str` — robust extraction from varied pb2 shapes   ║
+║     (`.value/.data/...`).                                                    ║
+║   • `_symbols_total`, `_symbol_name` — wrappers with try/except.             ║
+║   • `_ensure_selected` — ensures symbol is in Market Watch.                  ║
+║   • `_print_symbol_snapshot` — unified, compact per-symbol printout.         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Environment / tunables                                                       ║
+║   • `EXAMPLE_BUDGET_SEC` (default 20) — hard time cap for the whole demo.    ║
+║   • `TIMEOUT_SECONDS` (15) — connect timeout (respected by env.py).          ║
+║   • `CONNECT_RETRIES` (1) — fewer retries to avoid hangs.                    ║
+║   • `SYMBOLS_SCAN_LIMIT_ALL` (30) — how many “all” names to scan.            ║
+║   • `SYMBOLS_SCAN_LIMIT_WATCH` (30) — how many Watchlist names to scan.      ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Error handling                                                               ║
+║   • Global `asyncio.timeout` → clear message on `TimeoutError`.              ║
+║   • Catches `AioRpcError` (e.g., DEADLINE_EXCEEDED) with a hint to increase  ║
+║     `TIMEOUT_SECONDS` or switch server.                                      ║
+║   • Value converters tolerate non-standard response shapes.                  ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Output                                                                       ║
+║   • Totals line: `Symbols total: all=N  market_watch=M`.                     ║
+║   • Sampled name lists (ellipsis if truncated).                              ║
+║   • `Snapshots:` block (1–3 symbols) with tick/doubles/integers/description. ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Dependencies                                                                 ║
+║   • `connect`, `shutdown`, `SYMBOL` — `examples/common/env.py`               ║
+║   • `title` — `examples/common/utils.py`                                     ║
+║   • pb2 enums: `MetaRpcMT5.mt5_term_api_market_info_pb2 as MI`               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ How to run                                                                   ║
+║   • `python -m examples.cli run symbols_market`                              ║
+║     (or run the module directly).                                            ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+"""
 
 
 

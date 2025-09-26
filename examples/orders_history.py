@@ -199,77 +199,86 @@ if __name__ == "__main__":
 # $env:HISTORY_DAYS=30
 # python -m examples.cli run orders_history
 
+
 """
-    Example: Orders / Deals / Positions History (paged, robust to schema variants)
-    =============================================================================
-
-    | Section | What happens | Why / Notes |
-    |---|---|---|
-    | Connect | `acc = await connect()` | Opens async session to the MT5 bridge; must be closed with `shutdown()`. |
-    | Monkey-patch | Attach `_order_history` and `_positions_history` to `acc` | Provides portable wrappers that tolerate field/enum name differences across builds. |
-    | Interval | `from_dt = now - HISTORY_DAYS`, `to_dt = now` (UTC) | Uses UTC consistently; printable ISO interval banner. |
-    | Orders | `acc.order_history(from_dt, to_dt, page=0, size=PAGE_SIZE)` | Requests historical orders with optional sort mode and pagination; prints up to 50 items. |
-    | Positions/Deals | `acc.positions_history(sort_type, open_from, open_to, page=0, size=PAGE_SIZE)` | Requests historical positions (and/or deals) and prints up to 50 items. |
-    | Print | `_print_orders(...)`, `_print_positions(...)` | Friendly, compact lines with ticket, symbol, volume, price/time fields. Skips missing fields silently. |
-    | Cleanup | `await shutdown(acc)` | Always close the session even on errors. |
-
-    RPCs used (AccountHelper gRPC)
-    ------------------------------
-    - `AccountClient.OrderHistory(OrderHistoryRequest)` →
-      - Supported field names (auto-detected): `input_from|inputFrom|from_|from`, `input_to|inputTo|to_|to`
-      - Sort field (optional): `input_sort_mode|inputSortMode|sort_mode`
-      - Pagination: `page_number|pageNumber`, `items_per_page|itemsPerPage`
-    - `AccountClient.PositionsHistory(PositionsHistoryRequest)` →
-      - Sort enum (optional): `AH_ENUM_POSITIONS_HISTORY_SORT_TYPE|AH_SORT_BY_OPEN_TIME_ASC`
-      - Time range fields (auto-detected): `position_open_time_from|positionOpenTimeFrom|open_time_from|openFrom` and `..._to`
-      - Pagination: `page_number|pageNumber`, `items_per_page|itemsPerPage`
-
-    Portability helpers
-    -------------------
-    - `_enum_or(default, *path)` — resolves enum by path (e.g., `("BMT5_ENUM_ORDER_HISTORY_SORT_TYPE", "BMT5_SORT_BY_CLOSE_TIME_ASC")`) or falls back to `default`.
-    - `_set_ts_any(msg, names, dt)` — finds a Timestamp field by any of the candidate names and calls `FromDatetime(UTC(dt))`.
-    - `_set_any(msg, names, value)` — assigns to the first matching scalar field name.
-    - `_safe_get(obj, *names, default=None)` — returns the first present attribute among candidates.
-    - Time handling: `_utc(dt)` ensures everything is in UTC; `_fmt_ts(ts)` prints `YYYY-MM-DD HH:MM:SS` (UTC).
-
-    Output fields (best-effort; optional fields are skipped)
-    -------------------------------------------------------
-    - Orders: `ticket|order_ticket`, `symbol`, `type|order_type`, `volume_initial|volume`, `price_open|price`,
-      `time_setup|time_setup_msc`, `time_done|time_done_msc`.
-    - Positions/Deals: `ticket|deal_ticket`, `symbol`, `volume`, `price_open|price`, `profit`,
-      `open_time`, `close_time`.
-
-    Pagination & limits
-    -------------------
-    - Page size comes from `HISTORY_PAGE_SIZE` (default 200).
-    - Printers show up to 50 items per section to keep logs readable (rest is summarized).
-
-    Environment knobs
-    -----------------
-    - `HISTORY_DAYS` (int, default `7`) — lookback window size.
-    - `HISTORY_PAGE_SIZE` (int, default `200`) — page size for both queries.
-
-    Timeouts & deadlines
-    --------------------
-    - If `deadline` is passed to the wrappers, a gRPC `timeout` is computed from it on the client side.
-    - If your server has incorrect time/offset, prefer **client-side timeouts** (omit `deadline`) to avoid `DEADLINE_EXCEEDED`.
-
-    Edge cases
-    ----------
-    - Different builds may rename fields; this example auto-detects snake_case/camelCase.
-    - If the server envelopes payload in `data`, it is unwrapped.
-    - Any missing pb2 fields/enums fall back gracefully; errors are caught and printed as `[...]: Error: <type>: <msg>`.
-
-    How to run
-    ----------
-    From project root (module path):
-      `python -m examples.<this_file_name_without_.py>`
-    Examples:
-      `python -m examples.history`  or  `python -m examples.orders_positions_history`
-    (Use your actual filename under `examples/`.)
-
-    Requirements
-    ------------
-    - Valid connection settings (`.env` / `connect()`).
-    - `MetaRpcMT5.mt5_term_api_account_helper_pb2` must be importable in this build (already handled at module import).
-    """
+╔══════════════════════════════════════════════════════════════════════════════╗
+║ FILE examples/orders_history.py — orders / deals / positions history         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Purpose                                                                      ║
+║   Query order and position/deal history for a given period directly via      ║
+║   gRPC (AccountHelper), tolerate varying pb2 field names across builds,      ║
+║   and print a concise, readable summary.                                     ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ What it does (main flow)                                                     ║
+║   1) Applies pb2 shim (apply_patch), connects to MT5 (connect()).            ║
+║   2) Monkey-patches two methods onto `acc`:                                  ║
+║        • acc.order_history(from_dt, to_dt, …)                                ║
+║        • acc.positions_history(sort_type, open_from, open_to, …)             ║
+║      These build requests tolerant to field-name differences and invoke      ║
+║      low-level RPC via `execute_with_reconnect()`.                           ║
+║   3) Computes the date interval: last `HISTORY_DAYS`.                        ║
+║   4) Fetches:                                                                ║
+║        • OrderHistory → prints up to 50 lines (ticket, symbol, type, volume, ║
+║          price, setup/done times).                                           ║
+║        • PositionsHistory → prints up to 50 lines (ticket, symbol, volume,   ║
+║          price, profit, open/close times).                                   ║
+║   5) Gracefully shuts down the session (shutdown()).                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Time range                                                                   ║
+║   • `to_dt` = now (UTC); `from_dt` = `to_dt − HISTORY_DAYS`.                 ║
+║   • Timestamp fields are filled into whichever matching names exist          ║
+║     (snake/camel/alternates).                                                ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Pagination & sorting                                                         ║
+║   • `items_per_page` = `HISTORY_PAGE_SIZE`, `page_number/page` = 0.          ║
+║   • Sorting:                                                                 ║
+║       - OrderHistory: `BMT5_SORT_BY_CLOSE_TIME_ASC` (if enum exists).        ║
+║       - PositionsHistory: `AH_SORT_BY_OPEN_TIME_ASC` (if enum exists).       ║
+║   • If enum names/paths are absent, falls back to safe `0`.                  ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Build robustness                                                             ║
+║   • Date fields: `input_from/inputFrom/from_/from` and                       ║
+║                  `input_to/inputTo/to_/to`.                                  ║
+║   • Sort/page fields: `input_sort_mode/inputSortMode/sort_mode`,             ║
+║     `page_number/pageNumber`, `items_per_page/itemsPerPage`.                 ║
+║   • Enums resolved via `_enum_or(AH, …)`; if path not found → default `0`.   ║
+║   • Responses read “softly” via `_safe_get()` across keys like               ║
+║     `orders/orders_history` and `positions/deals/position_infos`.            ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Output                                                                       ║
+║   • Orders: `orders: <N>` plus up to 50 entries with ticket, symbol, type,   ║
+║     volume, price, setup/done (UTC).                                         ║
+║   • Positions/Deals: `positions/deals: <N>` plus up to 50 entries with       ║
+║     ticket, symbol, volume, price, profit, open/close (UTC).                 ║
+║   • If N > 50, prints `… more <N-50>`.                                       ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Environment variables                                                        ║
+║   HISTORY_DAYS       — history window length (default 7).                    ║
+║   HISTORY_PAGE_SIZE  — page size (default 200).                              ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Direct RPCs (via acc.execute_with_reconnect)                                 ║
+║   • `account_client.OrderHistory(AH.OrderHistoryRequest)`                    ║
+║   • `account_client.PositionsHistory(AH.PositionsHistoryRequest)`            ║
+║     (timeout derived from deadline; `error_selector` → `r.error`)            ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Helpers in this file                                                         ║
+║   `_utc(dt)`               — normalize datetime to UTC.                      ║
+║   `_fmt_ts(ts)`            — `Timestamp.seconds` → UTC string.               ║
+║   `_safe_get(obj, *names)` — safely extract a field from multiple names.     ║
+║   `_enum_or(default, …)`   — resolve enum from AH by path, else default.     ║
+║   `_set_ts_any(msg, names, dt)` — write `Timestamp` into the first matching. ║
+║   `_set_any(msg, names, val)`  — write scalar into the first matching field. ║
+║   `_print_orders(res)` / `_print_positions(res)` — formatted output.         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ Caveats / limitations                                                        ║
+║   • If `from/to` fields can’t be set (rare build), the request goes without  ║
+║     them; server-side defaults may return empty results.                     ║
+║   • Time printing uses only `seconds`; if absent, prints empty string.       ║
+║   • No `safe_async` wrapper here — exceptions are handled locally around     ║
+║     the calls.                                                               ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║ How to run                                                                   ║
+║   `python -m examples.cli run orders_history`                                ║
+║   (connection settings via `.env` / environment vars).                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+"""
