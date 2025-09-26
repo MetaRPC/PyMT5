@@ -1,6 +1,5 @@
 # Low-Level Walkthrough — Step number two
-**Covers:** Steps **7–10** and **10a** (positions total, order/positions history, Market Book DOM, DOM scan).  
-**Audience:** Beginners continuing the low‑level MT5 gRPC tour before trading actions.
+**Covers:** Steps **7–10** (positions total, order/positions history, Market Book DOM, DOM scan).  
 
 > This part remains *read-only* (no order placement). DOM subscriptions are opened and released safely.
 
@@ -56,7 +55,7 @@ PY
 **Goal:** Return the count of open positions (with a hard fallback to the direct stub if helper path fails).  
 **Docs:** [`positions_total.md`](../../MT5Account/Orders_Positions_History/positions_total.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 PositionsTotal(request: Empty) -> PositionsTotalReply
 ```
@@ -67,7 +66,7 @@ PositionsTotal(request: Empty) -> PositionsTotalReply
 **Goal:** Fetch order history within a time window using pb2 `Timestamp` (UTC).  
 **Docs:** [`order_history.md`](../../MT5Account/Orders_Positions_History/order_history.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 OrderHistory(request: OrderHistoryRequest) -> OrderHistoryReply
 ```
@@ -85,13 +84,13 @@ PositionsHistory(request: PositionsHistoryRequest) -> PositionsHistoryReply
 
 ---
 
-# Step 10: Market Book (DOM) 📈📉
+# Step 10: Market Book (DOM) 📈
 **Goal:** Probe DOM carefully — check depth, subscribe, read a few snapshots, then release.  
 **Docs:** [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md),  
 [`market_book_get.md`](../../MT5Account/Symbols_and_Market/market_book_get.md),  
 [`market_book_release.md`](../../MT5Account/Symbols_and_Market/market_book_release.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 MarketBookAdd(request: MarketBookAddRequest) -> MarketBookAddReply
 MarketBookGet(request: MarketBookGetRequest) -> MarketBookGetReply
@@ -107,16 +106,9 @@ MarketBookRelease(request: MarketBookReleaseRequest) -> MarketBookReleaseReply
 [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md),  
 [`market_book_release.md`](../../MT5Account/Symbols_and_Market/market_book_release.md)
 
-**Sketch (pb calls):**
+**Method signatures:**
 ```python
 SymbolsTotal(SymbolsTotalRequest) -> SymbolsTotalReply
 MarketBookAdd(MarketBookAddRequest) -> MarketBookAddReply
 MarketBookRelease(MarketBookReleaseRequest) -> MarketBookReleaseReply
 ```
-
----
-
-## Quick tips
-- Prefer narrow time windows for history calls; large ranges can be slow.
-- Always normalize times to UTC when printing or comparing.
-- Guard DOM subscription with depth/availability checks; always release on exit.
