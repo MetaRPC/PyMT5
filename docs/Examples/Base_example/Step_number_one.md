@@ -5,7 +5,7 @@
 
 ---
 
-## Helpers used in this part
+### Helpers used in this part
 Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_one.md`).
 
 - **Env & connection diagnostics** — see:  
@@ -18,7 +18,7 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_one
 
 ---
 
-## Prerequisites 🧰
+### Prerequisites 🧰
 - Python **3.13.x** (virtual environment recommended).
 - Reachable gRPC endpoint.
 - Valid MT5 credentials.
@@ -37,7 +37,7 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_one
 
 ---
 
-# Step 1: one-shot account_summary 📊
+### Step 1: one-shot account_summary 📊
 **Goal:** Connect via `server_name` (ConnectEx) and print key account metrics: equity, balance, margin, free, free_ratio, drawdown, server_time.  
 **Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md), [`Getting_Started.md`](../../MT5Account/Getting_Started.md)
 
@@ -50,7 +50,7 @@ AccountSummary(request: AccountSummaryRequest) -> AccountSummaryReply
 
 ---
 
-# Step 2: account_info 🧾
+### Step 2: account_info 🧾
 **Goal:** Demonstrate direct pb2 calls `AccountInfo*` and safe field extraction.  
 **Docs:** [`account_info_double.md`](../../MT5Account/Account_Information/account_info_double.md), [`account_info_integer.md`](../../MT5Account/Account_Information/account_info_integer.md), [`account_info_string.md`](../../MT5Account/Account_Information/account_info_string.md)
 
@@ -64,13 +64,13 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 
 ---
 
-# Step 3: Symbols_Market 🏷️
+### Step 3: Symbols_Market 🏷️
 **Goal:** Ensure the symbol is available and read key attributes.  
 **Docs:** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
 
 ---
 
-# Step 4: symbol_params_many ⚙️
+### Step 4: symbol_params_many ⚙️
 **Goal:** Read a compact set of parameters for one/many symbols: spread, tick size/value, lot step and volume limits, etc.  
 **Docs:** [`symbol_params_many.md`](../../MT5Account/Symbols_and_Market/symbol_params_many.md)
 
@@ -82,7 +82,7 @@ SymbolParamsMany(request: SymbolParamsManyRequest) -> SymbolParamsManyReply
 
 ---
 
-# Step 5: opened_orders 🗂️
+### Step 5: opened_orders 🗂️
 **Goal:** Print active pending orders in compact rows.  
 **Docs:** [`opened_orders.md`](../../MT5Account/Orders_Positions_History/opened_orders.md)
 
@@ -94,7 +94,7 @@ OpenedOrders(request: OpenedOrdersRequest) -> OpenedOrdersReply
 
 ---
 
-# Step 6: opened_orders_tickets 🎟️
+### Step 6: opened_orders_tickets 🎟️
 **Goal:** Fetch only tickets of current pending orders (useful for targeted operations later).  
 **Docs:** [`opened_orders_tickets.md`](../../MT5Account/Orders_Positions_History/opened_orders_tickets.md)
 
@@ -105,7 +105,7 @@ OpenedOrdersTickets(request: OpenedOrdersTicketsRequest) -> OpenedOrdersTicketsR
 
 ---
 
-# Step 6f: symbol_info_tick ⏱️
+### Step 6f: symbol_info_tick ⏱️
 **Goal:** Get last tick for the symbol.  
 **Docs:** [`symbol_info_tick.md`](../../MT5Account/Symbols_and_Market/symbol_info_tick.md)
 
@@ -127,7 +127,7 @@ SymbolInfoSessionQuote(request: SymbolInfoSessionQuoteRequest) -> SymbolInfoSess
 
 ---
 
-# Step 6h: symbol_info_session_trade 
+### Step 6h: symbol_info_session_trade 
 **Goal:** Read current **trade** session info for the symbol.  
 **Docs:** [`symbol_info_session_trade.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_trade.md)
 
@@ -138,7 +138,7 @@ SymbolInfoSessionTrade(request: SymbolInfoSessionTradeRequest) -> SymbolInfoSess
 
 ---
 
-# Step 6i: symbol_info_margin_rate 🧮
+### Step 6i: symbol_info_margin_rate 🧮
 **Goal:** Read margin rate information for the symbol.  
 **Docs:** [`symbol_info_margin_rate.md`](../../MT5Account/Symbols_and_Market/symbol_info_margin_rate.md)
 
@@ -149,7 +149,7 @@ SymbolInfoMarginRate(request: SymbolInfoMarginRateRequest) -> SymbolInfoMarginRa
 
 ---
 
-# Step 6j: symbol_name 🏷️
+### Step 6j: symbol_name 🏷️
 **Goal:** Read the canonical symbol name.  
 **Docs:** [`symbol_name.md`](../../MT5Account/Symbols_and_Market/symbol_name.md)
 
