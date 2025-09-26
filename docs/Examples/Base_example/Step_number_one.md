@@ -73,11 +73,11 @@ PY
 
 ---
 
-# Step 1: one-shot account_summary 🔌📊
+# Step 1: one-shot account_summary 📊
 **Goal:** Connect via `server_name` (ConnectEx) and print key account metrics: equity, balance, margin, free, free_ratio, drawdown, server_time.  
 **Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md), [`Getting_Started.md`](../../MT5Account/Getting_Started.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 ConnectEx(request: ConnectExRequest) -> ConnectExReply
 AccountSummary(request: AccountSummaryRequest) -> AccountSummaryReply
@@ -86,7 +86,7 @@ AccountSummary(request: AccountSummaryRequest) -> AccountSummaryReply
 
 ---
 
-# Step 2: account_info_* (pb2) 🧾
+# Step 2: account_info_* 🧾
 **Goal:** Demonstrate direct pb2 calls `AccountInfo*` and safe field extraction.  
 **Docs:** [`account_info_double.md`](../../MT5Account/Account_Information/account_info_double.md), [`account_info_integer.md`](../../MT5Account/Account_Information/account_info_integer.md), [`account_info_string.md`](../../MT5Account/Account_Information/account_info_string.md)
 
@@ -106,7 +106,7 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 
 ---
 
-# Step 4: symbol_params_many (batch) ⚙️
+# Step 4: symbol_params_many ⚙️
 **Goal:** Read a compact set of parameters for one/many symbols: spread, tick size/value, lot step and volume limits, etc.  
 **Docs:** [`symbol_params_many.md`](../../MT5Account/Symbols_and_Market/symbol_params_many.md)
 
@@ -118,11 +118,11 @@ SymbolParamsMany(request: SymbolParamsManyRequest) -> SymbolParamsManyReply
 
 ---
 
-# Step 5: opened_orders (snapshot) 🗂️
+# Step 5: opened_orders 🗂️
 **Goal:** Print active pending orders in compact rows.  
 **Docs:** [`opened_orders.md`](../../MT5Account/Orders_Positions_History/opened_orders.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 OpenedOrders(request: OpenedOrdersRequest) -> OpenedOrdersReply
 ```
@@ -134,7 +134,7 @@ OpenedOrders(request: OpenedOrdersRequest) -> OpenedOrdersReply
 **Goal:** Fetch only tickets of current pending orders (useful for targeted operations later).  
 **Docs:** [`opened_orders_tickets.md`](../../MT5Account/Orders_Positions_History/opened_orders_tickets.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 OpenedOrdersTickets(request: OpenedOrdersTicketsRequest) -> OpenedOrdersTicketsReply
 ```
@@ -145,14 +145,14 @@ OpenedOrdersTickets(request: OpenedOrdersTicketsRequest) -> OpenedOrdersTicketsR
 **Goal:** Get last tick for the symbol.  
 **Docs:** [`symbol_info_tick.md`](../../MT5Account/Symbols_and_Market/symbol_info_tick.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 SymbolInfoTick(request: SymbolInfoTickRequest) -> SymbolInfoTickRequestReply
 ```
 
 ---
 
-# Step 6g: symbol_info_session_quote 🕒
+# Step 6g: symbol_info_session_quote 
 **Goal:** Read current **quote** session info for the symbol.  
 **Docs:** [`symbol_info_session_quote.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_quote.md)
 
@@ -163,11 +163,11 @@ SymbolInfoSessionQuote(request: SymbolInfoSessionQuoteRequest) -> SymbolInfoSess
 
 ---
 
-# Step 6h: symbol_info_session_trade 🕒
+# Step 6h: symbol_info_session_trade 
 **Goal:** Read current **trade** session info for the symbol.  
 **Docs:** [`symbol_info_session_trade.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_trade.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 SymbolInfoSessionTrade(request: SymbolInfoSessionTradeRequest) -> SymbolInfoSessionTradeReply
 ```
@@ -178,7 +178,7 @@ SymbolInfoSessionTrade(request: SymbolInfoSessionTradeRequest) -> SymbolInfoSess
 **Goal:** Read margin rate information for the symbol.  
 **Docs:** [`symbol_info_margin_rate.md`](../../MT5Account/Symbols_and_Market/symbol_info_margin_rate.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 SymbolInfoMarginRate(request: SymbolInfoMarginRateRequest) -> SymbolInfoMarginRateReply
 ```
@@ -189,7 +189,7 @@ SymbolInfoMarginRate(request: SymbolInfoMarginRateRequest) -> SymbolInfoMarginRa
 **Goal:** Read the canonical symbol name.  
 **Docs:** [`symbol_name.md`](../../MT5Account/Symbols_and_Market/symbol_name.md)
 
-**Method signatures (pb):**
+**Method signatures:**
 ```python
 SymbolName(request: SymbolNameRequest) -> SymbolNameReply
 ```
