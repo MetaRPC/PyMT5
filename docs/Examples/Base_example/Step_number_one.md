@@ -100,7 +100,7 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 
 ---
 
-# Step 3: symbol_* basics 🏷️
+# Step 3: Symbols & Market 🏷️
 **Goal:** Ensure the symbol is available and read key attributes.  
 **Docs:** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
 
@@ -195,7 +195,7 @@ SymbolName(request: SymbolNameRequest) -> SymbolNameReply
 ```
 ---
 
-## Gotchas (quick)
+## Gotchas
 - `MT5_SERVER` must exactly match the broker’s server string.
 - If symbol details return empty values — call `symbol_select(SYMBOL, True)` first.
 - Normalize time to UTC for history endpoints.
