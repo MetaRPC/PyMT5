@@ -39,7 +39,7 @@ OrderHistory(request: OrderHistoryRequest) -> OrderHistoryReply
 
 ---
 
-# Step 9: positions_history (last 7 days) 📜
+# Step 9: positions_history 📜
 **Goal:** Fetch positions history within a time window; prints compact rows with key PnL/time fields.  
 **Docs:** [`positions_history.md`](../../MT5Account/Orders_Positions_History/positions_history.md)
 
