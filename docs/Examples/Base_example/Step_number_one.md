@@ -1,8 +1,7 @@
 # Low-Level Walkthrough — Step number one
-**Covers:** Steps **1–6**, **6f–6j**, and **8** (connect, account summary/info, symbols basics & params, opened orders, symbol detail calls, order history).  
-**Audience:** Beginners who want to understand raw MT5 gRPC calls without wrappers.
+**Covers:** Steps **1–6**
 
-> This part focuses on *read-only* and safe operations. No trading actions here.
+ This part focuses on *read-only* and safe operations. No trading actions here.
 
 ---
 
