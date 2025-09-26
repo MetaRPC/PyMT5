@@ -1,4 +1,4 @@
-# Step Number Three
+# Step number three
 
 **Covers:** Steps **11–16** (trading and event streaming).
 
