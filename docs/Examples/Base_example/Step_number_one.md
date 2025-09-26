@@ -7,15 +7,15 @@
 ---
 
 ## Helpers used in this part
-Эти хелперы используются в шагах ниже
+Эти хелперы используются в шагах ниже (пути относительно этой страницы `docs/Examples/Base_example/Step_number_one.md`).
 
 - **Env и диагностика подключения** — см.:  
-  - [`docs/Examples/Common/env.md`](docs/Examples/Common/env.md)  
-  - [`docs/Examples/Common/diag_connect.md`](docs/Examples/Common/diag_connect.md)
+  - [`env.md`](../Common/env.md)  
+  - [`diag_connect.md`](../Common/diag_connect.md)
 - **Знакомство с базовым API** — см.:  
-  - [`docs/MT5Account/Getting_Started.md`](docs/MT5Account/Getting_Started.md)  
-  - [`docs/MT5Account/BASE.md`](docs/MT5Account/BASE.md)  
-  - [`docs/MT5Account/Under_the_Hood.md`](docs/MT5Account/Under_the_Hood.md)
+  - [`Getting_Started.md`](../../MT5Account/Getting_Started.md)  
+  - [`BASE.md`](../../MT5Account/BASE.md)  
+  - [`Under_the_Hood.md`](../../MT5Account/Under_the_Hood.md)
 
 ---
 
@@ -74,9 +74,9 @@ PY
 
 ---
 
-# ---- Step 1: one-shot account_summary -----------------------------------------
+# |||| Step 1: one-shot account_summary 🔌📊 ||||
 **Цель:** Подключиться по `server_name` (ConnectEx) и вывести ключевые метрики счёта: equity, balance, margin, free, free_ratio, drawdown, server_time.  
-**Docs:** [`Account Summary`](docs/MT5Account/Account_Information/account_summary.md), [`Getting Started`](docs/MT5Account/Getting_Started.md)
+**Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md), [`Getting_Started.md`](../../MT5Account/Getting_Started.md)
 
 **Method signatures (pb):**
 ```python
@@ -86,9 +86,13 @@ AccountSummary(request: AccountSummaryRequest) -> AccountSummaryReply
 **Грабли:** корректность `MT5_SERVER`; при высокой задержке увеличьте `TIMEOUT_SECONDS`.
 
 ---
-# ---- Step 2: account_info_* (pb2) ---------------------------------------------
+
+# |||| Step 2: account_info_* (pb2) 🧾 ||||
 **Цель:** Показать прямые pb2-вызовы `AccountInfo*` и безопасное извлечение полей.  
-**Docs:** [`account_info_double`](docs/MT5Account/Account_Information/account_info_double.md), [`account_info_integer`](docs/MT5Account/Account_Information/account_info_integer.md), [`account_info_string`](docs/MT5Account/Account_Information/account_info_string.md), [`Overview`](docs/MT5Account/Account_Information/Account_Information_Overview.md)
+**Docs:** [`account_info_double.md`](../../MT5Account/Account_Information/account_info_double.md),  
+[`account_info_integer.md`](../../MT5Account/Account_Information/account_info_integer.md),  
+[`account_info_string.md`](../../MT5Account/Account_Information/account_info_string.md),  
+[`Account_Information_Overview.md`](../../MT5Account/Account_Information/Account_Information_Overview.md)
 
 **Method signatures (pb):**
 ```python
@@ -99,10 +103,19 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 **Грабли:** поля могут отсутствовать в зависимости от сервера → используйте safe-getters.
 
 ---
-# ---- Step 3: symbol_* basics --------------------------------------------------
+
+# |||| Step 3: symbol_* basics 🏷️ ||||
 **Цель:** Убедиться, что символ доступен, и прочитать ключевые атрибуты.  
-**Docs:** [`symbol_exist`](docs/MT5Account/Symbols_and_Market/symbol_exist.md), [`symbol_select`](docs/MT5Account/Symbols_and_Market/symbol_select.md), [`symbols_total`](docs/MT5Account/Symbols_and_Market/symbols_total.md), [`symbol_info_double`](docs/MT5Account/Symbols_and_Market/symbol_info_double.md), [`symbol_info_integer`](docs/MT5Account/Symbols_and_Market/symbol_info_integer.md), [`symbol_info_string`](docs/MT5Account/Symbols_and_Market/symbol_info_string.md), [`symbol_info_tick`](docs/MT5Account/Symbols_and_Market/symbol_info_tick.md), [`tick_value_with_size`](docs/MT5Account/Symbols_and_Market/tick_value_with_size.md), [`symbol_is_synchronized`](docs/MT5Account/Symbols_and_Market/symbol_is_synchronized.md)  
-**Extras:** [`symbol_info_session_quote`](docs/MT5Account/Symbols_and_Market/symbol_info_session_quote.md), [`symbol_info_session_trade`](docs/MT5Account/Symbols_and_Market/symbol_info_session_trade.md), [`symbol_info_margin_rate`](docs/MT5Account/Symbols_and_Market/symbol_info_margin_rate.md), [`symbol_name`](docs/MT5Account/Symbols_and_Market/symbol_name.md)
+**Docs:** [`symbol_exist.md`](../../MT5Account/Symbols_and_Market/symbol_exist.md),  
+[`symbol_select.md`](../../MT5Account/Symbols_and_Market/symbol_select.md),  
+[`symbols_total.md`](../../MT5Account/Symbols_and_Market/symbols_total.md),  
+[`symbol_info_double.md`](../../MT5Account/Symbols_and_Market/symbol_info_double.md),  
+[`symbol_info_integer.md`](../../MT5Account/Symbols_and_Market/symbol_info_integer.md),  
+[`symbol_info_string.md`](../../MT5Account/Symbols_and_Market/symbol_info_string.md),  
+[`symbol_info_tick.md`](../../MT5Account/Symbols_and_Market/symbol_info_tick.md),  
+[`tick_value_with_size.md`](../../MT5Account/Symbols_and_Market/tick_value_with_size.md),  
+[`symbol_is_synchronized.md`](../../MT5Account/Symbols_and_Market/symbol_is_synchronized.md)  
+**Extras:** [`symbol_info_session_quote.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_quote.md), [`symbol_info_session_trade.md`](../../MT5Account/Symbols_and_Market/symbol_info_session_trade.md), [`symbol_info_margin_rate.md`](../../MT5Account/Symbols_and_Market/symbol_info_margin_rate.md), [`symbol_name.md`](../../MT5Account/Symbols_and_Market/symbol_name.md)
 
 **Method signatures (pb):**
 ```python
@@ -120,9 +133,10 @@ TickValueWithSize(request: TickValueWithSizeRequest) -> TickValueWithSizeReply
 **Грабли:** перед `symbol_info_*` обязательно `symbol_select(SYMBOL, True)` — иначе поля пустые.
 
 ---
-# ---- Step 4: symbol_params_many (batch) ---------------------------------------
+
+# |||| Step 4: symbol_params_many (batch) ⚙️ ||||
 **Цель:** Считать набор параметров для одного/нескольких символов: спред, tick size/value, шаг/лимиты лота и т.д.  
-**Docs:** [`symbol_params_many`](docs/MT5Account/Symbols_and_Market/symbol_params_many.md)
+**Docs:** [`symbol_params_many.md`](../../MT5Account/Symbols_and_Market/symbol_params_many.md)
 
 **Method signatures (pb):**
 ```python
@@ -131,9 +145,10 @@ SymbolParamsMany(request: SymbolParamsManyRequest) -> SymbolParamsManyReply
 **Грабли:** учитывайте `lot_step`, `min_volume`, `max_volume` при планировании торговых операций.
 
 ---
-# ---- Step 5: opened_orders (snapshot) -----------------------------------------
+
+# |||| Step 5: opened_orders (snapshot) 🗂️ ||||
 **Цель:** Вывести активные отложенные ордера компактными строками.  
-**Docs:** [`opened_orders`](docs/MT5Account/Orders_Positions_History/opened_orders.md)
+**Docs:** [`opened_orders.md`](../../MT5Account/Orders_Positions_History/opened_orders.md)
 
 **Method signatures (pb):**
 ```python
@@ -142,9 +157,10 @@ OpenedOrders(request: OpenedOrdersRequest) -> OpenedOrdersReply
 **Грабли:** нормализуйте время (UTC), корректно обрабатывайте пустые списки.
 
 ---
-# ---- Step 6: opened_orders_tickets --------------------------------------------
+
+# |||| Step 6: opened_orders_tickets 🎟️ ||||
 **Цель:** Получить только тикеты активных отложенных ордеров (пригодится для точечных операций).  
-**Docs:** [`opened_orders_tickets`](docs/MT5Account/Orders_Positions_History/opened_orders_tickets.md)
+**Docs:** [`opened_orders_tickets.md`](../../MT5Account/Orders_Positions_History/opened_orders_tickets.md)
 
 **Method signatures (pb):**
 ```python
@@ -152,9 +168,10 @@ OpenedOrdersTickets(request: OpenedOrdersTicketsRequest) -> OpenedOrdersTicketsR
 ```
 
 ---
-# ---- Step 7: positions_total --------------------------------------------------
+
+# |||| Step 7: positions_total 📊 ||||
 **Цель:** Показать количество открытых позиций (с фоллбеком на прямой вызов стаба при необходимости).  
-**Docs:** [`positions_total`](docs/MT5Account/Orders_Positions_History/positions_total.md)
+**Docs:** [`positions_total.md`](../../MT5Account/Orders_Positions_History/positions_total.md)
 
 **Method signatures (pb):**
 ```python
@@ -162,9 +179,10 @@ PositionsTotal(request: Empty) -> PositionsTotalReply
 ```
 
 ---
-# ---- Step 8: order_history (last 7d) ------------------------------------------
+
+# |||| Step 8: order_history (last 7d) 🕰️ ||||
 **Цель:** Получить историю ордеров за окно времени, используя pb2 `Timestamp` (UTC).  
-**Docs:** [`order_history`](docs/MT5Account/Orders_Positions_History/order_history.md), [`Orders & Positions History — Overview`](docs/MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md)
+**Docs:** [`order_history.md`](../../MT5Account/Orders_Positions_History/order_history.md), [`OrdersPositionsHistory_Overview.md`](../../MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md)
 
 **Method signatures (pb):**
 ```python
