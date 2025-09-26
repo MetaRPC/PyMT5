@@ -6,50 +6,6 @@
 
 ---
 
-## Helpers & utilities
-
-Paths are relative to this page (`docs/Examples/Base_example/Step_number_three.md`).
-
-* **pb2 shim (enum/field compatibility):** [`pb2_shim.md`](../Common/pb2_shim.md)
-* **Common utils (price/volume normalization, printers, safe‑get):** [`utils.md`](../Common/utils.md)
-* **Env & diagnostics (if needed):** [`env.md`](../Common/env.md), [`diag_connect.md`](../Common/diag_connect.md)
-
-## How to run
-
-PowerShell (Windows):
-
-```powershell
-$env:RUN_TRADING=1
-$env:STREAM_RUN_SECONDS=15
-
-@'
-import asyncio
-from examples.common.pb2_shim import apply_patch
-apply_patch()
-
-from examples.base_example.lowlevel_walkthrough import main
-# Execute trading steps and streaming
-asyncio.run(main(only_steps=[11,12,13,14,15,16]))
-'@ | python -
-```
-
-Bash:
-
-```bash
-export RUN_TRADING=1
-export STREAM_RUN_SECONDS=15
-python - <<'PY'
-import asyncio
-from examples.common.pb2_shim import apply_patch
-apply_patch()
-
-from examples.base_example.lowlevel_walkthrough import main
-asyncio.run(main(only_steps=[11,12,13,14,15,16]))
-PY
-```
-
----
-
 # Step 11: Trading — order_calc_margin (safe) 🧮
 
 **Goal:** dry‑run margin calculation for the selected parameters (symbol/side/volume).
@@ -231,3 +187,39 @@ OnTradeTransaction(OnTradeTransactionRequest) -> stream OnTradeTransactionReply
 * For OrderCheck/Send/Modify/Close, always validate parameters using symbol data (tick_size, lot_step, min/max volume, stop levels).
 * Don’t forget `TRADE_DEVIATION`, `TRADE_TIME` (GTC/DAY/…), `TRADE_FILLING` (FOK/IOC/…).
 * For streams, set `STREAM_RUN_SECONDS` and always unsubscribe/close cleanly.
+
+---
+
+## How to run
+
+PowerShell (Windows):
+
+```powershell
+$env:RUN_TRADING=1
+$env:STREAM_RUN_SECONDS=15
+
+@'
+import asyncio
+from examples.common.pb2_shim import apply_patch
+apply_patch()
+
+from examples.base_example.lowlevel_walkthrough import main
+# Execute trading steps and streaming
+asyncio.run(main(only_steps=[11,12,13,14,15,16]))
+'@ | python -
+```
+
+Bash:
+
+```bash
+export RUN_TRADING=1
+export STREAM_RUN_SECONDS=15
+python - <<'PY'
+import asyncio
+from examples.common.pb2_shim import apply_patch
+apply_patch()
+
+from examples.base_example.lowlevel_walkthrough import main
+asyncio.run(main(only_steps=[11,12,13,14,15,16]))
+PY
+```
