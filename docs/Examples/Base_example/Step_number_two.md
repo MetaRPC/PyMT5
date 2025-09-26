@@ -52,9 +52,8 @@ PositionsHistory(request: PositionsHistoryRequest) -> PositionsHistoryReply
 
 ### Step 10: Market Book (DOM) 📈
 **Goal:** Probe DOM carefully — check depth, subscribe, read a few snapshots, then release.  
-**Docs:** [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md),  
-[`market_book_get.md`](../../MT5Account/Symbols_and_Market/market_book_get.md),  
-[`market_book_release.md`](../../MT5Account/Symbols_and_Market/market_book_release.md)
+**Docs:** [`market_book_add.md`](../../MT5Account/Symbols_and_Market/market_book_add.md), [`market_book_get.md`](../../MT5Account/Symbols_and_Market/market_book_get.md), [`market_book_release.md`](../../MT5Account/Symbols_and_Market/market_book_release.md)
+  
 
 **Method signatures:**
 ```python
