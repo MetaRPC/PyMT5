@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
 ---
 
-## 🤝 Adapter preference
+## Adapter preference
 
 ```python
 try:
@@ -105,5 +105,5 @@ If the extended adapter is present, you’ll get extra capabilities for free —
 * Uses a small incremental sleep between retries (0.5s, 1.0s, …) for friendlier backoff.
 * `shutdown()` is idempotent-ish: safe even if the connection partially failed.
 
-👌 That’s it. Keep calm and `await connect()`.
+ That’s it. Keep calm and `await connect()`.
 
