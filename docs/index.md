@@ -62,7 +62,7 @@ From request to result: calls, streams, and data transformations.
 
 ---
 
-## 🔴 Low level examples
+## 🔴 low level Walkthrough
 
 ## Examples — quick start
 
