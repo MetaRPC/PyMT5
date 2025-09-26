@@ -5,18 +5,6 @@
 
 ---
 
-## Helpers used in this part
-Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_two.md`).
-
-- **pb2 shim (compatibility layer)** — apply before any pb2 usage:  
-  - [`pb2_shim.md`](../Common/pb2_shim.md)
-- **Common utilities (pretty printers, UTC/time helpers, safe getters)**:  
-  - [`utils.md`](../Common/utils.md)
-- **Environment & diagnostics (optional, if connection/env needs checks)**:  
-  - [`env.md`](../Common/env.md), [`diag_connect.md`](../Common/diag_connect.md)
-
----
-
 ### Step 7: positions_total 📊
 **Goal:** Return the count of open positions (with a hard fallback to the direct stub if helper path fails).  
 **Docs:** [`positions_total.md`](../../MT5Account/Orders_Positions_History/positions_total.md)
