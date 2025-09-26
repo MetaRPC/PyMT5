@@ -37,42 +37,6 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_one
 
 ---
 
-## How to run this part
-PowerShell (Windows):
-```powershell
-$env:MT5_LOGIN=1234567
-$env:MT5_PASSWORD='pass'
-$env:MT5_SERVER='MetaQuotes-Demo'
-$env:GRPC_SERVER='mt5.mrpc.pro:443'
-python - <<'PY'
-import asyncio
-# Ensure the shim is applied before any pb2 usage
-from examples.common.pb2_shim import apply_patch
-apply_patch()
-
-from examples.base_example.lowlevel_walkthrough import main  # entrypoint
-asyncio.run(main(only_steps=range(1,9)))  # run steps 1..8 (Step 7 is handled in part two)
-PY
-```
-
-Bash:
-```bash
-export MT5_LOGIN=1234567
-export MT5_PASSWORD='pass'
-export MT5_SERVER="MetaQuotes-Demo"
-export GRPC_SERVER="mt5.mrpc.pro:443"
-python - <<'PY'
-import asyncio
-from examples.common.pb2_shim import apply_patch  # comments in English only
-apply_patch()
-
-from examples.base_example.lowlevel_walkthrough import main
-asyncio.run(main(only_steps=range(1,9)))  # 1..8 (Step 7 is handled in part two)
-PY
-```
-
----
-
 # Step 1: one-shot account_summary 📊
 **Goal:** Connect via `server_name` (ConnectEx) and print key account metrics: equity, balance, margin, free, free_ratio, drawdown, server_time.  
 **Docs:** [`account_summary.md`](../../MT5Account/Account_Information/account_summary.md), [`Getting_Started.md`](../../MT5Account/Getting_Started.md)
@@ -202,4 +166,38 @@ SymbolName(request: SymbolNameRequest) -> SymbolNameReply
 - Increase `TIMEOUT_SECONDS` if you observe high latency.
 
 ---
+
+## How to run this part
+PowerShell (Windows):
+```powershell
+$env:MT5_LOGIN=1234567
+$env:MT5_PASSWORD='pass'
+$env:MT5_SERVER='MetaQuotes-Demo'
+$env:GRPC_SERVER='mt5.mrpc.pro:443'
+python - <<'PY'
+import asyncio
+# Ensure the shim is applied before any pb2 usage
+from examples.common.pb2_shim import apply_patch
+apply_patch()
+
+from examples.base_example.lowlevel_walkthrough import main  # entrypoint
+asyncio.run(main(only_steps=range(1,9)))  # run steps 1..8 (Step 7 is handled in part two)
+PY
+```
+
+Bash:
+```bash
+export MT5_LOGIN=1234567
+export MT5_PASSWORD='pass'
+export MT5_SERVER="MetaQuotes-Demo"
+export GRPC_SERVER="mt5.mrpc.pro:443"
+python - <<'PY'
+import asyncio
+from examples.common.pb2_shim import apply_patch  # comments in English only
+apply_patch()
+
+from examples.base_example.lowlevel_walkthrough import main
+asyncio.run(main(only_steps=range(1,9)))  # 1..8 (Step 7 is handled in part two)
+PY
+```
 
