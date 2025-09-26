@@ -18,7 +18,7 @@ Paths are **relative** to this page (`docs/Examples/Base_example/Step_number_one
 
 ---
 
-## Prerequisites
+## Prerequisites 🧰
 - Python **3.13.x** (virtual environment recommended).
 - Reachable gRPC endpoint.
 - Valid MT5 credentials.
