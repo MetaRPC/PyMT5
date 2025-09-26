@@ -62,7 +62,7 @@ def _safe_comment_to_text(val: object) -> str:
     except Exception:
         try:
             b = bytes(val)
-            return f"hex:{b.hex()}"
+            return f"hex:{b.hex()}"    
         except Exception:
             return repr(val)
 
