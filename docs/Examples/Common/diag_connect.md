@@ -15,7 +15,7 @@ Runs four checks in order and stops at the first failure:
 
 Prints `OK` / `FAIL …` for each step.
 
-> ℹ️ The script does not set a process exit code. Read the text output.
+> The script does not set a process exit code. Read the text output.
 
 ---
 
@@ -128,8 +128,8 @@ python examples/common/diag_connect.py
 
 ---
 
-## ➜ Next
+## Next
 
 If all four steps are **OK**, infra is fine. Jump to root `examples/` (market/history/streaming/trading). If a step fails, use the Troubleshooting hints to fix the corresponding network layer first.
 
-🧱 Slow and steady: DNS → TCP → TLS → gRPC. 😉
+🧱 Slow and steady: DNS → TCP → TLS → gRPC.
