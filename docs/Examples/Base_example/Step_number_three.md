@@ -1,4 +1,4 @@
-# Low‑Level Walkthrough — Step number three
+# Step Number Three
 
 **Covers:** Steps **11–16** (trading and event streaming).
 
