@@ -50,7 +50,7 @@ AccountSummary(request: AccountSummaryRequest) -> AccountSummaryReply
 
 ---
 
-# Step 2: account_info_* 🧾
+# Step 2: account_info 🧾
 **Goal:** Demonstrate direct pb2 calls `AccountInfo*` and safe field extraction.  
 **Docs:** [`account_info_double.md`](../../MT5Account/Account_Information/account_info_double.md), [`account_info_integer.md`](../../MT5Account/Account_Information/account_info_integer.md), [`account_info_string.md`](../../MT5Account/Account_Information/account_info_string.md)
 
@@ -64,7 +64,7 @@ AccountInfoString(request: AccountInfoStringRequest) -> AccountInfoStringReply
 
 ---
 
-# Step 3: Symbols & Market 🏷️
+# Step 3: Symbols_Market 🏷️
 **Goal:** Ensure the symbol is available and read key attributes.  
 **Docs:** [`SymbolsandMarket_Overview.md`](../../MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md)
 
