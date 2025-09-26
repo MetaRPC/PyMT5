@@ -12,7 +12,7 @@
 
 **Docs:** [`order_calc_margin.md`](../../MT5Account/Trading_Operations/order_calc_margin.md)
 
-**Signatures (pb):**
+**Method signatures:**
 
 ```python
 OrderCalcMargin(OrderCalcMarginRequest) -> OrderCalcMarginReply
@@ -28,7 +28,7 @@ OrderCalcMargin(OrderCalcMarginRequest) -> OrderCalcMarginReply
 
 **Docs:** [`order_check.md`](../../MT5Account/Trading_Operations/order_check.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OrderCheck(OrderCheckRequest) -> OrderCheckReply
@@ -44,7 +44,7 @@ OrderCheck(OrderCheckRequest) -> OrderCheckReply
 
 **Docs:** [`order_check.md`](../../MT5Account/Trading_Operations/order_check.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OrderCheck(OrderCheckRequest) -> OrderCheckReply
@@ -58,7 +58,7 @@ OrderCheck(OrderCheckRequest) -> OrderCheckReply
 
 **Docs:** [`order_send.md`](../../MT5Account/Trading_Operations/order_send.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OrderSend(OrderSendRequest) -> OrderSendReply
@@ -74,7 +74,7 @@ OrderSend(OrderSendRequest) -> OrderSendReply
 
 **Docs:** [`on_positions_and_pending_orders_tickets.md`](../../MT5Account/Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
 
-**Signatures (pb):**
+**Method signatures:**
 
 ```python
 OnPositionsAndPendingOrdersTickets(OnPositionsAndPendingOrdersTicketsRequest) -> stream OnPositionsAndPendingOrdersTicketsReply
@@ -88,7 +88,7 @@ OnPositionsAndPendingOrdersTickets(OnPositionsAndPendingOrdersTicketsRequest) ->
 
 **Docs:** [`order_modify.md`](../../MT5Account/Trading_Operations/order_modify.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OrderModify(OrderModifyRequest) -> OrderModifyReply
@@ -104,7 +104,7 @@ OrderModify(OrderModifyRequest) -> OrderModifyReply
 
 **Docs:** [`order_close.md`](../../MT5Account/Trading_Operations/order_close.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OrderClose(OrderCloseRequest) -> OrderCloseReply
@@ -118,7 +118,7 @@ OrderClose(OrderCloseRequest) -> OrderCloseReply
 
 **Docs:** [`on_symbol_tick.md`](../../MT5Account/Subscriptions_Streaming/on_symbol_tick.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OnSymbolTick(OnSymbolTickRequest) -> stream OnSymbolTickReply
@@ -132,7 +132,7 @@ OnSymbolTick(OnSymbolTickRequest) -> stream OnSymbolTickReply
 
 **Docs:** [`on_trade.md`](../../MT5Account/Subscriptions_Streaming/on_trade.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OnTrade(OnTradeRequest) -> stream OnTradeReply
@@ -146,7 +146,7 @@ OnTrade(OnTradeRequest) -> stream OnTradeReply
 
 **Docs:** [`on_position_profit.md`](../../MT5Account/Subscriptions_Streaming/on_position_profit.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OnPositionProfit(OnPositionProfitRequest) -> stream OnPositionProfitReply
@@ -160,7 +160,7 @@ OnPositionProfit(OnPositionProfitRequest) -> stream OnPositionProfitReply
 
 **Docs:** [`on_positions_and_pending_orders_tickets.md`](../../MT5Account/Subscriptions_Streaming/on_positions_and_pending_orders_tickets.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OnPositionsAndPendingOrdersTickets(OnPositionsAndPendingOrdersTicketsRequest) -> stream OnPositionsAndPendingOrdersTicketsReply
@@ -174,7 +174,7 @@ OnPositionsAndPendingOrdersTickets(OnPositionsAndPendingOrdersTicketsRequest) ->
 
 **Docs:** [`on_trade_transaction.md`](../../MT5Account/Subscriptions_Streaming/on_trade_transaction.md)
 
-**Signatures:**
+**Method signatures:**
 
 ```python
 OnTradeTransaction(OnTradeTransactionRequest) -> stream OnTradeTransactionReply
