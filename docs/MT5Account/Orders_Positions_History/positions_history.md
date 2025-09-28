@@ -143,7 +143,6 @@ async def positions_history(
 - Reconcile realized PnL; investigate close reasons and stop-outs.
 
 ### 🧩 Notes & Tips
-- Always pass a time window; paginate via `array_offset`/`array_limit`, read `array_total`.
 - Sort on the server (`close_time DESC`, then `ticket`); convert protobuf `Timestamp` once (UTC) and reuse.
 - Partial closes create multiple records per ticket — aggregate if you need one row; call `positions_total` first to short-circuit empty ranges.
 
