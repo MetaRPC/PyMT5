@@ -138,6 +138,9 @@ async def positions_history(
 
 ---
 
+**See also:** [OpenedOrders](./opened_orders.md) · [OpenedOrdersTickets](./opened_orders_tickets.md) · [OrderHistory](./order_history.md) · [PositionsTotal](./positions_total.md)
+
+
 ## Usage Examples
 
 ### 1) Last month PnL by symbol
