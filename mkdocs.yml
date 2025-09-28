@@ -61,11 +61,50 @@ copyright: >
 
 nav:
   - Home: index.md
-  - Account Info: MT5Account/Account_Information/Account_Information_Overview.md
-  - Orders & History: MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md
-  - Streaming: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
-  - Symbols & Market: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
-  - Trading Ops: MT5Account/Trading_Operations/TradingOperations_Overview.md
+
+  - Account Info:
+      - Overview: MT5Account/Account_Information/Account_Information_Overview.md
+      - Getting an Account Summary: MT5Account/Account_Information/account_summary.md
+      - AccountInfoDouble: MT5Account/Account_Information/account_info_double.md
+      - AccountInfoInteger: MT5Account/Account_Information/account_info_integer.md
+      - AccountInfoString: MT5Account/Account_Information/account_info_string.md
+
+  - Orders & History:
+      - Overview: MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md
+      - OpenedOrders: MT5Account/Orders_Positions_History/opened_orders.md
+      - OpenedOrdersTickets: MT5Account/Orders_Positions_History/opened_orders_tickets.md
+      - OrderHistory: MT5Account/Orders_Positions_History/order_history.md
+      - PositionsHistory: MT5Account/Orders_Positions_History/positions_history.md
+      - PositionsTotal: MT5Account/Orders_Positions_History/positions_total.md
+
+  - Streaming:
+      - Overview: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
+      # add streaming method pages here as they are ready
+
+  - Symbols & Market:
+      - Overview: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
+      - MarketBookAdd: MT5Account/Symbols_and_Market/market_book_add.md
+      - MarketBookGet: MT5Account/Symbols_and_Market/market_book_get.md
+      - MarketBookRelease: MT5Account/Symbols_and_Market/market_book_release.md
+      - SymbolExist: MT5Account/Symbols_and_Market/symbol_exist.md
+      - SymbolInfoDouble: MT5Account/Symbols_and_Market/symbol_info_double.md
+      - SymbolInfoInteger: MT5Account/Symbols_and_Market/symbol_info_integer.md
+      - SymbolInfoMarginRate: MT5Account/Symbols_and_Market/symbol_info_margin_rate.md
+      - SymbolInfoSessionQuote: MT5Account/Symbols_and_Market/symbol_info_session_quote.md
+      - SymbolInfoSessionTrade: MT5Account/Symbols_and_Market/symbol_info_session_trade.md
+      - SymbolInfoString: MT5Account/Symbols_and_Market/symbol_info_string.md
+      - SymbolInfoTick: MT5Account/Symbols_and_Market/symbol_info_tick.md
+      - SymbolIsSynchronized: MT5Account/Symbols_and_Market/symbol_is_synchronized.md
+      - SymbolName: MT5Account/Symbols_and_Market/symbol_name.md
+      - SymbolParamsMany: MT5Account/Symbols_and_Market/symbol_params_many.md
+      - SymbolSelect: MT5Account/Symbols_and_Market/symbol_select.md
+      - SymbolsTotal: MT5Account/Symbols_and_Market/symbols_total.md
+      - TickValueWithSize: MT5Account/Symbols_and_Market/tick_value_with_size.md
+
+  - Trading Ops:
+      - Overview: MT5Account/Trading_Operations/TradingOperations_Overview.md
+      # add trading operation pages here as they are ready
+
   - API: api.md
 
 markdown_extensions:
