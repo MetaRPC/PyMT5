@@ -117,7 +117,8 @@ async def market_book_get(
 * Pair with `market_book_add` and `market_book_release` to manage subscription lifecycle.
 * If you need to treat market prints separately, filter `BOOK_TYPE_*_MARKET` types into distinct lists.
 
----
+**See also:** [MarketBookAdd](./market_book_add.md) · [MarketBookRelease](./market_book_release.md) · [SymbolSelect](./symbol_select.md) · [SymbolExist](./symbol_exist.md)
+
 
 ## Usage Examples
 
