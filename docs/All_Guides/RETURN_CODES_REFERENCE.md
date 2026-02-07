@@ -9,7 +9,7 @@ RetCodes **appear only in trading methods** because only trading operations go t
 ### Quick Example: Proper RetCode Handling
 
 ```python
-from helpers.errors import TRADE_RETCODE_DONE, get_retcode_message
+from MetaRpcMT5.helpers.errors import TRADE_RETCODE_DONE, get_retcode_message
 
 # Place order
 result = await service.place_order(request)
@@ -37,7 +37,7 @@ These codes are:
 - **Unified across all languages** (C#, Python, Java, Node.js, Go, PHP)
 - **Unified with MT5 terminal** - returned directly from the trading server
 - **Defined in protobuf** - returned as `uint32` field `returned_code` in trading result structures
-- **Available as Python constants** - defined in `package/helpers/errors.py`
+- **Available as Python constants** - defined in `package/MetaRpcMT5/helpers/errors.py`
 
 ---
 
@@ -48,7 +48,7 @@ RetCode is returned in **all trading operations** that modify positions or order
 ### 1. OrderSend (Opening Orders)
 
 ```python
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     ApiError,
     TRADE_RETCODE_DONE,
     get_retcode_message,
@@ -76,7 +76,7 @@ else:
 ### 2. OrderModify (Modifying SL/TP)
 
 ```python
-from helpers.errors import TRADE_RETCODE_DONE, is_retcode_success, get_retcode_message
+from MetaRpcMT5.helpers.errors import TRADE_RETCODE_DONE, is_retcode_success, get_retcode_message
 
 # Using Sugar API
 try:
@@ -96,7 +96,7 @@ else:
 ### 3. PositionClose (Closing Positions)
 
 ```python
-from helpers.errors import ApiError, TRADE_RETCODE_DONE, TRADE_RETCODE_POSITION_CLOSED
+from MetaRpcMT5.helpers.errors import ApiError, TRADE_RETCODE_DONE, TRADE_RETCODE_POSITION_CLOSED
 
 # Using Sugar API
 try:
@@ -152,7 +152,7 @@ if result.returned_code == TRADE_RETCODE_DONE:
 
 **Helper function:**
 ```python
-from helpers.errors import is_retcode_requote
+from MetaRpcMT5.helpers.errors import is_retcode_requote
 
 if is_retcode_requote(retcode):
     # Retry with updated price
@@ -210,7 +210,7 @@ if is_retcode_requote(retcode):
 
 **Helper function:**
 ```python
-from helpers.errors import is_retcode_retryable
+from MetaRpcMT5.helpers.errors import is_retcode_retryable
 import asyncio
 
 if is_retcode_retryable(retcode):
@@ -238,11 +238,11 @@ if is_retcode_retryable(retcode):
 
 ---
 
-## Centralized Error Handler (`package/helpers/errors.py`)
+## Centralized Error Handler (`package/MetaRpcMT5/helpers/errors.py`)
 
 **PyMT5 provides a centralized error handling module** that simplifies working with RetCodes.
 
-Instead of manually checking return codes and writing your own error messages, you can use the built-in helper functions from `package/helpers/errors.py`:
+Instead of manually checking return codes and writing your own error messages, you can use the built-in helper functions from `package/MetaRpcMT5/helpers/errors.py`:
 
 ### What's Inside
 
@@ -304,14 +304,14 @@ except ApiError as e:
 
 ## Python Helper Functions
 
-The `package/helpers/errors.py` module provides helper functions for working with RetCodes:
+The `package/MetaRpcMT5/helpers/errors.py` module provides helper functions for working with RetCodes:
 
 ### is_retcode_success()
 
 Checks if the RetCode indicates successful trade execution.
 
 ```python
-from helpers.errors import is_retcode_success, TRADE_RETCODE_DONE
+from MetaRpcMT5.helpers.errors import is_retcode_success, TRADE_RETCODE_DONE
 
 # Usage
 if is_retcode_success(result.returned_code):
@@ -325,7 +325,7 @@ if is_retcode_success(result.returned_code):
 Checks if the RetCode indicates a price change (requote) - safe to retry immediately.
 
 ```python
-from helpers.errors import is_retcode_requote, TRADE_RETCODE_REQUOTE, TRADE_RETCODE_PRICE_CHANGED
+from MetaRpcMT5.helpers.errors import is_retcode_requote, TRADE_RETCODE_REQUOTE, TRADE_RETCODE_PRICE_CHANGED
 
 # Usage
 if is_retcode_requote(result.returned_code):
@@ -340,7 +340,7 @@ if is_retcode_requote(result.returned_code):
 Checks if the RetCode indicates a temporary error - safe to retry with delay.
 
 ```python
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     is_retcode_retryable,
     TRADE_RETCODE_TIMEOUT,
     TRADE_RETCODE_NO_CONNECTION,
@@ -362,7 +362,7 @@ if is_retcode_retryable(result.returned_code):
 Returns a human-readable description for any RetCode.
 
 ```python
-from helpers.errors import get_retcode_message, TRADE_RETCODE_DONE
+from MetaRpcMT5.helpers.errors import get_retcode_message, TRADE_RETCODE_DONE
 
 # Usage
 if result.returned_code != TRADE_RETCODE_DONE:
@@ -376,7 +376,7 @@ if result.returned_code != TRADE_RETCODE_DONE:
 Prints formatted message with hints and returns `True` if successful.
 
 ```python
-from helpers.errors import check_retcode, TRADE_RETCODE_DONE
+from MetaRpcMT5.helpers.errors import check_retcode, TRADE_RETCODE_DONE
 
 # Usage
 result = await service.place_order(request)
@@ -398,7 +398,7 @@ from uuid import uuid4
 from MetaRpcMT5 import MT5Account
 from pymt5.mt5_service import MT5Service
 from pymt5.mt5_sugar import MT5Sugar
-from helpers.errors import TRADE_RETCODE_DONE, get_retcode_message
+from MetaRpcMT5.helpers.errors import TRADE_RETCODE_DONE, get_retcode_message
 from MetaRpcMT5.mt5_term_api_trading_helper_pb2 import OrderSendRequest
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as pb_trading
 
@@ -454,7 +454,7 @@ if __name__ == "__main__":
 ### Example 2: Handling Common Errors (if/elif Statement)
 
 ```python
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     ApiError,
     TRADE_RETCODE_NO_MONEY,
     TRADE_RETCODE_MARKET_CLOSED,
@@ -505,7 +505,7 @@ except ApiError as e:
 
 ```python
 import asyncio
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     ApiError,
     is_retcode_requote,
     is_retcode_retryable
@@ -564,7 +564,7 @@ except Exception as e:
 ### Example 4: Using check_retcode()
 
 ```python
-from helpers.errors import check_retcode
+from MetaRpcMT5.helpers.errors import check_retcode
 
 result = await service.place_order(request)
 
@@ -584,7 +584,7 @@ if check_retcode(result.returned_code, "Order placement"):
 ### Example 5: Modifying SL/TP with Validation
 
 ```python
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     TRADE_RETCODE_DONE,
     TRADE_RETCODE_NO_CHANGES,
     TRADE_RETCODE_POSITION_CLOSED,
@@ -724,7 +724,7 @@ except ApiError as e:
 
 ## Constants Reference
 
-All RetCode constants are defined in `package/helpers/errors.py`:
+All RetCode constants are defined in `package/MetaRpcMT5/helpers/errors.py`:
 
 ```python
 # Success codes

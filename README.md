@@ -1,11 +1,19 @@
-### To view the information: https://metarpc.github.io/PyMT5/
+### To view the documentation: https://metarpc.github.io/PyMT5/
 
-To start using library run:
+## Installation
+
+Install directly from GitHub:
+
+```bash
+pip install git+https://github.com/MetaRPC/PyMT5.git#subdirectory=package
 ```
-pip install MetaRpcMT5 
-```
-Use MT5Account class to iterract with MT5 account.
+
+This will install the `MetaRpcMT5` package with all dependencies.
+
+## Examples
 
 Check [/examples](https://github.com/MetaRPC/PyMT5/tree/main/examples) folder to see different usage scenarios and examples for each MT5Account method.
 
-If you need sources of MetaRpcMT5 package and MT5Account class itself please use [/package](https://github.com/MetaRPC/PyMT5/tree/main/package) folder.
+## Package Source
+
+If you need sources of MetaRpcMT5 package and MT5Account class itself, see [/package](https://github.com/MetaRPC/PyMT5/tree/main/package) folder.

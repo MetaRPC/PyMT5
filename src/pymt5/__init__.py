@@ -25,16 +25,16 @@ ERROR HANDLING:
   - ApiError: Wraps protobuf errors with convenient methods
   - NotConnectedError: Raised when not connected
   - Trade RetCode constants and helpers
-  - Located in: package/helpers/errors.py (centralized for entire project)
+  - Located in: package/MetaRpcMT5/helpers/errors.py (centralized for entire project)
 
 ══════════════════════════════════════════════════════════════════════════════
 """
 
-# Import error classes and constants from centralized helpers.errors module
+# Import error classes and constants from centralized MetaRpcMT5.helpers.errors module
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'package'))
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     # Exception classes
     ApiError,
     NotConnectedError,

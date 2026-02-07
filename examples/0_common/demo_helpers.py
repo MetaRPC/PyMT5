@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'package'
 from MetaRpcMT5 import MT5Account
 
 # Import error handling utilities directly from centralized location
-from helpers.errors import (
+from MetaRpcMT5.helpers.errors import (
     fatal,
     print_if_error,
     print_short_error,

@@ -194,7 +194,7 @@ from demo_helpers import (
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_helper_pb2
 
 # Import trade return codes
-from helpers.errors import TRADE_RETCODE_DONE
+from MetaRpcMT5.helpers.errors import TRADE_RETCODE_DONE
 
 
 @dataclass

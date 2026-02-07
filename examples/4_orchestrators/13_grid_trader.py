@@ -562,7 +562,7 @@ class GridTradingOrchestrator:
         print_info("Cleaning up grid - canceling pending orders...")
 
         # Import error handling utilities
-        from helpers.errors import (
+        from MetaRpcMT5.helpers.errors import (
             get_retcode_message,
             TRADE_RETCODE_DONE,
             TRADE_RETCODE_POSITION_CLOSED,

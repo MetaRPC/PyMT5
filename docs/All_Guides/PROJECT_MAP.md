@@ -9,9 +9,10 @@
 ```
 PyMT5/
 ├── 📦 package/ - Core package (portable)
-│   ├── helpers/mt5_account.py (Layer 1 - Foundation)
-│   ├── helpers/errors.py (Error handling & trade return codes)
-│   └── MetaRpcMT5/ (Protobuf definitions)
+│   └── MetaRpcMT5/
+│       ├── helpers/mt5_account.py (Layer 1 - Foundation)
+│       ├── helpers/errors.py (Error handling & trade return codes)
+│       └── (Protobuf definitions)
 │   
 │
 ├── 📦 src/pymt5/ - High-level API layers
@@ -33,22 +34,22 @@ External dependencies:
 **What:** Three-tier architecture for MT5 trading automation.
 
 ```
-package/helpers/
-├── mt5_account.py                <- LAYER 1: Low-level gRPC 🔥 FOUNDATION
-│   └── Direct gRPC calls to MT5 terminal
-│   └── Connection management with retry logic
-│   └── Proto Request/Response handling
-│   └── Built-in connection resilience
-│   └── Independent Python package (portable)
-│   └── Class: MT5Account
-│
-└── errors.py                     <- Error handling & trade result codes
-    └── NotConnectedError exception (connection errors)
-    └── ApiError wrapper (3-level: API/MQL/Trade)
-    └── Trade return code constants & helpers
-    └── Centralized error inspection methods
-
 package/MetaRpcMT5/
+├── helpers/
+│   ├── mt5_account.py            <- LAYER 1: Low-level gRPC 🔥 FOUNDATION
+│   │   └── Direct gRPC calls to MT5 terminal
+│   │   └── Connection management with retry logic
+│   │   └── Proto Request/Response handling
+│   │   └── Built-in connection resilience
+│   │   └── Independent Python package (portable)
+│   │   └── Class: MT5Account
+│   │
+│   └── errors.py                 <- Error handling & trade result codes
+│       └── NotConnectedError exception (connection errors)
+│       └── ApiError wrapper (3-level: API/MQL/Trade)
+│       └── Trade return code constants & helpers
+│       └── Centralized error inspection methods
+│
 ├── *_pb2.py                      <- Protobuf message definitions
 ├── *_pb2_grpc.py                 <- gRPC service stubs
 ├── mt5_term_api_*.py             <- MT5 API protocol definitions
@@ -78,7 +79,7 @@ package/pyproject.toml            <- Package configuration (dependencies, metada
 ```
 MT5Sugar → uses → MT5Service → uses → MT5Account → gRPC → MT5 Terminal
        ↓                ↓                    ↓
-src/pymt5/       src/pymt5/         package/helpers/
+src/pymt5/       src/pymt5/         package/MetaRpcMT5/helpers/
 ```
 
 **💡 Creating Your Own Project:**
@@ -87,7 +88,7 @@ For your own standalone project using PyMT5, you only need to import the `packag
 
 ```python
 from MetaRpcMT5 import MT5Account
-from helpers.errors import ApiError, check_retcode
+from MetaRpcMT5.helpers.errors import ApiError, check_retcode
 ```
 
 The `package` module contains **everything you need to start**:
@@ -429,7 +430,7 @@ docs/
 ├── PROJECT_MAP.md                     <- 🔥 This file - complete structure
 │
 ├── API_Reference/                     <- Concise API documentation
-│   ├── MT5Account.md                  <- 🔥 Layer 1 API (foundation) → from package/helpers/mt5_account.py
+│   ├── MT5Account.md                  <- 🔥 Layer 1 API (foundation) → from package/MetaRpcMT5/helpers/mt5_account.py
 │   ├── MT5Service.md                  <- Layer 2 API → from src/pymt5/mt5_service.py
 │   └── MT5Sugar.md                    <- Layer 3 API → from src/pymt5/mt5_sugar.py
 │
@@ -596,12 +597,12 @@ docs/
 
 ```
 package/
-├── helpers/
-│   ├── __init__.py
-│   ├── mt5_account.py          <- Layer 1 implementation
-│   └── errors.py               <- Error handling utilities
-│
 └── MetaRpcMT5/
+    ├── helpers/
+    │   ├── __init__.py
+    │   ├── mt5_account.py      <- Layer 1 implementation
+    │   └── errors.py           <- Error handling utilities
+    │
     ├── __init__.py             <- Package initialization
     ├── *_pb2.py                <- Generated protobuf code
     ├── *_grpc_pb2.py           <- Generated gRPC stubs
@@ -661,7 +662,7 @@ MT5Service (Layer 2 - Wrappers)
                   │ uses
                   ↓
 MT5Account (Layer 1 - Low level) 🔥 FOUNDATION
-  📍 Location: package/helpers/mt5_account.py
+  📍 Location: package/MetaRpcMT5/helpers/mt5_account.py
   ├─ Proto Request/Response
   ├─ gRPC communication
   ├─ Connection management
@@ -682,8 +683,8 @@ MT5 Gateway (mt5term) or MT5 Terminal
 
 **Layer 1 (Foundation):**
 
-- `package/helpers/mt5_account.py` - Low-level gRPC (independent package)
-- `package/helpers/errors.py` - Error handling utilities
+- `package/MetaRpcMT5/helpers/mt5_account.py` - Low-level gRPC (independent package)
+- `package/MetaRpcMT5/helpers/errors.py` - Error handling utilities
 
 **Protobuf (Generated):**
 
@@ -741,8 +742,8 @@ README.md                     <- Update with your changes
 ### 📖 READ (Core API)
 
 ```
-package/helpers/mt5_account.py  <- Use but don't modify (import and call) 🔥 FOUNDATION
-package/helpers/errors.py       <- Use but don't modify
+package/MetaRpcMT5/helpers/mt5_account.py  <- Use but don't modify (import and call) 🔥 FOUNDATION
+package/MetaRpcMT5/helpers/errors.py       <- Use but don't modify
 src/pymt5/mt5_service.py        <- Use but don't modify
 src/pymt5/mt5_sugar.py          <- Use but don't modify
 docs/                           <- Reference documentation
@@ -959,12 +960,12 @@ PyMT5/
 │   └── main.py                        <- 🔥 Main entry point
 │
 ├── package/                           <- Core package (portable)
-│   ├── helpers/
-│   │   ├── __init__.py
-│   │   ├── mt5_account.py             <- 🔥 FOUNDATION - Layer 1
-│   │   └── errors.py                  <- Error handling
-│   │
-│   └── MetaRpcMT5/                    <- Protobuf definitions
+│   └── MetaRpcMT5/                    <- Package root
+│       ├── helpers/
+│       │   ├── __init__.py
+│       │   ├── mt5_account.py         <- 🔥 FOUNDATION - Layer 1
+│       │   └── errors.py              <- Error handling
+│       │
 │       ├── __init__.py
 │       ├── *_pb2.py                   <- Generated protobuf code (11 files)
 │       └── *_pb2_grpc.py              <- Generated gRPC stubs (11 files)

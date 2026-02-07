@@ -627,7 +627,7 @@ async def _close_all_portfolio_positions(service, targets: List[PortfolioTarget]
 
     # Import protobuf types
     import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_helper_pb2
-    from helpers.errors import TRADE_RETCODE_DONE
+    from MetaRpcMT5.helpers.errors import TRADE_RETCODE_DONE
 
     try:
         opened_data = await service.get_opened_orders(sort_mode=0)

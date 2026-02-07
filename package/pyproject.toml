@@ -4,10 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MetaRpcMT5"
-version = "1.0.137"
+version = "1.0.138"
 description = "MetaRPC MT5 gRPC Python client"
 authors = [{ name = "MetaRPC", email = "admin@mrpc.pro" }]
-readme = "README.md"
 requires-python = ">=3.8"
 
 # dependencies (installed automatically with your package)
@@ -18,5 +17,5 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["MetaRpcMT5"]
+packages = ["MetaRpcMT5", "MetaRpcMT5.helpers"]
 include-package-data = true

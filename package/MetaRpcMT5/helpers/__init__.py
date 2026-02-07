@@ -8,8 +8,8 @@ This package contains core components used across the PyMT5 project:
   • errors.py - Error handling (ApiError, NotConnectedError, RetCodes, helpers)
 
 USAGE:
-  from helpers.mt5_account import MT5Account
-  from helpers.errors import ApiError, NotConnectedError, TRADE_RETCODE_DONE
+  from MetaRpcMT5.helpers.mt5_account import MT5Account
+  from MetaRpcMT5.helpers.errors import ApiError, NotConnectedError, TRADE_RETCODE_DONE
 
 ══════════════════════════════════════════════════════════════════════════════
 """
@@ -144,7 +144,7 @@ __all__ = [
     'TRADE_RETCODE_FROZEN',
     'TRADE_RETCODE_NO_CONNECTION',
     'TRADE_RETCODE_PRICE_OFF',
-    'TRADE_RETCODE_CONNECTION',
+    'TRADE_RETRACODE_CONNECTION',
     'TRADE_RETCODE_ORDER_CHANGED',
     'TRADE_RETCODE_NO_CHANGES',
     'TRADE_RETCODE_POSITION_CLOSED',
