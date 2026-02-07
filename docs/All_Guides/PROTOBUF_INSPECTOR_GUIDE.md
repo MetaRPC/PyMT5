@@ -646,6 +646,7 @@ When you run the inspector, it provides complete coverage of:
 | `AccountInfoDoublePropertyType` | Account double properties | BALANCE, EQUITY, MARGIN, etc. (14 values) |
 
 **Note:** Enum names with prefixes (`MRPC_`, `BMT5_`, `SUB_`) indicate their usage context:
+
 - `MRPC_*` - MetaRpc protocol enums (trading operations)
 - `BMT5_*` - Base MT5 enums (historical data, reasons)
 - `SUB_*` - Subscription/streaming enums (real-time events)
@@ -893,6 +894,7 @@ The Protobuf Inspector uses Python reflection to:
 **Source file:** `examples/0_common/16_protobuf_inspector.py`
 
 **Modules scanned:**
+
 - `mt5_term_api_account_helper_pb2`
 - `mt5_term_api_account_information_pb2`
 - `mt5_term_api_market_info_pb2`
@@ -1033,6 +1035,7 @@ EXACT MATCH: field 'ticket' found in:
 ## Troubleshooting
 
 **Q: Type not found**
+
 ```
 > MyType
 [!] Type not found: MyType
@@ -1098,13 +1101,20 @@ Rule:
 The Protobuf Inspector is your **first stop** when working with the MT5 gRPC API. Use it to:
 
 1. **Discover** available types and their structure
-2. **Learn** message field names and types
-3. **Debug** field name and type issues
-4. **Verify** enum values and usage
-5. **Track** relationships between types
-6. **Export** documentation for your team
-7. **Analyze** API structure and statistics
-8. **Speed up** development workflow
+2. 
+3. **Learn** message field names and types
+4. 
+5. **Debug** field name and type issues
+6. 
+7. **Verify** enum values and usage
+8. 
+9. **Track** relationships between types
+10. 
+11. **Export** documentation for your team
+12. 
+13. **Analyze** API structure and statistics
+14. 
+15. **Speed up** development workflow
 
 **Remember:** Type `help` at any time for command reference!
 
