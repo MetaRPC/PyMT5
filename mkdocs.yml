@@ -1,9 +1,9 @@
 site_name: MetaRPC MT5 Python Documentation
-site_url: https://metarpc.github.io/PyMT5/
+site_url: http://127.0.0.1:8000/
 
 repo_name: MetaRPC/PyMT5
 repo_url: https://github.com/MetaRPC/PyMT5
-edit_uri: edit/main/docs/
+edit_uri: ""
 
 theme:
   name: material
@@ -12,136 +12,82 @@ theme:
     text: Inter
     code: JetBrains Mono
   icon:
-    logo: material/robot-industrial
+    logo: material/language-python
     repo: fontawesome/brands/github
   palette:
-    - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/weather-night
+        icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/weather-sunny
+        icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.instant
     - navigation.tracking
-    - navigation.sections
-    - navigation.tabs
+    - navigation.expand
     - navigation.top
     - navigation.footer
-    - toc.integrate
     - content.code.copy
-    - content.action.edit
-    - content.action.view
-    - content.tabs.link
-    - search.highlight
-    - search.suggest
-    - palette.toggle
-    - palette.auto
+    - toc.follow
+  custom_dir: docs/includes
 
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/MetaRPC/PyMT5
-      name: GitHub
-  generator: false
-  consent:
-    title: Cookies & telemetry
-    description: We use GitHub Pages basic analytics only. No tracking cookies.
-  announcement: >
-    Welcome! These docs are evolving. PRs are very welcome.
+      name: PyMT5 on GitHub
+
+extra_css:
+  - styles/custom.css
+
+extra_javascript:
+  - javascripts/ux.js
 
 copyright: >
-  © {{ date | strftime("%Y") }} MetaRPC. MT5 is a MetaQuotes software. This site is a community-made documentation.
+  Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp.
+  This documentation is community-maintained and not affiliated with MetaQuotes.
 
 nav:
   - Home: index.md
 
-  - Account Info:
-      - Overview: MT5Account/Account_Information/Account_Information_Overview.md
-      - Getting an Account Summary: MT5Account/Account_Information/account_summary.md
-      - AccountInfoDouble: MT5Account/Account_Information/account_info_double.md
-      - AccountInfoInteger: MT5Account/Account_Information/account_info_integer.md
-      - AccountInfoString: MT5Account/Account_Information/account_info_string.md
+  - Guides:
+    - Getting Started: All_Guides/GETTING_STARTED.md
+    - Your First Project: All_Guides/Your_First_Project.md
+    - Project Map: All_Guides/PROJECT_MAP.md
+    - Glossary: All_Guides/GLOSSARY.md
+    - MT5 for Beginners: All_Guides/MT5_For_Beginners.md
+    - gRPC Streaming: All_Guides/GRPC_STREAM_MANAGEMENT.md
+    - Return Codes: All_Guides/RETURN_CODES_REFERENCE.md
+    - ENUMs Reference: All_Guides/ENUMS_USAGE_REFERENCE.md
+    - Protobuf Inspector: All_Guides/PROTOBUF_INSPECTOR_GUIDE.md
+    - UserCode Sandbox: All_Guides/USERCODE_SANDBOX_GUIDE.md
 
-  - Orders & History:
-      - Overview: MT5Account/Orders_Positions_History/OrdersPositionsHistory_Overview.md
-      - OpenedOrders: MT5Account/Orders_Positions_History/opened_orders.md
-      - OpenedOrdersTickets: MT5Account/Orders_Positions_History/opened_orders_tickets.md
-      - OrderHistory: MT5Account/Orders_Positions_History/order_history.md
-      - PositionsHistory: MT5Account/Orders_Positions_History/positions_history.md
-      - PositionsTotal: MT5Account/Orders_Positions_History/positions_total.md
-
-  - Streaming:
-      - Overview: MT5Account/Subscriptions_Streaming/SubscriptionsStreaming_Overview.md
-      # add streaming method pages here as they are ready
-
-  - Symbols & Market:
-      - Overview: MT5Account/Symbols_and_Market/SymbolsandMarket_Overview.md
-      - MarketBookAdd: MT5Account/Symbols_and_Market/market_book_add.md
-      - MarketBookGet: MT5Account/Symbols_and_Market/market_book_get.md
-      - MarketBookRelease: MT5Account/Symbols_and_Market/market_book_release.md
-      - SymbolExist: MT5Account/Symbols_and_Market/symbol_exist.md
-      - SymbolInfoDouble: MT5Account/Symbols_and_Market/symbol_info_double.md
-      - SymbolInfoInteger: MT5Account/Symbols_and_Market/symbol_info_integer.md
-      - SymbolInfoMarginRate: MT5Account/Symbols_and_Market/symbol_info_margin_rate.md
-      - SymbolInfoSessionQuote: MT5Account/Symbols_and_Market/symbol_info_session_quote.md
-      - SymbolInfoSessionTrade: MT5Account/Symbols_and_Market/symbol_info_session_trade.md
-      - SymbolInfoString: MT5Account/Symbols_and_Market/symbol_info_string.md
-      - SymbolInfoTick: MT5Account/Symbols_and_Market/symbol_info_tick.md
-      - SymbolIsSynchronized: MT5Account/Symbols_and_Market/symbol_is_synchronized.md
-      - SymbolName: MT5Account/Symbols_and_Market/symbol_name.md
-      - SymbolParamsMany: MT5Account/Symbols_and_Market/symbol_params_many.md
-      - SymbolSelect: MT5Account/Symbols_and_Market/symbol_select.md
-      - SymbolsTotal: MT5Account/Symbols_and_Market/symbols_total.md
-      - TickValueWithSize: MT5Account/Symbols_and_Market/tick_value_with_size.md
-
-  - Trading Ops:
-      - Overview: MT5Account/Trading_Operations/TradingOperations_Overview.md
-      # add trading operation pages here as they are ready
-
-  - API: api.md
+  - API Reference:
+    - MT5Account API: API_Reference/MT5Account.md
+    - MT5Service API: API_Reference/MT5Service.md
+    - MT5Sugar API: API_Reference/MT5Sugar.md
 
 markdown_extensions:
   - admonition
-  - pymdownx.details
-  - pymdownx.superfences
   - md_in_html
   - tables
-  - toc:
-      permalink: true
-  - pymdownx.inlinehilite
-  - pymdownx.highlight
-  - pymdownx.snippets
-  - pymdownx.tabbed:
-      alternate_style: true
   - attr_list
-  - def_list
-  - abbr
-  - footnotes
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - toc:
+      permalink: "¶"
+      toc_depth: 3
 
 plugins:
-  - search:
-      prebuild_index: true
-  - mkdocstrings:
-      default_handler: python
-      handlers:
-        python:
-          options:
-            docstring_style: google
-            show_source: true
-            members_order: source
-            filters: ["!^_"]
-
-extra_css:
-  - styles/overrides.css
+  - search

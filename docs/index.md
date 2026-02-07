@@ -1,108 +1,53 @@
-# MetaRPC MT5 Python — Overview
+# PyMT5 SDK Documentation
 
-Welcome to the MetaRPC MT5 Python docs. This page gives a fast, structured entry point.
+**Complete Python SDK for MetaTrader 5 trading automation via gRPC**
 
----
+<div class="home-grid">
 
-## 🟢 Start here
+<!-- Top Card (0) - Quick Start - Red-Orange -->
+<a href="All_Guides/Your_First_Project/" class="card card-0">
+  <span class="material-symbols-rounded">rocket_launch</span>
+  <h3>Quick Start</h3>
+  <p>Your first project from scratch in 10 minutes</p>
+</a>
 
-<div class="tiles" markdown>
+<!-- Wide Card (1) - Getting Started - Yellow-Orange-Pink -->
+<a href="All_Guides/GETTING_STARTED/" class="card card-1 card-wide">
+  <span class="material-symbols-rounded">bolt</span>
+  <h3>Getting Started</h3>
+  <p>New here? Start with setup and overview</p>
+</a>
 
-<div class="tile" markdown>
-### BASE
-Essential concepts, terminology, and the mental model for the project.
-  
-[Open BASE →](MT5Account/BASE.md)
-</div>
+<!-- Middle Row (2-3) - Yellow-Blue & Purple -->
+<a href="All_Guides/PROJECT_MAP/" class="card card-2">
+  <span class="material-symbols-rounded">map</span>
+  <h3>Project Map</h3>
+  <p>Architecture overview</p>
+</a>
 
-<div class="tile" markdown>
-### Getting Started
-Environment setup, credentials in `.env`, first run, and basic checks.
-  
-[Open Getting Started →](MT5Account/Getting_Started.md)
-</div>
+<a href="All_Guides/GLOSSARY/" class="card card-3">
+  <span class="material-symbols-rounded">menu_book</span>
+  <h3>Glossary</h3>
+  <p>MT5 terms and concepts</p>
+</a>
 
-<div class="tile" markdown>
-### Under the Hood
-Service architecture, modules, and key data contracts.
-  
-[Open Under the Hood →](MT5Account/Under_the_Hood.md)
-</div>
+<!-- Bottom Row (4-5-6) - Teal, Mint, Green -->
+<a href="MT5Service/MT5Service.Overview/" class="card card-4">
+  <span class="material-symbols-rounded">build</span>
+  <h3>MT5Service</h3>
+  <p>Wrapper methods layer</p>
+</a>
 
-</div>
+<a href="MT5Account/MT5Account.Master.Overview/" class="card card-5">
+  <span class="material-symbols-rounded">settings</span>
+  <h3>MT5Account</h3>
+  <p>Low-level gRPC protocol layer</p>
+</a>
 
----
-
-## 🟡 Project guides
-
-<div class="tiles" markdown>
-
-<div class="tile" markdown>
-### Project Map & Layers
-How pieces fit together, layered responsibilities, and boundaries.
-  
-[Open Project Map & Layers →](I_want_to_add/Project_Map_and_Layers.md)
-</div>
-
-<div class="tile" markdown>
-### Glossary
-Concise terms you’ll see across code, docs, and logs.
-  
-[Open Glossary →](I_want_to_add/Glossary.md)
-</div>
-
-<div class="tile" markdown>
-### Architecture & Data Flow
-From request to result: calls, streams, and data transformations.
-  
-[Open Architecture & Data Flow →](I_want_to_add/Architecture_DataFlow.md)
-</div>
+<a href="MT5Sugar/MT5Sugar.Master.Overview/" class="card card-6">
+  <span class="material-symbols-rounded">auto_awesome</span>
+  <h3>MT5Sugar</h3>
+  <p>High-level convenience API</p>
+</a>
 
 </div>
-
----
-
-## 🔴 low level Walkthrough
-
-## Examples — quick start
-
-<div class="grid cards" markdown>
-
--   :material-clipboard-text-multiple: **Base example · Step number one**  
-    Steps **1–6**, **6f–6j**, **8** (connect, symbols, params, orders snapshot, history)  
-    [:octicons-arrow-right-24: Open →](Examples/Base_example/Step_number_one.md)
-
--   :material-clipboard-check-outline: **Base example · Step number two**  
-    Steps **7–10a** (positions total, orders/positions history, DOM, DOM scan)  
-    [:octicons-arrow-right-24: Open →](Examples/Base_example/Step_number_two.md)
-
--   :material-rocket-launch-outline: **Base example · Step number three**  
-    Steps **11–16e** (trading & streaming)  
-    [:octicons-arrow-right-24: Open →](Examples/Base_example/Step_number_three.md)
-
-</div>
-
----
-
-## Common helpers
-
-<div class="grid cards" markdown>
-
--   :material-puzzle-outline: **pb2 shim**  
-    Compatibility layer for enums/fields  
-    [:octicons-arrow-right-24: Open →](Examples/Common/pb2_shim.md)
-
--   :material-wrench-outline: **utils**  
-    Price/volume normalization, printers, safe-get  
-    [:octicons-arrow-right-24: Open →](Examples/Common/utils.md)
-
--   :material-cog-outline: **env**  
-    Environment variables & setup  
-    [:octicons-arrow-right-24: Open →](Examples/Common/env.md)
-
--   :material-heart-pulse: **diag_connect**  
-    Connectivity diagnostics checklist  
-    [:octicons-arrow-right-24: Open →](Examples/Common/diag_connect.md)
-
-</div>
-

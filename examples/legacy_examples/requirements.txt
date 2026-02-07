@@ -1,5 +1,0 @@
-MetaRpcMT5
-grpcio
-grpcio-tools
-python-dotenv
-protobuf
