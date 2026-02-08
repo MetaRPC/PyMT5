@@ -157,7 +157,7 @@ We will guide you through all major aspects - from basic manual trading to a ful
 
 ## 🏗️ Project Architecture: Three-Tier System
 
-The project consists of **three interconnected layers** in the `src/pymt5/` and `package/helpers/` directories, each building upon the previous one. Understanding this chain is key to mastering PyMT5.
+The project consists of **three interconnected layers** in the `src/pymt5/` and `package/MetaRpcMT5/helpers/` directories, each building upon the previous one. Understanding this chain is key to mastering PyMT5.
 
 ### 🔹 Tier 1: MT5Account - Low-Level gRPC Foundation
 
@@ -165,7 +165,7 @@ The project consists of **three interconnected layers** in the `src/pymt5/` and 
 
 **[MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md)**
 
-**File:** `package/helpers/mt5_account.py` (2100+ lines)
+**File:** `package/MetaRpcMT5/helpers/mt5_account.py` (2100+ lines)
 
 - Raw protocol buffer messages and gRPC communication
 - Maximum control and flexibility over each request/response
@@ -702,7 +702,7 @@ python main.py 16
 
 PyMT5 has comprehensive error handling:
 
-**File:** `package/helpers/errors.py`
+**File:** `package/MetaRpcMT5/helpers/errors.py`
 
 Features:
 

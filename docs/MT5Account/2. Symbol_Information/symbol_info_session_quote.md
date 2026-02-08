@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.symbol_info_session_quote(...)` (defined in `package/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.symbol_info_session_quote(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.MarketInfo`
 * **Proto definition:** `SymbolInfoSessionQuote` (defined in `mt5-term-api-market-info.proto`)
 

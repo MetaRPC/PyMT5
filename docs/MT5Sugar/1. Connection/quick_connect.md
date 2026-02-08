@@ -91,7 +91,7 @@ AccountHelperService.ConnectEx()
 **Related files:**
 
 - Sugar: `src/pymt5/mt5_sugar.py:340`
-- Account: `package/helpers/mt5_account.py:436`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:436`
 
 ---
 

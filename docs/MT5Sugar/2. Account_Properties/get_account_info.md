@@ -75,7 +75,7 @@ AccountHelperService + AccountInformationService
 
 - Sugar: `src/pymt5/mt5_sugar.py:2031`
 - Service: `src/pymt5/mt5_service.py:254`
-- Account: `package/helpers/mt5_account.py:540`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:540`
 
 ---
 

@@ -82,7 +82,7 @@ MarketInfoService.SymbolInfoTick()
 
 - Sugar: `src/pymt5/mt5_sugar.py:530`
 - Service: `src/pymt5/mt5_service.py:1145`
-- Account: `package/helpers/mt5_account.py:1850`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:1850`
 
 ---
 

@@ -77,7 +77,7 @@ TradingHelperService.OpenedOrders()
 
 - Sugar: `src/pymt5/mt5_sugar.py:1338`
 - Service: `src/pymt5/mt5_service.py:742`
-- Account: `package/helpers/mt5_account.py:1316`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:1316`
 
 ---
 

@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.order_close(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.order_close(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradingHelper`
 * **Proto definition:** `OrderClose` (defined in `mt5-term-api-trading-helper.proto`)
 * **Enums in this method:** 1 enum with 3 constants (1 output)

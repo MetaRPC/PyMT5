@@ -1,116 +1,123 @@
-# Ваш Первый Проект за 10 Минут
+# Your First Project in 10 Minutes
 
-> **Практика Перед Теорией** - создайте рабочий торговый проект с MT5 перед погружением в документацию
-
----
-
-## Зачем Этот Гайд?
-
-Я хочу показать вам на простом примере, насколько легко использовать наш gRPC-шлюз для работы с MetaTrader 5.
-
-**Перед тем как погружаться в изучение основ и фундаментальных концепций проекта - давайте создадим ваш первый проект.**
-
-Мы установим один Python-пакет `MetaRpcMT5`, который содержит:
-
-- ✅ Protobuf-определения всех методов MT5
-- ✅ MT5Account - готовый к использованию gRPC-клиент
-- ✅ Обработчик ошибок - типы ApiError и коды возврата
-- ✅ Всё необходимое для старта
-
-**Это фундамент** для вашей будущей системы алгоритмической торговли.
+> **Practice Before Theory** - create a working trading project with MT5 before diving into the documentation
 
 ---
 
-> 💡 После того как получите первые результаты, переходите к [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md) для глубокого понимания архитектуры SDK.
+## Why This Guide?
+
+I want to show you with a simple example how easy it is to use our gRPC gateway to work with MetaTrader 5.
+
+**Before diving into the fundamentals and core concepts of the project - let's create your first project.**
+
+We will install one Python package `MetaRpcMT5`, which contains:
+
+- ✅ Protobuf definitions of all MT5 methods
+- ✅ MT5Account - ready-to-use gRPC client
+- ✅ Error handler - ApiError types and return codes
+- ✅ Everything needed to get started
+
+**This is the foundation** for your future algorithmic trading system.
 
 ---
 
-## Шаг 1: Установите Python 3.8 или Выше
+> 💡 After getting your first results, proceed to [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md) for a deep understanding of the SDK architecture.
 
-Если у вас ещё не установлен Python:
+---
 
-**Скачайте и установите:**
+## Step 1: Install Python 3.8 or Higher
+
+If you don't have Python installed yet:
+
+**Download and install:**
 
 - [Python Download](https://www.python.org/downloads/)
 
-**Проверьте установку:**
+**Verify installation:**
 
 ```bash
 python --version
-# Должно показать: Python 3.8.x или выше
+# Should show: Python 3.8.x or higher
 ```
 
-**На Windows может понадобиться:**
+**On Windows you may need:**
 ```bash
 py --version
-# или
+# or
 python3 --version
 ```
 
 ---
 
-## Шаг 2: Создайте Новый Python-Проект
+## Step 2: Create a New Python Project
 
-Откройте терминал (командную строку) и выполните:
+Open a terminal (command prompt) and execute:
 
 ```bash
-# Создайте папку проекта
+# Create project folder
 mkdir MyMT5Project
 cd MyMT5Project
 
-# Создайте виртуальное окружение (рекомендуется)
+# Create virtual environment (recommended)
 python -m venv venv
 
-# Активируйте виртуальное окружение
-# На Windows:
+# Activate virtual environment
+# On Windows:
 venv\Scripts\activate
-# На Linux/Mac:
+
+# On Linux/Mac:
 source venv/bin/activate
 ```
 
-**Что произошло:**
+**What happened:**
 
-- ✅ Создана папка `MyMT5Project`
-- ✅ Создано виртуальное окружение `venv` - изолированная среда Python
-- ✅ Активировано окружение - теперь можно устанавливать пакеты
+- ✅ Created `MyMT5Project` folder
+- ✅ Created `venv` virtual environment - isolated Python environment
+- ✅ Activated environment - now you can install packages
 
 ---
 
-## Шаг 3: Установите Пакет MetaRpcMT5
+## Step 3: Install MetaRpcMT5 Package
 
-Это самый важный шаг - установка **единственного пакета**, который содержит всё необходимое:
+This is the most important step - installing the **single package** that contains everything you need:
 
 ```bash
 pip install git+https://github.com/MetaRPC/PyMT5.git#subdirectory=package
 ```
 
-> **📌 Важно для новичков:** После выполнения команды пакет установится в ваше виртуальное окружение напрямую из GitHub.
-> Вы можете проверить установку командой `pip list | grep MetaRpcMT5`
+> **📌 Important:** The package will be installed in the `venv/` virtual environment of your project (not globally on the computer).
 
-**Как проверить, что установка прошла успешно?**
+**How to verify installation?**
 
-**Метод 1:** Запустите команду проверки:
+Choose any method:
 
 ```bash
+# Method 1: Full package information
 pip show MetaRpcMT5
+
+# Method 2: Import check
+python -c "from MetaRpcMT5 import MT5Account; print('✅ OK')"
+
+# Method 3: Package list (Windows PowerShell)
+pip list | Select-String "MetaRpcMT5"
+
+# Method 3: Package list (Linux/Mac)
+pip list | grep MetaRpcMT5
 ```
 
-Вы увидите информацию о пакете (версия, зависимости и т.д.)
-
-**Метод 2:** Проверьте импорт в Python:
-
-```bash
-python -c "from MetaRpcMT5 import MT5Account; print('OK')"
-```
-
-Если видите `OK` - **всё установлено корректно!** ✅
+If you see package information - **installation successful!** ✅
 
 ---
 
-## Шаг 4: Создайте Конфигурационный Файл settings.json
+## Step 4: Create Configuration File settings.json
 
-Создайте файл `settings.json` в корне проекта:
+You have **two ways** to store connection settings:
 
+### Method 1: JSON file (recommended for beginners)
+
+Create a `settings.json` file in the project root:
+
+**Basic variant (minimum parameters):**
 ```json
 {
   "user": 591129415,
@@ -121,36 +128,74 @@ python -c "from MetaRpcMT5 import MT5Account; print('OK')"
 }
 ```
 
-**Объяснение параметров:**
+**Extended variant (all parameters):**
+```json
+{
+  "user": 591129415,
+  "password": "YourPassword123",
+  "host": "mt5.mrpc.pro",
+  "port": 443,
+  "grpc_server": "mt5.mrpc.pro:443",
+  "mt_cluster": "YourBroker-MT5 Demo",
+  "test_symbol": "EURUSD",
+  "test_volume": 0.01
+}
+```
 
-| Параметр | Описание | Где Взять |
-|----------|----------|-----------|
-| **user** | Номер вашего MT5-аккаунта (логин) | В терминале MT5: Сервис → Настройки → Логин |
-| **password** | Мастер-пароль для MT5-аккаунта | Тот, что вы получили при регистрации |
-| **grpc_server** | Адрес gRPC-шлюза | `mt5.mrpc.pro:443` (публичный шлюз) |
-| **mt_cluster** | Имя кластера вашего брокера | В терминале MT5: смотрите имя сервера |
-| **test_symbol** | Торговый символ для примеров | `EURUSD`, `GBPUSD`, `BTCUSD` и т.д. |
+**Parameter explanation:**
 
-**Замените:**
+| Parameter | Required | Description |
+|----------|--------------|----------|
+| **user** | ✅ Yes | Your MT5 account number (login) |
+| **password** | ✅ Yes | Master password for MT5 account |
+| **grpc_server** | ✅ Yes | gRPC gateway address: `mt5.mrpc.pro:443` |
+| **mt_cluster** | ✅ Yes | Broker cluster name (server name in MT5) |
+| **test_symbol** | ✅ Yes | Trading symbol: `EURUSD`, `GBPUSD`, etc. |
+| **host** | ⚪ No | gRPC server host separately: `mt5.mrpc.pro` |
+| **port** | ⚪ No | gRPC server port: `443` |
+| **test_volume** | ⚪ No | Volume for test orders: `0.01` |
 
-- `user`, `password`, `mt_cluster` - на данные вашего MT5 демо-аккаунта
-- `grpc_server` - можно оставить как есть (публичный шлюз MetaRPC)
+### Method 2: Environment variables (for production)
+
+Instead of JSON, you can use environment variables:
+
+**Windows (PowerShell):**
+
+```powershell
+$env:MT5_USER="591129415"
+$env:MT5_PASSWORD="YourPassword123"
+$env:MT5_GRPC_SERVER="mt5.mrpc.pro:443"
+$env:MT5_CLUSTER="YourBroker-MT5 Demo"
+$env:MT5_TEST_SYMBOL="EURUSD"
+```
+
+**Linux/Mac (Bash):**
+
+```bash
+export MT5_USER="591129415"
+export MT5_PASSWORD="YourPassword123"
+export MT5_GRPC_SERVER="mt5.mrpc.pro:443"
+export MT5_CLUSTER="YourBroker-MT5 Demo"
+export MT5_TEST_SYMBOL="EURUSD"
+```
+
+> **💡 Tip:** For this guide, use **Method 1 (JSON)** - it's simpler for beginners
 
 ---
 
-## Шаг 5: Напишите Код для Подключения и Получения Информации об Аккаунте
+## Step 5: Write Code to Connect and Get Account Information
 
-Создайте файл `main.py` в корне проекта:
+Create a `main.py` file in the project root:
 
 ```python
 """
 ═══════════════════════════════════════════════════════════════════
-ВАШ ПЕРВЫЙ ПРОЕКТ С MT5
+YOUR FIRST PROJECT WITH MT5
 ═══════════════════════════════════════════════════════════════════
-Этот скрипт демонстрирует:
-  - Создание MT5Account
-  - Подключение к MT5 через gRPC
-  - Получение информации об аккаунте
+This script demonstrates:
+  - Creating MT5Account
+  - Connecting to MT5 via gRPC
+  - Getting account information
 ═══════════════════════════════════════════════════════════════════
 """
 
@@ -160,57 +205,57 @@ import sys
 from uuid import uuid4
 from datetime import datetime
 
-# Импортируем MetaRpcMT5
+# Import MetaRpcMT5
 from MetaRpcMT5 import MT5Account
 
 
 def load_settings():
-    """Загрузка настроек из settings.json"""
+    """Load settings from settings.json"""
     with open('settings.json', 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
 async def main():
-    """Основная функция"""
+    """Main function"""
 
     print("═" * 80)
-    print("          ДОБРО ПОЖАЛОВАТЬ В ВАШ ПЕРВЫЙ ПРОЕКТ С MT5")
+    print("          WELCOME TO YOUR FIRST PROJECT WITH MT5")
     print("═" * 80)
     print()
 
     # ═══════════════════════════════════════════════════════════════════════
-    # ШАГ 1: ЗАГРУЗКА КОНФИГУРАЦИИ
+    # STEP 1: LOAD CONFIGURATION
     # ═══════════════════════════════════════════════════════════════════════
 
-    print("📋 Загрузка конфигурации...")
+    print("📋 Loading configuration...")
 
     try:
         config = load_settings()
     except FileNotFoundError:
-        print("❌ Ошибка: файл settings.json не найден!")
-        print("   Создайте settings.json с вашими учётными данными MT5")
+        print("❌ Error: settings.json file not found!")
+        print("   Create settings.json with your MT5 credentials")
         sys.exit(1)
     except json.JSONDecodeError as e:
-        print(f"❌ Ошибка: некорректный JSON в settings.json: {e}")
+        print(f"❌ Error: invalid JSON in settings.json: {e}")
         sys.exit(1)
 
-    print("✅ Конфигурация загружена:")
-    print(f"   Пользователь:    {config['user']}")
-    print(f"   Кластер:         {config['mt_cluster']}")
-    print(f"   gRPC Сервер:     {config['grpc_server']}")
-    print(f"   Тестовый Символ: {config['test_symbol']}")
+    print("✅ Configuration loaded:")
+    print(f"   User:           {config['user']}")
+    print(f"   Cluster:        {config['mt_cluster']}")
+    print(f"   gRPC Server:    {config['grpc_server']}")
+    print(f"   Test Symbol:    {config['test_symbol']}")
     print()
 
     # ═══════════════════════════════════════════════════════════════════════
-    # ШАГ 2: СОЗДАНИЕ MT5ACCOUNT
+    # STEP 2: CREATE MT5ACCOUNT
     # ═══════════════════════════════════════════════════════════════════════
 
-    print("🔌 Создание экземпляра MT5Account...")
+    print("🔌 Creating MT5Account instance...")
 
-    # Генерируем уникальный UUID для этого терминала
+    # Generate unique UUID for this terminal
     terminal_guid = uuid4()
 
-    # Создаём MT5Account с учётными данными
+    # Create MT5Account with credentials
     account = MT5Account(
         user=config['user'],
         password=config['password'],
@@ -218,219 +263,219 @@ async def main():
         id_=terminal_guid
     )
 
-    print(f"✅ MT5Account создан (UUID: {terminal_guid})")
+    print(f"✅ MT5Account created (UUID: {terminal_guid})")
     print()
 
     # ═══════════════════════════════════════════════════════════════════════
-    # ШАГ 3: ПОДКЛЮЧЕНИЕ К MT5
+    # STEP 3: CONNECT TO MT5
     # ═══════════════════════════════════════════════════════════════════════
 
-    print("🔗 Подключение к терминалу MT5...")
-    print(f"   Ожидание ответа (таймаут: 120 секунд)...")
+    print("🔗 Connecting to MT5 terminal...")
+    print(f"   Waiting for response (timeout: 120 seconds)...")
     print()
 
     try:
-        # Подключаемся к MT5 используя имя сервера
-        # Это РЕКОМЕНДУЕМЫЙ метод - проще чем ConnectEx
+        # Connect to MT5 using server name
+        # This is the RECOMMENDED method - simpler than ConnectEx
         await account.connect_by_server_name(
             server_name=config['mt_cluster'],
             base_chart_symbol=config['test_symbol'],
             timeout_seconds=120
         )
 
-        print(f"✅ Успешно подключено!")
+        print(f"✅ Successfully connected!")
         print(f"   Terminal GUID: {account.id}")
         print()
 
     except Exception as e:
-        print(f"❌ Ошибка подключения: {e}")
-        print("   Проверьте:")
-        print("   - Правильность логина/пароля")
-        print("   - Доступность gRPC-сервера")
-        print("   - Правильность имени кластера")
+        print(f"❌ Connection error: {e}")
+        print("   Check:")
+        print("   - Correct login/password")
+        print("   - gRPC server availability")
+        print("   - Correct cluster name")
         await account.channel.close()
         sys.exit(1)
 
     # ═══════════════════════════════════════════════════════════════════════
-    # ШАГ 4: ПОЛУЧЕНИЕ ИНФОРМАЦИИ ОБ АККАУНТЕ
+    # STEP 4: GET ACCOUNT INFORMATION
     # ═══════════════════════════════════════════════════════════════════════
 
-    print("📊 Получение информации об аккаунте...")
+    print("📊 Getting account information...")
     print()
 
     try:
-        # Запрашиваем полную информацию об аккаунте одним вызовом
+        # Request full account information in one call
         summary_data = await account.account_summary()
 
         # ═══════════════════════════════════════════════════════════════════════
-        # ШАГ 5: ВЫВОД РЕЗУЛЬТАТОВ
+        # STEP 5: OUTPUT RESULTS
         # ═══════════════════════════════════════════════════════════════════════
 
         print()
         print("╔════════════════════════════════════════════════════════════════╗")
-        print("║              ИНФОРМАЦИЯ ОБ АККАУНТЕ                            ║")
+        print("║              ACCOUNT INFORMATION                               ║")
         print("╚════════════════════════════════════════════════════════════════╝")
         print()
-        print(f"   Логин:              {summary_data.account_login}")
-        print(f"   Имя пользователя:   {summary_data.account_user_name}")
-        print(f"   Компания:           {summary_data.account_company_name}")
-        print(f"   Валюта:             {summary_data.account_currency}")
+        print(f"   Login:              {summary_data.account_login}")
+        print(f"   User name:          {summary_data.account_user_name}")
+        print(f"   Company:            {summary_data.account_company_name}")
+        print(f"   Currency:           {summary_data.account_currency}")
         print()
-        print(f"💰 Баланс:             {summary_data.account_balance:.2f} {summary_data.account_currency}")
-        print(f"💎 Средства:           {summary_data.account_equity:.2f} {summary_data.account_currency}")
+        print(f"💰 Balance:            {summary_data.account_balance:.2f} {summary_data.account_currency}")
+        print(f"💎 Equity:             {summary_data.account_equity:.2f} {summary_data.account_currency}")
         print()
-        print(f"   Кредит:             {summary_data.account_credit:.2f} {summary_data.account_currency}")
-        print(f"   Кредитное плечо:    1:{summary_data.account_leverage}")
-        print(f"   Режим торговли:     {summary_data.account_trade_mode}")
+        print(f"   Credit:             {summary_data.account_credit:.2f} {summary_data.account_currency}")
+        print(f"   Leverage:           1:{summary_data.account_leverage}")
+        print(f"   Trade mode:         {summary_data.account_trade_mode}")
         print()
 
-        # Время сервера - protobuf Timestamp, нужно конвертировать
+        # Server time - protobuf Timestamp, needs conversion
         if summary_data.server_time:
             server_time = summary_data.server_time.ToDatetime()
-            print(f"   Время сервера:      {server_time.strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"   Server time:        {server_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
-        # UTC смещение: смещение времени сервера от UTC в минутах
-        # Например: 120 минут = UTC+2 (сервер на 2 часа впереди UTC)
+        # UTC offset: server time offset from UTC in minutes
+        # Example: 120 minutes = UTC+2 (server is 2 hours ahead of UTC)
         utc_shift = summary_data.utc_timezone_server_time_shift_minutes
-        print(f"   Смещение UTC:       {utc_shift} минут (UTC{utc_shift/60:+.1f})")
+        print(f"   UTC offset:         {utc_shift} minutes (UTC{utc_shift/60:+.1f})")
 
         print()
         print("╚════════════════════════════════════════════════════════════════╝")
 
     except Exception as e:
-        print(f"❌ Ошибка получения данных аккаунта: {e}")
+        print(f"❌ Error getting account data: {e}")
         await account.channel.close()
         sys.exit(1)
 
     # ═══════════════════════════════════════════════════════════════════════
-    # ШАГ 6: ОТКЛЮЧЕНИЕ ОТ MT5
+    # STEP 6: DISCONNECT FROM MT5
     # ═══════════════════════════════════════════════════════════════════════
 
     print()
-    print("🔌 Отключение от MT5...")
+    print("🔌 Disconnecting from MT5...")
 
     try:
         await account.channel.close()
-        print("✅ Успешно отключено!")
+        print("✅ Successfully disconnected!")
     except Exception as e:
-        print(f"⚠️  Предупреждение при отключении: {e}")
+        print(f"⚠️  Disconnect warning: {e}")
 
     print()
     print("╔════════════════════════════════════════════════════════════════╗")
-    print("║   🎉 ПОЗДРАВЛЯЕМ! ВАШ ПЕРВЫЙ ПРОЕКТ РАБОТАЕТ! 🎉              ║")
+    print("║   🎉 CONGRATULATIONS! YOUR FIRST PROJECT WORKS! 🎉             ║")
     print("╚════════════════════════════════════════════════════════════════╝")
     print()
 
 
 if __name__ == "__main__":
-    # Запускаем асинхронную функцию
+    # Run async function
     asyncio.run(main())
 ```
 
 ---
 
-## Шаг 6: Запустите Проект
+## Step 6: Run the Project
 
-Сохраните все файлы и выполните:
+Save all files and execute:
 
 ```bash
 python main.py
 ```
 
-**Ожидаемый результат:**
+**Expected output:**
 
 ```
 ════════════════════════════════════════════════════════════════════════════════
-          ДОБРО ПОЖАЛОВАТЬ В ВАШ ПЕРВЫЙ ПРОЕКТ С MT5
+          WELCOME TO YOUR FIRST PROJECT WITH MT5
 ════════════════════════════════════════════════════════════════════════════════
 
-📋 Загрузка конфигурации...
-✅ Конфигурация загружена:
-   Пользователь:    591129415
-   Кластер:         FxPro-MT5 Demo
-   gRPC Сервер:     mt5.mrpc.pro:443
-   Тестовый Символ: EURUSD
+📋 Loading configuration...
+✅ Configuration loaded:
+   User:           591129415
+   Cluster:        FxPro-MT5 Demo
+   gRPC Server:    mt5.mrpc.pro:443
+   Test Symbol:    EURUSD
 
-🔌 Создание экземпляра MT5Account...
-✅ MT5Account создан (UUID: 12345678-90ab-cdef-1234-567890abcdef)
+🔌 Creating MT5Account instance...
+✅ MT5Account created (UUID: 12345678-90ab-cdef-1234-567890abcdef)
 
-🔗 Подключение к терминалу MT5...
-   Ожидание ответа (таймаут: 120 секунд)...
+🔗 Connecting to MT5 terminal...
+   Waiting for response (timeout: 120 seconds)...
 
-✅ Успешно подключено!
+✅ Successfully connected!
    Terminal GUID: 12345678-90ab-cdef-1234-567890abcdef
 
-📊 Получение информации об аккаунте...
+📊 Getting account information...
 
 ╔════════════════════════════════════════════════════════════════╗
-║              ИНФОРМАЦИЯ ОБ АККАУНТЕ                            ║
+║              ACCOUNT INFORMATION                               ║
 ╚════════════════════════════════════════════════════════════════╝
 
-   Логин:              591129415
-   Имя пользователя:   Demo User
-   Компания:           FxPro Financial Services Ltd
-   Валюта:             USD
+   Login:              591129415
+   User name:          Demo User
+   Company:            FxPro Financial Services Ltd
+   Currency:           USD
 
-💰 Баланс:             10000.00 USD
-💎 Средства:           10000.00 USD
+💰 Balance:            10000.00 USD
+💎 Equity:             10000.00 USD
 
-   Кредит:             0.00 USD
-   Кредитное плечо:    1:100
-   Режим торговли:     0
+   Credit:             0.00 USD
+   Leverage:           1:100
+   Trade mode:         0
 
-   Время сервера:      2026-02-04 15:30:45
-   Смещение UTC:       120 минут (UTC+2.0)
+   Server time:        2026-02-04 15:30:45
+   UTC offset:         120 minutes (UTC+2.0)
 
 ╚════════════════════════════════════════════════════════════════╝
 
-🔌 Отключение от MT5...
-✅ Успешно отключено!
+🔌 Disconnecting from MT5...
+✅ Successfully disconnected!
 
 ╔════════════════════════════════════════════════════════════════╗
-║   🎉 ПОЗДРАВЛЯЕМ! ВАШ ПЕРВЫЙ ПРОЕКТ РАБОТАЕТ! 🎉              ║
+║   🎉 CONGRATULATIONS! YOUR FIRST PROJECT WORKS! 🎉             ║
 ╚════════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
-## 🎉 Поздравляем! Вы Это Сделали!
+## 🎉 Congratulations! You Did It!
 
-Вы только что:
+You just:
 
-✅ Создали новый Python-проект с нуля
+✅ Created a new Python project from scratch
 
-✅ Интегрировали **единственный** Python-пакет `MetaRpcMT5` для работы с MT5
+✅ Integrated the **single** Python package `MetaRpcMT5` to work with MT5
 
-✅ Настроили параметры подключения
+✅ Configured connection parameters
 
-✅ Подключились к терминалу MT5 через gRPC
+✅ Connected to MT5 terminal via gRPC
 
-✅ Получили полную информацию об аккаунте программным способом
+✅ Retrieved full account information programmatically
 
-**Это был низкоуровневый подход** с использованием `MT5Account` и protobuf напрямую.
+**This was a low-level approach** using `MT5Account` and protobuf directly.
 
 ---
 
-## 📁 Структура Вашего Проекта
+## 📁 Your Project Structure
 
-После выполнения всех шагов структура проекта должна выглядеть так:
+After completing all steps, the project structure should look like this:
 
 ```
 MyMT5Project/
-├── venv/                # Виртуальное окружение Python
-├── settings.json        # Конфигурация подключения к MT5
-├── main.py              # Основной код приложения
+├── venv/                # Python virtual environment
+├── settings.json        # MT5 connection configuration
+├── main.py              # Main application code
 ```
 
-**Содержимое requirements.txt (опционально):**
+**requirements.txt contents (optional):**
 
-Если хотите сохранить зависимости:
+If you want to save dependencies:
 
 ```bash
 pip freeze > requirements.txt
 ```
 
-Содержимое будет примерно таким:
+The content will be approximately:
 
 ```
 MetaRpcMT5 @ git+https://github.com/MetaRPC/PyMT5.git@main#subdirectory=package
@@ -441,74 +486,70 @@ googleapis-common-protos>=1.56.0
 
 ---
 
-## 🚀 Что Дальше?
+## 🚀 What's Next?
 
-Теперь, когда у вас есть рабочий проект, вы можете:
+Now that you have a working project, you can:
 
-### 1. Добавить Больше Функциональности
+### 1. Add More Functionality
 
-**Примеры того, что вы можете делать:**
+**Examples of what you can do:**
 
-#### Получить Текущие Котировки
+#### Get Current Quotes
 
 ```python
-# Получаем последний тик для символа
+# Get last tick for symbol
 tick_data = await account.symbol_info_tick(symbol=config['test_symbol'])
 
-print(f"Последний тик для {config['test_symbol']}:")
+print(f"Last tick for {config['test_symbol']}:")
 print(f"  Bid: {tick_data.bid:.5f}")
 print(f"  Ask: {tick_data.ask:.5f}")
 print(f"  Last: {tick_data.last:.5f}")
 ```
 
-#### Получить Все Открытые Позиции
+#### Get All Open Positions
 
 ```python
-# Получаем все открытые ордера и позиции
+# Get all open orders and positions
 opened_data = await account.opened_orders()
 
-print(f"Открытых позиций: {len(opened_data.position_infos)}")
+print(f"Open positions: {len(opened_data.position_infos)}")
 for pos in opened_data.position_infos:
-    print(f"  #{pos.ticket} {pos.symbol} {pos.volume:.2f} лотов, Профит: {pos.profit:.2f}")
+    print(f"  #{pos.ticket} {pos.symbol} {pos.volume:.2f} lots, Profit: {pos.profit:.2f}")
 ```
 
-#### Открыть Рыночный Ордер
+#### Open Market Order
 
 ```python
-import MetaRpcMT5.mt5_term_api_trading_pb2 as trading_pb2
+from MetaRpcMT5 import mt5_term_api_trading_helper_pb2 as trading_pb2
 
-# Создаём запрос на открытие ордера
+# Create order request
 order_req = trading_pb2.OrderSendRequest(
     symbol=config['test_symbol'],
-    operation=trading_pb2.TMT5_ORDER_TYPE_BUY,  # Покупка
-    volume=0.01,  # 0.01 лот
+    operation=trading_pb2.TMT5_ORDER_TYPE_BUY,  # Buy
+    volume=0.01,  # 0.01 lot
     comment="PyMT5 Test Order"
 )
 
-# Отправляем ордер
+# Send order
 order_result = await account.order_send(order_req)
 
 if order_result.retcode == 10009:  # TRADE_RETCODE_DONE
-    print(f"✅ Ордер открыт: Deal #{order_result.deal}, Order #{order_result.order}")
+    print(f"✅ Order opened: Deal #{order_result.deal}, Order #{order_result.order}")
 else:
-    print(f"❌ Ошибка открытия ордера: код {order_result.retcode}")
+    print(f"❌ Order error: code {order_result.retcode}")
 ```
 
-#### Стриминг Данных
+#### Data Streaming
 
 ```python
-import MetaRpcMT5.mt5_term_api_streaming_pb2 as streaming_pb2
-
-# Подписываемся на тики в реальном времени
-tick_req = streaming_pb2.OnSymbolTickRequest(
-    symbol_names=[config['test_symbol']]
+# Subscribe to real-time ticks
+# The on_symbol_tick method accepts a list of symbols directly
+tick_stream = account.on_symbol_tick(
+    symbols=[config['test_symbol']]
 )
 
-# Получаем генератор событий
-tick_stream = account.on_symbol_tick(tick_req)
-
-print(f"🔄 Получение потока тиков для {config['test_symbol']}...")
-print("   (Нажмите Ctrl+C для остановки)")
+print(f"🔄 Receiving tick stream for {config['test_symbol']}...")
+print("   (Press Ctrl+C to stop)")
 
 event_count = 0
 try:
@@ -517,95 +558,95 @@ try:
         tick = tick_event.symbol_tick
         print(f"[{event_count}] Bid: {tick.bid:.5f}, Ask: {tick.ask:.5f}")
 
-        # Остановка после 10 событий (для примера)
+        # Stop after 10 events (for example)
         if event_count >= 10:
             break
 
 except KeyboardInterrupt:
-    print(f"\n✅ Получено {event_count} событий")
+    print(f"\n✅ Received {event_count} events")
 ```
 
-### 2. Изучить Полную Архитектуру SDK
+### 2. Study the Complete SDK Architecture
 
-Репозиторий PyMT5 имеет **три уровня API**:
+The PyMT5 repository has **three API levels**:
 
 ```
 ┌─────────────────────────────────────────────
-│  MT5Sugar (Уровень 3) - Удобный API
+│  MT5Sugar (Level 3) - Convenient API
 │  examples/3_sugar/
 │  sugar.buy_market("EURUSD", 0.01)
 └─────────────────────────────────────────────
-              ↓ использует
+              ↓ uses
 ┌─────────────────────────────────────────────
-│  MT5Service (Уровень 2) - Обёртки
+│  MT5Service (Level 2) - Wrappers
 │  examples/2_service/
 │  service.get_balance()
 └─────────────────────────────────────────────
-              ↓ использует
+              ↓ uses
 ┌─────────────────────────────────────────────
-│  MT5Account (Уровень 1) - Базовый gRPC ⭐
-│  package/helpers/mt5_account.py
+│  MT5Account (Level 1) - Base gRPC ⭐
+│  package/MetaRpcMT5/helpers/mt5_account.py
 │  account.account_summary()
 └─────────────────────────────────────────────
 ```
 
-**Вы только что использовали Уровень 1 (MT5Account)** - это основа всего!
+**You just used Level 1 (MT5Account)** - this is the foundation of everything!
 
-Чтобы изучить уровни 2 и 3:
+To study levels 2 and 3:
 
-- Изучите примеры в папке `examples/`
-- Читайте [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
-- Смотрите готовые демонстрации
+- Explore examples in the `examples/` folder
+- Read [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
+- Check out ready-made demonstrations
 
-### 3. Изучить Готовые Примеры
+### 3. Explore Ready-Made Examples
 
-Репозиторий PyMT5 содержит множество примеров:
+The PyMT5 repository contains many examples:
 
-- `examples/1_lowlevel/` - примеры с MT5Account (то, что вы использовали)
-- `examples/2_service/` - примеры с MT5Service
-- `examples/3_sugar/` - примеры с MT5Sugar
-- `examples/4_orchestrators/` - сложные торговые стратегии
+- `examples/1_lowlevel/` - examples with MT5Account (what you used)
+- `examples/2_service/` - examples with MT5Service
+- `examples/3_sugar/` - examples with MT5Sugar
+- `examples/4_orchestrators/` - complex trading strategies
 
-**Запуск примеров:**
+**Running examples:**
 
 ```bash
 cd examples
 python main.py
-# Выберите нужный пример из интерактивного меню
+# Select the desired example from the interactive menu
 ```
 
-### 4. Прочитать Документацию
+### 4. Read the Documentation
 
-- [MT5Account API Reference](../API_Reference/MT5Account.md) - ⭐ полный справочник по базовому уровню
-- [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md) - карта проекта и архитектура
-- [GRPC_STREAM_MANAGEMENT.md](./GRPC_STREAM_MANAGEMENT.md) - работа с потоковыми данными
-- [RETURN_CODES_REFERENCE.md](./RETURN_CODES_REFERENCE.md) - коды возврата операций
-- [ENUMS_USAGE_REFERENCE.md](./ENUMS_USAGE_REFERENCE.md) - использование перечислений
+- [MT5Account API Reference](../API_Reference/MT5Account.md) - ⭐ complete reference for the base level
+- [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md) - project map and architecture
+- [GRPC_STREAM_MANAGEMENT.md](./GRPC_STREAM_MANAGEMENT.md) - working with streaming data
+- [RETURN_CODES_REFERENCE.md](./RETURN_CODES_REFERENCE.md) - operation return codes
+- [ENUMS_USAGE_REFERENCE.md](./ENUMS_USAGE_REFERENCE.md) - using enumerations
 
 ---
 
-## ❓ Часто Задаваемые Вопросы
+## ❓ Frequently Asked Questions
 
-### Что Такое Пакет MetaRpcMT5?
+### What Is the MetaRpcMT5 Package?
 
-`MetaRpcMT5` - это **независимый Python-пакет**, который содержит:
+`MetaRpcMT5` is an **independent Python package** that contains:
 
-- MT5Account (базовый gRPC-клиент)
-- Все protobuf-определения MT5 API
-- gRPC-заглушки для всех методов
-- Вспомогательные типы и структуры
+- MT5Account (base gRPC client)
+- All protobuf definitions of MT5 API
+- gRPC stubs for all methods
+- Helper types and structures
 
-Это **портативный пакет** - вы можете использовать его в любом Python-проекте!
+It's a **portable package** - you can use it in any Python project!
 
-### Как Работать с Переменными Окружения Вместо settings.json?
+### How to Work with Environment Variables Instead of settings.json?
 
-Вы можете использовать переменные окружения:
+You can use environment variables:
 
 ```python
 import os
 
 def load_settings_from_env():
-    """Загрузка настроек из переменных окружения"""
+    """Load settings from environment variables"""
     return {
         'user': int(os.getenv('MT5_USER')),
         'password': os.getenv('MT5_PASSWORD'),
@@ -615,7 +656,7 @@ def load_settings_from_env():
     }
 ```
 
-**Установите переменные:**
+**Set variables:**
 
 ```bash
 # Windows (PowerShell)
@@ -633,76 +674,92 @@ export MT5_CLUSTER="FxPro-MT5 Demo"
 export MT5_TEST_SYMBOL="EURUSD"
 ```
 
-### Как Использовать Уровень 2 (MT5Service) и Уровень 3 (MT5Sugar)?
+### How to Use Level 2 (MT5Service) and Level 3 (MT5Sugar)?
 
-Эти уровни находятся в **основном репозитории PyMT5**:
+These levels are in the **main PyMT5 repository**:
 
-1. Клонируйте репозиторий (или скачайте файлы):
+1. Clone the repository (or download files):
 
    ```bash
    git clone https://github.com/MetaRPC/PyMT5.git
    ```
 
-2. Скопируйте нужные файлы в ваш проект:
+2. Copy the necessary files to your project:
 
-   - Из папки `src/` (или соответствующей)
-   - MT5Service и MT5Sugar классы
+   - From the `src/` folder (or corresponding)
+   - MT5Service and MT5Sugar classes
 
-3. Используйте удобные методы:
+3. Use convenient methods:
 
    ```python
    from mt5_service import MT5Service
    from mt5_sugar import MT5Sugar
 
-   # Уровень 2 - Service
+   # Level 2 - Service
    service = MT5Service(account)
    balance = await service.get_balance()
 
-   # Уровень 3 - Sugar
+   # Level 3 - Sugar
    sugar = MT5Sugar(service)
    ticket = await sugar.buy_market("EURUSD", 0.01)
    ```
 
-Смотрите детали в [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
+See details in [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
 
-### Что Делать Если Возникают Ошибки?
+### What to Do If Errors Occur?
 
-**Ошибка подключения:**
-- Проверьте правильность логина/пароля
-- Убедитесь что gRPC-сервер доступен
-- Проверьте имя кластера (точное имя сервера MT5)
+**Connection error:**
 
-**Таймаут при подключении:**
-- Увеличьте `timeout_seconds` до 180 или 240
-- Проверьте интернет-соединение
-- Проверьте firewall/антивирус
+- Check correct login/password
+- Make sure gRPC server is available
+- Check cluster name (exact MT5 server name)
 
-**Ошибки импорта:**
-- Убедитесь что виртуальное окружение активировано
-- Переустановите пакет: `pip uninstall MetaRpcMT5 && pip install git+https://github.com/MetaRPC/PyMT5.git#subdirectory=package`
+**Connection timeout:**
 
----
+- Increase `timeout_seconds` to 180 or 240
+- Check internet connection
+- Check firewall/antivirus
 
-## 📝 Итоги: Что Мы Сделали
+**Import errors:**
 
-В этом руководстве вы создали минималистичный проект, который:
+- Make sure virtual environment is activated
+- Reinstall package:
 
-1. ✅ **Использует только Python-модули** - не требует клонирования репозитория
+**Windows PowerShell:**
 
-2. ✅ **Импортирует пакет MetaRpcMT5** - единственная зависимость для MT5
+```powershell
+pip uninstall MetaRpcMT5 -y
+pip install git+https://github.com/MetaRPC/PyMT5.git#subdirectory=package
+```
 
-3. ✅ **Подключается к MT5** через gRPC-шлюз
+**Linux/Mac/PowerShell 7+:**
 
-4. ✅ **Читает конфигурацию** из `settings.json`
-
-5. ✅ **Использует MT5Account** (Уровень 1 - базовый уровень)
-
-6. ✅ **Получает информацию об аккаунте** и выводит в консоль
-
-**Это фундамент** для любых ваших MT5-проектов на Python.
+```bash
+pip uninstall MetaRpcMT5 && pip install git+https://github.com/MetaRPC/PyMT5.git#subdirectory=package
+```
 
 ---
 
-**Удачи в разработке торговых систем! 🚀**
+## 📝 Summary: What We Did
 
-"Торгуйте безопасно, пишите чисто, и пусть ваши gRPC-соединения всегда будут стабильны."
+In this guide, you created a minimalist project that:
+
+1. ✅ **Uses only Python modules** - doesn't require cloning the repository
+
+2. ✅ **Imports MetaRpcMT5 package** - the only dependency for MT5
+
+3. ✅ **Connects to MT5** via gRPC gateway
+
+4. ✅ **Reads configuration** from `settings.json`
+
+5. ✅ **Uses MT5Account** (Level 1 - base level)
+
+6. ✅ **Gets account information** and outputs to console
+
+**This is the foundation** for any of your MT5 projects in Python.
+
+---
+
+**Good luck developing trading systems! 🚀**
+
+"Trade safely, code cleanly, and may your gRPC connections always be stable."

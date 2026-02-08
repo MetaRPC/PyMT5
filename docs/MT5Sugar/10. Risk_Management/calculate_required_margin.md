@@ -95,7 +95,7 @@ TradingService.OrderCalcMargin()
 **Related files:**
 
 - Sugar: `src/pymt5/mt5_sugar.py:1841`
-- Account: `package/helpers/mt5_account.py:1892`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:1892`
 
 ---
 

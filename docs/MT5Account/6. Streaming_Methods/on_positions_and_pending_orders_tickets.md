@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.on_positions_and_pending_orders_tickets(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.on_positions_and_pending_orders_tickets(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.SubscriptionService`
 * **Proto definition:** `OnPositionsAndPendingOrdersTickets` (defined in `mt5-term-api-subscriptions.proto`)
 

@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.on_trade(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.on_trade(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.SubscriptionService`
 * **Proto definition:** `OnTrade` (defined in `mt5-term-api-subscriptions.proto`)
 

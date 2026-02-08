@@ -94,7 +94,7 @@ MarketInfoService.SymbolParamsMany()
 - Sugar: `src/pymt5/mt5_sugar.py:1615`
 - SymbolInfo dataclass: `src/pymt5/mt5_sugar.py:179`
 - Service: `src/pymt5/mt5_service.py:658`
-- Account: `package/helpers/mt5_account.py:1221`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:1221`
 
 ---
 

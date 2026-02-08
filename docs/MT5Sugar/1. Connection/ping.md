@@ -78,7 +78,7 @@ MarketInfoService.SymbolsTotal()
 
 - Sugar: `src/pymt5/mt5_sugar.py:318`
 - Service: `src/pymt5/mt5_service.py:377`
-- Account: `package/helpers/mt5_account.py:687`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:687`
 
 ---
 

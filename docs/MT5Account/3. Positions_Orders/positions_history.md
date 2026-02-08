@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.positions_history(...)` (defined in `package/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.positions_history(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountHelper`
 * **Proto definition:** `PositionsHistory` (defined in `mt5-term-api-account-helper.proto`)
 * **Enums in this method:** 2 enums with 13 total constants (1 input, 1 output)

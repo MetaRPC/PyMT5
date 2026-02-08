@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.order_calc_margin(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.order_calc_margin(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradeFunctions`
 * **Proto definition:** `OrderCalcMargin` (defined in `mt5-term-api-trade-functions.proto`)
 * **Enums in this method:** 1 enum with 9 constants (1 input)

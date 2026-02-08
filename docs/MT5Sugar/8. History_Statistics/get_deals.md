@@ -86,7 +86,7 @@ AccountHelperService.PositionsHistory()
 
 - Sugar: `src/pymt5/mt5_sugar.py:1437`
 - Service: `src/pymt5/mt5_service.py:810`
-- Account: `package/helpers/mt5_account.py:1475`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:1475`
 
 ---
 

@@ -62,7 +62,7 @@ AccountInformationService.AccountInfoDouble(property_id=12)
 
 - Sugar: `src/pymt5/mt5_sugar.py:428`
 - Service: `src/pymt5/mt5_service.py:298`
-- Account: `package/helpers/mt5_account.py:578`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:578`
 
 ---
 

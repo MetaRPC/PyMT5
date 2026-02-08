@@ -1,7 +1,7 @@
 # 🎯 MT5Account API Reference
 
 !!! info "Documentation Status"
-    **Auto-generated from source code** (`package/helpers/mt5_account.py`) and enhanced for readability.
+    **Auto-generated from source code** (`package/MetaRpcMT5/helpers/mt5_account.py`) and enhanced for readability.
     Complete API reference with enhanced navigation. Single-page format for easy browsing.
 
 ---

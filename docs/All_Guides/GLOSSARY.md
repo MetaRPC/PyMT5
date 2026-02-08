@@ -35,7 +35,7 @@ Base layer providing direct access to MT5 terminal via gRPC protocol.
 
 **When to use:** Advanced users who need granular control, custom integrations, building custom wrappers.
 
-**Location:** `package/helpers/mt5_account.py` (2100+ lines)
+**Location:** `package/MetaRpcMT5/helpers/mt5_account.py` (2100+ lines)
 
 **Documentation:** [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
 

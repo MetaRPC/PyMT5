@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.order_check(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.order_check(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradeFunctions`
 * **Proto definition:** `OrderCheck` (defined in `mt5-term-api-trade-functions.proto`)
 * **Enums in this method:** 4 enums with 23 constants (4 input)

@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.market_book_add(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.market_book_add(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.MarketInfo`
 * **Proto definition:** `MarketBookAdd` (defined in `mt5-term-api-market-info.proto`)
 * **Enums in this method:** 0 enums (simple boolean result)

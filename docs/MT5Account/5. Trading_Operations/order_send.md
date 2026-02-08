@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.order_send(...)` (defined in `package/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.order_send(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradingHelper`
 * **Proto definition:** `OrderSend` (defined in `mt5-term-api-trading-helper.proto`)
 * **Enums in this method:** 2 enums with 13 constants (2 input)

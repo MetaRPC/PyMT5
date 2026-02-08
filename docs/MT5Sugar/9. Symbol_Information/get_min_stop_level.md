@@ -79,7 +79,7 @@ MarketInfoService.SymbolInfoInteger(property=SYMBOL_TRADE_STOPS_LEVEL)
 
 - Sugar: `src/pymt5/mt5_sugar.py:1677`
 - Service: `src/pymt5/mt5_service.py:497`
-- Account: `package/helpers/mt5_account.py:951`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:951`
 
 ---
 

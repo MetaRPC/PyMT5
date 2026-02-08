@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.opened_orders_tickets(...)` (defined in `package/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.opened_orders_tickets(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountHelper`
 * **Proto definition:** `OpenedOrdersTickets` (defined in `mt5-term-api-account-helper.proto`)
 

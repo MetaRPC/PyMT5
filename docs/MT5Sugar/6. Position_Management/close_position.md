@@ -79,7 +79,7 @@ TradingHelperService.OrderClose()
 
 - Sugar: `src/pymt5/mt5_sugar.py:1141`
 - Service: `src/pymt5/mt5_service.py:996`
-- Account: `package/helpers/mt5_account.py:1803`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:1803`
 
 ---
 

@@ -79,7 +79,7 @@ MarketInfoService.SymbolInfoDouble(property=SYMBOL_VOLUME_MAX)
 
 - Sugar: `src/pymt5/mt5_sugar.py:1821`
 - Service: `src/pymt5/mt5_service.py:474`
-- Account: `package/helpers/mt5_account.py:906`
+- Account: `package/MetaRpcMT5/helpers/mt5_account.py:906`
 
 ---
 

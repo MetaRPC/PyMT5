@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.positions_total(...)` (defined in `package/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.positions_total(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradeFunctions`
 * **Proto definition:** `PositionsTotal` (defined in `mt5-term-api-trade-functions.proto`)
 * **Enums in this method:** 0 enums (simple count only)

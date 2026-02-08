@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.account_info_integer(...)` (defined in `package/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.account_info_integer(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountInformation`
 * **Proto definition:** `AccountInfoInteger` (defined in `mt5-term-api-account-information.proto`)
 
