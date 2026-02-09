@@ -1,0 +1,2913 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/All_Guides/RETURN_CODES_REFERENCE/">
+      
+      
+        <link rel="prev" href="../GRPC_STREAM_MANAGEMENT/">
+      
+      
+        <link rel="next" href="../ENUMS_USAGE_REFERENCE/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Return Codes - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mt5-return-codes-retcodes-reference-python" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Return Codes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ What is RetCode?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛡️ What is RetCode?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-example-proper-retcode-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Example: Proper RetCode Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retcode-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RetCode Source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-is-retcode-used-in-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📥 Where is RetCode Used in the API?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📥 Where is RetCode Used in the API?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ordersend-opening-orders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. OrderSend (Opening Orders)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ordermodify-modifying-sltp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. OrderModify (Modifying SL/TP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-positionclose-closing-positions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. PositionClose (Closing Positions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-retcode-only-in-trading-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👁️ Why RetCode Only in Trading Methods?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-retcode-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete RetCode List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete RetCode List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#success-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requote-codes-retry-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requote Codes (Retry Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-validation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Request Validation Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trading-restrictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚫 Trading Restrictions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💰 Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-issues-retryable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Technical Issues (Retryable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejection-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Rejection Codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centralized-error-handler-packagemetarpcmt5helperserrorspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Centralized Error Handler (package/MetaRpcMT5/helpers/errors.py)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Centralized Error Handler (package/MetaRpcMT5/helpers/errors.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-inside" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Inside
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Use It?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-explicitly-check-retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Explicitly Check RetCode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-helper-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Helper Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python Helper Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is_retcode_success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_retcode_success()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_retcode_requote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_retcode_requote()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_retcode_retryable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_retcode_retryable()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_retcode_message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_retcode_message()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check_retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_retcode()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-basic-order-placement-with-retcode-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Basic Order Placement with RetCode Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-handling-common-errors-ifelif-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Handling Common Errors (if/elif Statement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-retry-logic-for-temporary-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Retry Logic for Temporary Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-using-check_retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Using check_retcode()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-modifying-sltp-with-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Modifying SL/TP with Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DO:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ DON'T:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-quick-reference-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Quick Reference Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ What is RetCode?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛡️ What is RetCode?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-example-proper-retcode-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Example: Proper RetCode Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retcode-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RetCode Source
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-is-retcode-used-in-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📥 Where is RetCode Used in the API?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📥 Where is RetCode Used in the API?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ordersend-opening-orders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. OrderSend (Opening Orders)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ordermodify-modifying-sltp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. OrderModify (Modifying SL/TP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-positionclose-closing-positions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. PositionClose (Closing Positions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-retcode-only-in-trading-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        👁️ Why RetCode Only in Trading Methods?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-retcode-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete RetCode List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete RetCode List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#success-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requote-codes-retry-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requote Codes (Retry Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-validation-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Request Validation Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trading-restrictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚫 Trading Restrictions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💰 Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-issues-retryable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Technical Issues (Retryable)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rejection-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Rejection Codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centralized-error-handler-packagemetarpcmt5helperserrorspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Centralized Error Handler (package/MetaRpcMT5/helpers/errors.py)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Centralized Error Handler (package/MetaRpcMT5/helpers/errors.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whats-inside" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Inside
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-use-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Use It?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-explicitly-check-retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Explicitly Check RetCode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-helper-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Helper Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python Helper Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#is_retcode_success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_retcode_success()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_retcode_requote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_retcode_requote()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_retcode_retryable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_retcode_retryable()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_retcode_message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_retcode_message()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check_retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_retcode()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-basic-order-placement-with-retcode-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Basic Order Placement with RetCode Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-handling-common-errors-ifelif-statement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Handling Common Errors (if/elif Statement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-retry-logic-for-temporary-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Retry Logic for Temporary Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-using-check_retcode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Using check_retcode()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-modifying-sltp-with-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Modifying SL/TP with Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DO:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ DON'T:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-quick-reference-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Quick Reference Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constants-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mt5-return-codes-retcodes-reference-python">MT5 Return Codes (RetCodes) Reference - Python<a class="headerlink" href="#mt5-return-codes-retcodes-reference-python" title="Permanent link">¶</a></h1>
+<h2 id="what-is-retcode">🛡️ What is RetCode?<a class="headerlink" href="#what-is-retcode" title="Permanent link">¶</a></h2>
+<p><strong>RetCode</strong> (Return Code) is a status code that MT5 terminal returns after executing a trading operation. The code indicates success or the reason for failure.</p>
+<p>RetCodes <strong>appear only in trading methods</strong> because only trading operations go through the broker and can be rejected for various reasons (insufficient margin, invalid price, market closed, etc.).</p>
+<h3 id="quick-example-proper-retcode-handling">Quick Example: Proper RetCode Handling<a class="headerlink" href="#quick-example-proper-retcode-handling" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">,</span> <span class="n">get_retcode_message</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Place order</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># ✅ ALWAYS check returned_code explicitly</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Trade successful! Order #</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Trade failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="c1"># Example: &quot;Insufficient funds&quot; (10019) or &quot;Market closed&quot; (10018)</span>
+</code></pre></div>
+<p><strong>Key point:</strong> No exception = API worked, but <strong>check RetCode</strong> to know if <strong>trade succeeded</strong>.</p>
+<hr />
+<h2 id="retcode-source">RetCode Source<a class="headerlink" href="#retcode-source" title="Permanent link">¶</a></h2>
+<p>RetCodes are <strong>standard MQL5 codes</strong> defined in official MetaQuotes documentation:</p>
+<p><strong>MQL5 Documentation</strong>: <a href="https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes">Trade Result Codes (ENUM_TRADE_RETCODE)</a></p>
+<p>These codes are:</p>
+<ul>
+<li><strong>Unified across all languages</strong> (C#, Python, Java, Node.js, Go, PHP)</li>
+<li><strong>Unified with MT5 terminal</strong> - returned directly from the trading server</li>
+<li><strong>Defined in protobuf</strong> - returned as <code>uint32</code> field <code>returned_code</code> in trading result structures</li>
+<li><strong>Available as Python constants</strong> - defined in <code>package/MetaRpcMT5/helpers/errors.py</code></li>
+</ul>
+<hr />
+<h2 id="where-is-retcode-used-in-the-api">📥 Where is RetCode Used in the API?<a class="headerlink" href="#where-is-retcode-used-in-the-api" title="Permanent link">¶</a></h2>
+<p>RetCode is returned in <strong>all trading operations</strong> that modify positions or orders:</p>
+<h3 id="1-ordersend-opening-orders">1. OrderSend (Opening Orders)<a class="headerlink" href="#1-ordersend-opening-orders" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">ApiError</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">TRADE_RETCODE_DONE</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">get_retcode_message</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">is_retcode_success</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Using Sugar API</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">ticket</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">buy_market</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] Order opened: #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="c1"># Check if it&#39;s a trade error with RetCode</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">retcode</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_int_code</span><span class="p">()</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RetCode: </span><span class="si">{</span><span class="n">retcode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Description: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_description</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="c1"># Using Service API (mid-level)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] Order opened! Ticket: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Order failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="2-ordermodify-modifying-sltp">2. OrderModify (Modifying SL/TP)<a class="headerlink" href="#2-ordermodify-modifying-sltp" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">,</span> <span class="n">is_retcode_success</span><span class="p">,</span> <span class="n">get_retcode_message</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Using Sugar API</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">modify_position_sltp</span><span class="p">(</span><span class="n">ticket</span><span class="p">,</span> <span class="n">sl</span><span class="o">=</span><span class="mf">1.0850</span><span class="p">,</span> <span class="n">tp</span><span class="o">=</span><span class="mf">1.0950</span><span class="p">)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] SL/TP modified successfully&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Modification failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_description</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Using Service API</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">modify_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">if</span> <span class="n">is_retcode_success</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">):</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] SL/TP modified successfully&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Modification failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="3-positionclose-closing-positions">3. PositionClose (Closing Positions)<a class="headerlink" href="#3-positionclose-closing-positions" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApiError</span><span class="p">,</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">,</span> <span class="n">TRADE_RETCODE_POSITION_CLOSED</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Using Sugar API</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">close_position</span><span class="p">(</span><span class="n">ticket</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] Position closed&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_int_code</span><span class="p">()</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_POSITION_CLOSED</span><span class="p">:</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] Position already closed&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Close failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># Using Service API</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">close_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] Position closed&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="why-retcode-only-in-trading-methods">👁️ Why RetCode Only in Trading Methods?<a class="headerlink" href="#why-retcode-only-in-trading-methods" title="Permanent link">¶</a></h2>
+<p><strong>Informational methods</strong> (getting prices, symbols, balance) <strong>DO NOT return RetCode</strong> because:</p>
+<ul>
+<li>They don't go through the broker</li>
+<li>They cannot be "rejected" - either data exists or there's a gRPC error</li>
+<li>They work with local terminal data</li>
+</ul>
+<p><strong>Trading methods</strong> return RetCode because:</p>
+<ul>
+<li>Request is sent to broker via trading server</li>
+<li>Broker validates: margin, symbol rules, trading hours, limits</li>
+<li>Broker can reject request for dozens of reasons</li>
+<li>Each reason has its own unique code</li>
+</ul>
+<hr />
+<h2 id="complete-retcode-list">Complete RetCode List<a class="headerlink" href="#complete-retcode-list" title="Permanent link">¶</a></h2>
+<h3 id="success-codes">Success Codes<a class="headerlink" href="#success-codes" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>When Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10009</strong></td>
+<td><code>TRADE_RETCODE_DONE</code></td>
+<td><strong>Request completed successfully</strong></td>
+<td>Market order opened/closed</td>
+</tr>
+<tr>
+<td><strong>10010</strong></td>
+<td><code>TRADE_RETCODE_DONE_PARTIAL</code></td>
+<td><strong>Partial execution</strong></td>
+<td>Only part of volume executed</td>
+</tr>
+<tr>
+<td><strong>10008</strong></td>
+<td><code>TRADE_RETCODE_PLACED</code></td>
+<td><strong>Pending order placed</strong></td>
+<td>Limit/Stop order placed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="requote-codes-retry-recommended">Requote Codes (Retry Recommended)<a class="headerlink" href="#requote-codes-retry-recommended" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10004</strong></td>
+<td><code>TRADE_RETCODE_REQUOTE</code></td>
+<td><strong>Requote</strong></td>
+<td>Price changed, retry request</td>
+</tr>
+<tr>
+<td><strong>10020</strong></td>
+<td><code>TRADE_RETCODE_PRICE_CHANGED</code></td>
+<td><strong>Price changed</strong></td>
+<td>Similar to requote, retry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Helper function:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_retcode_requote</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">if</span> <span class="n">is_retcode_requote</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="c1"># Retry with updated price</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">pass</span>
+</code></pre></div></p>
+<h3 id="request-validation-errors">⚠️ Request Validation Errors<a class="headerlink" href="#request-validation-errors" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Common Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10013</strong></td>
+<td><code>TRADE_RETCODE_INVALID_REQUEST</code></td>
+<td><strong>Invalid request</strong></td>
+<td>Incorrect parameters</td>
+</tr>
+<tr>
+<td><strong>10014</strong></td>
+<td><code>TRADE_RETCODE_INVALID_VOLUME</code></td>
+<td><strong>Invalid volume</strong></td>
+<td>Volume &lt; MinVolume or &gt; MaxVolume</td>
+</tr>
+<tr>
+<td><strong>10015</strong></td>
+<td><code>TRADE_RETCODE_INVALID_PRICE</code></td>
+<td><strong>Invalid price</strong></td>
+<td>Price doesn't match symbol rules</td>
+</tr>
+<tr>
+<td><strong>10016</strong></td>
+<td><code>TRADE_RETCODE_INVALID_STOPS</code></td>
+<td><strong>Invalid stops</strong></td>
+<td>SL/TP too close to price (check StopLevel)</td>
+</tr>
+<tr>
+<td><strong>10022</strong></td>
+<td><code>TRADE_RETCODE_INVALID_EXPIRATION</code></td>
+<td><strong>Invalid expiration</strong></td>
+<td>Expiration time incorrect</td>
+</tr>
+<tr>
+<td><strong>10030</strong></td>
+<td><code>TRADE_RETCODE_INVALID_FILL</code></td>
+<td><strong>Invalid order filling type</strong></td>
+<td>Fill type not allowed</td>
+</tr>
+<tr>
+<td><strong>10035</strong></td>
+<td><code>TRADE_RETCODE_INVALID_ORDER</code></td>
+<td><strong>Invalid order type</strong></td>
+<td>Order type prohibited for symbol</td>
+</tr>
+<tr>
+<td><strong>10038</strong></td>
+<td><code>TRADE_RETCODE_INVALID_CLOSE_VOLUME</code></td>
+<td><strong>Invalid close volume</strong></td>
+<td>Close volume exceeds position volume</td>
+</tr>
+</tbody>
+</table>
+<h3 id="trading-restrictions">🚫 Trading Restrictions<a class="headerlink" href="#trading-restrictions" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10017</strong></td>
+<td><code>TRADE_RETCODE_TRADE_DISABLED</code></td>
+<td><strong>Trading disabled</strong></td>
+<td>Trading disabled for symbol</td>
+</tr>
+<tr>
+<td><strong>10018</strong></td>
+<td><code>TRADE_RETCODE_MARKET_CLOSED</code></td>
+<td><strong>Market closed</strong></td>
+<td>Outside trading hours</td>
+</tr>
+<tr>
+<td><strong>10026</strong></td>
+<td><code>TRADE_RETCODE_SERVER_DISABLES_AT</code></td>
+<td><strong>Autotrading disabled by server</strong></td>
+<td>Server disabled auto-trading</td>
+</tr>
+<tr>
+<td><strong>10027</strong></td>
+<td><code>TRADE_RETCODE_CLIENT_DISABLES_AT</code></td>
+<td><strong>Autotrading disabled by client</strong></td>
+<td>Terminal disabled auto-trading</td>
+</tr>
+<tr>
+<td><strong>10032</strong></td>
+<td><code>TRADE_RETCODE_ONLY_REAL</code></td>
+<td><strong>Only real accounts</strong></td>
+<td>Action unavailable on demo</td>
+</tr>
+<tr>
+<td><strong>10042</strong></td>
+<td><code>TRADE_RETCODE_LONG_ONLY</code></td>
+<td><strong>Only long positions allowed</strong></td>
+<td>Short positions prohibited</td>
+</tr>
+<tr>
+<td><strong>10043</strong></td>
+<td><code>TRADE_RETCODE_SHORT_ONLY</code></td>
+<td><strong>Only short positions allowed</strong></td>
+<td>Long positions prohibited</td>
+</tr>
+<tr>
+<td><strong>10044</strong></td>
+<td><code>TRADE_RETCODE_CLOSE_ONLY</code></td>
+<td><strong>Only position closing allowed</strong></td>
+<td>Opening new positions prohibited</td>
+</tr>
+<tr>
+<td><strong>10045</strong></td>
+<td><code>TRADE_RETCODE_FIFO_CLOSE</code></td>
+<td><strong>Position close only by FIFO rule</strong></td>
+<td>FIFO rule enforced</td>
+</tr>
+<tr>
+<td><strong>10046</strong></td>
+<td><code>TRADE_RETCODE_HEDGE_PROHIBITED</code></td>
+<td><strong>Opposite positions prohibited</strong></td>
+<td>Hedging disabled</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resource-limits">💰 Resource Limits<a class="headerlink" href="#resource-limits" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10019</strong></td>
+<td><code>TRADE_RETCODE_NO_MONEY</code></td>
+<td><strong>Insufficient funds</strong></td>
+<td>Check free margin</td>
+</tr>
+<tr>
+<td><strong>10033</strong></td>
+<td><code>TRADE_RETCODE_LIMIT_ORDERS</code></td>
+<td><strong>Pending orders limit</strong></td>
+<td>Close some pending orders</td>
+</tr>
+<tr>
+<td><strong>10034</strong></td>
+<td><code>TRADE_RETCODE_LIMIT_VOLUME</code></td>
+<td><strong>Volume limit</strong></td>
+<td>Reduce position volume</td>
+</tr>
+<tr>
+<td><strong>10040</strong></td>
+<td><code>TRADE_RETCODE_LIMIT_POSITIONS</code></td>
+<td><strong>Positions limit</strong></td>
+<td>Close some positions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="technical-issues-retryable">🔄 Technical Issues (Retryable)<a class="headerlink" href="#technical-issues-retryable" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Retryable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10011</strong></td>
+<td><code>TRADE_RETCODE_ERROR</code></td>
+<td><strong>Processing error</strong></td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>10012</strong></td>
+<td><code>TRADE_RETCODE_TIMEOUT</code></td>
+<td><strong>Request timeout</strong></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>10021</strong></td>
+<td><code>TRADE_RETCODE_NO_QUOTES</code></td>
+<td><strong>No quotes</strong></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>10024</strong></td>
+<td><code>TRADE_RETCODE_TOO_MANY_REQUESTS</code></td>
+<td><strong>Rate limiting</strong></td>
+<td>Yes (with delay)</td>
+</tr>
+<tr>
+<td><strong>10028</strong></td>
+<td><code>TRADE_RETCODE_LOCKED</code></td>
+<td><strong>Request locked for processing</strong></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>10029</strong></td>
+<td><code>TRADE_RETCODE_FROZEN</code></td>
+<td><strong>Order or position frozen</strong></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>10031</strong></td>
+<td><code>TRADE_RETCODE_NO_CONNECTION</code></td>
+<td><strong>No connection</strong></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Helper function:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_retcode_retryable</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="k">if</span> <span class="n">is_retcode_retryable</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="c1"># Safe to retry with exponential backoff</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="c1"># Retry operation...</span>
+</code></pre></div></p>
+<h3 id="state-management">State Management<a class="headerlink" href="#state-management" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10023</strong></td>
+<td><code>TRADE_RETCODE_ORDER_CHANGED</code></td>
+<td><strong>Order state changed</strong></td>
+<td>Order already modified/closed</td>
+</tr>
+<tr>
+<td><strong>10025</strong></td>
+<td><code>TRADE_RETCODE_NO_CHANGES</code></td>
+<td><strong>No changes</strong></td>
+<td>New parameters = current parameters</td>
+</tr>
+<tr>
+<td><strong>10036</strong></td>
+<td><code>TRADE_RETCODE_POSITION_CLOSED</code></td>
+<td><strong>Position closed</strong></td>
+<td>Position doesn't exist</td>
+</tr>
+<tr>
+<td><strong>10039</strong></td>
+<td><code>TRADE_RETCODE_CLOSE_ORDER_EXIST</code></td>
+<td><strong>Close order exists</strong></td>
+<td>Cannot close more than position volume</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rejection-codes">❌ Rejection Codes<a class="headerlink" href="#rejection-codes" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Python Constant</th>
+<th>Description</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10006</strong></td>
+<td><code>TRADE_RETCODE_REJECT</code></td>
+<td><strong>Request rejected</strong></td>
+<td>Broker rejected</td>
+</tr>
+<tr>
+<td><strong>10007</strong></td>
+<td><code>TRADE_RETCODE_CANCEL</code></td>
+<td><strong>Request canceled</strong></td>
+<td>Canceled by trader</td>
+</tr>
+<tr>
+<td><strong>10041</strong></td>
+<td><code>TRADE_RETCODE_REJECT_CANCEL</code></td>
+<td><strong>Pending order activation rejected</strong></td>
+<td>Activation rejected and canceled</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="centralized-error-handler-packagemetarpcmt5helperserrorspy">Centralized Error Handler (<code>package/MetaRpcMT5/helpers/errors.py</code>)<a class="headerlink" href="#centralized-error-handler-packagemetarpcmt5helperserrorspy" title="Permanent link">¶</a></h2>
+<p><strong>PyMT5 provides a centralized error handling module</strong> that simplifies working with RetCodes.</p>
+<p>Instead of manually checking return codes and writing your own error messages, you can use the built-in helper functions from <code>package/MetaRpcMT5/helpers/errors.py</code>:</p>
+<h3 id="whats-inside">What's Inside<a class="headerlink" href="#whats-inside" title="Permanent link">¶</a></h3>
+<p>The module contains:</p>
+<ul>
+<li>
+<p><strong>All RetCode constants</strong> (e.g., <code>TRADE_RETCODE_DONE</code>, <code>TRADE_RETCODE_NO_MONEY</code>)</p>
+</li>
+<li>
+<p><strong>Helper functions</strong> to check return codes (<code>is_retcode_success</code>, <code>is_retcode_requote</code>, etc.)</p>
+</li>
+<li>
+<p><strong>Human-readable error messages</strong> for all RetCodes</p>
+</li>
+<li>
+<p><strong>Pre-built error handling logic</strong> for common scenarios</p>
+</li>
+</ul>
+<h3 id="why-use-it">Why Use It?<a class="headerlink" href="#why-use-it" title="Permanent link">¶</a></h3>
+<p>✅ <strong>No magic numbers</strong> - Use named constants instead of <code>10009</code>, <code>10019</code></p>
+<p>✅ <strong>Automatic error descriptions</strong> - Get human-readable messages for any RetCode</p>
+<p>✅ <strong>Smart categorization</strong> - Easily identify requotes, retryable errors, etc.</p>
+<p>✅ <strong>Consistent error handling</strong> - Use the same logic across your entire project</p>
+<h3 id="when-to-explicitly-check-retcode">When to Explicitly Check RetCode<a class="headerlink" href="#when-to-explicitly-check-retcode" title="Permanent link">¶</a></h3>
+<p><strong>CRITICAL:</strong> You <strong>MUST explicitly check</strong> <code>returned_code</code> after every trading operation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># ❌ WRONG - Only catching exceptions is NOT enough!</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order placed: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ← This doesn&#39;t mean success!</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># ✅ CORRECT - Always check returned_code</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="c1"># MUST check RetCode explicitly</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Order placed: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Order failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;API Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Why?</strong> Because:</p>
+<ul>
+<li>
+<p>No exception means the <strong>API call succeeded</strong> (connection OK, terminal responded)</p>
+</li>
+<li>
+<p>But it does <strong>NOT</strong> mean the <strong>trade succeeded</strong> (broker may have rejected it)</p>
+</li>
+<li>
+<p>You need to check <code>returned_code</code> to know the <strong>actual trade result</strong></p>
+</li>
+</ul>
+<hr />
+<h2 id="python-helper-functions">Python Helper Functions<a class="headerlink" href="#python-helper-functions" title="Permanent link">¶</a></h2>
+<p>The <code>package/MetaRpcMT5/helpers/errors.py</code> module provides helper functions for working with RetCodes:</p>
+<h3 id="is_retcode_success">is_retcode_success()<a class="headerlink" href="#is_retcode_success" title="Permanent link">¶</a></h3>
+<p>Checks if the RetCode indicates successful trade execution.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_retcode_success</span><span class="p">,</span> <span class="n">TRADE_RETCODE_DONE</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Usage</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">if</span> <span class="n">is_retcode_success</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">):</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Trade successful!&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Returns True only for retcode == 10009 (TRADE_RETCODE_DONE)</span>
+</code></pre></div>
+<h3 id="is_retcode_requote">is_retcode_requote()<a class="headerlink" href="#is_retcode_requote" title="Permanent link">¶</a></h3>
+<p>Checks if the RetCode indicates a price change (requote) - safe to retry immediately.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_retcode_requote</span><span class="p">,</span> <span class="n">TRADE_RETCODE_REQUOTE</span><span class="p">,</span> <span class="n">TRADE_RETCODE_PRICE_CHANGED</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Usage</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">if</span> <span class="n">is_retcode_requote</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Price changed, retrying...&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="c1"># Retry with updated price</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># Returns True for 10004 or 10020</span>
+</code></pre></div>
+<h3 id="is_retcode_retryable">is_retcode_retryable()<a class="headerlink" href="#is_retcode_retryable" title="Permanent link">¶</a></h3>
+<p>Checks if the RetCode indicates a temporary error - safe to retry with delay.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">is_retcode_retryable</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">TRADE_RETCODE_TIMEOUT</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">TRADE_RETCODE_NO_CONNECTION</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">TRADE_RETCODE_FROZEN</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># Usage</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="k">if</span> <span class="n">is_retcode_retryable</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">):</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="c1"># These errors are temporary, retry with delay</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    <span class="c1"># Retry operation</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="c1"># Returns True for: Timeout, NoConnection, Frozen, Locked, TooManyRequests, NoQuotes</span>
+</code></pre></div>
+<h3 id="get_retcode_message">get_retcode_message()<a class="headerlink" href="#get_retcode_message" title="Permanent link">¶</a></h3>
+<p>Returns a human-readable description for any RetCode.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_retcode_message</span><span class="p">,</span> <span class="n">TRADE_RETCODE_DONE</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># Usage</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">!=</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># Returns human-readable description for any RetCode</span>
+</code></pre></div>
+<h3 id="check_retcode">check_retcode()<a class="headerlink" href="#check_retcode" title="Permanent link">¶</a></h3>
+<p>Prints formatted message with hints and returns <code>True</code> if successful.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_retcode</span><span class="p">,</span> <span class="n">TRADE_RETCODE_DONE</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Usage</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">if</span> <span class="n">check_retcode</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">,</span> <span class="s2">&quot;Order placement&quot;</span><span class="p">):</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order ticket: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Prints formatted message and helpful hints for common errors</span>
+</code></pre></div>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">¶</a></h2>
+<h3 id="example-1-basic-order-placement-with-retcode-check">Example 1: Basic Order Placement with RetCode Check<a class="headerlink" href="#example-1-basic-order-placement-with-retcode-check" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Account</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymt5.mt5_service</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Service</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymt5.mt5_sugar</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Sugar</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">,</span> <span class="n">get_retcode_message</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_trading_helper_pb2</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderSendRequest</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_trading_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pb_trading</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="c1"># Create MT5Account instance</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="n">account</span> <span class="o">=</span> <span class="n">MT5Account</span><span class="p">(</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>        <span class="n">user</span><span class="o">=</span><span class="mi">12345678</span><span class="p">,</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;your_password&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>        <span class="n">grpc_server</span><span class="o">=</span><span class="s2">&quot;127.0.0.1:9999&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>        <span class="n">id_</span><span class="o">=</span><span class="n">uuid4</span><span class="p">()</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>    <span class="p">)</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>    <span class="c1"># Connect to MT5 server</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>    <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">connect_by_server_name</span><span class="p">(</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>        <span class="n">server_name</span><span class="o">=</span><span class="s2">&quot;MetaQuotes-Demo&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>        <span class="n">base_chart_symbol</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>        <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">120</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>    <span class="p">)</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>        <span class="c1"># Create service and sugar</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>        <span class="n">service</span> <span class="o">=</span> <span class="n">MT5Service</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>        <span class="n">sugar</span> <span class="o">=</span> <span class="n">MT5Sugar</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">default_symbol</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>        <span class="c1"># Place buy market order</span>
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>        <span class="n">request</span> <span class="o">=</span> <span class="n">OrderSendRequest</span><span class="p">(</span>
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>            <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>            <span class="n">volume</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>            <span class="n">operation</span><span class="o">=</span><span class="n">pb_trading</span><span class="o">.</span><span class="n">TMT5_ORDER_TYPE_BUY</span><span class="p">,</span>
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>            <span class="n">price</span><span class="o">=</span><span class="mf">0.0</span>  <span class="c1"># Market order</span>
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>        <span class="p">)</span>
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>        <span class="c1"># Check RetCode</span>
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] Order opened successfully!&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Ticket: #</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Volume: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">volume</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> lots&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Price: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">price</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Order failed!&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   RetCode: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Description: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a>
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a>    <span class="k">finally</span><span class="p">:</span>
+<a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a>        <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+<a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a>
+<a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a>    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<h3 id="example-2-handling-common-errors-ifelif-statement">Example 2: Handling Common Errors (if/elif Statement)<a class="headerlink" href="#example-2-handling-common-errors-ifelif-statement" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">ApiError</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">TRADE_RETCODE_NO_MONEY</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">TRADE_RETCODE_MARKET_CLOSED</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">TRADE_RETCODE_INVALID_STOPS</span><span class="p">,</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="n">TRADE_RETCODE_INVALID_VOLUME</span><span class="p">,</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">TRADE_RETCODE_REQUOTE</span><span class="p">,</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">TRADE_RETCODE_PRICE_CHANGED</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p">)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="n">ticket</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">buy_market</span><span class="p">(</span><span class="s2">&quot;GBPUSD&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[OK] Order #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2"> opened&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>    <span class="n">retcode</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_int_code</span><span class="p">()</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    <span class="k">if</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_NO_MONEY</span><span class="p">:</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] Insufficient funds!&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   Solution: Reduce volume or add margin&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>    <span class="k">elif</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_MARKET_CLOSED</span><span class="p">:</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] Market closed&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   Solution: Try during trading hours&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    <span class="k">elif</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_INVALID_STOPS</span><span class="p">:</span>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] SL/TP too close to market price&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   Solution: Increase distance (check StopLevel)&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>    <span class="k">elif</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_INVALID_VOLUME</span><span class="p">:</span>
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] Invalid volume&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>        <span class="c1"># Get symbol limits</span>
+<a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>        <span class="n">symbol_info</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">get_symbol_info</span><span class="p">(</span><span class="s2">&quot;GBPUSD&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Min: </span><span class="si">{</span><span class="n">symbol_info</span><span class="o">.</span><span class="n">volume_min</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>              <span class="sa">f</span><span class="s2">&quot;Max: </span><span class="si">{</span><span class="n">symbol_info</span><span class="o">.</span><span class="n">volume_max</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>              <span class="sa">f</span><span class="s2">&quot;Step: </span><span class="si">{</span><span class="n">symbol_info</span><span class="o">.</span><span class="n">volume_step</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>
+<a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>    <span class="k">elif</span> <span class="n">retcode</span> <span class="ow">in</span> <span class="p">(</span><span class="n">TRADE_RETCODE_REQUOTE</span><span class="p">,</span> <span class="n">TRADE_RETCODE_PRICE_CHANGED</span><span class="p">):</span>
+<a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] Price changed, retrying...&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>        <span class="c1"># Retry order</span>
+<a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>
+<a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Error: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_description</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="example-3-retry-logic-for-temporary-errors">Example 3: Retry Logic for Temporary Errors<a class="headerlink" href="#example-3-retry-logic-for-temporary-errors" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">ApiError</span><span class="p">,</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">is_retcode_requote</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">is_retcode_retryable</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">)</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">place_order_with_retry</span><span class="p">(</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="n">sugar</span><span class="p">,</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="n">volume</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    <span class="n">max_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="p">):</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Place order with automatic retry logic.&quot;&quot;&quot;</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_retries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>            <span class="n">ticket</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">buy_market</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>            <span class="c1"># Success</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>            <span class="k">return</span> <span class="n">ticket</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>        <span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>            <span class="n">retcode</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_int_code</span><span class="p">()</span>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>            <span class="c1"># Requote - retry immediately</span>
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>            <span class="k">if</span> <span class="n">is_retcode_requote</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span>
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Requote on attempt </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2">, retrying...&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>                <span class="k">continue</span>
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>            <span class="c1"># Retryable error - exponential backoff</span>
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>            <span class="k">if</span> <span class="n">is_retcode_retryable</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span>
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>                <span class="n">wait_time</span> <span class="o">=</span> <span class="n">attempt</span>  <span class="c1"># 1s, 2s, 3s</span>
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temporary error on attempt </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>                      <span class="sa">f</span><span class="s2">&quot;waiting </span><span class="si">{</span><span class="n">wait_time</span><span class="si">}</span><span class="s2">s...&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait_time</span><span class="p">)</span>
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>                <span class="k">continue</span>
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>            <span class="c1"># Permanent error - stop retrying</span>
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>                <span class="sa">f</span><span class="s2">&quot;Permanent error: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_description</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>            <span class="p">)</span>
+<a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a>
+<a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>            <span class="c1"># Other error (network, etc.)</span>
+<a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a>            <span class="k">raise</span>
+<a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a>
+<a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed after </span><span class="si">{</span><span class="n">max_retries</span><span class="si">}</span><span class="s2"> attempts&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a>
+<a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a><span class="c1"># Usage</span>
+<a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a>    <span class="n">ticket</span> <span class="o">=</span> <span class="k">await</span> <span class="n">place_order_with_retry</span><span class="p">(</span><span class="n">sugar</span><span class="p">,</span> <span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order placed: #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to place order: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="example-4-using-check_retcode">Example 4: Using check_retcode()<a class="headerlink" href="#example-4-using-check_retcode" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_retcode</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># check_retcode prints formatted message and returns True on success</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="k">if</span> <span class="n">check_retcode</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">,</span> <span class="s2">&quot;Order placement&quot;</span><span class="p">):</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order ticket: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="c1"># Output on success:</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="c1">#   [OK] Order placement successful (RetCode: 10009)</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="c1"># Output on failure (e.g., market closed):</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="c1">#   [FAIL] Order placement failed (RetCode: 10018)</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="c1">#      Market is closed</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="c1">#      Hint: Market is closed - check trading hours</span>
+</code></pre></div>
+<h3 id="example-5-modifying-sltp-with-validation">Example 5: Modifying SL/TP with Validation<a class="headerlink" href="#example-5-modifying-sltp-with-validation" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5.helpers.errors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">TRADE_RETCODE_DONE</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">TRADE_RETCODE_NO_CHANGES</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">TRADE_RETCODE_POSITION_CLOSED</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">TRADE_RETCODE_INVALID_STOPS</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="n">get_retcode_message</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">)</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">modify_position_sltp</span><span class="p">(</span><span class="mi">123456</span><span class="p">,</span> <span class="n">sl</span><span class="o">=</span><span class="mf">1.0850</span><span class="p">,</span> <span class="n">tp</span><span class="o">=</span><span class="mf">1.0950</span><span class="p">)</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[OK] SL/TP updated successfully&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="n">retcode</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">mql_error_trade_int_code</span><span class="p">()</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>    <span class="k">if</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_NO_CHANGES</span><span class="p">:</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] New SL/TP same as current - no action taken&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>    <span class="k">elif</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_POSITION_CLOSED</span><span class="p">:</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[WARN] Position already closed by SL/TP or manually&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>    <span class="k">elif</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_INVALID_STOPS</span><span class="p">:</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[X] Invalid SL/TP distance&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>        <span class="c1"># Get symbol stop level</span>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>        <span class="n">symbol_info</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">get_symbol_info</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Minimum distance: </span><span class="si">{</span><span class="n">symbol_info</span><span class="o">.</span><span class="n">spread</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[X] Modification failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">retcode</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">¶</a></h2>
+<h3 id="do">DO:<a class="headerlink" href="#do" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p><strong>Always check returned_code</strong> after trading operations
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="c1"># Success</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="k">pass</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use helper functions</strong> for cleaner code
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">if</span> <span class="n">is_retcode_success</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span> <span class="o">...</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">if</span> <span class="n">is_retcode_requote</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span> <span class="o">...</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Retry requotes</strong> (10004, 10020)
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">if</span> <span class="n">is_retcode_requote</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="c1"># Retry with updated price</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="k">pass</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Check margin before trading</strong> to avoid 10019
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">free_margin</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">get_free_margin</span><span class="p">()</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">required_margin</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">calculate_required_margin</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">if</span> <span class="n">free_margin</span> <span class="o">&lt;</span> <span class="n">required_margin</span><span class="p">:</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Insufficient margin!&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="dont">❌ DON'T:<a class="headerlink" href="#dont" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p><strong>Don't ignore returned_code</strong> - catching only exceptions is NOT enough!
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># ❌ WRONG - Dangerous! This looks like success but trade might have failed!</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ← NO! This might be 0 if trade failed</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="c1"># Missing RetCode check = silent failures!</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="k">except</span> <span class="n">ApiError</span><span class="p">:</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="k">pass</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="c1"># ✅ CORRECT - Always check returned_code</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>        <span class="c1"># Now we KNOW trade succeeded</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>        <span class="c1"># Trade failed - handle the error</span>
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="k">except</span> <span class="n">ApiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>    <span class="c1"># Handle API/connection error</span>
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;API Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Don't use magic numbers</strong> - use constants
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># WRONG:</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">if</span> <span class="n">retcode</span> <span class="o">==</span> <span class="mi">10009</span><span class="p">:</span> <span class="o">...</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># CORRECT:</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="k">if</span> <span class="n">retcode</span> <span class="o">==</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Don't retry permanent errors</strong> (insufficient margin, market closed)
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Use is_retcode_retryable() to check</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="k">if</span> <span class="n">is_retcode_retryable</span><span class="p">(</span><span class="n">retcode</span><span class="p">):</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="c1"># Safe to retry</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="k">pass</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Don't assume no exception = success</strong>
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Need to check both exception AND RetCode</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">place_order</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">returned_code</span> <span class="o">!=</span> <span class="n">TRADE_RETCODE_DONE</span><span class="p">:</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trade failed: </span><span class="si">{</span><span class="n">get_retcode_message</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returned_code</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>    <span class="c1"># Handle error</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    <span class="k">pass</span>
+</code></pre></div></p>
+</li>
+</ol>
+<hr />
+<h2 id="i-quick-reference-table">ℹ️ Quick Reference Table<a class="headerlink" href="#i-quick-reference-table" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>RetCodes</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Success</strong></td>
+<td>10008, 10009, 10010</td>
+<td>Continue normally</td>
+</tr>
+<tr>
+<td><strong>Requote</strong></td>
+<td>10004, 10020</td>
+<td>Retry immediately</td>
+</tr>
+<tr>
+<td><strong>Temporary</strong></td>
+<td>10012, 10021, 10024, 10028, 10029, 10031</td>
+<td>Retry with delay</td>
+</tr>
+<tr>
+<td><strong>Validation</strong></td>
+<td>10013-10016, 10022, 10030, 10035, 10038</td>
+<td>Fix parameters</td>
+</tr>
+<tr>
+<td><strong>Restrictions</strong></td>
+<td>10017, 10018, 10026, 10027, 10032, 10042-10046</td>
+<td>Check trading conditions</td>
+</tr>
+<tr>
+<td><strong>Limits</strong></td>
+<td>10019, 10033, 10034, 10040</td>
+<td>Reduce volume/positions</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>10023, 10025, 10036, 10039</td>
+<td>Check current state</td>
+</tr>
+<tr>
+<td><strong>Rejection</strong></td>
+<td>10006, 10007, 10041</td>
+<td>Check request</td>
+</tr>
+<tr>
+<td><strong>Technical</strong></td>
+<td>10011</td>
+<td>Contact support</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="constants-reference">Constants Reference<a class="headerlink" href="#constants-reference" title="Permanent link">¶</a></h2>
+<p>All RetCode constants are defined in <code>package/MetaRpcMT5/helpers/errors.py</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Success codes</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">TRADE_RETCODE_SUCCESS</span> <span class="o">=</span> <span class="mi">0</span>           <span class="c1"># Success (generic, rarely used - prefer DONE)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="n">TRADE_RETCODE_DONE</span> <span class="o">=</span> <span class="mi">10009</span>          <span class="c1"># Request completed successfully</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="n">TRADE_RETCODE_DONE_PARTIAL</span> <span class="o">=</span> <span class="mi">10010</span>  <span class="c1"># Only part of the request was completed</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="n">TRADE_RETCODE_PLACED</span> <span class="o">=</span> <span class="mi">10008</span>        <span class="c1"># Order placed (pending order activated)</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># Requote codes</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="n">TRADE_RETCODE_REQUOTE</span> <span class="o">=</span> <span class="mi">10004</span>       <span class="c1"># Requote (price changed, need to retry)</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="n">TRADE_RETCODE_PRICE_CHANGED</span> <span class="o">=</span> <span class="mi">10020</span> <span class="c1"># Prices changed (same as requote)</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="c1"># Request rejection codes</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="n">TRADE_RETCODE_REJECT</span> <span class="o">=</span> <span class="mi">10006</span>        <span class="c1"># Request rejected by server</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="n">TRADE_RETCODE_CANCEL</span> <span class="o">=</span> <span class="mi">10007</span>        <span class="c1"># Request canceled by trader</span>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="n">TRADE_RETCODE_INVALID_REQUEST</span> <span class="o">=</span> <span class="mi">10013</span>       <span class="c1"># Invalid request</span>
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a><span class="n">TRADE_RETCODE_INVALID_VOLUME</span> <span class="o">=</span> <span class="mi">10014</span>        <span class="c1"># Invalid volume in the request</span>
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a><span class="n">TRADE_RETCODE_INVALID_PRICE</span> <span class="o">=</span> <span class="mi">10015</span>         <span class="c1"># Invalid price in the request</span>
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="n">TRADE_RETCODE_INVALID_STOPS</span> <span class="o">=</span> <span class="mi">10016</span>         <span class="c1"># Invalid stops (SL/TP too close to price)</span>
+<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a><span class="n">TRADE_RETCODE_INVALID_EXPIRATION</span> <span class="o">=</span> <span class="mi">10022</span>    <span class="c1"># Invalid order expiration date</span>
+<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a><span class="n">TRADE_RETCODE_INVALID_FILL</span> <span class="o">=</span> <span class="mi">10030</span>          <span class="c1"># Invalid order filling type</span>
+<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a><span class="n">TRADE_RETCODE_INVALID_ORDER</span> <span class="o">=</span> <span class="mi">10035</span>         <span class="c1"># Incorrect or prohibited order type</span>
+<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a><span class="n">TRADE_RETCODE_INVALID_CLOSE_VOLUME</span> <span class="o">=</span> <span class="mi">10038</span>  <span class="c1"># Invalid close volume</span>
+<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>
+<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a><span class="c1"># Backward compatibility alias</span>
+<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a><span class="n">TRADE_RETCODE_INVALID</span> <span class="o">=</span> <span class="n">TRADE_RETCODE_INVALID_REQUEST</span>
+<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>
+<a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a><span class="c1"># Trading restriction codes</span>
+<a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a><span class="n">TRADE_RETCODE_TRADE_DISABLED</span> <span class="o">=</span> <span class="mi">10017</span>    <span class="c1"># Trading is disabled</span>
+<a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a><span class="n">TRADE_RETCODE_MARKET_CLOSED</span> <span class="o">=</span> <span class="mi">10018</span>     <span class="c1"># Market is closed</span>
+<a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a><span class="n">TRADE_RETCODE_SERVER_DISABLES_AT</span> <span class="o">=</span> <span class="mi">10026</span> <span class="c1"># Autotrading disabled by server</span>
+<a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a><span class="n">TRADE_RETCODE_CLIENT_DISABLES_AT</span> <span class="o">=</span> <span class="mi">10027</span> <span class="c1"># Autotrading disabled by client terminal</span>
+<a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a><span class="n">TRADE_RETCODE_ONLY_REAL</span> <span class="o">=</span> <span class="mi">10032</span>         <span class="c1"># Operation is allowed only for live accounts</span>
+<a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a><span class="n">TRADE_RETCODE_LONG_ONLY</span> <span class="o">=</span> <span class="mi">10042</span>         <span class="c1"># Only long positions allowed</span>
+<a id="__codelineno-25-33" name="__codelineno-25-33" href="#__codelineno-25-33"></a><span class="n">TRADE_RETCODE_SHORT_ONLY</span> <span class="o">=</span> <span class="mi">10043</span>        <span class="c1"># Only short positions allowed</span>
+<a id="__codelineno-25-34" name="__codelineno-25-34" href="#__codelineno-25-34"></a><span class="n">TRADE_RETCODE_CLOSE_ONLY</span> <span class="o">=</span> <span class="mi">10044</span>        <span class="c1"># Only position close operations allowed</span>
+<a id="__codelineno-25-35" name="__codelineno-25-35" href="#__codelineno-25-35"></a><span class="n">TRADE_RETCODE_FIFO_CLOSE</span> <span class="o">=</span> <span class="mi">10045</span>        <span class="c1"># Position close only by FIFO rule</span>
+<a id="__codelineno-25-36" name="__codelineno-25-36" href="#__codelineno-25-36"></a><span class="n">TRADE_RETCODE_HEDGE_PROHIBITED</span> <span class="o">=</span> <span class="mi">10046</span>  <span class="c1"># Opposite positions prohibited (hedging disabled)</span>
+<a id="__codelineno-25-37" name="__codelineno-25-37" href="#__codelineno-25-37"></a>
+<a id="__codelineno-25-38" name="__codelineno-25-38" href="#__codelineno-25-38"></a><span class="c1"># Resource limit codes</span>
+<a id="__codelineno-25-39" name="__codelineno-25-39" href="#__codelineno-25-39"></a><span class="n">TRADE_RETCODE_NO_MONEY</span> <span class="o">=</span> <span class="mi">10019</span>          <span class="c1"># Not enough money (insufficient margin)</span>
+<a id="__codelineno-25-40" name="__codelineno-25-40" href="#__codelineno-25-40"></a><span class="n">TRADE_RETCODE_LIMIT_ORDERS</span> <span class="o">=</span> <span class="mi">10033</span>      <span class="c1"># Number of pending orders reached the limit</span>
+<a id="__codelineno-25-41" name="__codelineno-25-41" href="#__codelineno-25-41"></a><span class="n">TRADE_RETCODE_LIMIT_VOLUME</span> <span class="o">=</span> <span class="mi">10034</span>      <span class="c1"># Volume of orders and positions reached the limit</span>
+<a id="__codelineno-25-42" name="__codelineno-25-42" href="#__codelineno-25-42"></a><span class="n">TRADE_RETCODE_LIMIT_POSITIONS</span> <span class="o">=</span> <span class="mi">10040</span>   <span class="c1"># Number of open positions reached the limit</span>
+<a id="__codelineno-25-43" name="__codelineno-25-43" href="#__codelineno-25-43"></a>
+<a id="__codelineno-25-44" name="__codelineno-25-44" href="#__codelineno-25-44"></a><span class="c1"># Technical issue codes</span>
+<a id="__codelineno-25-45" name="__codelineno-25-45" href="#__codelineno-25-45"></a><span class="n">TRADE_RETCODE_ERROR</span> <span class="o">=</span> <span class="mi">10011</span>             <span class="c1"># Request processing error</span>
+<a id="__codelineno-25-46" name="__codelineno-25-46" href="#__codelineno-25-46"></a><span class="n">TRADE_RETCODE_TIMEOUT</span> <span class="o">=</span> <span class="mi">10012</span>           <span class="c1"># Request canceled by timeout</span>
+<a id="__codelineno-25-47" name="__codelineno-25-47" href="#__codelineno-25-47"></a><span class="n">TRADE_RETCODE_NO_QUOTES</span> <span class="o">=</span> <span class="mi">10021</span>         <span class="c1"># No quotes to process the request</span>
+<a id="__codelineno-25-48" name="__codelineno-25-48" href="#__codelineno-25-48"></a><span class="n">TRADE_RETCODE_TOO_MANY_REQUESTS</span> <span class="o">=</span> <span class="mi">10024</span> <span class="c1"># Too frequent requests</span>
+<a id="__codelineno-25-49" name="__codelineno-25-49" href="#__codelineno-25-49"></a><span class="n">TRADE_RETCODE_LOCKED</span> <span class="o">=</span> <span class="mi">10028</span>            <span class="c1"># Request locked for processing</span>
+<a id="__codelineno-25-50" name="__codelineno-25-50" href="#__codelineno-25-50"></a><span class="n">TRADE_RETCODE_FROZEN</span> <span class="o">=</span> <span class="mi">10029</span>            <span class="c1"># Order or position frozen</span>
+<a id="__codelineno-25-51" name="__codelineno-25-51" href="#__codelineno-25-51"></a><span class="n">TRADE_RETCODE_NO_CONNECTION</span> <span class="o">=</span> <span class="mi">10031</span>     <span class="c1"># No connection with the trade server</span>
+<a id="__codelineno-25-52" name="__codelineno-25-52" href="#__codelineno-25-52"></a>
+<a id="__codelineno-25-53" name="__codelineno-25-53" href="#__codelineno-25-53"></a><span class="c1"># Backward compatibility aliases</span>
+<a id="__codelineno-25-54" name="__codelineno-25-54" href="#__codelineno-25-54"></a><span class="n">TRADE_RETCODE_PRICE_OFF</span> <span class="o">=</span> <span class="n">TRADE_RETCODE_NO_QUOTES</span>
+<a id="__codelineno-25-55" name="__codelineno-25-55" href="#__codelineno-25-55"></a><span class="n">TRADE_RETCODE_CONNECTION</span> <span class="o">=</span> <span class="n">TRADE_RETCODE_NO_CONNECTION</span>
+<a id="__codelineno-25-56" name="__codelineno-25-56" href="#__codelineno-25-56"></a>
+<a id="__codelineno-25-57" name="__codelineno-25-57" href="#__codelineno-25-57"></a><span class="c1"># State management codes</span>
+<a id="__codelineno-25-58" name="__codelineno-25-58" href="#__codelineno-25-58"></a><span class="n">TRADE_RETCODE_ORDER_CHANGED</span> <span class="o">=</span> <span class="mi">10023</span>     <span class="c1"># Order state changed during request</span>
+<a id="__codelineno-25-59" name="__codelineno-25-59" href="#__codelineno-25-59"></a><span class="n">TRADE_RETCODE_NO_CHANGES</span> <span class="o">=</span> <span class="mi">10025</span>        <span class="c1"># No changes in request</span>
+<a id="__codelineno-25-60" name="__codelineno-25-60" href="#__codelineno-25-60"></a><span class="n">TRADE_RETCODE_POSITION_CLOSED</span> <span class="o">=</span> <span class="mi">10036</span>   <span class="c1"># Position with specified ID already closed</span>
+<a id="__codelineno-25-61" name="__codelineno-25-61" href="#__codelineno-25-61"></a><span class="n">TRADE_RETCODE_CLOSE_ORDER_EXIST</span> <span class="o">=</span> <span class="mi">10039</span> <span class="c1"># A close order already exists for position</span>
+<a id="__codelineno-25-62" name="__codelineno-25-62" href="#__codelineno-25-62"></a><span class="n">TRADE_RETCODE_REJECT_CANCEL</span> <span class="o">=</span> <span class="mi">10041</span>     <span class="c1"># Pending order activation rejected and canceled</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../GRPC_STREAM_MANAGEMENT/" class="md-footer__link md-footer__link--prev" aria-label="Previous: gRPC Streaming">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                gRPC Streaming
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ENUMS_USAGE_REFERENCE/" class="md-footer__link md-footer__link--next" aria-label="Next: ENUMs Reference">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                ENUMs Reference
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2055 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/MT5Service/2.%20Symbol_Information/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>✅ MT5Service - Symbol Methods (Mid-Level API) - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mt5service-symbol-methods-mid-level-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ✅ MT5Service - Symbol Methods (Mid-Level API)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important-read-this-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important: Read This First
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important: Read This First">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-13-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the 13 Methods:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What This Means:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-these-methods-exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why These Methods Exist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why These Methods Exist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-value-protobuf-unpacking-datetime-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Value: Protobuf Unpacking + Datetime Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#all-13-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All 13 Methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataclasses-dtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ➕ Dataclasses (DTOs)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="➕ Dataclasses (DTOs)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#symboltick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SymbolTick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symbolmarginrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SymbolMarginRate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sessiontime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SessionTime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symbolparams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SymbolParams
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method Signatures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method Signatures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-get_symbols_total" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) get_symbols_total
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-symbol_exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) symbol_exist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-get_symbol_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) get_symbol_name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-symbol_select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) symbol_select
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-is_symbol_synchronized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5) is_symbol_synchronized
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-get_symbol_double" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6) get_symbol_double
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-get_symbol_integer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7) get_symbol_integer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-get_symbol_string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8) get_symbol_string
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-get_symbol_margin_rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9) get_symbol_margin_rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-get_symbol_tick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10) get_symbol_tick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-get_symbol_session_quote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11) get_symbol_session_quote
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-get_symbol_session_trade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12) get_symbol_session_trade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-get_symbol_params_many" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13) get_symbol_params_many
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-getting-symbol-tick-with-auto-converted-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Getting Symbol Tick with Auto-Converted Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-checking-symbol-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Checking Symbol Availability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-getting-trading-session-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Getting Trading Session Times
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-bulk-symbol-data-retrieval-get_symbol_params_many" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Bulk Symbol Data Retrieval (get_symbol_params_many)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-which-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Which Method
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Which Method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-get_symbol_tick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use get_symbol_tick()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-get_symbol_doubleintegerstring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use get_symbol_double/integer/string()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-get_symbol_params_many" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use get_symbol_params_many()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Related Sections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mt5service-symbol-methods-mid-level-api">✅ MT5Service - Symbol Methods (Mid-Level API)<a class="headerlink" href="#mt5service-symbol-methods-mid-level-api" title="Permanent link">¶</a></h1>
+<h2 id="important-read-this-first">Important: Read This First<a class="headerlink" href="#important-read-this-first" title="Permanent link">¶</a></h2>
+<p><strong>MT5Service is an architectural layer</strong> between high-level (Sugar) and low-level (Account) APIs.</p>
+<h3 id="understanding-the-13-methods">Understanding the 13 Methods:<a class="headerlink" href="#understanding-the-13-methods" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Direct Use Value</th>
+<th>Architectural Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_symbol_params_many()</code></td>
+<td><strong>VERY HIGH</strong> - Aggregates 17 fields + unpacks protobuf list</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_tick()</code></td>
+<td><strong>HIGH</strong> - Unix timestamp datetime + unpacks 8 fields</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_session_quote()</code></td>
+<td><strong>HIGH</strong> - 2x protobuf Timestamp datetime</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_session_trade()</code></td>
+<td><strong>HIGH</strong> - 2x protobuf Timestamp datetime</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_margin_rate()</code></td>
+<td><strong>MEDIUM</strong> - Unpacks protobuf + creates dataclass</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbols_total()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.total</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>symbol_exist()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>(data.exists, data.is_custom)</code></td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_name()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.name</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>symbol_select()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.success</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>is_symbol_synchronized()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.synchronized</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_double()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.value</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_integer()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.value</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+<tr>
+<td><code>get_symbol_string()</code></td>
+<td><strong>LOW</strong> - Unpacks <code>data.value</code> from protobuf</td>
+<td>Used by Sugar</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-this-means">What This Means:<a class="headerlink" href="#what-this-means" title="Permanent link">¶</a></h3>
+<p><strong>🏗️ Architecture (3 layers):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>MT5Sugar (HIGH)     service.get_symbol_tick()      Sugar uses Service methods
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>MT5Service (MID)    account.symbol_info_tick()     Service unpacks protobuf + converts datetime
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>MT5Account (LOW)    gRPC call protobuf Data
+</code></pre></div></p>
+<p><strong>Key difference from Account methods:</strong></p>
+<ul>
+<li><strong>ALL symbol methods have value</strong> - MT5Account returns protobuf Data objects that need unpacking</li>
+<li><strong>Protobuf unpacking</strong> - Service extracts values from <code>data.value</code>, <code>data.total</code>, etc.</li>
+<li><strong>Datetime conversion</strong> - 3 methods convert timestamps/protobuf Timestamps to Python datetime</li>
+<li><strong>Dataclass creation</strong> - Cleaner API with typed dataclasses instead of protobuf messages</li>
+</ul>
+<p><strong>For direct MT5Service usage:</strong></p>
+<ul>
+<li><strong>Use all methods</strong> - they all add value through protobuf unpacking</li>
+<li><strong>High-value methods</strong> - <code>get_symbol_params_many()</code>, <code>get_symbol_tick()</code>, session methods</li>
+<li><strong>Low-value methods</strong> - simple unpacking, but still saves you from manual <code>data.value</code> extraction</li>
+</ul>
+<p><strong>For MT5Sugar users:</strong></p>
+<ul>
+<li>All methods work perfectly - the layer serves its architectural purpose</li>
+</ul>
+<hr />
+<p><strong>API Layer:</strong> <strong>MID-LEVEL</strong> - wrappers over MT5Account with Python native types</p>
+<p><strong>Implementation:</strong></p>
+<p>These methods are implemented in <code>src/pymt5/mt5_service.py</code>, which wraps <code>package/MetaRpcMT5/helpers/mt5_account.py</code> low-level API with convenient dataclasses and automatic type conversion.</p>
+<p><strong>Example files:</strong></p>
+<ul>
+<li><code>examples/2_service/04_service_demo.py</code> - comprehensive demo of all MT5Service methods including symbol information</li>
+</ul>
+<hr />
+<h2 id="why-these-methods-exist">Why These Methods Exist<a class="headerlink" href="#why-these-methods-exist" title="Permanent link">¶</a></h2>
+<h3 id="real-value-protobuf-unpacking-datetime-conversion">Real Value: Protobuf Unpacking + Datetime Conversion<a class="headerlink" href="#real-value-protobuf-unpacking-datetime-conversion" title="Permanent link">¶</a></h3>
+<p><strong>Unlike Account methods</strong>, Symbol methods in MT5Service <strong>all add real value</strong> because MT5Account returns protobuf Data objects:</p>
+<p><strong>Problem with MT5Account</strong> (Low-level):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># MT5Account returns protobuf Data objects - need manual unpacking</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_info_double</span><span class="p">(</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="nb">property</span><span class="o">=</span><span class="n">market_info_pb2</span><span class="o">.</span><span class="n">SYMBOL_BID</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">bid</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># Manual extraction from protobuf wrapper</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Tick time is Unix timestamp - need manual conversion</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">tick_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_info_tick</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">tick_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">tick_data</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># Manual datetime conversion</span>
+</code></pre></div></p>
+<p><strong>Solution with MT5Service</strong> (Mid-level):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Service unpacks protobuf automatically - returns native types</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">bid</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_double</span><span class="p">(</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">property</span><span class="o">=</span><span class="n">market_info_pb2</span><span class="o">.</span><span class="n">SYMBOL_BID</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">)</span>  <span class="c1"># Already float, not protobuf Data!</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Tick with datetime already converted</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">tick</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_tick</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>  <span class="c1"># Already datetime object!</span>
+</code></pre></div></p>
+<p><strong>What MT5Service provides:</strong></p>
+<ol>
+<li>
+<p><strong>Protobuf unpacking</strong> (all 13 methods):</p>
+</li>
+<li>
+<p>MT5Account: <code>return res.data</code> (protobuf object)</p>
+</li>
+<li>
+<p>MT5Service: <code>return data.value</code> (native Python type)</p>
+</li>
+<li>
+<p><strong>Datetime conversion</strong> (3 methods):</p>
+</li>
+<li>
+<p><code>get_symbol_tick()</code>: Unix timestamp <code>datetime.fromtimestamp()</code></p>
+</li>
+<li><code>get_symbol_session_quote()</code>: protobuf Timestamp <code>ToDatetime()</code> x2</li>
+<li>
+<p><code>get_symbol_session_trade()</code>: protobuf Timestamp <code>ToDatetime()</code> x2</p>
+</li>
+<li>
+<p><strong>Data aggregation</strong> (1 method):</p>
+</li>
+<li>
+<p><code>get_symbol_params_many()</code>: 17 fields in one call instead of 17 separate calls</p>
+</li>
+<li>
+<p><strong>Clean dataclasses</strong>:</p>
+</li>
+<li>
+<p><code>SymbolTick</code>, <code>SymbolParams</code>, <code>SessionTime</code>, <code>SymbolMarginRate</code> instead of protobuf messages</p>
+</li>
+</ol>
+<p><strong>Architectural purpose:</strong></p>
+<ul>
+<li><strong>MT5Sugar</strong> uses these methods to maintain layered architecture (Sugar Service Account)</li>
+<li><strong>Direct users</strong> also benefit - all methods add value through unpacking and conversion</li>
+</ul>
+<hr />
+<h2 id="all-13-methods">All 13 Methods<a class="headerlink" href="#all-13-methods" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>get_symbols_total()</code></strong></td>
+<td><code>int</code></td>
+<td>Get count of available symbols</td>
+</tr>
+<tr>
+<td><strong><code>symbol_exist()</code></strong></td>
+<td><code>Tuple[bool, bool]</code></td>
+<td>Check if symbol exists (exists, is_custom)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_name()</code></strong></td>
+<td><code>str</code></td>
+<td>Get symbol name by index</td>
+</tr>
+<tr>
+<td><strong><code>symbol_select()</code></strong></td>
+<td><code>bool</code></td>
+<td>Add/remove symbol from Market Watch</td>
+</tr>
+<tr>
+<td><strong><code>is_symbol_synchronized()</code></strong></td>
+<td><code>bool</code></td>
+<td>Check if symbol data is synchronized</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_double()</code></strong></td>
+<td><code>float</code></td>
+<td>Get double property (Bid, Ask, Point, etc.)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_integer()</code></strong></td>
+<td><code>int</code></td>
+<td>Get integer property (Digits, Spread, etc.)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_string()</code></strong></td>
+<td><code>str</code></td>
+<td>Get string property (Description, Currency, etc.)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_margin_rate()</code></strong></td>
+<td><code>SymbolMarginRate</code></td>
+<td>Get margin rates for order type</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_tick()</code></strong></td>
+<td><code>SymbolTick</code></td>
+<td>Get current tick (time auto-converted to datetime)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_session_quote()</code></strong></td>
+<td><code>SessionTime</code></td>
+<td>Get quote session times (as datetime)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_session_trade()</code></strong></td>
+<td><code>SessionTime</code></td>
+<td>Get trading session times (as datetime)</td>
+</tr>
+<tr>
+<td><strong><code>get_symbol_params_many()</code></strong></td>
+<td><code>Tuple[List[SymbolParams], int]</code></td>
+<td>Get comprehensive data for multiple symbols</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dataclasses-dtos">➕ Dataclasses (DTOs)<a class="headerlink" href="#dataclasses-dtos" title="Permanent link">¶</a></h2>
+<h3 id="symboltick">SymbolTick<a class="headerlink" href="#symboltick" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">SymbolTick</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">    Current tick information for a symbol.</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">    ADVANTAGE: Time is already converted from Unix timestamp to datetime.</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">time</span><span class="p">:</span> <span class="n">datetime</span>          <span class="c1"># Tick time (converted from Unix timestamp)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">bid</span><span class="p">:</span> <span class="nb">float</span>              <span class="c1"># Current Bid price</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">ask</span><span class="p">:</span> <span class="nb">float</span>              <span class="c1"># Current Ask price</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">last</span><span class="p">:</span> <span class="nb">float</span>             <span class="c1"># Last deal price</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">volume</span><span class="p">:</span> <span class="nb">int</span>             <span class="c1"># Tick volume</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">time_ms</span><span class="p">:</span> <span class="nb">int</span>            <span class="c1"># Tick time in milliseconds</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">flags</span><span class="p">:</span> <span class="nb">int</span>              <span class="c1"># Tick flags</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">volume_real</span><span class="p">:</span> <span class="nb">float</span>      <span class="c1"># Tick volume with decimal precision</span>
+</code></pre></div>
+<h3 id="symbolmarginrate">SymbolMarginRate<a class="headerlink" href="#symbolmarginrate" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">SymbolMarginRate</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Margin rate information for a symbol.&quot;&quot;&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">initial_margin_rate</span><span class="p">:</span> <span class="nb">float</span>          <span class="c1"># Initial margin rate</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">maintenance_margin_rate</span><span class="p">:</span> <span class="nb">float</span>      <span class="c1"># Maintenance margin requirement</span>
+</code></pre></div>
+<h3 id="sessiontime">SessionTime<a class="headerlink" href="#sessiontime" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">SessionTime</span><span class="p">:</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Trading session time range.&quot;&quot;&quot;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">from_time</span><span class="p">:</span> <span class="n">datetime</span>     <span class="c1"># Session start time (already datetime)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">to_time</span><span class="p">:</span> <span class="n">datetime</span>       <span class="c1"># Session end time (already datetime)</span>
+</code></pre></div>
+<h3 id="symbolparams">SymbolParams<a class="headerlink" href="#symbolparams" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nd">@dataclass</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">SymbolParams</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sd">    Comprehensive symbol information.</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">    ADVANTAGE: All 17 important symbol parameters in one structure.</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">    Much more convenient than making multiple calls to SymbolInfoDouble/Integer/String.</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>                   <span class="c1"># Symbol name</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">bid</span><span class="p">:</span> <span class="nb">float</span>                  <span class="c1"># Current Bid price</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">ask</span><span class="p">:</span> <span class="nb">float</span>                  <span class="c1"># Current Ask price</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">last</span><span class="p">:</span> <span class="nb">float</span>                 <span class="c1"># Last deal price</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">point</span><span class="p">:</span> <span class="nb">float</span>                <span class="c1"># Point size (minimal price change)</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="n">digits</span><span class="p">:</span> <span class="nb">int</span>                 <span class="c1"># Number of decimal places</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="n">spread</span><span class="p">:</span> <span class="nb">int</span>                 <span class="c1"># Current spread in points</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="n">volume_min</span><span class="p">:</span> <span class="nb">float</span>           <span class="c1"># Minimum volume for trading</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="n">volume_max</span><span class="p">:</span> <span class="nb">float</span>           <span class="c1"># Maximum volume for trading</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="n">volume_step</span><span class="p">:</span> <span class="nb">float</span>          <span class="c1"># Volume step</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="n">trade_tick_size</span><span class="p">:</span> <span class="nb">float</span>      <span class="c1"># Trade tick size</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>    <span class="n">trade_tick_value</span><span class="p">:</span> <span class="nb">float</span>     <span class="c1"># Trade tick value</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="n">trade_contract_size</span><span class="p">:</span> <span class="nb">float</span>  <span class="c1"># Contract size</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>    <span class="n">swap_long</span><span class="p">:</span> <span class="nb">float</span>            <span class="c1"># Swap for long positions</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>    <span class="n">swap_short</span><span class="p">:</span> <span class="nb">float</span>           <span class="c1"># Swap for short positions</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    <span class="n">margin_initial</span><span class="p">:</span> <span class="nb">float</span>       <span class="c1"># Initial margin requirement</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>    <span class="n">margin_maintenance</span><span class="p">:</span> <span class="nb">float</span>   <span class="c1"># Maintenance margin requirement</span>
+</code></pre></div>
+<hr />
+<h2 id="method-signatures">Method Signatures<a class="headerlink" href="#method-signatures" title="Permanent link">¶</a></h2>
+<h3 id="1-get_symbols_total">1) get_symbols_total<a class="headerlink" href="#1-get_symbols_total" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbols_total</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">selected_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+<p><strong>Get count of available symbols.</strong></p>
+<p><strong>Args:</strong>
+- <code>selected_only</code>: <code>True</code> to count only Market Watch symbols, <code>False</code> for all</p>
+<p><strong>Returns:</strong> <code>int</code> count directly (no Data struct)</p>
+<p><strong>Technical:</strong> Low-level returns SymbolsTotalData with <code>data.total</code> wrapper. This auto-extracts the count.</p>
+<hr />
+<h3 id="2-symbol_exist">2) symbol_exist<a class="headerlink" href="#2-symbol_exist" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">symbol_exist</span><span class="p">(</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Check if symbol exists in terminal.</strong></p>
+<p><strong>Args:</strong>
+- <code>symbol</code>: Symbol name to check</p>
+<p><strong>Returns:</strong> <code>Tuple[exists, is_custom]</code>
+- <code>exists</code>: True if symbol exists
+- <code>is_custom</code>: True if custom symbol</p>
+<hr />
+<h3 id="3-get_symbol_name">3) get_symbol_name<a class="headerlink" href="#3-get_symbol_name" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_name</span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">selected_only</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+<p><strong>Get symbol name by index position.</strong></p>
+<p><strong>Args:</strong>
+- <code>index</code>: Symbol index (starting at 0)
+- <code>selected_only</code>: True to use only Market Watch symbols</p>
+<p><strong>Returns:</strong> Symbol name string directly</p>
+<p><strong>Usage:</strong> Iterate through all symbols with <code>range(get_symbols_total())</code>.</p>
+<hr />
+<h3 id="4-symbol_select">4) symbol_select<a class="headerlink" href="#4-symbol_select" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">symbol_select</span><span class="p">(</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">select</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+<p><strong>Add/remove symbol from Market Watch.</strong></p>
+<p><strong>Args:</strong>
+- <code>symbol</code>: Symbol name
+- <code>select</code>: True to add, False to remove</p>
+<p><strong>Returns:</strong> Success status</p>
+<hr />
+<h3 id="5-is_symbol_synchronized">5) is_symbol_synchronized<a class="headerlink" href="#5-is_symbol_synchronized" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">is_symbol_synchronized</span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+<p><strong>Check if symbol data is synchronized with broker server.</strong></p>
+<p><strong>Args:</strong>
+- <code>symbol</code>: Symbol name to check</p>
+<p><strong>Returns:</strong> <code>True</code> if synchronized, <code>False</code> otherwise</p>
+<p><strong>Usage:</strong> Check before requesting tick data to ensure it's up-to-date.</p>
+<hr />
+<h3 id="6-get_symbol_double">6) get_symbol_double<a class="headerlink" href="#6-get_symbol_double" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_double</span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="nb">property</span><span class="p">:</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">SymbolInfoDoubleProperty</span><span class="p">,</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+<p><strong>Get individual symbol double property.</strong></p>
+<p><strong>Available properties:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5</span><span class="w"> </span><span class="kn">import</span> <span class="n">mt5_term_api_market_info_pb2</span> <span class="k">as</span> <span class="n">market_info_pb2</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Price properties:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">SYMBOL_BID</span>                  <span class="c1"># Current Bid price</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">SYMBOL_ASK</span>                  <span class="c1"># Current Ask price</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">SYMBOL_LAST</span>                 <span class="c1"># Last deal price</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Size properties:</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">SYMBOL_POINT</span>                <span class="c1"># Point size (0.00001 for EURUSD)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">SYMBOL_TRADE_TICK_VALUE</span>     <span class="c1"># Tick value in deposit currency</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">SYMBOL_TRADE_TICK_SIZE</span>      <span class="c1"># Tick size in points</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="n">SYMBOL_TRADE_CONTRACT_SIZE</span>  <span class="c1"># Contract size (100000 for forex)</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="c1"># Volume properties:</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="n">SYMBOL_VOLUME_MIN</span>           <span class="c1"># Minimum volume</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="n">SYMBOL_VOLUME_MAX</span>           <span class="c1"># Maximum volume</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="n">SYMBOL_VOLUME_STEP</span>          <span class="c1"># Volume step</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="c1"># Swap properties:</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="n">SYMBOL_SWAP_LONG</span>            <span class="c1"># Swap for long positions</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="n">SYMBOL_SWAP_SHORT</span>           <span class="c1"># Swap for short positions</span>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="c1"># Margin properties:</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="n">SYMBOL_MARGIN_INITIAL</span>       <span class="c1"># Initial margin</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="n">SYMBOL_MARGIN_MAINTENANCE</span>   <span class="c1"># Maintenance margin</span>
+</code></pre></div>
+<p><strong>Returns:</strong> <code>float</code> value directly</p>
+<p><strong>Technical:</strong> Low-level returns SymbolInfoDoubleResponse with <code>data.value</code>. This extracts the float.</p>
+<hr />
+<h3 id="7-get_symbol_integer">7) get_symbol_integer<a class="headerlink" href="#7-get_symbol_integer" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_integer</span><span class="p">(</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="nb">property</span><span class="p">:</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">SymbolInfoIntegerProperty</span><span class="p">,</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+<p><strong>Get individual symbol integer property.</strong></p>
+<p><strong>Available properties:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">SYMBOL_DIGITS</span>               <span class="c1"># Number of decimal places (5 for EURUSD)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">SYMBOL_SPREAD</span>               <span class="c1"># Current spread in points</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">SYMBOL_TRADE_MODE</span>           <span class="c1"># Trade mode (0=disabled, 4=full)</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">SYMBOL_TRADE_EXEMODE</span>        <span class="c1"># Execution mode (instant/market/exchange)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="n">SYMBOL_START_TIME</span>           <span class="c1"># Symbol start time (Unix timestamp)</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="n">SYMBOL_EXPIRATION_TIME</span>      <span class="c1"># Symbol expiration time (Unix timestamp)</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="n">SYMBOL_FILLING_MODE</span>         <span class="c1"># Filling mode flags</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="n">SYMBOL_ORDER_MODE</span>           <span class="c1"># Allowed order types flags</span>
+</code></pre></div>
+<p><strong>Returns:</strong> <code>int</code> value directly</p>
+<hr />
+<h3 id="8-get_symbol_string">8) get_symbol_string<a class="headerlink" href="#8-get_symbol_string" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_string</span><span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="nb">property</span><span class="p">:</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">SymbolInfoStringProperty</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+<p><strong>Get individual symbol string property.</strong></p>
+<p><strong>Available properties:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">SYMBOL_DESCRIPTION</span>          <span class="c1"># Symbol description (&quot;Euro vs US Dollar&quot;)</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="n">SYMBOL_CURRENCY_BASE</span>        <span class="c1"># Base currency (&quot;EUR&quot; for EURUSD)</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">SYMBOL_CURRENCY_PROFIT</span>      <span class="c1"># Profit currency (&quot;USD&quot; for EURUSD)</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">SYMBOL_CURRENCY_MARGIN</span>      <span class="c1"># Margin currency</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">SYMBOL_BANK</span>                 <span class="c1"># Source of quotes</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">SYMBOL_ISIN</span>                 <span class="c1"># ISIN code</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">SYMBOL_CATEGORY</span>             <span class="c1"># Symbol category (Forex, Stocks, etc.)</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="n">SYMBOL_PATH</span>                 <span class="c1"># Path in symbol tree</span>
+</code></pre></div>
+<p><strong>Returns:</strong> <code>str</code> value directly</p>
+<hr />
+<h3 id="9-get_symbol_margin_rate">9) get_symbol_margin_rate<a class="headerlink" href="#9-get_symbol_margin_rate" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_margin_rate</span><span class="p">(</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">order_type</span><span class="p">:</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">ENUM_ORDER_TYPE</span><span class="p">,</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymbolMarginRate</span>
+</code></pre></div>
+<p><strong>Get margin rates for a symbol and order type.</strong></p>
+<p><strong>Args:</strong>
+- <code>symbol</code>: Symbol name
+- <code>order_type</code>: Order type (BUY, SELL, etc.)</p>
+<p><strong>Returns:</strong> <code>SymbolMarginRate</code> dataclass with initial and maintenance rates</p>
+<hr />
+<h3 id="10-get_symbol_tick">10) get_symbol_tick<a class="headerlink" href="#10-get_symbol_tick" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_tick</span><span class="p">(</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymbolTick</span>
+</code></pre></div>
+<p><strong>Get current market prices for a symbol.</strong></p>
+<p><strong>Returns:</strong> <code>SymbolTick</code> dataclass with time already converted to datetime</p>
+<p><strong>Technical:</strong> Low-level returns SymbolInfoTickData with Unix timestamp (<code>data.time</code>). This wrapper converts time field from Unix seconds to Python datetime via <code>fromtimestamp()</code>.</p>
+<p><strong>Advantage:</strong> No manual timestamp conversion needed - just use <code>tick.time</code> as datetime object!</p>
+<hr />
+<h3 id="11-get_symbol_session_quote">11) get_symbol_session_quote<a class="headerlink" href="#11-get_symbol_session_quote" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_session_quote</span><span class="p">(</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">day_of_week</span><span class="p">:</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">DayOfWeek</span><span class="p">,</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>    <span class="n">session_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionTime</span>
+</code></pre></div>
+<p><strong>Get quote session times.</strong></p>
+<p><strong>Args:</strong>
+- <code>symbol</code>: Symbol name
+- <code>day_of_week</code>: Day of the week (MONDAY, TUESDAY, etc.)
+- <code>session_index</code>: Session index (starting at 0, most symbols have 1 session)</p>
+<p><strong>Returns:</strong> <code>SessionTime</code> with start/end times as datetime</p>
+<p><strong>Technical:</strong> Low-level returns protobuf Timestamps. This wrapper converts both to Python datetimes via <code>ToDatetime()</code>.</p>
+<hr />
+<h3 id="12-get_symbol_session_trade">12) get_symbol_session_trade<a class="headerlink" href="#12-get_symbol_session_trade" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_session_trade</span><span class="p">(</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="n">day_of_week</span><span class="p">:</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">DayOfWeek</span><span class="p">,</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">session_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SessionTime</span>
+</code></pre></div>
+<p><strong>Get trading session times.</strong></p>
+<p><strong>Args:</strong>
+- <code>symbol</code>: Symbol name
+- <code>day_of_week</code>: Day of the week
+- <code>session_index</code>: Session index (starting at 0)</p>
+<p><strong>Returns:</strong> <code>SessionTime</code> with start/end times as datetime</p>
+<p><strong>Usage:</strong> Shows when you can trade the symbol (different from quote session which shows when prices are updated).</p>
+<hr />
+<h3 id="13-get_symbol_params_many">13) get_symbol_params_many<a class="headerlink" href="#13-get_symbol_params_many" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_symbol_params_many</span><span class="p">(</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">name_filter</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="n">sort_mode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="n">page_number</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="n">items_per_page</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">SymbolParams</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Get parameters of multiple symbols at once.</strong></p>
+<p><strong>Args:</strong>
+- <code>name_filter</code>: Optional symbol name filter (e.g., "EUR*" for all EUR pairs)
+- <code>sort_mode</code>: Optional sort mode
+- <code>page_number</code>: Optional page number for pagination
+- <code>items_per_page</code>: Optional items per page</p>
+<p><strong>Returns:</strong> <code>Tuple[List[SymbolParams], total_count]</code></p>
+<p><strong>Technical:</strong> Low-level returns protobuf repeated field. This wrapper unpacks each SymbolInfo into SymbolParams dataclass with 17 fields.</p>
+<p><strong>Advantage:</strong> Much faster than 17 separate SymbolInfoDouble/Integer/String calls per symbol!</p>
+<hr />
+<h2 id="usage-examples">🔗 Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">¶</a></h2>
+<h3 id="example-1-getting-symbol-tick-with-auto-converted-time">Example 1: Getting Symbol Tick with Auto-Converted Time<a class="headerlink" href="#example-1-getting-symbol-tick-with-auto-converted-time" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">monitor_tick</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="c1"># Get tick - time is already datetime!</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="n">tick</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_tick</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symbol: </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Already datetime</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bid: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ask: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Last: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">last</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Volume: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">volume</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>    <span class="c1"># No manual timestamp conversion needed!</span>
+</code></pre></div>
+<hr />
+<h3 id="example-2-checking-symbol-availability">Example 2: Checking Symbol Availability<a class="headerlink" href="#example-2-checking-symbol-availability" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_symbol</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">exists</span><span class="p">,</span> <span class="n">is_custom</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">symbol_exist</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">:</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symbol </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> does not exist&quot;</span><span class="p">)</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>    <span class="k">if</span> <span class="n">is_custom</span><span class="p">:</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> is a custom symbol&quot;</span><span class="p">)</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>    <span class="c1"># Check if synchronized</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>    <span class="n">synced</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">is_symbol_synchronized</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">synced</span><span class="p">:</span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> data is not synchronized&quot;</span><span class="p">)</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>        <span class="k">return</span> <span class="kc">False</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> is available and synchronized&quot;</span><span class="p">)</span>
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a>    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+<hr />
+<h3 id="example-3-getting-trading-session-times">Example 3: Getting Trading Session Times<a class="headerlink" href="#example-3-getting-trading-session-times" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5</span><span class="w"> </span><span class="kn">import</span> <span class="n">mt5_term_api_market_info_pb2</span> <span class="k">as</span> <span class="n">market_info_pb2</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">check_trading_hours</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if symbol is currently in trading session.&quot;&quot;&quot;</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>    <span class="n">day_of_week</span> <span class="o">=</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">DayOfWeek</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>        <span class="sa">f</span><span class="s2">&quot;DAY_</span><span class="si">{</span><span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%A&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>    <span class="p">)</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>        <span class="c1"># Get trading session for today (session_index=0 for main session)</span>
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>        <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_session_trade</span><span class="p">(</span>
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>            <span class="n">symbol</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span>
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>            <span class="n">day_of_week</span><span class="o">=</span><span class="n">day_of_week</span><span class="p">,</span>
+<a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>            <span class="n">session_index</span><span class="o">=</span><span class="mi">0</span>
+<a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>        <span class="p">)</span>
+<a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>
+<a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trading session for </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> today:&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  From: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">from_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  To: </span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">to_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>
+<a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>        <span class="c1"># Times are already datetime objects!</span>
+<a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>        <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">from_time</span> <span class="o">&lt;=</span> <span class="n">now</span> <span class="o">&lt;=</span> <span class="n">session</span><span class="o">.</span><span class="n">to_time</span><span class="p">:</span>
+<a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Status: OPEN&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Status: CLOSED&quot;</span><span class="p">)</span>
+<a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a>
+<a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No trading session for </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> today: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="example-4-bulk-symbol-data-retrieval-get_symbol_params_many">Example 4: Bulk Symbol Data Retrieval (get_symbol_params_many)<a class="headerlink" href="#example-4-bulk-symbol-data-retrieval-get_symbol_params_many" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_all_eur_symbols</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">):</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Get comprehensive data for all EUR symbols efficiently.&quot;&quot;&quot;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="c1"># Get all symbols starting with &quot;EUR&quot; in one call</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="n">symbols</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_params_many</span><span class="p">(</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>        <span class="n">name_filter</span><span class="o">=</span><span class="s2">&quot;EUR*&quot;</span><span class="p">,</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>        <span class="n">items_per_page</span><span class="o">=</span><span class="mi">100</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>    <span class="p">)</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> EUR symbols</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>    <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Bid: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, Ask: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Spread: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">spread</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Digits: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">digits</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Volume: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">volume_min</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">volume_max</span><span class="si">}</span><span class="s2"> (step: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">volume_step</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-18" name="__codelineno-26-18" href="#__codelineno-26-18"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Contract size: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">trade_contract_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-19" name="__codelineno-26-19" href="#__codelineno-26-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Swap long/short: </span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">swap_long</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">sym</span><span class="o">.</span><span class="n">swap_short</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-26-20" name="__codelineno-26-20" href="#__codelineno-26-20"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-26-21" name="__codelineno-26-21" href="#__codelineno-26-21"></a>
+<a id="__codelineno-26-22" name="__codelineno-26-22" href="#__codelineno-26-22"></a>    <span class="c1"># This is MUCH faster than calling get_symbol_double/integer/string</span>
+<a id="__codelineno-26-23" name="__codelineno-26-23" href="#__codelineno-26-23"></a>    <span class="c1"># 17 times for each symbol!</span>
+</code></pre></div>
+<hr />
+<h2 id="when-to-use-which-method">When to Use Which Method<a class="headerlink" href="#when-to-use-which-method" title="Permanent link">¶</a></h2>
+<h3 id="use-get_symbol_tick">Use get_symbol_tick()<a class="headerlink" href="#use-get_symbol_tick" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong>
+- You need current Bid/Ask prices with timestamp
+- Want complete tick data in one call
+- Need time as datetime (auto-converted)</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">tick</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_tick</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">)</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bid: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">, Time: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="use-get_symbol_doubleintegerstring">Use get_symbol_double/integer/string()<a class="headerlink" href="#use-get_symbol_doubleintegerstring" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong>
+- You need ONE specific property
+- Writing validation checks
+- Performance matters (single property faster than tick)</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">spread</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_integer</span><span class="p">(</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="n">market_info_pb2</span><span class="o">.</span><span class="n">SYMBOL_SPREAD</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="use-get_symbol_params_many">Use get_symbol_params_many()<a class="headerlink" href="#use-get_symbol_params_many" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong>
+- You need data for MULTIPLE symbols
+- Building symbol scanner/screener
+- Need comprehensive symbol info (17 fields)
+- Want to minimize API calls</p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Get all forex symbols at once</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">symbols</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_symbol_params_many</span><span class="p">(</span><span class="n">name_filter</span><span class="o">=</span><span class="s2">&quot;*USD&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Advantage:</strong> 100x faster than individual calls for each symbol!</p>
+<hr />
+<h2 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>For current prices + time</strong> - use <code>get_symbol_tick()</code> (Bid/Ask + datetime in one call, no manual unpacking)</li>
+<li><strong>For multiple symbols</strong> - use <code>get_symbol_params_many()</code> (17 fields per symbol in one call - 100x faster!)</li>
+<li><strong>For single property</strong> - use <code>get_symbol_double/integer/string()</code> (unpacks protobuf <code>data.value</code> for you)</li>
+<li><strong>For session times</strong> - use <code>get_symbol_session_quote/trade()</code> (datetime conversion included)</li>
+<li><strong>Before trading</strong> - always check with <code>symbol_exist()</code> and <code>is_symbol_synchronized()</code> (cleaner than manual protobuf)</li>
+</ol>
+<p><strong>Bottom line:</strong> Use MT5Service for all symbol operations - it unpacks protobuf Data objects and converts datetime automatically.</p>
+<hr />
+<h2 id="related-sections">📚 Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../MT5Service.Overview/">MT5Service Overview</a> - mid-level API overview</li>
+<li><a href="../1.%20Account_Information/">Account Methods (Mid-Level)</a> - account information methods</li>
+<li><a href="../5.%20Trading_Operations/">Trading Methods (Mid-Level)</a> - trading methods</li>
+<li><a href="../6.%20Streaming_Methods/">Streaming Methods (Mid-Level)</a> - real-time tick streaming</li>
+<li><a href="../../MT5Account/2.%20Symbol_Information/Symbol_Information.Overview/">Symbol Information (Low-Level)</a> - low-level symbol API</li>
+<li><a href="../../API_Reference/MT5Service/">MT5Service API Reference</a> - complete mid-level API reference</li>
+</ul>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<p><strong>Real value for end users:</strong>
+- <strong>ALL 13 methods add value</strong> - MT5Account returns protobuf Data objects that need unpacking
+- <code>get_symbol_params_many()</code> - Aggregates 17 fields in one call (100x faster for multiple symbols)
+- <code>get_symbol_tick()</code> - Unix timestamp datetime + unpacks 8 fields
+- <code>get_symbol_session_quote/trade()</code> - Protobuf Timestamps datetime x2
+- Other 9 methods - Protobuf unpacking (<code>data.value</code> native type)</p>
+<p><strong>Architectural layer (for MT5Sugar):</strong>
+- All methods used by MT5Sugar to maintain layered architecture (Sugar Service Account)
+- Provides unified interface with consistent naming (<code>get_*</code> prefix)</p>
+<p><strong>Key difference from Account methods:</strong>
+- Account methods: MT5Account already returns native types Service adds no value (just pass-through)
+- Symbol methods: MT5Account returns protobuf Data Service unpacks + converts <strong>real value</strong></p>
+<p><strong>Recommendation:</strong>
+- Using <strong>MT5Sugar</strong>? These methods work seamlessly through the architecture
+- Using <strong>MT5Service directly</strong>? All methods add value - use them all!
+  - <strong>High priority</strong>: <code>get_symbol_params_many()</code>, <code>get_symbol_tick()</code>, session methods
+  - <strong>Medium priority</strong>: Other methods save you from manual protobuf unpacking</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

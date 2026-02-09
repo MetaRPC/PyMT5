@@ -1,0 +1,3158 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/MT5Account/2.%20Symbol_Information/symbol_params_many/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Get Comprehensive Symbol Parameters - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#get-comprehensive-symbol-parameters" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Get Comprehensive Symbol Parameters
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RPC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#just-the-essentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💬 Just the essentials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Tutorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method Signature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔽 Input
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔽 Input">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Fields:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⬆️ Output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-enums-from-proto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧱 Related enums (from proto)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧱 Related enums (from proto)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ah_symbol_params_many_sort_type-request-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AH_SYMBOL_PARAMS_MANY_SORT_TYPE (request parameter)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_chart_mode-for-field-chart_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_CHART_MODE (for field chart_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_order_type_filling-for-field-filling_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_ORDER_TYPE_FILLING (for field filling_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_industry-for-field-industry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_INDUSTRY (for field industry)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_option_mode-for-field-option_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_OPTION_MODE (for field option_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_option_right-for-field-option_right" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_OPTION_RIGHT (for field option_right)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_order_gtc_mode-for-field-order_gtc_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_ORDER_GTC_MODE (for field order_gtc_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_order_type-for-field-order_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_ORDER_TYPE (for field order_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_sector-for-field-sector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_SECTOR (for field sector)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_swap_mode-for-field-swap_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_SWAP_MODE (for field swap_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_day_of_week-for-field-swap_rollover_3days" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_DAY_OF_WEEK (for field swap_rollover_3days)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_calc_mode-for-field-trade_calc_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_CALC_MODE (for field trade_calc_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_trade_execution-for-field-trade_exe_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_TRADE_EXECUTION (for field trade_exe_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bmt5_enum_symbol_trade_mode-for-field-trade_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BMT5_ENUM_SYMBOL_TRADE_MODE (for field trade_mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Notes &amp; Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-get-all-parameters-for-one-symbol-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) Get all parameters for one symbol (RECOMMENDED)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-get-all-symbols-with-pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) Get all symbols with pagination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-iterate-through-all-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) Iterate through all pages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-compare-spreads-across-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) Compare spreads across symbols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-find-tradeable-symbols-with-specific-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5) Find tradeable symbols with specific criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-build-symbol-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6) Build symbol comparison table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-get-symbols-with-timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7) Get symbols with timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-calculate-trading-costs-from-symbol-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8) Calculate trading costs from symbol parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="get-comprehensive-symbol-parameters">Get Comprehensive Symbol Parameters<a class="headerlink" href="#get-comprehensive-symbol-parameters" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>Request:</strong> retrieve all symbol parameters at once (RECOMMENDED for getting multiple properties efficiently).</p>
+</blockquote>
+<p><strong>API Information:</strong></p>
+<ul>
+<li><strong>Low-level API:</strong> <code>MT5Account.symbol_params_many(...)</code> (defined in <code>package/MetaRpcMT5/helpers/mt5_account.py</code>)</li>
+<li><strong>gRPC service:</strong> <code>mt5_term_api.AccountHelper</code></li>
+<li><strong>Proto definition:</strong> <code>SymbolParamsMany</code> (defined in <code>mt5-term-api-account-helper.proto</code>)</li>
+</ul>
+<h3 id="rpc">RPC<a class="headerlink" href="#rpc" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Service:</strong> <code>mt5_term_api.AccountHelper</code></li>
+<li><strong>Method:</strong> <code>SymbolParamsMany(SymbolParamsManyRequest) -&gt; SymbolParamsManyReply</code></li>
+<li><strong>Low-level client (generated):</strong> <code>AccountHelperStub.SymbolParamsMany(request, metadata, timeout)</code></li>
+</ul>
+<h2 id="just-the-essentials">💬 Just the essentials<a class="headerlink" href="#just-the-essentials" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>What it is.</strong> Get comprehensive symbol parameters in one call (100+ fields: prices, spreads, margins, swaps, volumes).</li>
+<li><strong>Why you need it.</strong> Most efficient method to get multiple symbol properties - single call instead of dozens of <code>symbol_info_*</code> calls.</li>
+<li><strong>When to use.</strong> Use this for getting complete symbol information. Use <code>symbol_info_*</code> only for single specific properties.</li>
+</ul>
+<hr />
+<h2 id="purpose">🎯 Purpose<a class="headerlink" href="#purpose" title="Permanent link">¶</a></h2>
+<p>Use it to efficiently retrieve symbol data:</p>
+<ul>
+<li>Get all symbol parameters in a single efficient call</li>
+<li>Retrieve data for one specific symbol or all symbols</li>
+<li>Build comprehensive symbol comparison tables</li>
+<li>Calculate trading costs and margins efficiently</li>
+<li>Filter and sort symbols by various criteria</li>
+<li>Paginate through large symbol lists</li>
+<li>Avoid multiple RPC calls for the same symbol</li>
+</ul>
+<hr />
+<h2 id="tutorial">📚 Tutorial<a class="headerlink" href="#tutorial" title="Permanent link">¶</a></h2>
+<p>For a detailed line-by-line explanation with examples, see:
+<strong>-&gt; <a href="../../HOW_IT_WORK/2.%20Symbol_information_HOW/symbol_params_many_HOW/">symbol_params_many - How it works</a></strong></p>
+<hr />
+<h2 id="method-signature">Method Signature<a class="headerlink" href="#method-signature" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">symbol_params_many</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">request</span><span class="p">:</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">deadline</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyData</span>
+</code></pre></div>
+<p><strong>Request message:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">message</span><span class="w"> </span><span class="nc">SymbolParamsManyRequest</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="na">symbol_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="n">AH_SYMBOL_PARAMS_MANY_SORT_TYPE</span><span class="w"> </span><span class="na">sort_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">page_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">items_per_page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Reply message:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">message</span><span class="w"> </span><span class="nc">SymbolParamsManyReply</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="k">oneof</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">SymbolParamsManyData</span><span class="w"> </span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">Error</span><span class="w"> </span><span class="na">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kd">message</span><span class="w"> </span><span class="nc">SymbolParamsManyData</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="k">repeated</span><span class="w"> </span><span class="n">SymbolParameters</span><span class="w"> </span><span class="na">symbol_infos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">symbols_total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">page_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="k">optional</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="na">items_per_page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>SymbolParameters structure:</strong></p>
+<p>The <code>SymbolParameters</code> message contains <strong>112 fields</strong> grouped by category:</p>
+<p><strong>1. Price Data (9 fields)</strong></p>
+<ul>
+<li><code>bid</code>, <code>ask</code>, <code>last</code> - Current prices</li>
+<li><code>bid_high</code>, <code>bid_low</code> - Bid price range</li>
+<li><code>ask_high</code>, <code>ask_low</code> - Ask price range</li>
+<li><code>last_high</code>, <code>last_low</code> - Last price range</li>
+</ul>
+<p><strong>2. Volume Data (10 fields)</strong></p>
+<ul>
+<li><code>volume</code>, <code>volume_high</code>, <code>volume_low</code> - Volume in lots</li>
+<li><code>volume_real</code>, <code>volume_high_real</code>, <code>volume_low_real</code> - Real volume</li>
+<li><code>volume_min</code>, <code>volume_max</code>, <code>volume_step</code>, <code>volume_limit</code> - Volume constraints</li>
+</ul>
+<p><strong>3. Spread &amp; Precision (4 fields)</strong></p>
+<ul>
+<li><code>spread</code> - Current spread in points</li>
+<li><code>spread_float</code> - Floating spread flag</li>
+<li><code>digits</code> - Decimal digits</li>
+<li><code>point</code> - Point value</li>
+</ul>
+<p><strong>4. Contract &amp; Trade Parameters (9 fields)</strong></p>
+<ul>
+<li><code>trade_contract_size</code> - Contract size</li>
+<li><code>trade_tick_size</code> - Tick size</li>
+<li>
+<p><code>trade_tick_value</code>, <code>trade_tick_value_profit</code>, <code>trade_tick_value_loss</code> - Tick values</p>
+</li>
+<li>
+<p><code>trade_accrued_interest</code> - Accrued interest</p>
+</li>
+<li><code>trade_face_value</code> - Face value</li>
+<li><code>trade_liquidity_rate</code> - Liquidity rate</li>
+<li><code>trade_stops_level</code>, <code>trade_freeze_level</code> - Stop levels</li>
+</ul>
+<p><strong>5. Margin Requirements (4 fields)</strong></p>
+<ul>
+<li><code>margin_initial</code>, <code>margin_maintenance</code> - Initial and maintenance margins</li>
+<li><code>margin_hedged</code> - Hedged margin</li>
+<li><code>margin_hedged_use_leg</code> - Use leg for hedged margin</li>
+</ul>
+<p><strong>6. Swap Data (12 fields)</strong></p>
+<ul>
+<li><code>swap_long</code>, <code>swap_short</code> - Long/short swap</li>
+<li><code>swap_sunday</code>, <code>swap_monday</code>, <code>swap_tuesday</code>, <code>swap_wednesday</code>, <code>swap_thursday</code>, <code>swap_friday</code>, <code>swap_saturday</code> - Daily swaps</li>
+<li><code>swap_mode</code> - Swap calculation mode</li>
+<li><code>swap_rollover_3days</code> - Triple swap day</li>
+</ul>
+<p><strong>7. Session Statistics (16 fields)</strong></p>
+<ul>
+<li><code>session_volume</code>, <code>session_turnover</code>, <code>session_interest</code> - Session totals</li>
+<li><code>session_buy_orders_volume</code>, <code>session_sell_orders_volume</code> - Order volumes</li>
+<li><code>session_open</code>, <code>session_close</code>, <code>session_aw</code> - Session prices</li>
+<li><code>session_price_settlement</code> - Settlement price</li>
+<li><code>session_price_limit_min</code>, <code>session_price_limit_max</code> - Price limits</li>
+<li><code>session_deals</code> - Number of deals</li>
+<li><code>session_buy_orders</code>, <code>session_sell_orders</code> - Order counts</li>
+</ul>
+<p><strong>8. Options Data (3 fields)</strong></p>
+<ul>
+<li><code>option_strike</code> - Strike price</li>
+<li><code>option_mode</code> - Option mode</li>
+<li><code>option_right</code> - Option right (call/put)</li>
+</ul>
+<p><strong>9. Greeks &amp; Pricing (8 fields)</strong></p>
+<ul>
+<li><code>price_theoretical</code> - Theoretical price</li>
+<li><code>price_delta</code>, <code>price_theta</code>, <code>price_gamma</code>, <code>price_vega</code>, <code>price_rho</code>, <code>price_omega</code> - Greeks</li>
+<li><code>price_sensitivity</code> - Price sensitivity</li>
+</ul>
+<p><strong>10. Market Statistics (2 fields)</strong></p>
+<ul>
+<li><code>price_change</code> - Price change</li>
+<li><code>price_volatility</code> - Volatility</li>
+</ul>
+<p><strong>11. Timestamps (4 fields)</strong></p>
+<ul>
+<li><code>time</code>, <code>time_msc</code> - Last update time</li>
+<li><code>start_time</code> - Trading start time</li>
+<li><code>expiration_time</code> - Expiration time</li>
+</ul>
+<p><strong>12. Trading Modes (10 fields)</strong></p>
+<ul>
+<li><code>trade_calc_mode</code> - Calculation mode</li>
+<li><code>trade_mode</code> - Trading mode</li>
+<li><code>trade_exe_mode</code> - Execution mode</li>
+<li><code>expiration_mode</code> - Order expiration mode</li>
+<li><code>filling_mode</code> - Order filling mode</li>
+<li><code>order_mode</code> - Order mode</li>
+<li><code>order_gtc_mode</code> - GTC mode</li>
+<li><code>chart_mode</code> - Chart mode</li>
+<li><code>ticks_book_depth</code> - Book depth</li>
+</ul>
+<p><strong>13. Identifiers &amp; Description (11 fields)</strong></p>
+<ul>
+<li><code>name</code> - Symbol name</li>
+<li><code>sym_description</code> - Symbol description (note: field name is <code>sym_description</code> not <code>description</code>)</li>
+<li><code>path</code> - Symbol path</li>
+<li><code>currency_base</code>, <code>currency_profit</code>, <code>currency_margin</code> - Currencies</li>
+<li><code>isin</code> - ISIN code</li>
+<li><code>basis</code> - Basis</li>
+<li><code>category</code> - Category</li>
+<li><code>page</code> - Page</li>
+<li><code>formula</code> - Formula</li>
+</ul>
+<p><strong>14. Classification (6 fields)</strong></p>
+<ul>
+<li><code>sector</code>, <code>sector_name</code> - Sector</li>
+<li><code>industry</code>, <code>industry_name</code> - Industry</li>
+<li><code>country</code> - Country</li>
+<li><code>bank</code> - Bank</li>
+</ul>
+<p><strong>15. Display &amp; Status (6 fields)</strong></p>
+<ul>
+<li><code>exist</code> - Symbol exists</li>
+<li><code>select</code> - Symbol selected</li>
+<li><code>visible</code> - Symbol visible</li>
+<li><code>subscription_delay</code> - Subscription delay</li>
+<li><code>background_color</code> - Background color</li>
+<li><code>custom</code> - Custom data</li>
+</ul>
+<p><strong>16. Exchange (1 field)</strong></p>
+<ul>
+<li><code>exchange</code> - Exchange name</li>
+</ul>
+<p><strong>Total: 112 fields</strong> providing comprehensive symbol information in a single efficient call.</p>
+<hr />
+<h2 id="input">🔽 Input<a class="headerlink" href="#input" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>request</code></td>
+<td><code>SymbolParamsManyRequest</code> (required)</td>
+<td>Request object with filter/pagination parameters</td>
+</tr>
+<tr>
+<td><code>deadline</code></td>
+<td><code>datetime</code> (optional)</td>
+<td>Deadline for the gRPC call (UTC datetime)</td>
+</tr>
+<tr>
+<td><code>cancellation_event</code></td>
+<td><code>asyncio.Event</code> (optional)</td>
+<td>Event to cancel the operation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="request-fields">Request Fields:<a class="headerlink" href="#request-fields" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>symbol_name</code></td>
+<td><code>string</code> (optional)</td>
+<td>Filter by symbol name (omit or empty = all symbols)</td>
+</tr>
+<tr>
+<td><code>sort_type</code></td>
+<td><code>AH_SYMBOL_PARAMS_MANY_SORT_TYPE</code> (optional)</td>
+<td>Sort order for results</td>
+</tr>
+<tr>
+<td><code>page_number</code></td>
+<td><code>int32</code> (optional)</td>
+<td>Page number for pagination (0-based, default 0)</td>
+</tr>
+<tr>
+<td><code>items_per_page</code></td>
+<td><code>int32</code> (optional)</td>
+<td>Items per page (0 or omit = all items)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="output">⬆️ Output<a class="headerlink" href="#output" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Python Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>symbol_infos</code></td>
+<td><code>repeated SymbolParameters</code></td>
+<td><code>list[SymbolParameters]</code></td>
+<td>List of symbol parameter objects</td>
+</tr>
+<tr>
+<td><code>symbols_total</code></td>
+<td><code>int32</code></td>
+<td><code>int</code></td>
+<td>Total number of symbols</td>
+</tr>
+<tr>
+<td><code>page_number</code></td>
+<td><code>int32</code> (optional)</td>
+<td><code>int</code></td>
+<td>Current page number</td>
+</tr>
+<tr>
+<td><code>items_per_page</code></td>
+<td><code>int32</code> (optional)</td>
+<td><code>int</code></td>
+<td>Items per page</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return value:</strong> The method returns <code>SymbolParamsManyData</code> object with list of symbol parameters and pagination info.</p>
+<hr />
+<h2 id="related-enums-from-proto">🧱 Related enums (from proto)<a class="headerlink" href="#related-enums-from-proto" title="Permanent link">¶</a></h2>
+<blockquote>
+<p><strong>Note:</strong> All enums are accessed from <code>mt5_term_api_account_helper_pb2</code> module. This method uses <strong>14 enums</strong> with <strong>231 total constants</strong>.</p>
+</blockquote>
+<h3 id="ah_symbol_params_many_sort_type-request-parameter"><code>AH_SYMBOL_PARAMS_MANY_SORT_TYPE</code> (request parameter)<a class="headerlink" href="#ah_symbol_params_many_sort_type-request-parameter" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AH_PARAMS_MANY_SORT_TYPE_SYMBOL_NAME_ASC</code></td>
+<td>0</td>
+<td>Symbol name ascending (A-Z)</td>
+</tr>
+<tr>
+<td><code>AH_PARAMS_MANY_SORT_TYPE_SYMBOL_NAME_DESC</code></td>
+<td>1</td>
+<td>Symbol name descending (Z-A)</td>
+</tr>
+<tr>
+<td><code>AH_PARAMS_MANY_SORT_TYPE_MQL_INDEX_ASC</code></td>
+<td>2</td>
+<td>MQL index ascending</td>
+</tr>
+<tr>
+<td><code>AH_PARAMS_MANY_SORT_TYPE_MQL_INDEX_DESC</code></td>
+<td>3</td>
+<td>MQL index descending</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_chart_mode-for-field-chart_mode"><code>BMT5_ENUM_SYMBOL_CHART_MODE</code> (for field <code>chart_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_chart_mode-for-field-chart_mode" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_CHART_MODE_BID</code></td>
+<td>0</td>
+<td>Bars based on Bid prices</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CHART_MODE_LAST</code></td>
+<td>1</td>
+<td>Bars based on Last prices</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_order_type_filling-for-field-filling_mode"><code>BMT5_ENUM_ORDER_TYPE_FILLING</code> (for field <code>filling_mode</code>)<a class="headerlink" href="#bmt5_enum_order_type_filling-for-field-filling_mode" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_ORDER_FILLING_FOK</code></td>
+<td>0</td>
+<td>Fill or Kill - fill completely or cancel</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_FILLING_IOC</code></td>
+<td>1</td>
+<td>Immediate or Cancel - fill available volume</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_FILLING_RETURN</code></td>
+<td>2</td>
+<td>Return execution mode</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_FILLING_BOC</code></td>
+<td>3</td>
+<td>Book or Cancel - place order in book</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_industry-for-field-industry"><code>BMT5_ENUM_SYMBOL_INDUSTRY</code> (for field <code>industry</code>)<a class="headerlink" href="#bmt5_enum_symbol_industry-for-field-industry" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_INDUSTRY_UNDEFINED</code></td>
+<td>0</td>
+<td>Undefined</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AGRICULTURAL_INPUTS</code></td>
+<td>1</td>
+<td>Agricultural Inputs</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ALUMINIUM</code></td>
+<td>2</td>
+<td>Aluminium</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BUILDING_MATERIALS</code></td>
+<td>3</td>
+<td>Building Materials</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CHEMICALS</code></td>
+<td>4</td>
+<td>Chemicals</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_COKING_COAL</code></td>
+<td>5</td>
+<td>Coking Coal</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_COPPER</code></td>
+<td>6</td>
+<td>Copper</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_GOLD</code></td>
+<td>7</td>
+<td>Gold</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_LUMBER_WOOD</code></td>
+<td>8</td>
+<td>Lumber &amp; Wood</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INDUSTRIAL_METALS</code></td>
+<td>9</td>
+<td>Industrial Metals</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PRECIOUS_METALS</code></td>
+<td>10</td>
+<td>Precious Metals</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PAPER</code></td>
+<td>11</td>
+<td>Paper</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SILVER</code></td>
+<td>12</td>
+<td>Silver</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SPECIALTY_CHEMICALS</code></td>
+<td>13</td>
+<td>Specialty Chemicals</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_STEEL</code></td>
+<td>14</td>
+<td>Steel</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ADVERTISING</code></td>
+<td>15</td>
+<td>Advertising</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BROADCASTING</code></td>
+<td>16</td>
+<td>Broadcasting</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_GAMING_MULTIMEDIA</code></td>
+<td>17</td>
+<td>Gaming &amp; Multimedia</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ENTERTAINMENT</code></td>
+<td>18</td>
+<td>Entertainment</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INTERNET_CONTENT</code></td>
+<td>19</td>
+<td>Internet Content</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PUBLISHING</code></td>
+<td>20</td>
+<td>Publishing</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_TELECOM</code></td>
+<td>21</td>
+<td>Telecommunications</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_APPAREL_MANUFACTURING</code></td>
+<td>22</td>
+<td>Apparel Manufacturing</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_APPAREL_RETAIL</code></td>
+<td>23</td>
+<td>Apparel Retail</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AUTO_MANUFACTURERS</code></td>
+<td>24</td>
+<td>Auto Manufacturers</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AUTO_PARTS</code></td>
+<td>25</td>
+<td>Auto Parts</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AUTO_DEALERSHIP</code></td>
+<td>26</td>
+<td>Auto Dealerships</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_DEPARTMENT_STORES</code></td>
+<td>27</td>
+<td>Department Stores</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FOOTWEAR_ACCESSORIES</code></td>
+<td>28</td>
+<td>Footwear &amp; Accessories</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FURNISHINGS</code></td>
+<td>29</td>
+<td>Furnishings</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_GAMBLING</code></td>
+<td>30</td>
+<td>Gambling</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_HOME_IMPROV_RETAIL</code></td>
+<td>31</td>
+<td>Home Improvement Retail</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INTERNET_RETAIL</code></td>
+<td>32</td>
+<td>Internet Retail</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_LEISURE</code></td>
+<td>33</td>
+<td>Leisure</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_LODGING</code></td>
+<td>34</td>
+<td>Lodging</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_LUXURY_GOODS</code></td>
+<td>35</td>
+<td>Luxury Goods</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PACKAGING_CONTAINERS</code></td>
+<td>36</td>
+<td>Packaging &amp; Containers</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PERSONAL_SERVICES</code></td>
+<td>37</td>
+<td>Personal Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_RECREATIONAL_VEHICLES</code></td>
+<td>38</td>
+<td>Recreational Vehicles</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_RESIDENT_CONSTRUCTION</code></td>
+<td>39</td>
+<td>Residential Construction</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_RESORTS_CASINOS</code></td>
+<td>40</td>
+<td>Resorts &amp; Casinos</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_RESTAURANTS</code></td>
+<td>41</td>
+<td>Restaurants</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SPECIALTY_RETAIL</code></td>
+<td>42</td>
+<td>Specialty Retail</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_TEXTILE_MANUFACTURING</code></td>
+<td>43</td>
+<td>Textile Manufacturing</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_TRAVEL_SERVICES</code></td>
+<td>44</td>
+<td>Travel Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BEVERAGES_BREWERS</code></td>
+<td>45</td>
+<td>Beverages - Brewers</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BEVERAGES_NON_ALCO</code></td>
+<td>46</td>
+<td>Beverages - Non-Alcoholic</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BEVERAGES_WINERIES</code></td>
+<td>47</td>
+<td>Beverages - Wineries</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CONFECTIONERS</code></td>
+<td>48</td>
+<td>Confectioners</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_DISCOUNT_STORES</code></td>
+<td>49</td>
+<td>Discount Stores</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_EDUCATION_TRAINIG</code></td>
+<td>50</td>
+<td>Education &amp; Training</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FARM_PRODUCTS</code></td>
+<td>51</td>
+<td>Farm Products</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FOOD_DISTRIBUTION</code></td>
+<td>52</td>
+<td>Food Distribution</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_GROCERY_STORES</code></td>
+<td>53</td>
+<td>Grocery Stores</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_HOUSEHOLD_PRODUCTS</code></td>
+<td>54</td>
+<td>Household Products</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PACKAGED_FOODS</code></td>
+<td>55</td>
+<td>Packaged Foods</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_TOBACCO</code></td>
+<td>56</td>
+<td>Tobacco</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_OIL_GAS_DRILLING</code></td>
+<td>57</td>
+<td>Oil &amp; Gas Drilling</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_OIL_GAS_EP</code></td>
+<td>58</td>
+<td>Oil &amp; Gas E&amp;P</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_OIL_GAS_EQUIPMENT</code></td>
+<td>59</td>
+<td>Oil &amp; Gas Equipment</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_OIL_GAS_INTEGRATED</code></td>
+<td>60</td>
+<td>Oil &amp; Gas Integrated</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_OIL_GAS_MIDSTREAM</code></td>
+<td>61</td>
+<td>Oil &amp; Gas Midstream</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_OIL_GAS_REFINING</code></td>
+<td>62</td>
+<td>Oil &amp; Gas Refining</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_THERMAL_COAL</code></td>
+<td>63</td>
+<td>Thermal Coal</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_URANIUM</code></td>
+<td>64</td>
+<td>Uranium</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_EXCHANGE_TRADED_FUND</code></td>
+<td>65</td>
+<td>Exchange Traded Fund</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ASSETS_MANAGEMENT</code></td>
+<td>66</td>
+<td>Asset Management</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BANKS_DIVERSIFIED</code></td>
+<td>67</td>
+<td>Banks - Diversified</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BANKS_REGIONAL</code></td>
+<td>68</td>
+<td>Banks - Regional</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CAPITAL_MARKETS</code></td>
+<td>69</td>
+<td>Capital Markets</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CLOSE_END_FUND_DEBT</code></td>
+<td>70</td>
+<td>Closed-End Fund - Debt</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CLOSE_END_FUND_EQUITY</code></td>
+<td>71</td>
+<td>Closed-End Fund - Equity</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CLOSE_END_FUND_FOREIGN</code></td>
+<td>72</td>
+<td>Closed-End Fund - Foreign</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CREDIT_SERVICES</code></td>
+<td>73</td>
+<td>Credit Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FINANCIAL_CONGLOMERATE</code></td>
+<td>74</td>
+<td>Financial Conglomerate</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FINANCIAL_DATA_EXCHANGE</code></td>
+<td>75</td>
+<td>Financial Data &amp; Exchanges</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INSURANCE_BROKERS</code></td>
+<td>76</td>
+<td>Insurance Brokers</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INSURANCE_DIVERSIFIED</code></td>
+<td>77</td>
+<td>Insurance - Diversified</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INSURANCE_LIFE</code></td>
+<td>78</td>
+<td>Insurance - Life</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INSURANCE_PROPERTY</code></td>
+<td>79</td>
+<td>Insurance - Property &amp; Casualty</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INSURANCE_REINSURANCE</code></td>
+<td>80</td>
+<td>Insurance - Reinsurance</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INSURANCE_SPECIALTY</code></td>
+<td>81</td>
+<td>Insurance - Specialty</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_MORTGAGE_FINANCE</code></td>
+<td>82</td>
+<td>Mortgage Finance</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SHELL_COMPANIES</code></td>
+<td>83</td>
+<td>Shell Companies</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BIOTECHNOLOGY</code></td>
+<td>84</td>
+<td>Biotechnology</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_DIAGNOSTICS_RESEARCH</code></td>
+<td>85</td>
+<td>Diagnostics &amp; Research</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_DRUGS_MANUFACTURERS</code></td>
+<td>86</td>
+<td>Drug Manufacturers - General</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_DRUGS_MANUFACTURERS_SPEC</code></td>
+<td>87</td>
+<td>Drug Manufacturers - Specialty</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_HEALTHCARE_PLANS</code></td>
+<td>88</td>
+<td>Healthcare Plans</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_HEALTH_INFORMATION</code></td>
+<td>89</td>
+<td>Health Information Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_MEDICAL_FACILITIES</code></td>
+<td>90</td>
+<td>Medical Care Facilities</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_MEDICAL_DEVICES</code></td>
+<td>91</td>
+<td>Medical Devices</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_MEDICAL_DISTRIBUTION</code></td>
+<td>92</td>
+<td>Medical Distribution</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_MEDICAL_INSTRUMENTS</code></td>
+<td>93</td>
+<td>Medical Instruments &amp; Supplies</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_PHARM_RETAILERS</code></td>
+<td>94</td>
+<td>Pharmaceutical Retailers</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AEROSPACE_DEFENSE</code></td>
+<td>95</td>
+<td>Aerospace &amp; Defense</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AIRLINES</code></td>
+<td>96</td>
+<td>Airlines</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_AIRPORTS_SERVICES</code></td>
+<td>97</td>
+<td>Airports &amp; Air Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BUILDING_PRODUCTS</code></td>
+<td>98</td>
+<td>Building Products &amp; Equipment</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_BUSINESS_EQUIPMENT</code></td>
+<td>99</td>
+<td>Business Equipment &amp; Supplies</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CONGLOMERATES</code></td>
+<td>100</td>
+<td>Conglomerates</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CONSULTING_SERVICES</code></td>
+<td>101</td>
+<td>Consulting Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ELECTRICAL_EQUIPMENT</code></td>
+<td>102</td>
+<td>Electrical Equipment &amp; Parts</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ENGINEERING_CONSTRUCTION</code></td>
+<td>103</td>
+<td>Engineering &amp; Construction</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FARM_HEAVY_MACHINERY</code></td>
+<td>104</td>
+<td>Farm &amp; Heavy Machinery</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INDUSTRIAL_DISTRIBUTION</code></td>
+<td>105</td>
+<td>Industrial Distribution</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_INFRASTRUCTURE_OPERATIONS</code></td>
+<td>106</td>
+<td>Infrastructure Operations</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_FREIGHT_LOGISTICS</code></td>
+<td>107</td>
+<td>Freight &amp; Logistics Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_MARINE_SHIPPING</code></td>
+<td>108</td>
+<td>Marine Shipping</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_METAL_FABRICATION</code></td>
+<td>109</td>
+<td>Metal Fabrication</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_POLLUTION_CONTROL</code></td>
+<td>110</td>
+<td>Pollution &amp; Treatment Controls</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_RAILROADS</code></td>
+<td>111</td>
+<td>Railroads</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_RENTAL_LEASING</code></td>
+<td>112</td>
+<td>Rental &amp; Leasing Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SECURITY_PROTECTION</code></td>
+<td>113</td>
+<td>Security &amp; Protection Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SPEALITY_BUSINESS_SERVICES</code></td>
+<td>114</td>
+<td>Specialty Business Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SPEALITY_MACHINERY</code></td>
+<td>115</td>
+<td>Specialty Industrial Machinery</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_STUFFING_EMPLOYMENT</code></td>
+<td>116</td>
+<td>Staffing &amp; Employment Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_TOOLS_ACCESSORIES</code></td>
+<td>117</td>
+<td>Tools &amp; Accessories</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_TRUCKING</code></td>
+<td>118</td>
+<td>Trucking</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_WASTE_MANAGEMENT</code></td>
+<td>119</td>
+<td>Waste Management</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REAL_ESTATE_DEVELOPMENT</code></td>
+<td>120</td>
+<td>Real Estate - Development</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REAL_ESTATE_DIVERSIFIED</code></td>
+<td>121</td>
+<td>Real Estate - Diversified</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REAL_ESTATE_SERVICES</code></td>
+<td>122</td>
+<td>Real Estate Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_DIVERSIFIED</code></td>
+<td>123</td>
+<td>REIT - Diversified</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_HEALTCARE</code></td>
+<td>124</td>
+<td>REIT - Healthcare Facilities</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_HOTEL_MOTEL</code></td>
+<td>125</td>
+<td>REIT - Hotel &amp; Motel</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_INDUSTRIAL</code></td>
+<td>126</td>
+<td>REIT - Industrial</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_MORTAGE</code></td>
+<td>127</td>
+<td>REIT - Mortgage</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_OFFICE</code></td>
+<td>128</td>
+<td>REIT - Office</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_RESIDENTAL</code></td>
+<td>129</td>
+<td>REIT - Residential</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_RETAIL</code></td>
+<td>130</td>
+<td>REIT - Retail</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_REIT_SPECIALITY</code></td>
+<td>131</td>
+<td>REIT - Specialty</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_COMMUNICATION_EQUIPMENT</code></td>
+<td>132</td>
+<td>Communication Equipment</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_COMPUTER_HARDWARE</code></td>
+<td>133</td>
+<td>Computer Hardware</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_CONSUMER_ELECTRONICS</code></td>
+<td>134</td>
+<td>Consumer Electronics</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ELECTRONIC_COMPONENTS</code></td>
+<td>135</td>
+<td>Electronic Components</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_ELECTRONIC_DISTRIBUTION</code></td>
+<td>136</td>
+<td>Electronics &amp; Computer Distribution</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_IT_SERVICES</code></td>
+<td>137</td>
+<td>Information Technology Services</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SCIENTIFIC_INSTRUMENTS</code></td>
+<td>138</td>
+<td>Scientific &amp; Technical Instruments</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SEMICONDUCTOR_EQUIPMENT</code></td>
+<td>139</td>
+<td>Semiconductor Equipment &amp; Materials</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SEMICONDUCTORS</code></td>
+<td>140</td>
+<td>Semiconductors</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SOFTWARE_APPLICATION</code></td>
+<td>141</td>
+<td>Software - Application</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SOFTWARE_INFRASTRUCTURE</code></td>
+<td>142</td>
+<td>Software - Infrastructure</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_SOLAR</code></td>
+<td>143</td>
+<td>Solar</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_DIVERSIFIED</code></td>
+<td>144</td>
+<td>Utilities - Diversified</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_POWERPRODUCERS</code></td>
+<td>145</td>
+<td>Utilities - Independent Power Producers</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_RENEWABLE</code></td>
+<td>146</td>
+<td>Utilities - Renewable</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_REGULATED_ELECTRIC</code></td>
+<td>147</td>
+<td>Utilities - Regulated Electric</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_REGULATED_GAS</code></td>
+<td>148</td>
+<td>Utilities - Regulated Gas</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_REGULATED_WATER</code></td>
+<td>149</td>
+<td>Utilities - Regulated Water</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_FIRST</code></td>
+<td>150</td>
+<td>Utilities First (range marker)</td>
+</tr>
+<tr>
+<td><code>BMT5_INDUSTRY_UTILITIES_LAST</code></td>
+<td>151</td>
+<td>Utilities Last (range marker)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_option_mode-for-field-option_mode"><code>BMT5_ENUM_SYMBOL_OPTION_MODE</code> (for field <code>option_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_option_mode-for-field-option_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_OPTION_MODE_EUROPEAN</code></td>
+<td>0</td>
+<td>European option - exercise only at expiration</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_OPTION_MODE_AMERICAN</code></td>
+<td>1</td>
+<td>American option - exercise any time</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_option_right-for-field-option_right"><code>BMT5_ENUM_SYMBOL_OPTION_RIGHT</code> (for field <code>option_right</code>)<a class="headerlink" href="#bmt5_enum_symbol_option_right-for-field-option_right" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_OPTION_RIGHT_CALL</code></td>
+<td>0</td>
+<td>Call option - right to buy</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_OPTION_RIGHT_PUT</code></td>
+<td>1</td>
+<td>Put option - right to sell</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_order_gtc_mode-for-field-order_gtc_mode"><code>BMT5_ENUM_SYMBOL_ORDER_GTC_MODE</code> (for field <code>order_gtc_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_order_gtc_mode-for-field-order_gtc_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_ORDERS_GTC</code></td>
+<td>0</td>
+<td>Good Till Cancelled orders allowed</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_ORDERS_DAILY</code></td>
+<td>1</td>
+<td>Daily orders only</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_ORDERS_DAILY_EXCLUDING_STOPS</code></td>
+<td>2</td>
+<td>Daily excluding stops</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_order_type-for-field-order_mode"><code>BMT5_ENUM_ORDER_TYPE</code> (for field <code>order_mode</code>)<a class="headerlink" href="#bmt5_enum_order_type-for-field-order_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_ORDER_TYPE_BUY</code></td>
+<td>0</td>
+<td>Market Buy order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_SELL</code></td>
+<td>1</td>
+<td>Market Sell order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_BUY_LIMIT</code></td>
+<td>2</td>
+<td>Buy Limit pending order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_SELL_LIMIT</code></td>
+<td>3</td>
+<td>Sell Limit pending order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_BUY_STOP</code></td>
+<td>4</td>
+<td>Buy Stop pending order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_SELL_STOP</code></td>
+<td>5</td>
+<td>Sell Stop pending order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_BUY_STOP_LIMIT</code></td>
+<td>6</td>
+<td>Buy Stop Limit pending order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_SELL_STOP_LIMIT</code></td>
+<td>7</td>
+<td>Sell Stop Limit pending order</td>
+</tr>
+<tr>
+<td><code>BMT5_ORDER_TYPE_CLOSE_BY</code></td>
+<td>8</td>
+<td>Close By order</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_sector-for-field-sector"><code>BMT5_ENUM_SYMBOL_SECTOR</code> (for field <code>sector</code>)<a class="headerlink" href="#bmt5_enum_symbol_sector-for-field-sector" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SECTOR_UNDEFINED</code></td>
+<td>0</td>
+<td>Undefined sector</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_BASIC_MATERIALS</code></td>
+<td>1</td>
+<td>Basic Materials</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_COMMUNICATION_SERVICES</code></td>
+<td>2</td>
+<td>Communication Services</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_CONSUMER_CYCLICAL</code></td>
+<td>3</td>
+<td>Consumer Cyclical</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_CONSUMER_DEFENSIVE</code></td>
+<td>4</td>
+<td>Consumer Defensive</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_CURRENCY</code></td>
+<td>5</td>
+<td>Currency</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_CURRENCY_CRYPTO</code></td>
+<td>6</td>
+<td>Cryptocurrency</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_ENERGY</code></td>
+<td>7</td>
+<td>Energy</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_FINANCIAL</code></td>
+<td>8</td>
+<td>Financial</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_HEALTHCARE</code></td>
+<td>9</td>
+<td>Healthcare</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_INDUSTRIALS</code></td>
+<td>10</td>
+<td>Industrials</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_REAL_ESTATE</code></td>
+<td>11</td>
+<td>Real Estate</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_TECHNOLOGY</code></td>
+<td>12</td>
+<td>Technology</td>
+</tr>
+<tr>
+<td><code>BMT5_SECTOR_UTILITIES</code></td>
+<td>13</td>
+<td>Utilities</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_swap_mode-for-field-swap_mode"><code>BMT5_ENUM_SYMBOL_SWAP_MODE</code> (for field <code>swap_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_swap_mode-for-field-swap_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_DISABLED</code></td>
+<td>0</td>
+<td>No swaps</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_POINTS</code></td>
+<td>1</td>
+<td>Swaps in points</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_CURRENCY_SYMBOL</code></td>
+<td>2</td>
+<td>Swaps in symbol base currency</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_CURRENCY_MARGIN</code></td>
+<td>3</td>
+<td>Swaps in margin currency</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_CURRENCY_DEPOSIT</code></td>
+<td>4</td>
+<td>Swaps in deposit currency</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_CURRENCY_PROFIT</code></td>
+<td>5</td>
+<td>Swaps in profit currency</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_INTEREST_CURRENT</code></td>
+<td>6</td>
+<td>Annual interest from current price</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_INTEREST_OPEN</code></td>
+<td>7</td>
+<td>Annual interest from open price</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_REOPEN_CURRENT</code></td>
+<td>8</td>
+<td>Reopen by current price</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_SWAP_MODE_REOPEN_BID</code></td>
+<td>9</td>
+<td>Reopen by Bid price</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_day_of_week-for-field-swap_rollover_3days"><code>BMT5_ENUM_DAY_OF_WEEK</code> (for field <code>swap_rollover_3days</code>)<a class="headerlink" href="#bmt5_enum_day_of_week-for-field-swap_rollover_3days" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SUNDAY</code></td>
+<td>0</td>
+<td>Sunday</td>
+</tr>
+<tr>
+<td><code>BMT5_MONDAY</code></td>
+<td>1</td>
+<td>Monday</td>
+</tr>
+<tr>
+<td><code>BMT5_TUESDAY</code></td>
+<td>2</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td><code>BMT5_WEDNESDAY</code></td>
+<td>3</td>
+<td>Wednesday</td>
+</tr>
+<tr>
+<td><code>BMT5_THURSDAY</code></td>
+<td>4</td>
+<td>Thursday</td>
+</tr>
+<tr>
+<td><code>BMT5_FRIDAY</code></td>
+<td>5</td>
+<td>Friday</td>
+</tr>
+<tr>
+<td><code>BMT5_SATURDAY</code></td>
+<td>6</td>
+<td>Saturday</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_calc_mode-for-field-trade_calc_mode"><code>BMT5_ENUM_SYMBOL_CALC_MODE</code> (for field <code>trade_calc_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_calc_mode-for-field-trade_calc_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_FOREX</code></td>
+<td>0</td>
+<td>Forex mode</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_FOREX_NO_LEVERAGE</code></td>
+<td>1</td>
+<td>Forex no leverage</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_FUTURES</code></td>
+<td>2</td>
+<td>Futures</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_CFD</code></td>
+<td>3</td>
+<td>CFD</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_CFDINDEX</code></td>
+<td>4</td>
+<td>CFD index</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_CFDLEVERAGE</code></td>
+<td>5</td>
+<td>CFD leverage</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_EXCH_STOCKS</code></td>
+<td>6</td>
+<td>Exchange stocks</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_EXCH_FUTURES</code></td>
+<td>7</td>
+<td>Exchange futures</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_EXCH_FUTURES_FORTS</code></td>
+<td>8</td>
+<td>FORTS futures</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_EXCH_BONDS</code></td>
+<td>9</td>
+<td>Exchange bonds</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_EXCH_STOCKS_MOEX</code></td>
+<td>10</td>
+<td>MOEX stocks</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_EXCH_BONDS_MOEX</code></td>
+<td>11</td>
+<td>MOEX bonds</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_CALC_MODE_SERV_COLLATERAL</code></td>
+<td>12</td>
+<td>Service collateral</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_trade_execution-for-field-trade_exe_mode"><code>BMT5_ENUM_SYMBOL_TRADE_EXECUTION</code> (for field <code>trade_exe_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_trade_execution-for-field-trade_exe_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_EXECUTION_REQUEST</code></td>
+<td>0</td>
+<td>Execution by request</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_EXECUTION_INSTANT</code></td>
+<td>1</td>
+<td>Instant execution</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_EXECUTION_MARKET</code></td>
+<td>2</td>
+<td>Market execution</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_EXECUTION_EXCHANGE</code></td>
+<td>3</td>
+<td>Exchange execution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="bmt5_enum_symbol_trade_mode-for-field-trade_mode"><code>BMT5_ENUM_SYMBOL_TRADE_MODE</code> (for field <code>trade_mode</code>)<a class="headerlink" href="#bmt5_enum_symbol_trade_mode-for-field-trade_mode" title="Permanent link">¶</a></h3>
+<p><strong>Python constants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Constant</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_MODE_DISABLED</code></td>
+<td>0</td>
+<td>Trade disabled</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_MODE_LONGONLY</code></td>
+<td>1</td>
+<td>Long only allowed</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_MODE_SHORTONLY</code></td>
+<td>2</td>
+<td>Short only allowed</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_MODE_CLOSEONLY</code></td>
+<td>3</td>
+<td>Close only</td>
+</tr>
+<tr>
+<td><code>BMT5_SYMBOL_TRADE_MODE_FULL</code></td>
+<td>4</td>
+<td>Full trade mode</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="notes-tips">🧩 Notes &amp; Tips<a class="headerlink" href="#notes-tips" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>Automatic reconnection:</strong> Built-in protection against transient gRPC errors with automatic reconnection via <code>execute_with_reconnect</code>.</li>
+<li><strong>Default timeout:</strong> If <code>deadline</code> is <code>None</code>, the method will wait indefinitely (or until server timeout).</li>
+<li><strong>RECOMMENDED method:</strong> This is the most efficient way to get symbol data - single call returns 100+ fields.</li>
+<li><strong>Performance:</strong> Getting all parameters in one call is significantly faster than multiple <code>symbol_info_*</code> calls.</li>
+<li><strong>Request construction:</strong> Create <code>SymbolParamsManyRequest</code> object and set desired fields.</li>
+<li><strong>Single symbol query:</strong> Set <code>symbol_name</code> in request to get data for one specific symbol.</li>
+<li><strong>All symbols query:</strong> Leave <code>symbol_name</code> empty to get all symbols.</li>
+<li><strong>Pagination:</strong> Use <code>page_number</code> and <code>items_per_page</code> for large symbol lists to control payload size.</li>
+<li><strong>Sort order:</strong> Use <code>sort_type</code> to control ordering of results (alphabetical or by MQL index).</li>
+<li><strong>Field access:</strong> Access fields directly from <code>SymbolParameters</code> objects (e.g., <code>info.bid</code>, <code>info.spread</code>).</li>
+<li><strong>Comprehensive data:</strong> Each <code>SymbolParameters</code> contains 112 fields including prices, volumes, margins, swaps, session times, etc.</li>
+<li><strong>Zero values:</strong> Some fields may be zero if not applicable to the symbol type.</li>
+</ul>
+<hr />
+<h2 id="usage-examples">🔗 Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">¶</a></h2>
+<h3 id="1-get-all-parameters-for-one-symbol-recommended">1) Get all parameters for one symbol (RECOMMENDED)<a class="headerlink" href="#1-get-all-parameters-for-one-symbol-recommended" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Create request for single symbol</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">request</span><span class="o">.</span><span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;EURUSD&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Get all EURUSD parameters</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">:</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">info</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symbol: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Description: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">sym_description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;BID: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ASK: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">ask</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spread: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">spread</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Digits: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">digits</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contract Size: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">trade_contract_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tick Value: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">trade_tick_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Min Volume: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">volume_min</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Max Volume: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">volume_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Volume Step: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">volume_step</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Swap Long: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">swap_long</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Swap Short: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">swap_short</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="2-get-all-symbols-with-pagination">2) Get all symbols with pagination<a class="headerlink" href="#2-get-all-symbols-with-pagination" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Create request with pagination</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">request</span><span class="o">.</span><span class="n">page_number</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">request</span><span class="o">.</span><span class="n">items_per_page</span> <span class="o">=</span> <span class="mi">100</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">request</span><span class="o">.</span><span class="n">sort_type</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">AH_PARAMS_MANY_SORT_TYPE_SYMBOL_NAME_ASC</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Get first page</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total symbols: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">symbols_total</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">)</span><span class="si">}</span><span class="s2"> symbols on page </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">page_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Items per page: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">items_per_page</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1"># Display first 10 symbols</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: BID=</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">, ASK=</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">ask</span><span class="si">}</span><span class="s2">, Spread=</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">spread</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="3-iterate-through-all-pages">3) Iterate through all pages<a class="headerlink" href="#3-iterate-through-all-pages" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_all_symbols</span><span class="p">(</span><span class="n">account</span><span class="p">):</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieve all symbols using pagination&quot;&quot;&quot;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">all_symbols</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">page_number</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">items_per_page</span> <span class="o">=</span> <span class="mi">100</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="c1"># Create request for current page</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="n">request</span><span class="o">.</span><span class="n">page_number</span> <span class="o">=</span> <span class="n">page_number</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="n">request</span><span class="o">.</span><span class="n">items_per_page</span> <span class="o">=</span> <span class="n">items_per_page</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="c1"># Get page</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="c1"># Add symbols to list</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        <span class="n">all_symbols</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">)</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Page </span><span class="si">{</span><span class="n">page_number</span><span class="si">}</span><span class="s2">: Retrieved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">)</span><span class="si">}</span><span class="s2"> symbols&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>        <span class="c1"># Check if we got all symbols</span>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_symbols</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbols_total</span><span class="p">:</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>            <span class="k">break</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>        <span class="c1"># Check if this page was empty</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>            <span class="k">break</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>        <span class="n">page_number</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total symbols retrieved: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_symbols</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>    <span class="k">return</span> <span class="n">all_symbols</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="c1"># Usage</span>
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="n">symbols</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_all_symbols</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="4-compare-spreads-across-symbols">4) Compare spreads across symbols<a class="headerlink" href="#4-compare-spreads-across-symbols" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Get all symbols</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Sort by spread (lowest first)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">sorted_symbols</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">spread</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Symbols with lowest spreads:&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Symbol&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Spread&#39;</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Bid&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Ask&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">sorted_symbols</span><span class="p">[:</span><span class="mi">20</span><span class="p">]:</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">spread</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">&lt;10.5f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">&lt;10.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="5-find-tradeable-symbols-with-specific-criteria">5) Find tradeable symbols with specific criteria<a class="headerlink" href="#5-find-tradeable-symbols-with-specific-criteria" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Get all symbols</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Filter by criteria</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">tradeable</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">:</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="c1"># Check if symbol meets trading criteria</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">spread</span> <span class="o">&lt;</span> <span class="mi">50</span> <span class="ow">and</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="n">info</span><span class="o">.</span><span class="n">volume_min</span> <span class="o">&lt;=</span> <span class="mf">0.01</span> <span class="ow">and</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="n">info</span><span class="o">.</span><span class="n">volume_max</span> <span class="o">&gt;=</span> <span class="mf">1.0</span> <span class="ow">and</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="n">info</span><span class="o">.</span><span class="n">trade_contract_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>        <span class="n">tradeable</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>            <span class="s1">&#39;spread&#39;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">spread</span><span class="p">,</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>            <span class="s1">&#39;min_volume&#39;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">volume_min</span><span class="p">,</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>            <span class="s1">&#39;max_volume&#39;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">volume_max</span><span class="p">,</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>            <span class="s1">&#39;contract_size&#39;</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">trade_contract_size</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>        <span class="p">})</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tradeable</span><span class="p">)</span><span class="si">}</span><span class="s2"> tradeable symbols:&quot;</span><span class="p">)</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">tradeable</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">symbol</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: Spread=</span><span class="si">{</span><span class="n">symbol</span><span class="p">[</span><span class="s1">&#39;spread&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>          <span class="sa">f</span><span class="s2">&quot;MinVol=</span><span class="si">{</span><span class="n">symbol</span><span class="p">[</span><span class="s1">&#39;min_volume&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, MaxVol=</span><span class="si">{</span><span class="n">symbol</span><span class="p">[</span><span class="s1">&#39;max_volume&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="6-build-symbol-comparison-table">6) Build symbol comparison table<a class="headerlink" href="#6-build-symbol-comparison-table" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Get specific symbols</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">symbols_to_compare</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="s2">&quot;GBPUSD&quot;</span><span class="p">,</span> <span class="s2">&quot;USDJPY&quot;</span><span class="p">,</span> <span class="s2">&quot;XAUUSD&quot;</span><span class="p">]</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols_to_compare</span><span class="p">:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">request</span><span class="o">.</span><span class="n">symbol_name</span> <span class="o">=</span> <span class="n">symbol</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">:</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="n">info</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">sym_description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Spread: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">spread</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tick Value: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">trade_tick_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Contract Size: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">trade_contract_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Min/Max Volume: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">volume_min</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">volume_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Swap Long/Short: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">swap_long</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">swap_short</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Margin Initial: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">margin_initial</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="7-get-symbols-with-timeout">7) Get symbols with timeout<a class="headerlink" href="#7-get-symbols-with-timeout" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Create request</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">request</span><span class="o">.</span><span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;EURUSD&quot;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># Set deadline</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="n">deadline</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="n">request</span><span class="p">,</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        <span class="n">deadline</span><span class="o">=</span><span class="n">deadline</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    <span class="p">)</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">:</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        <span class="n">info</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: Bid=</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">, Ask=</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">ask</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timeout or error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="8-calculate-trading-costs-from-symbol-parameters">8) Calculate trading costs from symbol parameters<a class="headerlink" href="#8-calculate-trading-costs-from-symbol-parameters" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">MetaRpcMT5.mt5_term_api_account_helper_pb2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">account_helper_pb2</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">calculate_trading_costs</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">volume</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate spread cost and margin requirement&quot;&quot;&quot;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="c1"># Get symbol parameters</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="n">request</span> <span class="o">=</span> <span class="n">account_helper_pb2</span><span class="o">.</span><span class="n">SymbolParamsManyRequest</span><span class="p">()</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="n">request</span><span class="o">.</span><span class="n">symbol_name</span> <span class="o">=</span> <span class="n">symbol</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_params_many</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">:</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Symbol </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> not found&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="k">return</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="n">info</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_infos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>    <span class="c1"># Calculate spread cost</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    <span class="n">spread_points</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">spread</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="n">tick_value</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">trade_tick_value</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    <span class="n">spread_cost</span> <span class="o">=</span> <span class="n">spread_points</span> <span class="o">*</span> <span class="n">tick_value</span> <span class="o">*</span> <span class="n">volume</span>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    <span class="c1"># Margin requirement</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>    <span class="n">margin_initial</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">margin_initial</span>
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> Trading Costs (Volume: </span><span class="si">{</span><span class="n">volume</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Spread: </span><span class="si">{</span><span class="n">spread_points</span><span class="si">}</span><span class="s2"> points&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Spread Cost: $</span><span class="si">{</span><span class="n">spread_cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Initial Margin: $</span><span class="si">{</span><span class="n">margin_initial</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tick Value: $</span><span class="si">{</span><span class="n">tick_value</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Contract Size: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">trade_contract_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Currency: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">currency_base</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">currency_profit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>        <span class="s1">&#39;spread_cost&#39;</span><span class="p">:</span> <span class="n">spread_cost</span><span class="p">,</span>
+<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>        <span class="s1">&#39;margin&#39;</span><span class="p">:</span> <span class="n">margin_initial</span><span class="p">,</span>
+<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>        <span class="s1">&#39;tick_value&#39;</span><span class="p">:</span> <span class="n">tick_value</span>
+<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>    <span class="p">}</span>
+<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>
+<a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a><span class="c1"># Usage</span>
+<a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a><span class="n">costs</span> <span class="o">=</span> <span class="k">await</span> <span class="n">calculate_trading_costs</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="see-also">📚 See also<a class="headerlink" href="#see-also" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../symbol_info_double/">symbol_info_double</a> - Get single double property</li>
+<li><a href="../symbol_info_integer/">symbol_info_integer</a> - Get single integer property</li>
+<li><a href="../symbol_info_string/">symbol_info_string</a> - Get single string property</li>
+<li><a href="../symbol_info_tick/">symbol_info_tick</a> - Get current tick data</li>
+<li><a href="../symbol_name/">symbol_name</a> - Get symbol name by index</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

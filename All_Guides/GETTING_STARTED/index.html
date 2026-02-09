@@ -1,0 +1,2844 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/All_Guides/GETTING_STARTED/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../Your_First_Project/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Getting Started - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started-with-pymt5" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting Started
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites and Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites and Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-install-python-38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Install Python 3.8+
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-install-code-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Install Code Editor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-clone-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Clone the Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-understanding-the-connection-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Understanding the Connection Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file-settingsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Configuration File: settings.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mt5-account-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ➕ MT5 Account Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        About the Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-architecture-three-tier-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Project Architecture: Three-Tier System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Project Architecture: Three-Tier System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-mt5account-low-level-grpc-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tier 1: MT5Account - Low-Level gRPC Foundation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-mt5service-selective-convenience-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔸 Tier 2: MT5Service - Selective Convenience Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-3-mt5sugar-high-level-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔺 Tier 3: MT5Sugar - High-Level Helpers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Understanding the Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-recommended-learning-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Recommended Learning Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demo Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demo Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples0_common-common-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        examples/0_common/ (Common Utilities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-examples1_lowlevel-mt5account-low-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅰ examples/1_lowlevel/ (MT5Account - Low Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-examples2_service-mt5service-mid-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅱ examples/2_service/ (MT5Service - Mid Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-examples3_sugar-mt5sugar-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅲ examples/3_sugar/ (MT5Sugar - High Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-examples4_orchestrators-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅳ examples/4_orchestrators/ (Strategies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-examples5_usercode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅴ examples/5_usercode/
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-examples-with-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Examples with main.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Examples with main.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is main.py?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-ways-to-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 Two Ways to Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-command-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Command Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-setup-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Initial Setup (mandatory!)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-mainpy-handles-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 How main.py Handles Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Development Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploring-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Exploring Advanced Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Exploring Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protobuf-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protobuf Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-your-own-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Your Own System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Your Own System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-codes-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return Codes Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grpc-stream-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gRPC Stream Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗂️ Complete Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗂️ Complete Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-api-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core API Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guides-and-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guides and Tutorials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-want-results-here-and-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Want Results Here and Now?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-Specific Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites-and-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites and Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites and Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-install-python-38" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Install Python 3.8+
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-install-code-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Install Code Editor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-clone-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Clone the Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-understanding-the-connection-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Understanding the Connection Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-file-settingsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Configuration File: settings.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mt5-account-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ➕ MT5 Account Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        About the Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-architecture-three-tier-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Project Architecture: Three-Tier System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Project Architecture: Three-Tier System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tier-1-mt5account-low-level-grpc-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔹 Tier 1: MT5Account - Low-Level gRPC Foundation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-2-mt5service-selective-convenience-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔸 Tier 2: MT5Service - Selective Convenience Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tier-3-mt5sugar-high-level-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔺 Tier 3: MT5Sugar - High-Level Helpers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Understanding the Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-recommended-learning-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Recommended Learning Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demo Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demo Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples0_common-common-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        examples/0_common/ (Common Utilities)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-examples1_lowlevel-mt5account-low-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅰ examples/1_lowlevel/ (MT5Account - Low Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii-examples2_service-mt5service-mid-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅱ examples/2_service/ (MT5Service - Mid Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii-examples3_sugar-mt5sugar-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅲ examples/3_sugar/ (MT5Sugar - High Level)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-examples4_orchestrators-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅳ examples/4_orchestrators/ (Strategies)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v-examples5_usercode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ⅴ examples/5_usercode/
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-examples-with-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Examples with main.py
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Examples with main.py">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-mainpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is main.py?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-ways-to-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 Two Ways to Run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-command-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Command Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-setup-mandatory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚡ Initial Setup (mandatory!)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-mainpy-handles-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 How main.py Handles Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛠️ Development Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploring-advanced-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Exploring Advanced Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Exploring Advanced Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-streaming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-Time Streaming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protobuf-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protobuf Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-your-own-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building Your Own System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Building Your Own System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-codes-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return Codes Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grpc-stream-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gRPC Stream Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🗂️ Complete Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🗂️ Complete Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-api-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core API Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guides-and-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guides and Tutorials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i-want-results-here-and-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Want Results Here and Now?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-Specific Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="getting-started-with-pymt5">Getting Started with PyMT5<a class="headerlink" href="#getting-started-with-pymt5" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>Welcome to PyMT5</strong> - a comprehensive educational project for learning MT5 trading automation from scratch using Python.</p>
+</blockquote>
+<hr />
+<h2 id="prerequisites-and-installation">Prerequisites and Installation<a class="headerlink" href="#prerequisites-and-installation" title="Permanent link">¶</a></h2>
+<p>Before starting work with PyMT5, you need to set up your development environment.</p>
+<h3 id="step-1-install-python-38">Step 1: Install Python 3.8+<a class="headerlink" href="#step-1-install-python-38" title="Permanent link">¶</a></h3>
+<p>PyMT5 requires Python version 3.8 or higher.</p>
+<p><strong>Download and install:</strong></p>
+<ul>
+<li><strong>Official website:</strong> <a href="https://www.python.org/downloads/">Python Downloads</a></li>
+<li>Choose the installer for your platform</li>
+<li><strong>Important for Windows:</strong> Check "Add Python to PATH" during installation</li>
+</ul>
+<p><strong>Verify installation:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>--version
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Should show: Python 3.8.x or higher</span>
+</code></pre></div>
+<hr />
+<h3 id="step-2-install-code-editor">Step 2: Install Code Editor<a class="headerlink" href="#step-2-install-code-editor" title="Permanent link">¶</a></h3>
+<p><strong>Visual Studio Code (Recommended):</strong></p>
+<ul>
+<li>
+<p><strong>Download:</strong> <a href="https://code.visualstudio.com/">VS Code</a></p>
+</li>
+<li>
+<p><strong>Extensions to install:</strong></p>
+</li>
+<li>
+<p>Python (official Python extension from Microsoft)</p>
+</li>
+<li>Pylance (Python language server)</li>
+<li>Python Test Explorer (optional)</li>
+</ul>
+<p><strong>PyCharm (Alternative):</strong></p>
+<ul>
+<li>
+<p><strong>Download:</strong> <a href="https://www.jetbrains.com/pycharm/">PyCharm by JetBrains</a></p>
+</li>
+<li>
+<p>Professional IDE for Python with advanced features</p>
+</li>
+</ul>
+<p><strong>You can also use:</strong></p>
+<ul>
+<li>Vim/Neovim with python plugins</li>
+<li>Sublime Text</li>
+<li>Any text editor + command line</li>
+</ul>
+<hr />
+<h3 id="step-3-clone-the-repository">Step 3: Clone the Repository<a class="headerlink" href="#step-3-clone-the-repository" title="Permanent link">¶</a></h3>
+<p>Clone the PyMT5 project from GitHub:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MetaRPC/PyMT5
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>PyMT5
+</code></pre></div>
+<p><strong>If you don't have Git installed:</strong></p>
+<ul>
+<li>Download from <a href="https://git-scm.com/">git-scm.com</a></li>
+<li>Or download the project as ZIP from GitHub and extract</li>
+</ul>
+<hr />
+<h3 id="step-4-understanding-the-connection-flow">Step 4: Understanding the Connection Flow<a class="headerlink" href="#step-4-understanding-the-connection-flow" title="Permanent link">¶</a></h3>
+<p>PyMT5 connects to the MT5 terminal via <strong>gRPC gateway</strong>.</p>
+<p><strong>Connection flow:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PyMT5 -&gt; gRPC -&gt; mt5term Gateway -&gt; MT5 Terminal
+</code></pre></div></p>
+<p><strong>What is mt5term Gateway?</strong></p>
+<ul>
+<li>External gateway process that bridges PyMT5 with the MT5 terminal</li>
+<li>Handles connection pooling and session management</li>
+<li>Connection settings are specified in <code>examples/0_common/settings.json</code></li>
+</ul>
+<h3 id="configuration-file-settingsjson">📝 Configuration File: settings.json<a class="headerlink" href="#configuration-file-settingsjson" title="Permanent link">¶</a></h3>
+<ul>
+<li>Before starting work, let's specify your actual credentials in the configuration file.</li>
+<li>It's better to use a Demo account for learning.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">591129415</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IpoHj17tYu67@&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">&quot;grpc_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">&quot;mt_cluster&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FxPro-MT5 Demo&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">&quot;test_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EURUSD&quot;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Configuration parameters explanation:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>user</strong></td>
+<td>Your MT5 account login number</td>
+<td><code>591129415</code></td>
+</tr>
+<tr>
+<td><strong>password</strong></td>
+<td>Your MT5 account password (master password)</td>
+<td><code>"YourPassword"</code></td>
+</tr>
+<tr>
+<td><strong>mt_cluster</strong></td>
+<td>MT5 server name from your broker</td>
+<td><code>"FxPro-MT5 Demo"</code></td>
+</tr>
+<tr>
+<td><strong>grpc_server</strong></td>
+<td>Full gRPC server address (host:port)</td>
+<td><code>"mt5.mrpc.pro:443"</code></td>
+</tr>
+<tr>
+<td><strong>test_symbol</strong></td>
+<td>Default trading symbol for examples</td>
+<td><code>"EURUSD"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important notes:</strong></p>
+<ul>
+<li><strong>user, password, mt_cluster</strong> - These are your MT5 account credentials</li>
+<li><strong>grpc_server</strong> - Provided by the MetaRPC team</li>
+<li><strong>test_symbol</strong> - Change to your preferred trading symbol</li>
+</ul>
+<hr />
+<h2 id="mt5-account-setup">➕ MT5 Account Setup<a class="headerlink" href="#mt5-account-setup" title="Permanent link">¶</a></h2>
+<p>If you don't have an MT5 demo account yet or need help creating one, refer to the beginner's guide:</p>
+<p><strong><a href="../MT5_For_Beginners/">MT5 for Beginners - Creating Demo Account</a></strong></p>
+<p>This guide covers:</p>
+<ul>
+<li>Downloading and installing MT5 terminal</li>
+<li>Step-by-step demo account creation</li>
+<li>Understanding master password and investor password</li>
+<li>Choosing a broker (optional)</li>
+</ul>
+<hr />
+<h2 id="about-the-project">About the Project<a class="headerlink" href="#about-the-project" title="Permanent link">¶</a></h2>
+<p>This project is a <strong>demonstration of capabilities</strong> of our team's gateway for reproducing methods and functionality. It is designed to help you build your own trading logic system in the future.</p>
+<p>We will guide you through all major aspects - from basic manual trading to a fully customizable algorithmic trading system. This journey will reveal the full potential of your acquired knowledge and fundamental understanding of trading and markets.</p>
+<p><strong>What you will learn:</strong></p>
+<ul>
+<li>What gRPC methods do and how to use them directly</li>
+<li>How methods can be modified for your needs</li>
+<li>How to optimize your Python code for performance</li>
+<li>How to create convenient input/output systems</li>
+<li>How to effectively track positions by symbols</li>
+<li>How to build intelligent risk management systems</li>
+<li>How to work with Python asyncio for real-time streaming</li>
+</ul>
+<p><strong>All we ask from you:</strong></p>
+<blockquote>
+<p><strong>The desire to learn, learn, and learn again.</strong> In the end, this will lead to significant results and, most importantly, to a solid foundation of knowledge in algorithmic trading with Python.</p>
+</blockquote>
+<hr />
+<h2 id="project-architecture-three-tier-system">🏗️ Project Architecture: Three-Tier System<a class="headerlink" href="#project-architecture-three-tier-system" title="Permanent link">¶</a></h2>
+<p>The project consists of <strong>three interconnected layers</strong> in the <code>src/pymt5/</code> and <code>package/MetaRpcMT5/helpers/</code> directories, each building upon the previous one. Understanding this chain is key to mastering PyMT5.</p>
+<h3 id="tier-1-mt5account-low-level-grpc-foundation">🔹 Tier 1: MT5Account - Low-Level gRPC Foundation<a class="headerlink" href="#tier-1-mt5account-low-level-grpc-foundation" title="Permanent link">¶</a></h3>
+<p><strong>What it is:</strong> Direct gRPC calls to the MT5 terminal - the absolute foundation of everything.</p>
+<p><strong><a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account Master Overview</a></strong></p>
+<p><strong>File:</strong> <code>package/MetaRpcMT5/helpers/mt5_account.py</code> (2100+ lines)</p>
+<ul>
+<li>Raw protocol buffer messages and gRPC communication</li>
+<li>Maximum control and flexibility over each request/response</li>
+<li><strong>All other tiers use this internally</strong></li>
+<li>Automatic reconnection with exponential backoff</li>
+<li><strong>42 async methods</strong>, covering all MT5 operations</li>
+<li><strong>Best for:</strong> Advanced users who need granular control</li>
+</ul>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Async/await based API</li>
+<li>Automatic reconnection on transient errors</li>
+<li>Built-in retry logic for network failures</li>
+<li>Session management with UUID tracking</li>
+</ul>
+<p><strong>Two-Level Documentation:</strong></p>
+<p>For each MT5Account methods, <strong>two types of documentation</strong> are available:</p>
+<ol>
+<li><strong>Main reference</strong> - complete method description with all input/output parameters and enums</li>
+<li>
+<p>Example: <code>docs/MT5Account/2. Symbol_Information/symbol_info_double.md</code></p>
+</li>
+<li>
+<p><strong>HOW_IT_WORK</strong> - detailed step-by-step explanation with live code examples</p>
+</li>
+<li>Example: <code>docs/MT5Account/HOW_IT_WORK/2. Symbol_Information_HOW/symbol_info_double_HOW.md</code></li>
+<li>Line-by-line breakdown of actual code from demo files</li>
+<li>Detailed comments for each step</li>
+</ol>
+<p>This two-level approach allows you to quickly find reference information OR deeply understand how the method works internally.</p>
+<h3 id="tier-2-mt5service-selective-convenience-layer">🔸 Tier 2: MT5Service - Selective Convenience Layer<a class="headerlink" href="#tier-2-mt5service-selective-convenience-layer" title="Permanent link">¶</a></h3>
+<p><strong>What it is:</strong> Mid-level wrapper that provides value-added methods on top of MT5Account.</p>
+<p><strong><a href="../../MT5Service/MT5Service.Overview/">MT5Service Overview</a></strong></p>
+<p><strong>File:</strong> <code>src/pymt5/mt5_service.py</code> (1200+ lines)</p>
+<p><strong>Primary purpose:</strong> Architectural middleware layer for MT5Sugar. MT5Service exists primarily to serve as a foundation for high-level MT5Sugar operations.</p>
+<p><strong>Reality check:</strong> Not all 36 methods add the same value:</p>
+<ul>
+<li>✅ <strong>11 HIGH/VERY HIGH value methods</strong> - Aggregate multiple RPC calls, complex protobuf unpacking, datetime conversions, create structured dataclasses</li>
+<li>⚪ <strong>26 NONE/LOW value methods</strong> - Direct pass-through or simple single-field extraction</li>
+</ul>
+<p><strong>Key insight:</strong> Since MT5Account already provides async methods with unpacked protobuf values, MT5Service's direct usage value comes from:</p>
+<ul>
+<li>Methods that <strong>aggregate multiple calls</strong> (e.g., <code>get_account_summary()</code> - combines 5 RPC calls)</li>
+<li>Methods that <strong>create rich dataclasses</strong> (e.g., <code>check_order()</code> - extracts deeply nested structures)</li>
+<li>Methods with <strong>datetime conversions</strong> (e.g., <code>get_symbol_tick()</code> - unix timestamp → datetime)</li>
+</ul>
+<h3 id="tier-3-mt5sugar-high-level-helpers">🔺 Tier 3: MT5Sugar - High-Level Helpers<a class="headerlink" href="#tier-3-mt5sugar-high-level-helpers" title="Permanent link">¶</a></h3>
+<p><strong>What it is:</strong> Syntactic sugar and helper methods for maximum productivity.</p>
+<p><strong><a href="../../MT5Sugar/MT5Sugar.Master.Overview/">MT5Sugar Overview</a></strong></p>
+<p><strong>File:</strong> <code>src/pymt5/mt5_sugar.py</code> (2100+ lines)</p>
+<ul>
+<li>One-line operations for common tasks</li>
+<li>Smart defaults and automatic parameter inference</li>
+<li>Risk-based position size calculation</li>
+<li>SL/TP calculation based on pips</li>
+<li>Most intuitive and beginner-friendly</li>
+<li><strong>Best for:</strong> Quick prototyping and simple strategies</li>
+</ul>
+<p><strong>Key features:</strong></p>
+<ul>
+<li><code>buy_market(symbol, volume)</code> - one line to open a position</li>
+<li><code>calculate_position_size(symbol, risk_percent, sl_pips)</code> - automatic volume calculation by risk</li>
+<li><code>buy_market_with_pips(symbol, volume, sl_pips, tp_pips)</code> - open with SL/TP in pips</li>
+<li><code>get_balance()</code>, <code>get_equity()</code> - async methods for account information</li>
+<li><code>close_all_positions()</code> - emergency exit</li>
+</ul>
+<hr />
+<h3 id="understanding-the-chain">⚙️ Understanding the Chain<a class="headerlink" href="#understanding-the-chain" title="Permanent link">¶</a></h3>
+<p>This three-tier chain represents the evolution from low-level control to high-level convenience:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>MT5Sugar (easiest, highest abstraction)
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    &quot; uses
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>MT5Service (convenient wrappers)
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    &quot; uses
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>MT5Account (raw gRPC, foundation)
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    &quot; communicates with
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>MT5 Terminal (via gateway)
+</code></pre></div>
+<p><strong>Each overview document includes:</strong></p>
+<ul>
+<li>Detailed method descriptions with parameters</li>
+<li>Return types and error handling patterns</li>
+<li>Usage examples and best practices</li>
+<li>Common patterns and pitfalls to avoid</li>
+<li>Python-specific guidance (asyncio, type hints, dataclasses)</li>
+</ul>
+<hr />
+<h3 id="i-recommended-learning-paths">ℹ️ Recommended Learning Paths<a class="headerlink" href="#i-recommended-learning-paths" title="Permanent link">¶</a></h3>
+<p><strong>Path A: For Python Developers (Bottom-Up Approach)</strong></p>
+<p>If you have experience with Python and want to understand everything deeply:</p>
+<ol>
+<li><strong>Start with MT5Account</strong> - Study the gRPC foundation and async patterns</li>
+<li><strong>Move to MT5Service</strong> - Understand convenient wrappers</li>
+<li><strong>Finish with MT5Sugar</strong> - Appreciate high-level abstractions</li>
+</ol>
+<p>This path gives you full control and deep understanding.</p>
+<p><strong>Path B: For Traders (Top-Down Approach)</strong></p>
+<p>If you're new to trading automation and want quick results:</p>
+<ol>
+<li><strong>Start with MT5Sugar</strong> - Easy, intuitive methods for quick trading</li>
+<li><strong>Move to MT5Service</strong> - Learn more advanced patterns as needed</li>
+<li><strong>Deep dive into MT5Account</strong> - Understand the foundation for full control</li>
+</ol>
+<p>This path allows you to start trading quickly, leaving room for growth.</p>
+<hr />
+<h2 id="demo-examples">Demo Examples<a class="headerlink" href="#demo-examples" title="Permanent link">¶</a></h2>
+<p>You can explore demo files that showcase various aspects of the SDK. These files are organized by complexity level and are located in the <code>examples/</code> folder.</p>
+<p><strong>Each file includes inline code comments explaining what each operation does.</strong></p>
+<h3 id="examples0_common-common-utilities">examples/0_common/ (Common Utilities)<a class="headerlink" href="#examples0_common-common-utilities" title="Permanent link">¶</a></h3>
+<p>Helper utilities and configuration:</p>
+<ul>
+<li><strong>demo_helpers.py</strong> - Connection helper, config loading, error formatting</li>
+<li><strong>settings.json</strong> - Configuration file (credentials, server)</li>
+<li><strong>protobuf_inspector.py</strong> - Interactive protobuf types inspector (run: <code>python main.py inspect</code>)</li>
+</ul>
+<h3 id="i-examples1_lowlevel-mt5account-low-level">Ⅰ examples/1_lowlevel/ (MT5Account - Low Level)<a class="headerlink" href="#i-examples1_lowlevel-mt5account-low-level" title="Permanent link">¶</a></h3>
+<p>Protobuf/gRPC methods - full control, maximum flexibility:</p>
+<ul>
+<li><strong>01_general_operations.py</strong> - Information methods (account, symbols, positions, ticks)</li>
+<li><strong>02_trading_operations.py</strong> - Trading operations (calculations, validation, orders)</li>
+<li><strong>03_streaming_methods.py</strong> - Streaming methods (real-time ticks, deals, positions)</li>
+</ul>
+<h3 id="ii-examples2_service-mt5service-mid-level">Ⅱ examples/2_service/ (MT5Service - Mid Level)<a class="headerlink" href="#ii-examples2_service-mt5service-mid-level" title="Permanent link">¶</a></h3>
+<p>Python wrappers over protobuf - native types, more convenient to work with:</p>
+<ul>
+<li><strong>04_service_demo.py</strong> - Service API wrappers (account, symbols, positions, orders)</li>
+<li><strong>05_service_streaming.py</strong> - Service API streaming methods (ticks, deals, profits)</li>
+</ul>
+<h3 id="iii-examples3_sugar-mt5sugar-high-level">Ⅲ examples/3_sugar/ (MT5Sugar - High Level)<a class="headerlink" href="#iii-examples3_sugar-mt5sugar-high-level" title="Permanent link">¶</a></h3>
+<p>High-level API - maximum simplification, one line of code:</p>
+<ul>
+<li><strong>06_sugar_basics.py</strong> - Basics: connection, balance, prices</li>
+<li><strong>07_sugar_trading.py</strong> - Trading: market/pending orders, SL/TP</li>
+<li><strong>08_sugar_positions.py</strong> - Positions: queries, modification, closing</li>
+<li><strong>09_sugar_history.py</strong> - History: deals, profit over period</li>
+<li><strong>10_sugar_advanced.py</strong> - Advanced: risk management, symbol info, helpers</li>
+</ul>
+<h3 id="iv-examples4_orchestrators-strategies">Ⅳ examples/4_orchestrators/ (Strategies)<a class="headerlink" href="#iv-examples4_orchestrators-strategies" title="Permanent link">¶</a></h3>
+<p>Full-fledged trading strategies - examples of complex automation:</p>
+<ul>
+<li><strong>11_trailing_stop.py</strong> - Automatic trailing stop manager</li>
+<li><strong>12_position_scaler.py</strong> - Position scaling</li>
+<li><strong>13_grid_trader.py</strong> - Grid trading for sideways market</li>
+<li><strong>14_risk_manager.py</strong> - Automatic risk management</li>
+<li><strong>15_portfolio_rebalancer.py</strong> - Portfolio rebalancing</li>
+</ul>
+<h3 id="v-examples5_usercode">Ⅴ examples/5_usercode/<a class="headerlink" href="#v-examples5_usercode" title="Permanent link">¶</a></h3>
+<p>Sandbox for your custom code:</p>
+<ul>
+<li><strong>17_usercode.py</strong> - Template file for your own trading logic</li>
+</ul>
+<p><strong><a href="../USERCODE_SANDBOX_GUIDE/">User Code Sandbox Guide</a></strong></p>
+<hr />
+<h2 id="running-examples-with-mainpy">Running Examples with main.py<a class="headerlink" href="#running-examples-with-mainpy" title="Permanent link">¶</a></h2>
+<h3 id="what-is-mainpy">What is main.py?<a class="headerlink" href="#what-is-mainpy" title="Permanent link">¶</a></h3>
+<p><code>examples/main.py</code> is the <strong>single entry point</strong> for all PyMT5 demo examples. It works as a dispatcher that:</p>
+<ol>
+<li><strong>Runs any example</strong> by number or readable name (alias)</li>
+<li><strong>Manages connection</strong> to MT5 via gRPC (creation, validation, closing)</li>
+<li><strong>Loads configuration</strong> from <code>0_common/settings.json</code> (credentials, server)</li>
+<li><strong>Ensures clean exit</strong> (graceful shutdown, connection closing)</li>
+<li><strong>Shows interactive menu</strong> for example selection (if run without parameters)</li>
+</ol>
+<p><strong>Benefits of centralized main.py:</strong></p>
+<ul>
+<li>No need to copy connection code into each example</li>
+<li>All examples use one configuration</li>
+<li>Easy to switch between examples</li>
+<li>Automatic error handling and cleanup</li>
+</ul>
+<hr />
+<h3 id="two-ways-to-run">🏁 Two Ways to Run<a class="headerlink" href="#two-ways-to-run" title="Permanent link">¶</a></h3>
+<h4 id="method-1-interactive-menu-recommended-for-learning">Method 1: Interactive Menu (recommended for learning)<a class="headerlink" href="#method-1-interactive-menu-recommended-for-learning" title="Permanent link">¶</a></h4>
+<p>Run without parameters - a menu with all available examples will appear:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>python<span class="w"> </span>main.py
+</code></pre></div>
+<p>You will see:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>================================================================
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>                 PyMT5 - DEMONSTRATION EXAMPLES
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>================================================================
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Select an example to run:
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>[LOW-LEVEL] MT5Account - Direct gRPC/Protobuf
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  1  - General operations (account, symbols, positions)
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  2  - Trading operations (orders, modify, close)
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  3  - Streaming methods (real-time ticks, trades)
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>[MID-LEVEL] MT5Service - Python Wrappers
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  4  - Service API demo
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  5  - Service streaming demo
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>[HIGH-LEVEL] MT5Sugar - Convenience API
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>  6  - Sugar basics (connection, balance, prices)
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>  7  - Sugar trading (market orders, pending orders)
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>  8  - Sugar positions (query, modify, close)
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>  9  - Sugar history (deals, profit calculations)
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>  10 - Sugar advanced (risk management, symbol info)
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>[ORCHESTRATORS] Trading Strategies
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>  11 - Trailing Stop Manager
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>  12 - Position Scaler (pyramiding/averaging)
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>  13 - Grid Trader
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>  14 - Risk Manager
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>  15 - Portfolio Rebalancer
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>[TOOLS]
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>  16 - User Code Sandbox (your custom code)
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>Enter number or alias (or &#39;x&#39; to exit):
+</code></pre></div></p>
+<h4 id="method-2-direct-run-quick-access">Method 2: Direct Run (quick access)<a class="headerlink" href="#method-2-direct-run-quick-access" title="Permanent link">¶</a></h4>
+<p>If you know what you want to run, use <strong>number</strong> or <strong>alias</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># By number</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">1</span><span class="w">        </span><span class="c1"># Will run example #1</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">11</span><span class="w">       </span><span class="c1"># Will run Trailing Stop</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">16</span><span class="w">       </span><span class="c1"># Will run User Sandbox</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># By alias (more memorable)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>python<span class="w"> </span>main.py<span class="w"> </span>lowlevel01<span class="w">       </span><span class="c1"># Same as 1</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>python<span class="w"> </span>main.py<span class="w"> </span>trailing<span class="w">         </span><span class="c1"># Same as 11</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>python<span class="w"> </span>main.py<span class="w"> </span>usercode<span class="w">         </span><span class="c1"># Same as 16</span>
+</code></pre></div>
+<hr />
+<h3 id="full-command-table">Full Command Table<a class="headerlink" href="#full-command-table" title="Permanent link">¶</a></h3>
+<h4 id="low-level-mt5account-direct-grpc-calls">LOW-LEVEL (MT5Account) - Direct gRPC Calls<a class="headerlink" href="#low-level-mt5account-direct-grpc-calls" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Aliases</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><code>lowlevel01</code>, <code>general</code></td>
+<td><code>1_lowlevel/01_general_operations.py</code></td>
+<td>Information methods: account, symbols, positions, ticks</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><code>lowlevel02</code>, <code>trading</code></td>
+<td><code>1_lowlevel/02_trading_operations.py</code></td>
+<td>Trading operations: calculations, validation, orders</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><code>lowlevel03</code>, <code>streaming</code>, <code>stream</code></td>
+<td><code>1_lowlevel/03_streaming_methods.py</code></td>
+<td>Real-time streaming: ticks, deals, positions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use</strong>: Learning low-level protobuf structures, maximum control.</p>
+<hr />
+<h4 id="mid-level-mt5service-python-wrappers">MID-LEVEL (MT5Service) - Python Wrappers<a class="headerlink" href="#mid-level-mt5service-python-wrappers" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Aliases</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>4</strong></td>
+<td><code>service</code>, <code>mid</code></td>
+<td><code>2_service/04_service_demo.py</code></td>
+<td>Service API wrappers: account, symbols, positions, orders</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><code>service05</code>, <code>servicestreaming</code></td>
+<td><code>2_service/05_service_streaming.py</code></td>
+<td>Service streaming methods: ticks, deals, profits</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use</strong>: More convenient work with Python types, less boilerplate code.</p>
+<hr />
+<h4 id="high-level-mt5sugar-simplified-api">HIGH-LEVEL (MT5Sugar) - Simplified API<a class="headerlink" href="#high-level-mt5sugar-simplified-api" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Aliases</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>6</strong></td>
+<td><code>sugar06</code>, <code>sugarbasics</code>, <code>basics</code></td>
+<td><code>3_sugar/06_sugar_basics.py</code></td>
+<td>Basics: connection, balance, prices</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><code>sugar07</code>, <code>sugartrading</code></td>
+<td><code>3_sugar/07_sugar_trading.py</code></td>
+<td>Trading: market/pending orders, SL/TP</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><code>sugar08</code>, <code>sugarpositions</code>, <code>positions</code></td>
+<td><code>3_sugar/08_sugar_positions.py</code></td>
+<td>Positions: queries, modification, closing</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><code>sugar09</code>, <code>sugarhistory</code>, <code>history</code></td>
+<td><code>3_sugar/09_sugar_history.py</code></td>
+<td>History: deals over period, profit calculation</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td><code>sugar10</code>, <code>sugaradvanced</code>, <code>advanced</code></td>
+<td><code>3_sugar/10_sugar_advanced.py</code></td>
+<td>Advanced: risk management, symbol info</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use</strong>: Quick prototyping, simple scripts, one line of code.</p>
+<hr />
+<h4 id="orchestrators-trading-strategies">ORCHESTRATORS - Trading Strategies<a class="headerlink" href="#orchestrators-trading-strategies" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Aliases</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>11</strong></td>
+<td><code>trailing</code>, <code>trailingstop</code></td>
+<td><code>4_orchestrators/11_trailing_stop.py</code></td>
+<td>Automatic trailing stop manager</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td><code>scaler</code>, <code>positionscaler</code></td>
+<td><code>4_orchestrators/12_position_scaler.py</code></td>
+<td>Position scaling (pyramiding/averaging)</td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td><code>grid</code>, <code>gridtrading</code></td>
+<td><code>4_orchestrators/13_grid_trader.py</code></td>
+<td>Grid trading for sideways market</td>
+</tr>
+<tr>
+<td><strong>14</strong></td>
+<td><code>risk</code>, <code>riskmanager</code></td>
+<td><code>4_orchestrators/14_risk_manager.py</code></td>
+<td>Automatic risk management</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td><code>rebalancer</code>, <code>portfolio</code></td>
+<td><code>4_orchestrators/15_portfolio_rebalancer.py</code></td>
+<td>Portfolio rebalancing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use</strong>: Learning complex strategies, combining multiple API methods.</p>
+<hr />
+<h4 id="tools-developer-tools">TOOLS - Developer Tools<a class="headerlink" href="#tools-developer-tools" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Aliases</th>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>16</strong></td>
+<td><code>inspect</code>, <code>inspector</code>, <code>proto</code></td>
+<td><code>0_common/16_protobuf_inspector.py</code></td>
+<td>Interactive protobuf types explorer</td>
+</tr>
+<tr>
+<td><strong>17</strong></td>
+<td><code>usercode</code>, <code>user</code>, <code>sandbox</code>, <code>custom</code></td>
+<td><code>5_usercode/17_usercode.py</code></td>
+<td>Sandbox for your code</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use</strong>: Exploring protobuf structures (16), writing your own trading logic (17)</p>
+<hr />
+<h3 id="initial-setup-mandatory">⚡ Initial Setup (mandatory!)<a class="headerlink" href="#initial-setup-mandatory" title="Permanent link">¶</a></h3>
+<p><strong>After cloning the repository, you must install dependencies:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 1. Navigate to the project root</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">cd</span><span class="w"> </span>PyMT5
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 2. Install dependencies and link local package (only once)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>./package
+</code></pre></div>
+<p><strong>What <code>pip install -e ./package</code> does:</strong></p>
+<ul>
+<li><strong>Installs required dependencies</strong> into your Python environment:</li>
+<li><code>grpcio&gt;=1.60.0</code> (gRPC runtime)</li>
+<li><code>grpcio-tools&gt;=1.60.0</code> (protobuf tools)</li>
+<li>
+<p><code>googleapis-common-protos&gt;=1.56.0</code> (Google API types)</p>
+</li>
+<li>
+<p><strong>Creates editable link</strong> to local <code>package/MetaRpcMT5/</code> folder</p>
+</li>
+<li>Does NOT copy or duplicate the package</li>
+<li>Uses the existing code from your repository</li>
+<li>All changes to <code>package/</code> are immediately visible</li>
+</ul>
+<p><strong>Important notes:</strong></p>
+<ul>
+<li>MetaRpcMT5 package <strong>already exists</strong> in the repository (<code>package/MetaRpcMT5/</code>)</li>
+<li>This command installs only <strong>external dependencies</strong> (grpcio, etc.)</li>
+<li>Run this command only <strong>ONCE</strong> after cloning the repository</li>
+<li>After installation, all examples will work immediately</li>
+</ul>
+<hr />
+<h3 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">¶</a></h3>
+<h4 id="initial-learning-with-interactive-menu">Initial Learning (with interactive menu)<a class="headerlink" href="#initial-learning-with-interactive-menu" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Run menu (dependencies already installed above)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>python<span class="w"> </span>main.py
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># Select an example (enter number and press Enter)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># Start with 1, 2, 3 to understand the basics</span>
+</code></pre></div>
+<h4 id="quick-testing-of-specific-functions">Quick Testing of Specific Functions<a class="headerlink" href="#quick-testing-of-specific-functions" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># Testing Sugar API (simplest)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>python<span class="w"> </span>main.py<span class="w"> </span>basics<span class="w">          </span><span class="c1"># Balance, prices</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>python<span class="w"> </span>main.py<span class="w"> </span>trading<span class="w">         </span><span class="c1"># Opening orders</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>python<span class="w"> </span>main.py<span class="w"> </span>positions<span class="w">       </span><span class="c1"># Working with positions</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># Testing orchestrators</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>python<span class="w"> </span>main.py<span class="w"> </span>trailing<span class="w">        </span><span class="c1"># Trailing stop</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>python<span class="w"> </span>main.py<span class="w"> </span>grid<span class="w">            </span><span class="c1"># Grid trading</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>python<span class="w"> </span>main.py<span class="w"> </span>scaler<span class="w">          </span><span class="c1"># Pyramiding/averaging</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="c1"># Working with your code</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>python<span class="w"> </span>main.py<span class="w"> </span>usercode<span class="w">        </span><span class="c1"># Your sandbox</span>
+</code></pre></div>
+<h4 id="learning-sequence-recommended">Learning Sequence (recommended)<a class="headerlink" href="#learning-sequence-recommended" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># 1. Start with low level (understanding basics)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">1</span><span class="w">               </span><span class="c1"># How gRPC calls work</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">2</span><span class="w">               </span><span class="c1"># How trading operations execute</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># 2. Move to mid level (Python wrappers)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>python<span class="w"> </span>main.py<span class="w"> </span>service<span class="w">         </span><span class="c1"># More convenient API</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># 3. Explore high level (simplification)</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>python<span class="w"> </span>main.py<span class="w"> </span>basics<span class="w">          </span><span class="c1"># Sugar API - one line of code</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>python<span class="w"> </span>main.py<span class="w"> </span>trading<span class="w">         </span><span class="c1"># Simple trading operations</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>python<span class="w"> </span>main.py<span class="w"> </span>advanced<span class="w">        </span><span class="c1"># Risk management</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="c1"># 4. Explore orchestrators (strategies)</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>python<span class="w"> </span>main.py<span class="w"> </span>trailing<span class="w">        </span><span class="c1"># Ready-made strategy</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>python<span class="w"> </span>main.py<span class="w"> </span>grid<span class="w">            </span><span class="c1"># Complex logic</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="c1"># 5. Write your code</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>python<span class="w"> </span>main.py<span class="w"> </span>usercode<span class="w">        </span><span class="c1"># Your trading logic</span>
+</code></pre></div>
+<hr />
+<h3 id="how-mainpy-handles-commands">🔄 How main.py Handles Commands<a class="headerlink" href="#how-mainpy-handles-commands" title="Permanent link">¶</a></h3>
+<p>Inside <code>main.py</code> there is a large routing block that handles commands:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;lowlevel01&quot;</span><span class="p">]:</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">lowlevel01</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>  <span class="c1"># -&gt; 1_lowlevel/01_general_operations.py</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">elif</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;11&quot;</span><span class="p">,</span> <span class="s2">&quot;trailing&quot;</span><span class="p">,</span> <span class="s2">&quot;trailingstop&quot;</span><span class="p">]:</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">trailing</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>     <span class="c1"># -&gt; 4_orchestrators/11_trailing_stop.py</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="k">elif</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;16&quot;</span><span class="p">,</span> <span class="s2">&quot;usercode&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;sandbox&quot;</span><span class="p">,</span> <span class="s2">&quot;custom&quot;</span><span class="p">]:</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="k">return</span> <span class="k">await</span> <span class="n">usercode</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>     <span class="c1"># -&gt; 5_usercode/17_usercode.py</span>
+</code></pre></div>
+<p>Each command calls the corresponding module, which:</p>
+<ol>
+<li>Creates its own MT5Account connection using <code>create_and_connect_mt5()</code> helper</li>
+<li>Executes the demonstration with full connection control</li>
+<li>Closes the connection in <code>finally</code> block via <code>await account.channel.close()</code></li>
+<li>Returns control to main.py</li>
+</ol>
+<p><strong>This means</strong>: Each example is <strong>fully independent</strong> and manages its own connection lifecycle. The examples are self-contained and can be run standalone or through main.py.</p>
+<hr />
+<h2 id="development-dependencies">🛠️ Development Dependencies<a class="headerlink" href="#development-dependencies" title="Permanent link">¶</a></h2>
+<p>PyMT5 uses the following key packages:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Core dependencies</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">grpcio</span><span class="o">&gt;=</span><span class="mf">1.60.0</span>                    <span class="c1"># gRPC framework</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">grpcio</span><span class="o">-</span><span class="n">tools</span><span class="o">&gt;=</span><span class="mf">1.60.0</span>              <span class="c1"># gRPC code generation tools</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">googleapis</span><span class="o">-</span><span class="n">common</span><span class="o">-</span><span class="n">protos</span><span class="o">&gt;=</span><span class="mf">1.56.0</span>  <span class="c1"># Google API common protobuf types</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># protobuf - installed automatically as dependency of grpcio</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Built-in Python modules (no installation needed)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="n">asyncio</span>         <span class="c1"># Async I/O support (built-in)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="n">dataclasses</span>     <span class="c1"># Structured data (built-in for Python 3.7+)</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">typing</span>          <span class="c1"># Type hints (built-in)</span>
+</code></pre></div>
+<p>All dependencies are listed in <code>package/pyproject.toml</code> and will be installed automatically with <code>pip install -e ./package</code></p>
+<hr />
+<h2 id="exploring-advanced-features">🧩 Exploring Advanced Features<a class="headerlink" href="#exploring-advanced-features" title="Permanent link">¶</a></h2>
+<p>After mastering the three-tier chain (MT5Account -&gt; MT5Service -&gt; MT5Sugar), you can explore advanced features:</p>
+<h3 id="real-time-streaming">Real-Time Streaming<a class="headerlink" href="#real-time-streaming" title="Permanent link">¶</a></h3>
+<p>Learn how to work with real-time data streams in Python:</p>
+<p><strong><a href="../GRPC_STREAM_MANAGEMENT/">gRPC Stream Management</a></strong></p>
+<p>Topics covered in the guide:</p>
+<ul>
+<li>Async generator patterns for streaming</li>
+<li>Reading streamed data with async for</li>
+<li>Asyncio task management and cancellation</li>
+<li>Automatic reconnection patterns</li>
+<li>Multiple concurrent streams</li>
+</ul>
+<h3 id="protobuf-inspector">Protobuf Inspector<a class="headerlink" href="#protobuf-inspector" title="Permanent link">¶</a></h3>
+<p>Interactive tool for exploring MT5 API types:</p>
+<p><strong><a href="../PROTOBUF_INSPECTOR_GUIDE/">Protobuf Inspector Guide</a></strong></p>
+<p>Features:</p>
+<ul>
+<li>Explore protobuf message types</li>
+<li>Search types and fields</li>
+<li>View enum values</li>
+<li>Understand message structures</li>
+</ul>
+<hr />
+<h2 id="building-your-own-system">Building Your Own System<a class="headerlink" href="#building-your-own-system" title="Permanent link">¶</a></h2>
+<p>After studying all examples and understanding the architecture, you can start building your own trading system:</p>
+<p><strong>Sandbox location:</strong> <code>examples/5_usercode/17_usercode.py</code></p>
+<p>This file is prepared as a starter template for your custom code. Before you start coding here, make sure you've studied:</p>
+<ol>
+<li>The three-tier API (MT5Account -&gt; MT5Service -&gt; MT5Sugar)</li>
+<li>At least a few helper examples to understand the patterns</li>
+<li>Error handling patterns from examples</li>
+<li>Stream management, if you need real-time data</li>
+</ol>
+<p><strong><a href="../USERCODE_SANDBOX_GUIDE/">User Code Sandbox Guide</a></strong></p>
+<p><strong>Quick start:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">16</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># Edit 5_usercode/17_usercode.py and add your code</span>
+</code></pre></div>
+<hr />
+<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">¶</a></h3>
+<p>PyMT5 has comprehensive error handling:</p>
+<p><strong>File:</strong> <code>package/MetaRpcMT5/helpers/errors.py</code></p>
+<p>Features:</p>
+<ul>
+<li><code>NotConnectedError</code> - raised when connection is not established</li>
+<li><code>ApiError</code> - wraps protobuf errors with Python exception</li>
+<li>Trading operation return codes - constants for all MT5 return codes</li>
+<li>Helper functions: <code>is_retcode_success()</code>, <code>is_retcode_retryable()</code></li>
+</ul>
+<h3 id="return-codes-reference">Return Codes Reference<a class="headerlink" href="#return-codes-reference" title="Permanent link">¶</a></h3>
+<p>Understanding return code meanings when executing trading operations:</p>
+<p><strong><a href="../RETURN_CODES_REFERENCE/">Return Codes Reference</a></strong></p>
+<p>Common codes:</p>
+<ul>
+<li><code>10009</code> - Success (market order)</li>
+<li><code>10008</code> - Success (pending order)</li>
+<li><code>10019</code> - Insufficient margin</li>
+<li><code>10016</code> - Invalid stops (SL/TP too close)</li>
+<li><code>10018</code> - Market closed</li>
+</ul>
+<h3 id="grpc-stream-management">gRPC Stream Management<a class="headerlink" href="#grpc-stream-management" title="Permanent link">¶</a></h3>
+<p>If you're working with real-time streaming (ticks, events):</p>
+<p><strong><a href="../GRPC_STREAM_MANAGEMENT/">gRPC Stream Management</a></strong></p>
+<p>Primary pattern (recommended):</p>
+<ul>
+<li>Create <code>cancellation_event = asyncio.Event()</code> at start</li>
+<li>Pass <code>cancellation_event</code> to all streaming method calls</li>
+<li>Use <code>async for</code> to iterate over streams</li>
+<li>Stop streams with <code>cancellation_event.set()</code></li>
+</ul>
+<p>Additional patterns:</p>
+<ul>
+<li><code>asyncio.wait_for()</code> - auto-timeout (used in: 05_service_streaming.py, 03_streaming_methods.py)</li>
+<li><code>asyncio.create_task()</code> - background tasks (used in: 03_streaming_methods.py)</li>
+<li><code>asyncio.gather()</code> - concurrent streams (documentation only: GRPC_STREAM_MANAGEMENT.md)</li>
+</ul>
+<hr />
+<h2 id="complete-documentation">🗂️ Complete Documentation<a class="headerlink" href="#complete-documentation" title="Permanent link">¶</a></h2>
+<h3 id="core-api-documentation">Core API Documentation<a class="headerlink" href="#core-api-documentation" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account Master Overview</a></strong> - Complete low-level API reference</li>
+<li><strong><a href="../../MT5Service/MT5Service.Overview/">MT5Service Overview</a></strong> - Mid-level wrappers API</li>
+<li><strong><a href="../../MT5Sugar/MT5Sugar.Master.Overview/">MT5Sugar Overview</a></strong> - High-level Sugar API</li>
+</ul>
+<h3 id="guides-and-tutorials">Guides and Tutorials<a class="headerlink" href="#guides-and-tutorials" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><a href="../USERCODE_SANDBOX_GUIDE/">User Code Sandbox Guide</a></strong> - Quick start for custom code</li>
+<li><strong><a href="../GRPC_STREAM_MANAGEMENT/">gRPC Stream Management</a></strong> - Working with real-time streams</li>
+<li><strong><a href="../PROTOBUF_INSPECTOR_GUIDE/">Protobuf Inspector Guide</a></strong> - Interactive type explorer</li>
+<li><strong><a href="../RETURN_CODES_REFERENCE/">Return Codes Reference</a></strong> - Trading operation return codes</li>
+<li><strong><a href="../ENUMS_USAGE_REFERENCE/">ENUMs Usage Reference</a></strong> - MT5 enum constants and usage</li>
+</ul>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">¶</a></h2>
+<p><strong>The MetaRPC team</strong> strives to create favorable conditions for learning fundamental trading principles and building algorithmic trading systems with Python.</p>
+<p>We believe that with diligence and desire to learn, you will be able to master everything - from low-level protocol communication to complex trading systems.</p>
+<p><strong>Your journey starts here:</strong></p>
+<ol>
+<li>Set up the environment (above)</li>
+<li>Create or configure your MT5 demo account (<a href="../MT5_For_Beginners/">MT5 for Beginners</a>)</li>
+<li>Choose a learning path (bottom-up or top-down)</li>
+<li>Run your first example: <code>python main.py 1</code></li>
+<li>Study the code, experiment and create</li>
+</ol>
+<p><strong>Good luck on your algorithmic trading journey with Python!</strong></p>
+<blockquote>
+<p>"The foundation of success in algorithmic trading is not only understanding markets, but also understanding the code that interacts with them. Master both, and you will have unlimited possibilities."</p>
+<p>— MetaRPC Team</p>
+</blockquote>
+<hr />
+<h3 id="i-want-results-here-and-now">ℹ️ Want Results Here and Now?<a class="headerlink" href="#i-want-results-here-and-now" title="Permanent link">¶</a></h3>
+<p><strong>Don't want to clone the entire repository and study the architecture?</strong></p>
+<p><strong>Need a quick start in your own directory?</strong></p>
+<p>If you can't wait to try the gRPC gateway capabilities as soon as possible and see your first working code in 10 minutes:</p>
+<p><strong><a href="../Your_First_Project/">Your First Project - Project from Scratch</a></strong></p>
+<p><strong>What you'll get:</strong></p>
+<ul>
+<li>Create your project from scratch (without cloning the repository)</li>
+<li>Connect only necessary dependencies</li>
+<li>Write your first low-level method in 10 minutes</li>
+<li>Get account balance and see the result</li>
+<li>Start working with the gateway in your code immediately</li>
+</ul>
+<p><strong>Difference in approaches:</strong></p>
+<table>
+<thead>
+<tr>
+<th>This Document (GETTING_STARTED)</th>
+<th>Your First Project</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clone ready-made repository</td>
+<td>Create project from scratch</td>
+</tr>
+<tr>
+<td>Study examples and architecture</td>
+<td>Write working code immediately</td>
+</tr>
+<tr>
+<td>Full SDK immersion</td>
+<td>Minimal quick start</td>
+</tr>
+<tr>
+<td>For deep understanding</td>
+<td>For instant result</td>
+</tr>
+</tbody>
+</table>
+<p>Recommendation: After a quick start with Your First Project, return to this document to learn the complete architecture and all SDK capabilities.</p>
+<hr />
+<h2 id="python-specific-tips">Python-Specific Tips<a class="headerlink" href="#python-specific-tips" title="Permanent link">¶</a></h2>
+<p><strong>Effective Python practices used in this project:</strong></p>
+<ul>
+<li><strong>Async/await everywhere</strong> - All methods use asyncio for non-blocking I/O</li>
+<li><strong>Type hints</strong> - Full type annotations for better IDE support</li>
+<li><strong>Dataclasses</strong> - Structured data instead of raw protobuf</li>
+<li><strong>Context managers</strong> - Clean resource management with async with</li>
+<li><strong>Generators</strong> - Streaming data with async for</li>
+<li><strong>Exception propagation</strong> - Python exceptions for validation and errors (ValueError, RuntimeError, TimeoutError)</li>
+<li><strong>F-strings</strong> - Modern string formatting</li>
+</ul>
+<p><strong>Resources for Python beginners:</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/">Python Official Tutorial</a> - Official guide</li>
+<li><a href="https://realpython.com/">Real Python</a> - Practical Python tutorials</li>
+<li><a href="https://docs.python.org/3/library/asyncio.html">Python Asyncio</a> - Async programming guide</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Your_First_Project/" class="md-footer__link md-footer__link--next" aria-label="Next: Your First Project">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Your First Project
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

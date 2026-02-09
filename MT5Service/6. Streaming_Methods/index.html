@@ -1,0 +1,2167 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/MT5Service/6.%20Streaming_Methods/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>MT5Service - Streaming Methods (Mid-Level API) - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mt5service-streaming-methods-mid-level-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MT5Service - Streaming Methods (Mid-Level API)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important-read-this-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Important: Read This First
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ Important: Read This First">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-5-streaming-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the 5 Streaming Methods:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What This Means:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-these-methods-exist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why These Methods Exist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Why These Methods Exist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-value-mixed-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Value: Mixed Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#all-5-streaming-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All 5 Streaming Methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#async-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Async Generators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cancellation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cancellation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automatic-reconnection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Reconnection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-signatures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method Signatures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Method Signatures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-stream_ticks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1) stream_ticks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stream_trade_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2) stream_trade_updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-stream_position_profits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3) stream_position_profits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-stream_opened_tickets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4) stream_opened_tickets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-stream_transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5) stream_transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-streaming-ticks-with-auto-converted-datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Streaming Ticks with Auto-Converted Datetime
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-monitoring-multiple-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Monitoring Multiple Symbols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-detecting-new-positions-with-stream_trade_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Detecting New Positions with stream_trade_updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-real-time-pl-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Real-time P&amp;L Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-lightweight-ticket-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Lightweight Ticket Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-detailed-transaction-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Detailed Transaction Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-combined-monitoring-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Combined Monitoring Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-each-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Each Method
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Each Method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-stream_ticks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use stream_ticks()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-stream_trade_updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use stream_trade_updates()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-stream_position_profits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use stream_position_profits()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-stream_opened_tickets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use stream_opened_tickets()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-stream_transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use stream_transactions()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Related Sections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-value-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Value Assessment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mt5service-streaming-methods-mid-level-api">MT5Service - Streaming Methods (Mid-Level API)<a class="headerlink" href="#mt5service-streaming-methods-mid-level-api" title="Permanent link">¶</a></h1>
+<h2 id="important-read-this-first">⚠️ Important: Read This First<a class="headerlink" href="#important-read-this-first" title="Permanent link">¶</a></h2>
+<p><strong>MT5Service is an architectural layer</strong> between high-level (Sugar) and low-level (Account) APIs.</p>
+<h3 id="understanding-the-5-streaming-methods">Understanding the 5 Streaming Methods:<a class="headerlink" href="#understanding-the-5-streaming-methods" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Direct Use Value</th>
+<th>Architectural Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stream_ticks()</code></td>
+<td>✅ <strong>HIGH</strong> - Converts protobuf Timestamp → datetime + creates SymbolTick dataclass (8 fields)</td>
+<td>✅ Used by Sugar</td>
+</tr>
+<tr>
+<td><code>stream_trade_updates()</code></td>
+<td>⚪ <strong>NONE</strong> - Direct pass-through (<code>yield data</code>) without conversion</td>
+<td>✅ Used by Sugar</td>
+</tr>
+<tr>
+<td><code>stream_position_profits()</code></td>
+<td>⚪ <strong>NONE</strong> - Direct pass-through (<code>yield data</code>) without conversion</td>
+<td>✅ Used by Sugar</td>
+</tr>
+<tr>
+<td><code>stream_opened_tickets()</code></td>
+<td>⚪ <strong>NONE</strong> - Direct pass-through (<code>yield data</code>) without conversion</td>
+<td>✅ Used by Sugar</td>
+</tr>
+<tr>
+<td><code>stream_transactions()</code></td>
+<td>⚪ <strong>NONE</strong> - Direct pass-through (<code>yield data</code>) without conversion</td>
+<td>✅ Used by Sugar</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-this-means">What This Means:<a class="headerlink" href="#what-this-means" title="Permanent link">¶</a></h3>
+<p><strong>Architecture (3 layers):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>MT5Sugar (HIGH)     →  service.stream_ticks()          ← Sugar uses Service methods
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>MT5Service (MID)    →  account.on_symbol_tick()        ← Service converts datetime + creates dataclass
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>MT5Account (LOW)    →  gRPC stream → protobuf objects
+</code></pre></div>
+<p><strong>Value breakdown:</strong></p>
+<ul>
+<li>✅ <strong>HIGH</strong> (1 method): <code>stream_ticks()</code> - protobuf Timestamp → datetime + SymbolTick dataclass conversion</li>
+<li>⚪ <strong>NONE</strong> (4 methods): Direct pass-through - just <code>yield data</code> from Account layer</li>
+</ul>
+<p><strong>For direct MT5Service usage:</strong></p>
+<ul>
+<li>✅ <strong>Use</strong> <code>stream_ticks()</code> - saves you from manual Timestamp conversion</li>
+<li>⚪ <strong>Optional</strong>: Other 4 methods - no conversion, could call Account directly</li>
+</ul>
+<p><strong>For MT5Sugar users:</strong></p>
+<ul>
+<li>✅ All methods work perfectly - the layer serves its architectural purpose</li>
+</ul>
+<hr />
+<p><strong>API Layer:</strong> <strong>MID-LEVEL</strong> - wrappers over MT5Account with automatic datetime conversion</p>
+<p><strong>Implementation:</strong></p>
+<p>These methods are implemented in <code>src/pymt5/mt5_service.py</code>, which wraps <code>package/MetaRpcMT5/helpers/mt5_account.py</code> low-level API with dataclass conversion and automatic reconnection.</p>
+<p><strong>Example files:</strong></p>
+<ul>
+<li><code>examples/2_service/05_service_streaming.py</code> - comprehensive demo of all MT5Service streaming methods</li>
+</ul>
+<hr />
+<h2 id="why-these-methods-exist">Why These Methods Exist<a class="headerlink" href="#why-these-methods-exist" title="Permanent link">¶</a></h2>
+<h3 id="real-value-mixed-processing">Real Value: Mixed Processing<a class="headerlink" href="#real-value-mixed-processing" title="Permanent link">¶</a></h3>
+<p><strong>Only 1 method adds value</strong> through datetime conversion + dataclass creation, <strong>4 methods are direct pass-through</strong>:</p>
+<p><strong>Problem with MT5Account</strong> (Low-level):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># stream_ticks() - MT5Account returns protobuf with Timestamp</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">account</span><span class="o">.</span><span class="n">on_symbol_tick</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="c1"># data.symbol_tick.time is protobuf Timestamp - need manual conversion!</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">tick_time</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_tick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">ToDatetime</span><span class="p">()</span>  <span class="c1"># ← Manual datetime conversion</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">bid</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_tick</span><span class="o">.</span><span class="n">bid</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">ask</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">symbol_tick</span><span class="o">.</span><span class="n">ask</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="c1"># ... manual field extraction from protobuf</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Other streams - already clean protobuf objects:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">async</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">account</span><span class="o">.</span><span class="n">on_trade</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="c1"># data is OnTradeData - already has all fields accessible</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;position_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Position: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">position_info</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Solution with MT5Service</strong> (Mid-level):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># stream_ticks() - automatic datetime conversion + dataclass:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">]):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="c1"># tick is SymbolTick dataclass with time already datetime!</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">: Bid=</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">, Ask=</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">ask</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="c1"># ✅ VALUE: No manual ToDatetime() needed, clean dataclass</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Other streams - direct pass-through (NO conversion):</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">async</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_trade_updates</span><span class="p">():</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="c1"># ⚪ NO VALUE: Same OnTradeData protobuf as Account layer</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;position_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Position: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">position_info</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>What MT5Service provides:</strong></p>
+<ol>
+<li>
+<p><strong>Datetime conversion + dataclass</strong> (1 method with HIGH value):</p>
+</li>
+<li>
+<p><code>stream_ticks()</code>: Converts protobuf Timestamp → Python datetime + creates SymbolTick dataclass (8 fields)</p>
+</li>
+<li>
+<p>Implementation: <code>tick_time = data.symbol_tick.time.ToDatetime()</code> + <code>yield SymbolTick(...)</code></p>
+</li>
+<li>
+<p><strong>Direct pass-through</strong> (4 methods with NO value):</p>
+</li>
+<li>
+<p><code>stream_trade_updates()</code>: <code>async for data in account.on_trade(): yield data</code></p>
+</li>
+<li><code>stream_position_profits()</code>: <code>async for data in account.on_position_profit(): yield data</code></li>
+<li><code>stream_opened_tickets()</code>: <code>async for data in account.on_positions_and_pending_orders_tickets(): yield data</code></li>
+<li><code>stream_transactions()</code>: <code>async for data in account.on_trade_transaction(): yield data</code></li>
+<li>
+<p>These literally just forward protobuf objects without any processing</p>
+</li>
+<li>
+<p><strong>Auto-reconnection</strong> (ALL methods):</p>
+</li>
+<li>
+<p>All streaming methods benefit from <code>execute_stream_with_reconnect()</code> infrastructure</p>
+</li>
+<li>But this is also available on Account layer</li>
+</ol>
+<p><strong>Architectural purpose:</strong></p>
+<ul>
+<li>✅ <strong>MT5Sugar</strong> uses these methods to maintain layered architecture (Sugar → Service → Account)</li>
+<li>✅ <strong>stream_ticks()</strong> adds real value through datetime conversion</li>
+<li>⚪ <strong>Other 4 methods</strong> - architectural consistency only, no processing</li>
+</ul>
+<hr />
+<h2 id="all-5-streaming-methods">All 5 Streaming Methods<a class="headerlink" href="#all-5-streaming-methods" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Yields</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>stream_ticks()</code></strong></td>
+<td><code>SymbolTick</code></td>
+<td>Real-time tick data stream (time auto-converted)</td>
+</tr>
+<tr>
+<td><strong><code>stream_trade_updates()</code></strong></td>
+<td><code>OnTradeData</code></td>
+<td>Trade events (new/closed positions)</td>
+</tr>
+<tr>
+<td><strong><code>stream_position_profits()</code></strong></td>
+<td><code>OnPositionProfitData</code></td>
+<td>Real-time position P&amp;L updates</td>
+</tr>
+<tr>
+<td><strong><code>stream_opened_tickets()</code></strong></td>
+<td><code>OnPositionsAndPendingOrdersTicketsData</code></td>
+<td>Position/order ticket updates (lightweight)</td>
+</tr>
+<tr>
+<td><strong><code>stream_transactions()</code></strong></td>
+<td><code>OnTradeTransactionData</code></td>
+<td>Detailed trade transaction events</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">¶</a></h2>
+<h3 id="async-generators">Async Generators<a class="headerlink" href="#async-generators" title="Permanent link">¶</a></h3>
+<p>All streaming methods are <strong>async generators</strong> - use <code>async for</code> to iterate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">]):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>  <span class="c1"># Process each tick as it arrives</span>
+</code></pre></div>
+<h3 id="cancellation">Cancellation<a class="headerlink" href="#cancellation" title="Permanent link">¶</a></h3>
+<p>Use <code>cancellation_event</code> (asyncio.Event) to stop streaming:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">cancel_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">],</span> <span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">tick</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">if</span> <span class="n">some_condition</span><span class="p">:</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">cancel_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>  <span class="c1"># Stop streaming</span>
+</code></pre></div>
+<h3 id="automatic-reconnection">Automatic Reconnection<a class="headerlink" href="#automatic-reconnection" title="Permanent link">¶</a></h3>
+<p>All streaming methods use <code>execute_stream_with_reconnect()</code> internally - automatic reconnection on connection loss!</p>
+<hr />
+<h2 id="method-signatures">Method Signatures<a class="headerlink" href="#method-signatures" title="Permanent link">¶</a></h2>
+<h3 id="1-stream_ticks">1) stream_ticks<a class="headerlink" href="#1-stream_ticks" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stream_ticks</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">SymbolTick</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Real-time tick data stream.</strong></p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>symbols</code>: List of symbol names to stream (e.g., <code>["EURUSD", "GBPUSD"]</code>)</li>
+<li><code>cancellation_event</code>: Optional asyncio.Event for stopping stream</li>
+</ul>
+<p><strong>Yields:</strong> <code>SymbolTick</code> dataclass with:</p>
+<ul>
+<li><code>time</code>: <strong>datetime</strong> (already converted from protobuf Timestamp!)</li>
+<li><code>bid</code>, <code>ask</code>, <code>last</code>: float prices</li>
+<li><code>volume</code>, <code>time_ms</code>, <code>flags</code>, <code>volume_real</code>: tick details</li>
+</ul>
+<p><strong>Technical:</strong> Low-level streams OnSymbolTickData with <code>symbol_tick.time</code> as protobuf Timestamp. This wrapper converts each Timestamp to Python datetime via <code>ToDatetime()</code> for every tick.</p>
+<p><strong>Auto-reconnection:</strong> Stream continues until <code>cancellation_event.set()</code> or connection loss (auto-reconnects via <code>execute_stream_with_reconnect</code>).</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">]):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">ask</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="2-stream_trade_updates">2) stream_trade_updates<a class="headerlink" href="#2-stream_trade_updates" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stream_trade_updates</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Real-time trade events stream (new/closed positions).</strong></p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>cancellation_event</code>: Optional asyncio.Event for stopping stream</li>
+</ul>
+<p><strong>Yields:</strong> <code>OnTradeData</code> protobuf events with:</p>
+<ul>
+<li><code>position_info</code>: Position details when position opens/closes</li>
+<li><code>order_info</code>: Order details when pending order placed/deleted</li>
+</ul>
+<p><strong>Technical:</strong> Server pushes OnTradeData when:</p>
+<ul>
+<li>Position opens or closes</li>
+<li>Pending order placed or deleted</li>
+</ul>
+<p>Each event contains either <code>position_info</code> or <code>order_info</code> with full details (ticket, symbol, volume, type, etc.).</p>
+<p><strong>Thin wrapper:</strong> Passes through protobuf OnTradeData without conversion (minimal overhead).</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_trade_updates</span><span class="p">():</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;position_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Position: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">position_info</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;order_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Order: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">order_info</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="3-stream_position_profits">3) stream_position_profits<a class="headerlink" href="#3-stream_position_profits" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stream_position_profits</span><span class="p">(</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">interval_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">ignore_empty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Real-time position profit updates stream.</strong></p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>interval_ms</code>: Polling interval in milliseconds (default: 1000ms = 1 second)</li>
+<li><code>ignore_empty</code>: Skip frames with no changes (default: True)</li>
+<li><code>cancellation_event</code>: Optional asyncio.Event for stopping stream</li>
+</ul>
+<p><strong>Yields:</strong> <code>OnPositionProfitData</code> protobuf with:</p>
+<ul>
+<li><code>position_profits</code>: Repeated field with ticket €™ profit mapping</li>
+</ul>
+<p><strong>Technical:</strong> Server polls positions every <code>interval_ms</code> and pushes updates when profit changes.</p>
+<p><strong>ignore_empty=True</strong> filters out frames where no position P&amp;L changed, reducing bandwidth.</p>
+<p>Each OnPositionProfitData contains <code>position_profits</code> repeated field with ticket€™profit mapping.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">profit_data</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_position_profits</span><span class="p">(</span><span class="n">interval_ms</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="k">for</span> <span class="n">pos_profit</span> <span class="ow">in</span> <span class="n">profit_data</span><span class="o">.</span><span class="n">position_profits</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ticket </span><span class="si">{</span><span class="n">pos_profit</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">: $</span><span class="si">{</span><span class="n">pos_profit</span><span class="o">.</span><span class="n">profit</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="4-stream_opened_tickets">4) stream_opened_tickets<a class="headerlink" href="#4-stream_opened_tickets" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stream_opened_tickets</span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">interval_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Real-time position/order ticket updates stream (lightweight).</strong></p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>interval_ms</code>: Polling interval in milliseconds (default: 1000ms = 1 second)</li>
+<li><code>cancellation_event</code>: Optional asyncio.Event for stopping stream</li>
+</ul>
+<p><strong>Yields:</strong> <code>OnPositionsAndPendingOrdersTicketsData</code> protobuf with:</p>
+<ul>
+<li><code>opened_position_tickets</code>: List of position ticket numbers (repeated int64)</li>
+<li><code>opened_orders_tickets</code>: List of pending order ticket numbers (repeated int64)</li>
+</ul>
+<p><strong>Technical:</strong> Server polls every <code>interval_ms</code> and pushes OnPositionsAndPendingOrdersTicketsData.</p>
+<p><strong>Advantage:</strong> 10-20x less bandwidth than <code>stream_trade_updates()</code> - use when you only need to track ticket changes.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tickets</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_opened_tickets</span><span class="p">(</span><span class="n">interval_ms</span><span class="o">=</span><span class="mi">2000</span><span class="p">):</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Positions: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">tickets</span><span class="o">.</span><span class="n">opened_position_tickets</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orders: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">tickets</span><span class="o">.</span><span class="n">opened_orders_tickets</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="5-stream_transactions">5) stream_transactions<a class="headerlink" href="#5-stream_transactions" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stream_transactions</span><span class="p">(</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">cancellation_event</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+</code></pre></div>
+<p><strong>Real-time trade transaction stream (detailed).</strong></p>
+<p><strong>Args:</strong></p>
+<ul>
+<li><code>cancellation_event</code>: Optional asyncio.Event for stopping stream</li>
+</ul>
+<p><strong>Yields:</strong> <code>OnTradeTransactionData</code> protobuf events with:</p>
+<ul>
+<li><code>transaction_type</code>: Transaction type (DEAL_ADD, ORDER_DELETE, etc.)</li>
+<li>Request details and results</li>
+</ul>
+<p><strong>Technical:</strong> Server pushes OnTradeTransactionData for every trade operation step (request€™broker€™result).</p>
+<p><strong>More detailed than stream_trade_updates():</strong> Includes <code>transaction_type</code> (DEAL_ADD, ORDER_DELETE, etc.) and request details.</p>
+<p><strong>Thin wrapper:</strong> Passes through protobuf OnTradeTransactionData without conversion.</p>
+<p><strong>Usage:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_transactions</span><span class="p">():</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transaction type: </span><span class="si">{</span><span class="n">transaction</span><span class="o">.</span><span class="n">transaction_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="usage-examples">🔗 Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">¶</a></h2>
+<h3 id="example-1-streaming-ticks-with-auto-converted-datetime">Example 1: Streaming Ticks with Auto-Converted Datetime<a class="headerlink" href="#example-1-streaming-ticks-with-auto-converted-datetime" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymt5</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Service</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">stream_eurusd_ticks</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">,</span> <span class="n">duration_seconds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">):</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Stream EURUSD ticks for specified duration.&quot;&quot;&quot;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="n">cancel_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="c1"># Auto-stop after duration</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">auto_stop</span><span class="p">():</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">duration_seconds</span><span class="p">)</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>        <span class="n">cancel_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>    <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">auto_stop</span><span class="p">())</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Streaming EURUSD ticks for </span><span class="si">{</span><span class="n">duration_seconds</span><span class="si">}</span><span class="s2"> seconds...&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">],</span> <span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>            <span class="c1"># tick.time is already datetime - no conversion needed!</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>            <span class="n">spread</span> <span class="o">=</span> <span class="n">tick</span><span class="o">.</span><span class="n">ask</span> <span class="o">-</span> <span class="n">tick</span><span class="o">.</span><span class="n">bid</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">] Bid: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2"> | &quot;</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>                  <span class="sa">f</span><span class="s2">&quot;Ask: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2"> | &quot;</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>                  <span class="sa">f</span><span class="s2">&quot;Spread: </span><span class="si">{</span><span class="n">spread</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>    <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stream cancelled&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Streaming stopped&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="example-2-monitoring-multiple-symbols">Example 2: Monitoring Multiple Symbols<a class="headerlink" href="#example-2-monitoring-multiple-symbols" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">monitor_multiple_symbols</span><span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">symbols</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">duration_seconds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">):</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Stream ticks for multiple symbols simultaneously.&quot;&quot;&quot;</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>    <span class="n">cancel_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="c1"># Auto-stop after duration</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>    <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">auto_cancel</span><span class="p">(</span><span class="n">cancel_event</span><span class="p">,</span> <span class="n">duration_seconds</span><span class="p">))</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitoring </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span><span class="si">}</span><span class="s2"> symbols: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>    <span class="n">tick_counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">symbol</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">}</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>        <span class="c1"># Track which symbol this tick is for</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>        <span class="c1"># Note: tick doesn&#39;t have symbol field, need to track via subscription</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>        <span class="n">tick_counts</span><span class="p">[</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Simplified</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>        <span class="k">if</span> <span class="n">tick_counts</span><span class="p">[</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received </span><span class="si">{</span><span class="n">tick_counts</span><span class="p">[</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s2"> ticks for </span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total ticks received: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">tick_counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">auto_cancel</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">seconds</span><span class="p">):</span>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">seconds</span><span class="p">)</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a>    <span class="n">event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h3 id="example-3-detecting-new-positions-with-stream_trade_updates">Example 3: Detecting New Positions with stream_trade_updates<a class="headerlink" href="#example-3-detecting-new-positions-with-stream_trade_updates" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">monitor_trades</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">):</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Monitor for new positions and closed positions.&quot;&quot;&quot;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monitoring trade events (Ctrl+C to stop)...&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_trade_updates</span><span class="p">():</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>            <span class="c1"># Check if this is a position update</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>            <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;position_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>                <span class="n">pos</span> <span class="o">=</span> <span class="n">trade</span><span class="o">.</span><span class="n">position_info</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">POSITION UPDATE:&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Ticket: </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Symbol: </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">symbol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Type: </span><span class="si">{</span><span class="s1">&#39;BUY&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">pos</span><span class="o">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;SELL&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Volume: </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">volume</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Profit: $</span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">profit</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>            <span class="c1"># Check if this is an order update</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>            <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;order_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>                <span class="n">order</span> <span class="o">=</span> <span class="n">trade</span><span class="o">.</span><span class="n">order_info</span>
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ORDER UPDATE:&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Ticket: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Symbol: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">symbol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Type: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Volume: </span><span class="si">{</span><span class="n">order</span><span class="o">.</span><span class="n">volume_current</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>
+<a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Monitoring stopped&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="example-4-real-time-pl-monitoring">Example 4: Real-time P&amp;L Monitoring<a class="headerlink" href="#example-4-real-time-pl-monitoring" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">monitor_position_profits</span><span class="p">(</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">,</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="n">update_interval_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">):</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Monitor position profits in real-time.&quot;&quot;&quot;</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitoring position profits (update every </span><span class="si">{</span><span class="n">update_interval_ms</span><span class="si">}</span><span class="s2">ms)...&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press Ctrl+C to stop</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    <span class="n">total_profit</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">profit_data</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_position_profits</span><span class="p">(</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>            <span class="n">interval_ms</span><span class="o">=</span><span class="n">update_interval_ms</span><span class="p">,</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>            <span class="n">ignore_empty</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Only show when profit changes</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>        <span class="p">):</span>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>            <span class="c1"># Calculate total profit across all positions</span>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>            <span class="n">current_total</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;POSITION PROFITS:&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>            <span class="k">for</span> <span class="n">pos_profit</span> <span class="ow">in</span> <span class="n">profit_data</span><span class="o">.</span><span class="n">position_profits</span><span class="p">:</span>
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>                <span class="n">current_total</span> <span class="o">+=</span> <span class="n">pos_profit</span><span class="o">.</span><span class="n">profit</span>
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ticket #</span><span class="si">{</span><span class="n">pos_profit</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">: $</span><span class="si">{</span><span class="n">pos_profit</span><span class="o">.</span><span class="n">profit</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>
+<a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TOTAL PROFIT: $</span><span class="si">{</span><span class="n">current_total</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a>
+<a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a>            <span class="c1"># Alert on significant changes</span>
+<a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a>            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">current_total</span> <span class="o">-</span> <span class="n">total_profit</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">:</span>
+<a id="__codelineno-18-33" name="__codelineno-18-33" href="#__codelineno-18-33"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ALERT: Significant P&amp;L change!&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-34" name="__codelineno-18-34" href="#__codelineno-18-34"></a>
+<a id="__codelineno-18-35" name="__codelineno-18-35" href="#__codelineno-18-35"></a>            <span class="n">total_profit</span> <span class="o">=</span> <span class="n">current_total</span>
+<a id="__codelineno-18-36" name="__codelineno-18-36" href="#__codelineno-18-36"></a>
+<a id="__codelineno-18-37" name="__codelineno-18-37" href="#__codelineno-18-37"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-18-38" name="__codelineno-18-38" href="#__codelineno-18-38"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Monitoring stopped&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-39" name="__codelineno-18-39" href="#__codelineno-18-39"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final total profit: $</span><span class="si">{</span><span class="n">total_profit</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="example-5-lightweight-ticket-monitoring">Example 5: Lightweight Ticket Monitoring<a class="headerlink" href="#example-5-lightweight-ticket-monitoring" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">monitor_opened_tickets</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">):</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Monitor for new/closed positions using lightweight ticket stream.&quot;&quot;&quot;</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">known_position_tickets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="n">known_order_tickets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monitoring opened tickets (lightweight)...&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">tickets</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_opened_tickets</span><span class="p">(</span><span class="n">interval_ms</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>            <span class="c1"># Convert to sets for easy comparison</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>            <span class="n">current_positions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tickets</span><span class="o">.</span><span class="n">opened_position_tickets</span><span class="p">)</span>
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>            <span class="n">current_orders</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tickets</span><span class="o">.</span><span class="n">opened_orders_tickets</span><span class="p">)</span>
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>            <span class="c1"># Detect new positions</span>
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>            <span class="n">new_positions</span> <span class="o">=</span> <span class="n">current_positions</span> <span class="o">-</span> <span class="n">known_position_tickets</span>
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>            <span class="k">if</span> <span class="n">new_positions</span><span class="p">:</span>
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>                <span class="k">for</span> <span class="n">ticket</span> <span class="ow">in</span> <span class="n">new_positions</span><span class="p">:</span>
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NEW POSITION: #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>            <span class="c1"># Detect closed positions</span>
+<a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>            <span class="n">closed_positions</span> <span class="o">=</span> <span class="n">known_position_tickets</span> <span class="o">-</span> <span class="n">current_positions</span>
+<a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a>            <span class="k">if</span> <span class="n">closed_positions</span><span class="p">:</span>
+<a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>                <span class="k">for</span> <span class="n">ticket</span> <span class="ow">in</span> <span class="n">closed_positions</span><span class="p">:</span>
+<a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a>                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CLOSED POSITION: #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a>
+<a id="__codelineno-19-27" name="__codelineno-19-27" href="#__codelineno-19-27"></a>            <span class="c1"># Detect new pending orders</span>
+<a id="__codelineno-19-28" name="__codelineno-19-28" href="#__codelineno-19-28"></a>            <span class="n">new_orders</span> <span class="o">=</span> <span class="n">current_orders</span> <span class="o">-</span> <span class="n">known_order_tickets</span>
+<a id="__codelineno-19-29" name="__codelineno-19-29" href="#__codelineno-19-29"></a>            <span class="k">if</span> <span class="n">new_orders</span><span class="p">:</span>
+<a id="__codelineno-19-30" name="__codelineno-19-30" href="#__codelineno-19-30"></a>                <span class="k">for</span> <span class="n">ticket</span> <span class="ow">in</span> <span class="n">new_orders</span><span class="p">:</span>
+<a id="__codelineno-19-31" name="__codelineno-19-31" href="#__codelineno-19-31"></a>                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NEW ORDER: #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-32" name="__codelineno-19-32" href="#__codelineno-19-32"></a>
+<a id="__codelineno-19-33" name="__codelineno-19-33" href="#__codelineno-19-33"></a>            <span class="c1"># Detect deleted orders</span>
+<a id="__codelineno-19-34" name="__codelineno-19-34" href="#__codelineno-19-34"></a>            <span class="n">deleted_orders</span> <span class="o">=</span> <span class="n">known_order_tickets</span> <span class="o">-</span> <span class="n">current_orders</span>
+<a id="__codelineno-19-35" name="__codelineno-19-35" href="#__codelineno-19-35"></a>            <span class="k">if</span> <span class="n">deleted_orders</span><span class="p">:</span>
+<a id="__codelineno-19-36" name="__codelineno-19-36" href="#__codelineno-19-36"></a>                <span class="k">for</span> <span class="n">ticket</span> <span class="ow">in</span> <span class="n">deleted_orders</span><span class="p">:</span>
+<a id="__codelineno-19-37" name="__codelineno-19-37" href="#__codelineno-19-37"></a>                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DELETED ORDER: #</span><span class="si">{</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-38" name="__codelineno-19-38" href="#__codelineno-19-38"></a>
+<a id="__codelineno-19-39" name="__codelineno-19-39" href="#__codelineno-19-39"></a>            <span class="c1"># Update known tickets</span>
+<a id="__codelineno-19-40" name="__codelineno-19-40" href="#__codelineno-19-40"></a>            <span class="n">known_position_tickets</span> <span class="o">=</span> <span class="n">current_positions</span>
+<a id="__codelineno-19-41" name="__codelineno-19-41" href="#__codelineno-19-41"></a>            <span class="n">known_order_tickets</span> <span class="o">=</span> <span class="n">current_orders</span>
+<a id="__codelineno-19-42" name="__codelineno-19-42" href="#__codelineno-19-42"></a>
+<a id="__codelineno-19-43" name="__codelineno-19-43" href="#__codelineno-19-43"></a>            <span class="c1"># Show current status</span>
+<a id="__codelineno-19-44" name="__codelineno-19-44" href="#__codelineno-19-44"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Status] Positions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">current_positions</span><span class="p">)</span><span class="si">}</span><span class="s2">, &quot;</span>
+<a id="__codelineno-19-45" name="__codelineno-19-45" href="#__codelineno-19-45"></a>                  <span class="sa">f</span><span class="s2">&quot;Orders: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">current_orders</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-19-46" name="__codelineno-19-46" href="#__codelineno-19-46"></a>
+<a id="__codelineno-19-47" name="__codelineno-19-47" href="#__codelineno-19-47"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-19-48" name="__codelineno-19-48" href="#__codelineno-19-48"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Monitoring stopped&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="example-6-detailed-transaction-monitoring">Example 6: Detailed Transaction Monitoring<a class="headerlink" href="#example-6-detailed-transaction-monitoring" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">monitor_transactions</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">):</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Monitor detailed trade transactions.&quot;&quot;&quot;</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Monitoring trade transactions (detailed)...&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">transaction</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_transactions</span><span class="p">():</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TRANSACTION:&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Type: </span><span class="si">{</span><span class="n">transaction</span><span class="o">.</span><span class="n">transaction_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>            <span class="k">if</span> <span class="n">transaction</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;trade&quot;</span><span class="p">):</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>                <span class="n">trade</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">trade</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Action: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">action</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Order: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Symbol: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">symbol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Volume: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">volume</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Price: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">price</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>            <span class="k">if</span> <span class="n">transaction</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;request&quot;</span><span class="p">):</span>
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>                <span class="n">req</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">request</span>
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Request: </span><span class="si">{</span><span class="n">req</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>
+<a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Monitoring stopped&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="example-7-combined-monitoring-dashboard">Example 7: Combined Monitoring Dashboard<a class="headerlink" href="#example-7-combined-monitoring-dashboard" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">trading_dashboard</span><span class="p">(</span><span class="n">service</span><span class="p">:</span> <span class="n">MT5Service</span><span class="p">):</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Comprehensive trading dashboard with multiple streams.&quot;&quot;&quot;</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="n">cancel_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>    <span class="c1"># Task 1: Monitor ticks</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">tick_monitor</span><span class="p">():</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">],</span> <span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>            <span class="n">spread</span> <span class="o">=</span> <span class="n">tick</span><span class="o">.</span><span class="n">ask</span> <span class="o">-</span> <span class="n">tick</span><span class="o">.</span><span class="n">bid</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[TICK] </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">: &quot;</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>                  <span class="sa">f</span><span class="s2">&quot;Bid=</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, Ask=</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, Spread=</span><span class="si">{</span><span class="n">spread</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>    <span class="c1"># Task 2: Monitor trades</span>
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">trade_monitor</span><span class="p">():</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_trade_updates</span><span class="p">(</span><span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>            <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;position_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>                <span class="n">pos</span> <span class="o">=</span> <span class="n">trade</span><span class="o">.</span><span class="n">position_info</span>
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[TRADE] Position </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> &quot;</span>
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;BUY&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">pos</span><span class="o">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;SELL&#39;</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">volume</span><span class="si">}</span><span class="s2"> lots&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>    <span class="c1"># Task 3: Monitor profits</span>
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">profit_monitor</span><span class="p">():</span>
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>        <span class="k">async</span> <span class="k">for</span> <span class="n">profit_data</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_position_profits</span><span class="p">(</span>
+<a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>            <span class="n">interval_ms</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+<a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>            <span class="n">ignore_empty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>            <span class="n">cancellation_event</span><span class="o">=</span><span class="n">cancel_event</span>
+<a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>        <span class="p">):</span>
+<a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a>            <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">profit</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">profit_data</span><span class="o">.</span><span class="n">position_profits</span><span class="p">)</span>
+<a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[PROFIT] Total P&amp;L: $</span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a>
+<a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a>    <span class="c1"># Run all monitors concurrently</span>
+<a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting trading dashboard...&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-36" name="__codelineno-21-36" href="#__codelineno-21-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Press Ctrl+C to stop</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-37" name="__codelineno-21-37" href="#__codelineno-21-37"></a>
+<a id="__codelineno-21-38" name="__codelineno-21-38" href="#__codelineno-21-38"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-21-39" name="__codelineno-21-39" href="#__codelineno-21-39"></a>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+<a id="__codelineno-21-40" name="__codelineno-21-40" href="#__codelineno-21-40"></a>            <span class="n">tick_monitor</span><span class="p">(),</span>
+<a id="__codelineno-21-41" name="__codelineno-21-41" href="#__codelineno-21-41"></a>            <span class="n">trade_monitor</span><span class="p">(),</span>
+<a id="__codelineno-21-42" name="__codelineno-21-42" href="#__codelineno-21-42"></a>            <span class="n">profit_monitor</span><span class="p">()</span>
+<a id="__codelineno-21-43" name="__codelineno-21-43" href="#__codelineno-21-43"></a>        <span class="p">)</span>
+<a id="__codelineno-21-44" name="__codelineno-21-44" href="#__codelineno-21-44"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-21-45" name="__codelineno-21-45" href="#__codelineno-21-45"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Shutting down dashboard...&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-46" name="__codelineno-21-46" href="#__codelineno-21-46"></a>        <span class="n">cancel_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<a id="__codelineno-21-47" name="__codelineno-21-47" href="#__codelineno-21-47"></a>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Give streams time to close</span>
+<a id="__codelineno-21-48" name="__codelineno-21-48" href="#__codelineno-21-48"></a>
+<a id="__codelineno-21-49" name="__codelineno-21-49" href="#__codelineno-21-49"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dashboard stopped&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="when-to-use-each-method">When to Use Each Method<a class="headerlink" href="#when-to-use-each-method" title="Permanent link">¶</a></h2>
+<h3 id="use-stream_ticks">Use stream_ticks()<a class="headerlink" href="#use-stream_ticks" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong></p>
+<ul>
+<li>Need real-time price updates</li>
+<li>Building price charts or indicators</li>
+<li>Monitoring market movements</li>
+<li>Time precision is important</li>
+</ul>
+<p><strong>Advantage:</strong> Time already converted to datetime!</p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">]):</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="use-stream_trade_updates">Use stream_trade_updates()<a class="headerlink" href="#use-stream_trade_updates" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong></p>
+<ul>
+<li>Monitoring position opens/closes</li>
+<li>Tracking new orders</li>
+<li>Building trade notifications</li>
+<li>Need full position/order details</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_trade_updates</span><span class="p">():</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="k">if</span> <span class="n">trade</span><span class="o">.</span><span class="n">HasField</span><span class="p">(</span><span class="s2">&quot;position_info&quot;</span><span class="p">):</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;New position: </span><span class="si">{</span><span class="n">trade</span><span class="o">.</span><span class="n">position_info</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="use-stream_position_profits">Use stream_position_profits()<a class="headerlink" href="#use-stream_position_profits" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong></p>
+<ul>
+<li>Real-time P&amp;L monitoring</li>
+<li>Automatic stop-loss triggers</li>
+<li>Profit alerts</li>
+<li>Building P&amp;L dashboards</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">profit_data</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_position_profits</span><span class="p">():</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">profit</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">profit_data</span><span class="o">.</span><span class="n">position_profits</span><span class="p">)</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="k">if</span> <span class="n">total</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">100</span><span class="p">:</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ALERT: Large loss!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="use-stream_opened_tickets">Use stream_opened_tickets()<a class="headerlink" href="#use-stream_opened_tickets" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong></p>
+<ul>
+<li>Lightweight position monitoring</li>
+<li>Only need ticket numbers (not full details)</li>
+<li>Bandwidth is limited</li>
+<li>High-frequency monitoring</li>
+</ul>
+<p><strong>Advantage:</strong> 10-20x less bandwidth than stream_trade_updates()</p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tickets</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_opened_tickets</span><span class="p">():</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Open positions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tickets</span><span class="o">.</span><span class="n">opened_position_tickets</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h3 id="use-stream_transactions">Use stream_transactions()<a class="headerlink" href="#use-stream_transactions" title="Permanent link">¶</a></h3>
+<p><strong>Use when:</strong></p>
+<ul>
+<li>Need detailed transaction history</li>
+<li>Debugging trade execution</li>
+<li>Logging all trading activity</li>
+<li>Building audit trail</li>
+</ul>
+<p><strong>More detailed than stream_trade_updates()</strong></p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_transactions</span><span class="p">():</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transaction: </span><span class="si">{</span><span class="n">tx</span><span class="o">.</span><span class="n">transaction_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>Use cancellation_event</strong> - Always provide way to stop streams gracefully</li>
+<li><strong>Handle KeyboardInterrupt</strong> - Use try/except for clean shutdown</li>
+<li><strong>Don't block the loop</strong> - Process data quickly in async for loop</li>
+<li><strong>Use stream_opened_tickets() for monitoring</strong> - 10-20x more efficient</li>
+<li><strong>Use stream_ticks() for prices</strong> - Time already datetime!</li>
+<li><strong>Set appropriate intervals</strong> - Balance between latency and performance</li>
+<li><strong>Use ignore_empty=True</strong> - Reduce bandwidth for profit streaming</li>
+</ol>
+<p><strong>Cancellation pattern:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">cancel_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">([</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">],</span> <span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>        <span class="k">if</span> <span class="n">should_stop</span><span class="p">:</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>            <span class="n">cancel_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>    <span class="n">cancel_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="performance-comparison">Performance Comparison<a class="headerlink" href="#performance-comparison" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Bandwidth</th>
+<th>Update Frequency</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stream_ticks()</td>
+<td>High</td>
+<td>Every tick</td>
+<td>Price monitoring</td>
+</tr>
+<tr>
+<td>stream_trade_updates()</td>
+<td>Medium</td>
+<td>On event</td>
+<td>Position changes</td>
+</tr>
+<tr>
+<td>stream_position_profits()</td>
+<td>Low</td>
+<td>Configurable</td>
+<td>P&amp;L monitoring</td>
+</tr>
+<tr>
+<td>stream_opened_tickets()</td>
+<td>Very Low</td>
+<td>Configurable</td>
+<td>Lightweight monitoring</td>
+</tr>
+<tr>
+<td>stream_transactions()</td>
+<td>High</td>
+<td>Every transaction</td>
+<td>Detailed logging</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Best for monitoring:</strong> <code>stream_opened_tickets()</code> (very low bandwidth, configurable interval)</p>
+<p><strong>Best for prices:</strong> <code>stream_ticks()</code> (real-time, datetime auto-converted)</p>
+<p><strong>Best for P&amp;L:</strong> <code>stream_position_profits()</code> with <code>ignore_empty=True</code></p>
+<hr />
+<h2 id="related-sections">📚 Related Sections<a class="headerlink" href="#related-sections" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../MT5Service.Overview/">MT5Service Overview</a> - mid-level API overview</li>
+<li><a href="../2.%20Symbol_Information/">Symbol Methods (Mid-Level)</a> - getting tick snapshots</li>
+<li><a href="../3.%20Positions_Orders/">Positions &amp; Orders (Mid-Level)</a> - getting position snapshots</li>
+<li><a href="../5.%20Trading_Operations/">Trading Methods (Mid-Level)</a> - placing orders</li>
+<li><a href="../../MT5Account/6.%20Streaming_Methods/Streaming_Methods.Overview/">Streaming Methods (Low-Level)</a> - low-level streaming API</li>
+<li><a href="../../API_Reference/MT5Service/">MT5Service API Reference</a> - complete mid-level API reference</li>
+</ul>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<h3 id="real-value-assessment">Real Value Assessment<a class="headerlink" href="#real-value-assessment" title="Permanent link">¶</a></h3>
+<p><strong>5 streaming methods with minimal processing</strong> - only 1 adds value, 4 are direct pass-through:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Value Level</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stream_ticks()</code></td>
+<td>✅ <strong>HIGH</strong></td>
+<td>Converts protobuf Timestamp → datetime + creates SymbolTick dataclass (8 fields)</td>
+</tr>
+<tr>
+<td><code>stream_trade_updates()</code></td>
+<td>⚪ <strong>NONE</strong></td>
+<td>Direct pass-through: <code>async for data in account.on_trade(): yield data</code></td>
+</tr>
+<tr>
+<td><code>stream_position_profits()</code></td>
+<td>⚪ <strong>NONE</strong></td>
+<td>Direct pass-through: <code>async for data in account.on_position_profit(): yield data</code></td>
+</tr>
+<tr>
+<td><code>stream_opened_tickets()</code></td>
+<td>⚪ <strong>NONE</strong></td>
+<td>Direct pass-through: <code>async for data in account.on_positions_and_pending_orders_tickets(): yield data</code></td>
+</tr>
+<tr>
+<td><code>stream_transactions()</code></td>
+<td>⚪ <strong>NONE</strong></td>
+<td>Direct pass-through: <code>async for data in account.on_trade_transaction(): yield data</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why these methods have value (or don't):</strong></p>
+<p>MT5Account streams protobuf objects:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Low-level streams:</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">account</span><span class="o">.</span><span class="n">on_symbol_tick</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>  <span class="c1"># OnSymbolTickData with protobuf Timestamp</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="k">async</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">account</span><span class="o">.</span><span class="n">on_trade</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>  <span class="c1"># OnTradeData protobuf (already accessible)</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="k">async</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">account</span><span class="o">.</span><span class="n">on_position_profit</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>  <span class="c1"># OnPositionProfitData protobuf (already accessible)</span>
+</code></pre></div></p>
+<p>MT5Service processing:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Only stream_ticks() has processing:</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="c1"># ✅ Converts: data.symbol_tick.time.ToDatetime() + SymbolTick dataclass</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="c1"># Other 4 methods - no processing:</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="k">async</span> <span class="k">for</span> <span class="n">trade</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_trade_updates</span><span class="p">(</span><span class="o">...</span><span class="p">):</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    <span class="c1"># ⚪ Just yields: Same OnTradeData protobuf from Account</span>
+</code></pre></div></p>
+<p><strong>Key insights:</strong></p>
+<ol>
+<li>
+<p><strong>Only 1 method adds value</strong> (stream_ticks):</p>
+</li>
+<li>
+<p>Automatic datetime conversion saves calling <code>.ToDatetime()</code> manually</p>
+</li>
+<li>SymbolTick dataclass with 8 fields is cleaner than protobuf access</li>
+<li>
+<p>Real functional improvement</p>
+</li>
+<li>
+<p><strong>4 methods add NO value</strong> (direct pass-through):</p>
+</li>
+<li>
+<p>Literally just <code>async for data in account.method(): yield data</code></p>
+</li>
+<li>No conversion, no processing, no unpacking</li>
+<li>Same protobuf objects as Account layer</li>
+<li>
+<p>Exist only for architectural consistency (MT5Sugar needs them)</p>
+</li>
+<li>
+<p><strong>All methods have auto-reconnection</strong>:</p>
+</li>
+<li>
+<p>But this is available on Account layer too via <code>execute_stream_with_reconnect()</code></p>
+</li>
+</ol>
+<p><strong>Performance tips:</strong></p>
+<ul>
+<li>Use <code>stream_opened_tickets()</code> for frequent monitoring (very efficient - low bandwidth)</li>
+<li>Use <code>ignore_empty=True</code> for profit streaming (reduce bandwidth)</li>
+<li>Set appropriate <code>interval_ms</code> (balance latency vs performance)</li>
+<li>Always provide <code>cancellation_event</code> for graceful shutdown</li>
+</ul>
+<p><strong>Cancellation pattern:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">cancel_event</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">stream_ticks</span><span class="p">(</span><span class="n">symbols</span><span class="p">,</span> <span class="n">cancel_event</span><span class="p">):</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="k">if</span> <span class="n">should_stop</span><span class="p">:</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>        <span class="n">cancel_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Bottom line:</strong></p>
+<ul>
+<li>✅ <strong>For direct users</strong>: Only <code>stream_ticks()</code> adds value - other 4 methods could call Account directly</li>
+<li>⚪ <strong>Other 4 methods</strong>: No processing - consider calling Account layer directly for these</li>
+<li>✅ <strong>For Sugar users</strong>: All methods serve architectural purpose perfectly</li>
+<li>✅ <strong>vs MT5Account</strong>: Significant improvement only for stream_ticks() through datetime conversion</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

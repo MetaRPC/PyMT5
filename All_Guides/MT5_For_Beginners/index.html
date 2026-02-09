@@ -1,0 +1,2106 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/All_Guides/MT5_For_Beginners/">
+      
+      
+        <link rel="prev" href="../GLOSSARY/">
+      
+      
+        <link rel="next" href="../GRPC_STREAM_MANAGEMENT/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>MT5 for Beginners - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mt5-for-beginners-your-first-steps-in-trading" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MT5 for Beginners
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-metatrader-5-mt5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is MetaTrader 5 (MT5)?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-vs-live-account-start-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demo vs Live Account: Start Safely
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demo vs Live Account: Start Safely">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-start-with-a-demo-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why start with a demo account?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#live-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Live Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-creating-a-demo-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start: Creating a Demo Account
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start: Creating a Demo Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-download-and-install-mt5-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1️⃣: Download and Install MT5 Terminal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-launch-mt5-and-locate-the-navigator-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2️⃣: Launch MT5 and Locate the Navigator Panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-opening-a-new-demo-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3️⃣: Opening a New Demo Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-select-metaquotes-demo-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4️⃣: Select MetaQuotes Demo Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-account-type-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5️⃣: Account Type Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-fill-in-your-personal-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6️⃣: Fill in Your Personal Information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-save-your-account-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7️⃣: Save Your Account Credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-configure-pymt5-with-your-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8️⃣: Configure PyMT5 with Your Credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-9-verify-mt5-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9️⃣: Verify MT5 Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-start-testing-pymt5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 🔟: Start Testing PyMT5
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-mt5-password-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Understanding MT5 Password Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Understanding MT5 Password Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#master-password-main-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Master Password (Main Password)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investor-password-read-only-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Investor Password (Read-Only Password)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-broker-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a Broker (Optional)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing a Broker (Optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#popular-mt5-brokers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Popular MT5 Brokers:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to look for:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s Next?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-setting-up-pymt5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Setting Up PyMT5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-understanding-api-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Understanding API Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-reminders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Reminders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important Reminders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Risk Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#education" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Education
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-python-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Python Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful Python Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-metatrader-5-mt5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is MetaTrader 5 (MT5)?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demo-vs-live-account-start-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Demo vs Live Account: Start Safely
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Demo vs Live Account: Start Safely">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-start-with-a-demo-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why start with a demo account?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#live-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Live Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-creating-a-demo-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start: Creating a Demo Account
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start: Creating a Demo Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-download-and-install-mt5-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1️⃣: Download and Install MT5 Terminal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-launch-mt5-and-locate-the-navigator-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2️⃣: Launch MT5 and Locate the Navigator Panel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-opening-a-new-demo-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3️⃣: Opening a New Demo Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-select-metaquotes-demo-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4️⃣: Select MetaQuotes Demo Server
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-account-type-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5️⃣: Account Type Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-fill-in-your-personal-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6️⃣: Fill in Your Personal Information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-save-your-account-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7️⃣: Save Your Account Credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-configure-pymt5-with-your-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8️⃣: Configure PyMT5 with Your Credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-9-verify-mt5-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9️⃣: Verify MT5 Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-start-testing-pymt5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 🔟: Start Testing PyMT5
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-mt5-password-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧩 Understanding MT5 Password Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Understanding MT5 Password Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#master-password-main-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Master Password (Main Password)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#investor-password-read-only-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Investor Password (Read-Only Password)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-broker-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a Broker (Optional)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choosing a Broker (Optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#popular-mt5-brokers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Popular MT5 Brokers:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to look for:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s Next?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-setting-up-pymt5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Setting Up PyMT5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-understanding-api-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Understanding API Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-reminders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Reminders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important Reminders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🛡️ Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📊 Risk Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧪 Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#education" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Education
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-python-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Python Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful Python Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mt5-for-beginners-your-first-steps-in-trading">MT5 for Beginners: Your First Steps in Trading<a class="headerlink" href="#mt5-for-beginners-your-first-steps-in-trading" title="Permanent link">¶</a></h1>
+<p>Welcome! This guide is designed for complete beginners who have never worked with MetaTrader 5 or trading. We'll walk you through everything you need to know to get started.</p>
+<hr />
+<h2 id="what-is-metatrader-5-mt5">What is MetaTrader 5 (MT5)?<a class="headerlink" href="#what-is-metatrader-5-mt5" title="Permanent link">¶</a></h2>
+<p><strong>MetaTrader 5</strong> is a powerful trading platform used by millions of traders worldwide. It allows you to:</p>
+<ul>
+<li>Trade forex, stocks, commodities, and cryptocurrencies</li>
+<li>Analyze markets with charts and indicators</li>
+<li>Execute automated trading strategies</li>
+<li>Monitor your positions in real-time</li>
+</ul>
+<p>Think of MT5 as your "cockpit" for accessing financial markets. PyMT5 allows you to programmatically control this cockpit using Python.</p>
+<hr />
+<h2 id="demo-vs-live-account-start-safely">Demo vs Live Account: Start Safely<a class="headerlink" href="#demo-vs-live-account-start-safely" title="Permanent link">¶</a></h2>
+<h3 id="why-start-with-a-demo-account">Why start with a demo account?<a class="headerlink" href="#why-start-with-a-demo-account" title="Permanent link">¶</a></h3>
+<p>A <strong>demo account</strong> is a risk-free practice account with virtual money. We <strong>strongly recommend</strong> starting with demo for several reasons:</p>
+<ul>
+<li>✅ <strong>Zero risk</strong> - practice with virtual funds (typically $10,000 - $100,000)</li>
+<li>✅ <strong>Real market conditions</strong> - live prices and market behavior</li>
+<li>✅ <strong>Learn the platform</strong> - understand how MT5 works before risking real money</li>
+<li>✅ <strong>Test your code</strong> - perfect for developing and testing your PyMT5 applications</li>
+</ul>
+<h3 id="live-account">Live Account<a class="headerlink" href="#live-account" title="Permanent link">¶</a></h3>
+<p>A <strong>live account</strong> uses your real money. Only move to live trading when you:</p>
+<ul>
+<li>Understand how MT5 works</li>
+<li>Have thoroughly tested your strategies on demo</li>
+<li>Are aware of the risks involved</li>
+</ul>
+<hr />
+<h2 id="quick-start-creating-a-demo-account">Quick Start: Creating a Demo Account<a class="headerlink" href="#quick-start-creating-a-demo-account" title="Permanent link">¶</a></h2>
+<p>The fastest way to get started is to create a demo account directly through the MT5 terminal application.</p>
+<h3 id="step-1-download-and-install-mt5-terminal">Step 1️⃣: Download and Install MT5 Terminal<a class="headerlink" href="#step-1-download-and-install-mt5-terminal" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Visit the official MetaTrader website: <a href="https://www.metatrader5.com/en/download">https://www.metatrader5.com/en/download</a></p>
+</li>
+<li>
+<p>Download the version for your operating system (Windows/Mac/Linux)</p>
+</li>
+<li>
+<p>Install the application</p>
+</li>
+</ol>
+<hr />
+<h3 id="step-2-launch-mt5-and-locate-the-navigator-panel">Step 2️⃣: Launch MT5 and Locate the Navigator Panel<a class="headerlink" href="#step-2-launch-mt5-and-locate-the-navigator-panel" title="Permanent link">¶</a></h3>
+<p>When you open the MetaTrader 5 application, you'll typically see a popup window offering to:</p>
+<ul>
+<li>
+<p>Register for the MQL community</p>
+</li>
+<li>
+<p>Open a new account or log into an existing one</p>
+</li>
+</ul>
+<p>If this popup doesn't appear automatically, you need to find the <strong>Navigator</strong> panel.</p>
+<p><img alt="Navigator Panel Location" src="../../Guide_Images/1.%20NAV.png" /></p>
+<p><strong>Finding the Navigator Panel:</strong></p>
+<p>The <strong>Navigator</strong> panel is usually located on the <strong>left side</strong> of the screen, below the <strong>Market Watch</strong> panel.</p>
+<p><strong>Inside the Navigator panel</strong> you'll see several sections:
+- Accounts
+- Subscriptions
+- Indicators
+- Expert Advisors
+- And others</p>
+<hr />
+<h3 id="step-3-opening-a-new-demo-account">Step 3️⃣: Opening a New Demo Account<a class="headerlink" href="#step-3-opening-a-new-demo-account" title="Permanent link">¶</a></h3>
+<ol>
+<li>In the <strong>Navigator</strong> panel, find the <strong>Accounts</strong> section</li>
+<li><strong>Right-click</strong> on "Accounts"</li>
+<li>Select <strong>"Open an account"</strong> from the context menu</li>
+</ol>
+<p>This will open the broker server search panel.</p>
+<hr />
+<h3 id="step-4-select-metaquotes-demo-server">Step 4️⃣: Select MetaQuotes Demo Server<a class="headerlink" href="#step-4-select-metaquotes-demo-server" title="Permanent link">¶</a></h3>
+<p>In the broker search window, you'll see a list of available MT5 servers.</p>
+<p><strong>For your first demo account, we'll use the simplest option:</strong></p>
+<ul>
+<li>Look for <strong>"MetaQuotes-Demo"</strong> or <strong>"MetaQuotes Ltd"</strong> in the list</li>
+<li>This is the standard demo server provided by MetaTrader developers</li>
+<li>If you don't see it immediately, use the search field at the top to find it</li>
+</ul>
+<p><strong>Select the MetaQuotes server</strong> and click <strong>Next</strong>.</p>
+<p><img alt="MetaQuotes Server Selection" src="../../Guide_Images/2.%20META.png" /></p>
+<hr />
+<h3 id="step-5-account-type-selection">Step 5️⃣: Account Type Selection<a class="headerlink" href="#step-5-account-type-selection" title="Permanent link">¶</a></h3>
+<p>On the next screen, you'll have options:</p>
+<ul>
+<li><strong>Open a new demo account</strong> (top option)</li>
+<li>Log into an existing account (demo or live)</li>
+</ul>
+<p><strong>Select "Open a new demo account"</strong> and click <strong>Next</strong>.</p>
+<p><img alt="Open New Demo Account" src="../../Guide_Images/3.%20OPEN.png" /></p>
+<hr />
+<h3 id="step-6-fill-in-your-personal-information">Step 6️⃣: Fill in Your Personal Information<a class="headerlink" href="#step-6-fill-in-your-personal-information" title="Permanent link">¶</a></h3>
+<p>Now you'll see a form requesting your details:</p>
+<ul>
+<li><strong>Name</strong>: Your first name</li>
+<li><strong>Last Name</strong>: Your last name</li>
+<li><strong>Email</strong>: Your email address</li>
+<li><strong>Phone</strong>: Optional (can skip for demo)</li>
+<li><strong>Account Type</strong>: Choose your preferred account settings</li>
+<li><strong>Deposit</strong>: Virtual amount (e.g., $10,000)</li>
+<li><strong>Leverage</strong>: 1:100 is a good starting point</li>
+<li><strong>Currency</strong>: USD, EUR, etc.</li>
+</ul>
+<p><strong>Check the box</strong> to agree to the terms and conditions, then click <strong>Next</strong>.</p>
+<p><img alt="Personal Information Form" src="../../Guide_Images/4.%20creator.png" /></p>
+<hr />
+<h3 id="step-7-save-your-account-credentials">Step 7️⃣: Save Your Account Credentials<a class="headerlink" href="#step-7-save-your-account-credentials" title="Permanent link">¶</a></h3>
+<p>MT5 will now create your demo account and display your credentials:</p>
+<p><strong>Important credentials displayed:</strong></p>
+<ul>
+<li><strong>Login</strong>: Your account number (e.g., 591129415)</li>
+<li><strong>Password</strong>: Your master password for trading</li>
+<li><strong>Investor Password</strong>: Read-only password (for monitoring)</li>
+<li><strong>Server</strong>: Server name (e.g., "MetaQuotes-Demo")</li>
+</ul>
+<p><strong>⚠️ CRITICALLY IMPORTANT</strong>: <strong>Save these credentials immediately!</strong> You'll need them for:
+- Logging back into MT5
+- Configuring PyMT5 in <code>examples/0_common/settings.json</code></p>
+<p>Click <strong>Finish</strong> to complete account creation.</p>
+<p><img alt="Account Credentials" src="../../Guide_Images/5.%20OKK.png" /></p>
+<hr />
+<h3 id="step-8-configure-pymt5-with-your-credentials">Step 8️⃣: Configure PyMT5 with Your Credentials<a class="headerlink" href="#step-8-configure-pymt5-with-your-credentials" title="Permanent link">¶</a></h3>
+<p>Now that you have an MT5 demo account, you need to configure PyMT5 to connect to it.</p>
+<ol>
+<li>Open your PyMT5 project</li>
+<li>Navigate to <strong><code>examples/0_common/settings.json</code></strong></li>
+<li>Fill in the credentials you just saved:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">591129415</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourPasswordHere&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mt5.mrpc.pro&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">443</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&quot;grpc_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">&quot;mt_cluster&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MetaQuotes-Demo&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">&quot;test_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">&quot;test_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Important notes:</strong></p>
+<ul>
+<li><strong>user</strong>: Replace with your login number</li>
+<li><strong>password</strong>: Replace with your password</li>
+<li><strong>mt_cluster</strong>: Use the exact server name from MT5 (e.g., "MetaQuotes-Demo")</li>
+<li><strong>host, port, grpc_server</strong>: Provided by MetaRPC team (leave as is)</li>
+</ul>
+<hr />
+<h3 id="step-9-verify-mt5-connection">Step 9️⃣: Verify MT5 Connection<a class="headerlink" href="#step-9-verify-mt5-connection" title="Permanent link">¶</a></h3>
+<p>Back in the MT5 terminal:</p>
+<ol>
+<li>MT5 should automatically log you into your new demo account</li>
+<li>Check the <strong>bottom right corner</strong> of the terminal window - you should see:</li>
+<li><strong>Green connection indicator</strong> (means connected to server)</li>
+<li><strong>Your account balance</strong> (e.g., $10,000)</li>
+</ol>
+<p><strong>You're now ready to test!</strong></p>
+<hr />
+<h3 id="step-start-testing-pymt5">Step 🔟: Start Testing PyMT5<a class="headerlink" href="#step-start-testing-pymt5" title="Permanent link">¶</a></h3>
+<p>With your MT5 demo account created and <code>settings.json</code> configured, you can start running examples:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Navigate to the examples folder</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Run your first example</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Or run interactively</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>python<span class="w"> </span>main.py
+</code></pre></div>
+<p>When trading operations occur, your demo account balance will increase or decrease accordingly. <strong>Experiment freely</strong> - it's virtual money, so there's no risk!</p>
+<p>All trades executed by PyMT5 will appear in your MT5 terminal in real-time.</p>
+<hr />
+<h2 id="understanding-mt5-password-types">🧩 Understanding MT5 Password Types<a class="headerlink" href="#understanding-mt5-password-types" title="Permanent link">¶</a></h2>
+<p>MT5 uses <strong>two types of passwords</strong> for security and flexibility:</p>
+<h3 id="master-password-main-password">Master Password (Main Password)<a class="headerlink" href="#master-password-main-password" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Full access</strong> to your trading account</li>
+<li>Can open/close trades, deposit/withdraw funds, change settings</li>
+<li><strong>This is the password you created</strong> during account registration</li>
+<li>Use this password for:</li>
+<li>Trading (including PyMT5 applications)</li>
+<li>Changing account settings</li>
+<li>Withdrawing funds (live accounts)</li>
+</ul>
+<h3 id="investor-password-read-only-password">Investor Password (Read-Only Password)<a class="headerlink" href="#investor-password-read-only-password" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>View-only access</strong> to your account</li>
+<li>Can see trades, balance, history - <strong>but cannot trade</strong></li>
+<li>Useful for:</li>
+<li>Sharing your trading performance with others (investors, friends)</li>
+<li>Monitoring your account without risk</li>
+<li>Audit and analytics tools</li>
+</ul>
+<p><strong>How to get your investor password:</strong></p>
+<ol>
+<li>In MT5, go to <strong>Tools → Options</strong></li>
+<li>Select the <strong>Server</strong> tab</li>
+<li>Click <strong>Change</strong> next to "Investor Password"</li>
+<li>Set a new investor password</li>
+</ol>
+<hr />
+<h2 id="choosing-a-broker-optional">Choosing a Broker (Optional)<a class="headerlink" href="#choosing-a-broker-optional" title="Permanent link">¶</a></h2>
+<p>While you can use the MetaQuotes demo server for practice, you may want to choose a specific broker for:</p>
+<ul>
+<li>Live trading later</li>
+<li>Better demo conditions (spreads, instruments)</li>
+<li>Specific regional support</li>
+</ul>
+<h3 id="popular-mt5-brokers">Popular MT5 Brokers:<a class="headerlink" href="#popular-mt5-brokers" title="Permanent link">¶</a></h3>
+<p><strong>Note</strong>: This is not financial advice. Always do your own research before choosing a broker.</p>
+<ul>
+<li><strong>IC Markets</strong> - Popular for forex and low spreads</li>
+<li><strong>Pepperstone</strong> - Well-regulated, beginner-friendly</li>
+<li><strong>OANDA</strong> - Strong reputation, accepts US clients</li>
+<li><strong>XM</strong> - Easy account opening, many account types</li>
+<li><strong>RoboForex</strong> - Good for automated trading</li>
+<li><strong>FxPro</strong> - Excellent demo trading conditions (used in PyMT5 examples)</li>
+</ul>
+<h3 id="what-to-look-for">What to look for:<a class="headerlink" href="#what-to-look-for" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p>✅ <strong>Regulation</strong> - Check if regulated by FCA, ASIC, CySEC, etc.</p>
+</li>
+<li>
+<p>✅ <strong>MT5 Support</strong> - Make sure they offer MT5 (not just MT4).</p>
+</li>
+<li>
+<p>✅ <strong>Demo Account</strong> - Free demo without expiration (though demo accounts typically last 30 days, then become inactive).</p>
+</li>
+<li>
+<p>✅ <strong>Good Spreads</strong> - Lower spreads = lower trading costs.</p>
+</li>
+<li>
+<p>✅ <strong>Customer Support</strong> - Responsive support in your language.</p>
+</li>
+</ul>
+<hr />
+<hr />
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
+<p>Now that you have a demo account and understand the basics, you're ready for:</p>
+<h3 id="1-setting-up-pymt5">1. Setting Up PyMT5<a class="headerlink" href="#1-setting-up-pymt5" title="Permanent link">¶</a></h3>
+<p>Follow our main getting started guide to connect PyMT5 to your MT5 account:</p>
+<p>👉 <strong><a href="../GETTING_STARTED/">Getting Started with PyMT5</a></strong></p>
+<h3 id="2-understanding-api-architecture">2. Understanding API Architecture<a class="headerlink" href="#2-understanding-api-architecture" title="Permanent link">¶</a></h3>
+<p>PyMT5 is built in <strong>three levels</strong>, from low-level to high-level. You can choose where to start depending on your needs:</p>
+<h4 id="level-1-mt5account-low-level-grpc-foundation">Level 1: MT5Account (Low-Level gRPC Foundation)<a class="headerlink" href="#level-1-mt5account-low-level-grpc-foundation" title="Permanent link">¶</a></h4>
+<p>👉 <strong><a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account Overview</a></strong></p>
+<ul>
+<li><strong>Direct gRPC calls</strong> to MT5 terminal</li>
+<li><strong>Foundation of everything</strong> - all other levels use this internally</li>
+<li>Maximum control and flexibility</li>
+<li>Best for: Advanced users who need fine-grained control</li>
+</ul>
+<h4 id="level-2-mt5service-convenient-wrappers">Level 2: MT5Service (Convenient Wrappers)<a class="headerlink" href="#level-2-mt5service-convenient-wrappers" title="Permanent link">¶</a></h4>
+<p>👉 <strong><a href="../../MT5Service/MT5Service.Overview/">MT5Service Overview</a></strong></p>
+<ul>
+<li><strong>Wrapper methods</strong> over MT5Account gRPC calls</li>
+<li>Simplified error handling and response parsing</li>
+<li>Easier to work with than raw gRPC</li>
+<li>Best for: Most common trading scenarios</li>
+</ul>
+<h4 id="level-3-mt5sugar-high-level-helpers">Level 3: MT5Sugar (High-Level Helpers)<a class="headerlink" href="#level-3-mt5sugar-high-level-helpers" title="Permanent link">¶</a></h4>
+<p>👉 <strong><a href="../../MT5Sugar/MT5Sugar.Master.Overview/">MT5Sugar API Overview</a></strong></p>
+<ul>
+<li><strong>Syntactic sugar</strong> and convenience methods</li>
+<li>Chainable operations, smart defaults</li>
+<li>Most intuitive and beginner-friendly</li>
+<li>Best for: Rapid prototyping and simple strategies</li>
+</ul>
+<hr />
+<h2 id="important-reminders">Important Reminders<a class="headerlink" href="#important-reminders" title="Permanent link">¶</a></h2>
+<h3 id="security">🛡️ Security<a class="headerlink" href="#security" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Never share your master password</strong> with anyone</li>
+<li>Use investor password for monitoring/analytics tools</li>
+<li>Keep your credentials safe (use password managers)</li>
+</ul>
+<h3 id="risk-management">📊 Risk Management<a class="headerlink" href="#risk-management" title="Permanent link">¶</a></h3>
+<ul>
+<li>Demo accounts are <strong>risk-free</strong>, but form good habits:</li>
+<li>Always use Stop Loss</li>
+<li>Don't risk more than 1-2% per trade</li>
+<li>Understand position sizing calculations</li>
+</ul>
+<h3 id="testing">🧪 Testing<a class="headerlink" href="#testing" title="Permanent link">¶</a></h3>
+<ul>
+<li>Test all your PyMT5 code <strong>on demo first</strong></li>
+<li>Verify strategies over weeks/months, not days</li>
+<li>Paper trading (demo) doesn't guarantee live results</li>
+</ul>
+<h3 id="education">📚 Education<a class="headerlink" href="#education" title="Permanent link">¶</a></h3>
+<ul>
+<li>Trading has a steep learning curve</li>
+<li>Focus on learning, not earning</li>
+<li>Consider courses, books, and communities</li>
+</ul>
+<hr />
+<h2 id="useful-python-commands">Useful Python Commands<a class="headerlink" href="#useful-python-commands" title="Permanent link">¶</a></h2>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Install PyMT5 package with all dependencies</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pip<span class="w"> </span>install<span class="w"> </span>MetaRpcMT5
+</code></pre></div>
+<h3 id="running-examples">Running Examples<a class="headerlink" href="#running-examples" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Navigate to examples folder first</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Option 1: Run specific example by number</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>main.py<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Option 2: Interactive menu</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>python<span class="w"> </span>main.py
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Option 3: Run example file directly</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>python<span class="w"> </span>1_lowlevel/01_general_operations.py
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>python<span class="w"> </span>3_sugar/06_sugar_basics.py
+</code></pre></div>
+<h3 id="checking-environment">Checking Environment<a class="headerlink" href="#checking-environment" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Verify Python version (requires 3.8+)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python<span class="w"> </span>--version
+</code></pre></div>
+<hr />
+<p><strong>Ready to start coding?</strong> Head over to <a href="../GETTING_STARTED/">Getting Started</a> to connect PyMT5 to your MT5 account!</p>
+<p><strong>Good luck with your trading journey! 🚀</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../GLOSSARY/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Glossary">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Glossary
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../GRPC_STREAM_MANAGEMENT/" class="md-footer__link md-footer__link--next" aria-label="Next: gRPC Streaming">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                gRPC Streaming
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2975 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/All_Guides/PROTOBUF_INSPECTOR_GUIDE/">
+      
+      
+        <link rel="prev" href="../ENUMS_USAGE_REFERENCE/">
+      
+      
+        <link rel="next" href="../USERCODE_SANDBOX_GUIDE/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Protobuf Inspector - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#protobuf-inspector-interactive-type-explorer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Protobuf Inspector
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-tool-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ What This Tool Does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏁 Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-the-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧰 Available Commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-find-out-what-fields-positioninfo-has" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Find out what fields PositionInfo has
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-find-which-types-have-the-ticket-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Find which types have the "ticket" field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-see-all-order_type-enum-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: See all ORDER_TYPE enum values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3a-see-streaming-event-order_type-enum-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3a: See streaming event ORDER_TYPE enum (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-find-all-types-related-to-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Find all types related to "Position"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-show-all-available-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Show all available types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-find-all-double-fields-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Find all double fields (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-find-where-enum-is-used-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Find where enum is used (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-export-type-to-json-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Export type to JSON (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-show-statistics-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Show statistics (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-list-only-request-types-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: List only Request types (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Common Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Common Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-getting-field-not-found-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 1: "Getting 'field not found' error"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-2-what-fields-does-x-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 2: "What fields does X have?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-3-what-are-valid-enum-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 3: "What are valid enum values?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-4-need-to-find-position-related-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 4: "Need to find position-related types"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-5-want-to-browse-whats-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 5: "Want to browse what's available"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-6-need-all-price-fields-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 6: "Need all price fields" (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-7-where-is-this-enum-used-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 7: "Where is this enum used?" (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-8-generate-documentation-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 8: "Generate documentation" (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-enums-frequently-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Enums (Frequently Used)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-interactive-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Interactive Session
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-this-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use This Tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-and-tricks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips and Tricks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-session-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Session Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-tool-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏛️ What This Tool Does
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏁 Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏁 Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-the-inspector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Inspector
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧰 Available Commands
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-find-out-what-fields-positioninfo-has" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Find out what fields PositionInfo has
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-find-which-types-have-the-ticket-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Find which types have the "ticket" field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-see-all-order_type-enum-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: See all ORDER_TYPE enum values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3a-see-streaming-event-order_type-enum-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3a: See streaming event ORDER_TYPE enum (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-find-all-types-related-to-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 4: Find all types related to "Position"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-show-all-available-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 5: Show all available types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-find-all-double-fields-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 6: Find all double fields (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-find-where-enum-is-used-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Find where enum is used (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-export-type-to-json-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 8: Export type to JSON (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-show-statistics-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 9: Show statistics (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-10-list-only-request-types-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 10: List only Request types (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Common Use Cases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Common Use Cases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-case-1-getting-field-not-found-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 1: "Getting 'field not found' error"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-2-what-fields-does-x-have" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 2: "What fields does X have?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-3-what-are-valid-enum-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 3: "What are valid enum values?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-4-need-to-find-position-related-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 4: "Need to find position-related types"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-5-want-to-browse-whats-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 5: "Want to browse what's available"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-6-need-all-price-fields-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 6: "Need all price fields" (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-7-where-is-this-enum-used-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 7: "Where is this enum used?" (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-case-8-generate-documentation-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        USE CASE 8: "Generate documentation" (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ℹ️ Statistics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-enums-frequently-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Enums (Frequently Used)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-interactive-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Interactive Session
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-this-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use This Tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-and-tricks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips and Tricks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-session-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Session Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="protobuf-inspector-interactive-type-explorer">Protobuf Inspector - Interactive Type Explorer<a class="headerlink" href="#protobuf-inspector-interactive-type-explorer" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>Interactive developer utility for exploring MT5 protobuf types, fields, enums, and data structures from the MT5 gRPC API</strong></p>
+</blockquote>
+<hr />
+<h2 id="what-this-tool-does">🏛️ What This Tool Does<a class="headerlink" href="#what-this-tool-does" title="Permanent link">¶</a></h2>
+<p>The Protobuf Inspector is an <strong>interactive command-line tool</strong> that helps you explore the structure of the MT5 gRPC API:</p>
+<ul>
+<li>Interactive search for types, fields, and enums</li>
+<li>Real-time inspection of protobuf message structures</li>
+<li>Field-level discovery - find which types contain specific fields</li>
+<li>Field type discovery - find fields by their data type (double, string, enum, etc.)</li>
+<li>Enum value exploration - see all possible enum values</li>
+<li>Enum usage tracking - find where specific enums are used</li>
+<li>Type browsing with filters - list types by category</li>
+<li>JSON export - export type structures for documentation</li>
+<li>Statistics analysis - field types, enum counts, comprehensive metrics</li>
+</ul>
+<hr />
+<h2 id="getting-started">🏁 Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h2>
+<h3 id="running-the-inspector">Running the Inspector<a class="headerlink" href="#running-the-inspector" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>main.py<span class="w"> </span>inspect
+</code></pre></div>
+<p>You will see an interactive prompt:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>===========================================================
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>MT5 PROTOBUF TYPES INSPECTOR
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>===========================================================
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Discovered 163 protobuf message types
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Discovered 60 enum types
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  Type &#39;help&#39; to see available commands
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  Type &#39;list&#39; to see all types
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>===========================================================
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>&gt;
+</code></pre></div>
+<hr />
+<h2 id="available-commands">🧰 Available Commands<a class="headerlink" href="#available-commands" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list</code> or <code>ls</code></td>
+<td>Show all available protobuf types</td>
+<td><code>list</code></td>
+</tr>
+<tr>
+<td><code>list --request</code></td>
+<td>Show only Request types</td>
+<td><code>list --request</code></td>
+</tr>
+<tr>
+<td><code>list --reply</code></td>
+<td>Show only Reply types</td>
+<td><code>list --reply</code></td>
+</tr>
+<tr>
+<td><code>list --data</code></td>
+<td>Show only Data types</td>
+<td><code>list --data</code></td>
+</tr>
+<tr>
+<td><code>list --info</code></td>
+<td>Show only Info types</td>
+<td><code>list --info</code></td>
+</tr>
+<tr>
+<td><code>&lt;TypeName&gt;</code></td>
+<td>Inspect specific type structure</td>
+<td><code>PositionInfo</code></td>
+</tr>
+<tr>
+<td><code>search &lt;text&gt;</code> or <code>find &lt;text&gt;</code></td>
+<td>Search for types containing text</td>
+<td><code>search Order</code></td>
+</tr>
+<tr>
+<td><code>field &lt;name&gt;</code></td>
+<td>Find all types with a specific field</td>
+<td><code>field ticket</code></td>
+</tr>
+<tr>
+<td><code>findtype &lt;type&gt;</code></td>
+<td>Find all fields of a specific type</td>
+<td><code>findtype double</code></td>
+</tr>
+<tr>
+<td><code>enum &lt;name&gt;</code></td>
+<td>Show all enum values</td>
+<td><code>enum ENUM_ORDER_TYPE_TF</code></td>
+</tr>
+<tr>
+<td><code>whereenum &lt;name&gt;</code></td>
+<td>Find where enum is used</td>
+<td><code>whereenum ENUM_ORDER_TYPE_TF</code></td>
+</tr>
+<tr>
+<td><code>export &lt;TypeName&gt;</code></td>
+<td>Export type structure to JSON</td>
+<td><code>export PositionInfo</code></td>
+</tr>
+<tr>
+<td><code>stats</code></td>
+<td>Show detailed statistics</td>
+<td><code>stats</code></td>
+</tr>
+<tr>
+<td><code>help</code> or <code>?</code></td>
+<td>Show help message</td>
+<td><code>help</code></td>
+</tr>
+<tr>
+<td><code>exit</code> or <code>quit</code></td>
+<td>Exit the inspector</td>
+<td><code>exit</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="practical-examples">Practical Examples<a class="headerlink" href="#practical-examples" title="Permanent link">¶</a></h2>
+<h3 id="example-1-find-out-what-fields-positioninfo-has">Example 1: Find out what fields PositionInfo has<a class="headerlink" href="#example-1-find-out-what-fields-positioninfo-has" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&gt; PositionInfo
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>===========================================================
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>TYPE: PositionInfo
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>===========================================================
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>FIELDS (20):
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>-----------------------------------------------------------
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  #  1 index                         : uint32
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  #  2 ticket                        : uint64
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  #  3 open_time                     : Timestamp
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  #  4 volume                        : double
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  #  5 price_open                    : double
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  #  6 stop_loss                     : double
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  #  7 take_profit                   : double
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>  #  8 price_current                 : double
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>  #  9 swap                          : double
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  # 10 profit                        : double
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>  # 11 last_update_time              : Timestamp
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>  # 12 type                          : ENUM_ORDER_TYPE_TF
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>  # 13 magic_number                  : int64
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>  # 14 identifier                    : int64
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>  # 15 reason                        : ENUM_POSITION_REASON_TYPE
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>  # 16 symbol                        : string
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>  # 17 comment                       : string
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>  # 18 external_id                   : string
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>  # 19 position_commission           : double
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>  # 20 account_login                 : int64
+</code></pre></div></p>
+<hr />
+<h3 id="example-2-find-which-types-have-the-ticket-field">Example 2: Find which types have the "ticket" field<a class="headerlink" href="#example-2-find-which-types-have-the-ticket-field" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&gt; field ticket
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>EXACT MATCH: field &#39;ticket&#39; found in:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>-----------------------------------------------------------
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    1. DealInfo
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    2. HistoryDealsGetByTicketRequest
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    3. HistoryOrdersGetByTicketRequest
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    4. OrderCloseRequest
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    5. OrderInfo
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    6. OrderModifyRequest
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    7. PositionCloseRequest
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    8. PositionInfo
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    9. PositionModifyRequest
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>   10. TradeTransactionInfo
+</code></pre></div></p>
+<hr />
+<h3 id="example-3-see-all-order_type-enum-values">Example 3: See all ORDER_TYPE enum values<a class="headerlink" href="#example-3-see-all-order_type-enum-values" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&gt; enum ENUM_ORDER_TYPE_TF
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ENUM: ENUM_ORDER_TYPE_TF
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>===========================================================
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  ORDER_TYPE_TF_BUY                        = 0
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  ORDER_TYPE_TF_SELL                       = 1
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  ORDER_TYPE_TF_BUY_LIMIT                  = 2
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  ORDER_TYPE_TF_SELL_LIMIT                 = 3
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  ORDER_TYPE_TF_BUY_STOP                   = 4
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  ORDER_TYPE_TF_SELL_STOP                  = 5
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  ORDER_TYPE_TF_BUY_STOP_LIMIT             = 6
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  ORDER_TYPE_TF_SELL_STOP_LIMIT            = 7
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  ORDER_TYPE_TF_CLOSE_BY                   = 8
+</code></pre></div></p>
+<hr />
+<h3 id="example-3a-see-streaming-event-order_type-enum-new">Example 3a: See streaming event ORDER_TYPE enum (NEW)<a class="headerlink" href="#example-3a-see-streaming-event-order_type-enum-new" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&gt; enum SUB_ENUM_ORDER_TYPE
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ENUM: SUB_ENUM_ORDER_TYPE
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>===========================================================
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  SUB_ORDER_TYPE_BUY                       = 0
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  SUB_ORDER_TYPE_SELL                      = 1
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  SUB_ORDER_TYPE_BUY_LIMIT                 = 2
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  SUB_ORDER_TYPE_SELL_LIMIT                = 3
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>  SUB_ORDER_TYPE_BUY_STOP                  = 4
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>  SUB_ORDER_TYPE_SELL_STOP                 = 5
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>  SUB_ORDER_TYPE_BUY_STOP_LIMIT            = 6
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  SUB_ORDER_TYPE_SELL_STOP_LIMIT           = 7
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  SUB_ORDER_TYPE_CLOSE_BY                  = 8
+</code></pre></div></p>
+<p><strong>Note:</strong> Use <code>SUB_ENUM_*</code> enums for streaming events (on_trade, on_trade_transaction, etc.), and <code>ENUM_*_TF</code> enums for trading functions (order_send, order_modify, etc.).</p>
+<hr />
+<h3 id="example-4-find-all-types-related-to-position">Example 4: Find all types related to "Position"<a class="headerlink" href="#example-4-find-all-types-related-to-position" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&gt; search Position
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>FOUND 12 TYPES MATCHING &#39;Position&#39;:
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>-----------------------------------------------------------
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    1. ClosedPositionsGetRequest
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    2. ClosedPositionsGetRequestReply
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    3. ENUM_POSITION_REASON_TYPE
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    4. OpenedPositionsGetRequest
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    5. OpenedPositionsGetRequestReply
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    6. PositionCloseRequest
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    7. PositionCloseRequestReply
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    8. PositionInfo
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    9. PositionModifyRequest
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>   10. PositionModifyRequestReply
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>   11. PositionProfitCallbackInfo
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>   12. PositionsTicketsCallbackInfo
+</code></pre></div></p>
+<hr />
+<h3 id="example-5-show-all-available-types">Example 5: Show all available types<a class="headerlink" href="#example-5-show-all-available-types" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>&gt; list
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>AVAILABLE PROTOBUF TYPES (163)
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>-----------------------------------------------------------
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>[Request] (47 types):
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    1. AccountInfoDoubleGetRequest
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    2. AccountInfoIntegerGetRequest
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    3. AccountInfoStringGetRequest
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    ...
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>[Reply] (44 types):
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    1. AccountInfoDoubleGetRequestReply
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    2. AccountInfoIntegerGetRequestReply
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    ...
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>[Data] (47 types):
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>    1. AccountSummaryData
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>    2. MarketBookData
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>    3. OnSymbolTickData
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    4. OnTradeData
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>    5. OnTradeTransactionData
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>    ...
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>[Info] (10 types):
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>    1. DealInfo
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>    2. OnEventAccountInfo
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>    3. OnTradeHistoryDealInfo
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    4. OnTradeOrderInfo
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>    5. OnTradePositionInfo
+<a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>    ...
+<a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>
+<a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>[Other] (15 types):
+<a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>    ...
+</code></pre></div></p>
+<hr />
+<h3 id="example-6-find-all-double-fields-new">Example 6: Find all double fields (NEW)<a class="headerlink" href="#example-6-find-all-double-fields-new" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>&gt; findtype double
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>FIELDS OF TYPE &#39;double&#39; (120+ fields):
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>===========================================================
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  AccountInfoDoubleGetRequestReply:
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    - value
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>  AccountSummaryData:
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    - account_balance
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    - account_equity
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    - account_margin
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    - account_freemargin
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    - account_profit
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>  DealInfo:
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>    - commission
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    - fee
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>    - price
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>    - profit
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>    - swap
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>    - volume
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>  PositionInfo:
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>    - position_commission
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>    - price_current
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>    - price_open
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>    - profit
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>    - stop_loss
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>    - swap
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>    - take_profit
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>    - volume
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>  SymbolInfo:
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a>    - ask
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>    - bid
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a>    - point
+<a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a>    - swap_long
+<a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a>    - swap_short
+<a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a>    - volume_max
+<a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a>    - volume_min
+<a id="__codelineno-15-40" name="__codelineno-15-40" href="#__codelineno-15-40"></a>    - volume_step
+<a id="__codelineno-15-41" name="__codelineno-15-41" href="#__codelineno-15-41"></a>
+<a id="__codelineno-15-42" name="__codelineno-15-42" href="#__codelineno-15-42"></a>  ... (and more)
+</code></pre></div></p>
+<hr />
+<h3 id="example-7-find-where-enum-is-used-new">Example 7: Find where enum is used (NEW)<a class="headerlink" href="#example-7-find-where-enum-is-used-new" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>&gt; whereenum ENUM_ORDER_TYPE_TF
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ENUM &#39;ENUM_ORDER_TYPE_TF&#39; USED IN (8 fields):
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>===========================================================
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  DealInfo:
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    - type
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>  MqlTradeRequest:
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    - type
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>  OrderInfo:
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    - type
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>  OrderSendRequest:
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>    - operation
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>  PositionInfo:
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>    - type
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>  TradeTransactionInfo:
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>    - order_type
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>    - type
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>  ... (and more)
+</code></pre></div></p>
+<hr />
+<h3 id="example-8-export-type-to-json-new">Example 8: Export type to JSON (NEW)<a class="headerlink" href="#example-8-export-type-to-json-new" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>&gt; export PositionInfo
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>TYPE: PositionInfo (JSON export)
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>===========================================================
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>{
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>  &quot;type_name&quot;: &quot;PositionInfo&quot;,
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>  &quot;full_name&quot;: &quot;mt5.PositionInfo&quot;,
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  &quot;fields&quot;: [
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    {
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>      &quot;number&quot;: 1,
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>      &quot;name&quot;: &quot;index&quot;,
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>      &quot;type&quot;: &quot;uint32&quot;,
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>      &quot;label&quot;: &quot;optional&quot;
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>    },
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>    {
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>      &quot;number&quot;: 2,
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>      &quot;name&quot;: &quot;ticket&quot;,
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>      &quot;type&quot;: &quot;uint64&quot;,
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>      &quot;label&quot;: &quot;optional&quot;
+<a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>    },
+<a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>    {
+<a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>      &quot;number&quot;: 12,
+<a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>      &quot;name&quot;: &quot;type&quot;,
+<a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a>      &quot;type&quot;: &quot;ENUM_ORDER_TYPE_TF&quot;,
+<a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a>      &quot;label&quot;: &quot;optional&quot;,
+<a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>      &quot;enum_name&quot;: &quot;ENUM_ORDER_TYPE_TF&quot;,
+<a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a>      &quot;enum_values&quot;: {
+<a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a>        &quot;ORDER_TYPE_TF_BUY&quot;: 0,
+<a id="__codelineno-19-27" name="__codelineno-19-27" href="#__codelineno-19-27"></a>        &quot;ORDER_TYPE_TF_SELL&quot;: 1,
+<a id="__codelineno-19-28" name="__codelineno-19-28" href="#__codelineno-19-28"></a>        &quot;ORDER_TYPE_TF_BUY_LIMIT&quot;: 2,
+<a id="__codelineno-19-29" name="__codelineno-19-29" href="#__codelineno-19-29"></a>        &quot;ORDER_TYPE_TF_SELL_LIMIT&quot;: 3,
+<a id="__codelineno-19-30" name="__codelineno-19-30" href="#__codelineno-19-30"></a>        ...
+<a id="__codelineno-19-31" name="__codelineno-19-31" href="#__codelineno-19-31"></a>      }
+<a id="__codelineno-19-32" name="__codelineno-19-32" href="#__codelineno-19-32"></a>    },
+<a id="__codelineno-19-33" name="__codelineno-19-33" href="#__codelineno-19-33"></a>    ...
+<a id="__codelineno-19-34" name="__codelineno-19-34" href="#__codelineno-19-34"></a>  ]
+<a id="__codelineno-19-35" name="__codelineno-19-35" href="#__codelineno-19-35"></a>}
+</code></pre></div></p>
+<hr />
+<h3 id="example-9-show-statistics-new">Example 9: Show statistics (NEW)<a class="headerlink" href="#example-9-show-statistics-new" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>&gt; stats
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>PROTOBUF INSPECTOR STATISTICS
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>===========================================================
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>Message Types: 163 total
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>-----------------------------------------------------------
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>  Request         :  47 types
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>  Reply           :  44 types
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>  Data            :  47 types
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>  Info            :  10 types
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>  Other           :  15 types
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>Enum Types: 60 total
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>-----------------------------------------------------------
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>  Total enum values  : 644
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>  Top 5 largest enums:
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>    BMT5_ENUM_SYMBOL_INDUSTRY                : 152 values
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>    SymbolInfoDoubleProperty                 :  60 values
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>    SymbolInfoIntegerProperty                :  37 values
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>    EnumOpenTerminalChartWithEaChatPeriod    :  22 values
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>    BMT5_ENUM_DEAL_TYPE                      :  18 values
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>Field Types: 147 distinct types
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>-----------------------------------------------------------
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a>  Top 10 most common field types:
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>    double               : 209 fields
+<a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>    string               : 112 fields
+<a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>    int64                :  54 fields
+<a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>    error                :  45 fields
+<a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>    int32                :  44 fields
+<a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a>    uint64               :  40 fields
+<a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a>    timestamp            :  38 fields
+<a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a>    bool                 :  28 fields
+<a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a>    uint32               :  16 fields
+<a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a>    sub_enum_order_type  :   4 fields
+<a id="__codelineno-21-36" name="__codelineno-21-36" href="#__codelineno-21-36"></a>
+<a id="__codelineno-21-37" name="__codelineno-21-37" href="#__codelineno-21-37"></a>Total Fields: 771
+<a id="__codelineno-21-38" name="__codelineno-21-38" href="#__codelineno-21-38"></a>===========================================================
+</code></pre></div></p>
+<hr />
+<h3 id="example-10-list-only-request-types-new">Example 10: List only Request types (NEW)<a class="headerlink" href="#example-10-list-only-request-types-new" title="Permanent link">¶</a></h3>
+<p><strong>Command:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>&gt; list --request
+</code></pre></div></p>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>REQUEST TYPES
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>-----------------------------------------------------------
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>[Request] (47 types):
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    1. AccountInfoDoubleGetRequest
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>    2. AccountInfoIntegerGetRequest
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>    3. AccountInfoStringGetRequest
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>    4. AccountSummaryRequest
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>    5. HistoryDealsGetByTicketRequest
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    6. HistoryDealsGetRequest
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>    7. HistoryOrdersGetByTicketRequest
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>    8. HistoryOrdersGetRequest
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>    9. MarketBookGetRequest
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>   10. OpenedOrdersGetRequest
+<a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>   11. OpenedPositionsGetRequest
+<a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>   12. OrderCalcMarginRequest
+<a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>   13. OrderCheckRequest
+<a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>   14. OrderCloseRequest
+<a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>   15. OrderModifyRequest
+<a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>   16. OrderSendRequest
+<a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>   17. PositionCloseRequest
+<a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>   18. PositionModifyRequest
+<a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>   19. SymbolExistRequest
+<a id="__codelineno-23-24" name="__codelineno-23-24" href="#__codelineno-23-24"></a>   20. SymbolInfoDoubleGetRequest
+<a id="__codelineno-23-25" name="__codelineno-23-25" href="#__codelineno-23-25"></a>   21. SymbolInfoIntegerGetRequest
+<a id="__codelineno-23-26" name="__codelineno-23-26" href="#__codelineno-23-26"></a>   22. SymbolInfoMarginRateGetRequest
+<a id="__codelineno-23-27" name="__codelineno-23-27" href="#__codelineno-23-27"></a>   23. SymbolInfoSessionQuoteGetRequest
+<a id="__codelineno-23-28" name="__codelineno-23-28" href="#__codelineno-23-28"></a>   24. SymbolInfoSessionTradeGetRequest
+<a id="__codelineno-23-29" name="__codelineno-23-29" href="#__codelineno-23-29"></a>   25. SymbolInfoStringGetRequest
+<a id="__codelineno-23-30" name="__codelineno-23-30" href="#__codelineno-23-30"></a>   26. SymbolInfoTickGetRequest
+<a id="__codelineno-23-31" name="__codelineno-23-31" href="#__codelineno-23-31"></a>   27. SymbolIsSynchronizedRequest
+<a id="__codelineno-23-32" name="__codelineno-23-32" href="#__codelineno-23-32"></a>   28. SymbolNameRequest
+<a id="__codelineno-23-33" name="__codelineno-23-33" href="#__codelineno-23-33"></a>   29. SymbolSelectRequest
+<a id="__codelineno-23-34" name="__codelineno-23-34" href="#__codelineno-23-34"></a>   30. SymbolsTotalRequest
+<a id="__codelineno-23-35" name="__codelineno-23-35" href="#__codelineno-23-35"></a>    ... (and more)
+</code></pre></div></p>
+<hr />
+<h2 id="common-use-cases">📦 Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">¶</a></h2>
+<h3 id="use-case-1-getting-field-not-found-error">USE CASE 1: "Getting 'field not found' error"<a class="headerlink" href="#use-case-1-getting-field-not-found-error" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Your code has <code>position.ballance</code> but it doesn't work</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>&gt; field balance
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows the correct field name and which type has it
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>EXACT MATCH: field &#39;balance&#39; found in:
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>  &quot; AccountSummaryData
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>  &quot; AccountInfo
+</code></pre></div></p>
+<p><strong>Fix:</strong> Use <code>account.balance</code>, not <code>position.balance</code></p>
+<hr />
+<h3 id="use-case-2-what-fields-does-x-have">USE CASE 2: "What fields does X have?"<a class="headerlink" href="#use-case-2-what-fields-does-x-have" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Don't know what data is in <code>PositionInfo</code></p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>&gt; PositionInfo
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows all 20 fields (ticket, type, symbol, profit, etc.)</p>
+<hr />
+<h3 id="use-case-3-what-are-valid-enum-values">USE CASE 3: "What are valid enum values?"<a class="headerlink" href="#use-case-3-what-are-valid-enum-values" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Don't know what value to use for <code>order_type</code></p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>&gt; enum ENUM_ORDER_TYPE_TF
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows all values:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ORDER_TYPE_TF_BUY = 0
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>ORDER_TYPE_TF_SELL = 1
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>ORDER_TYPE_TF_BUY_LIMIT = 2
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>ORDER_TYPE_TF_SELL_LIMIT = 3
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>...
+</code></pre></div></p>
+<hr />
+<h3 id="use-case-4-need-to-find-position-related-types">USE CASE 4: "Need to find position-related types"<a class="headerlink" href="#use-case-4-need-to-find-position-related-types" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Exploring the API, need to see all position-related structures</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>&gt; search Position
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows all 12 types with "Position" in the name</p>
+<hr />
+<h3 id="use-case-5-want-to-browse-whats-available">USE CASE 5: "Want to browse what's available"<a class="headerlink" href="#use-case-5-want-to-browse-whats-available" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> New to the API, want to explore</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>&gt; list
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows all available types, grouped by category</p>
+<hr />
+<h3 id="use-case-6-need-all-price-fields-new">USE CASE 6: "Need all price fields" (NEW)<a class="headerlink" href="#use-case-6-need-all-price-fields-new" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Want to find all price-related fields in the API</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>&gt; findtype double
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows all double fields (prices, volumes, profits, etc.) grouped by type</p>
+<hr />
+<h3 id="use-case-7-where-is-this-enum-used-new">USE CASE 7: "Where is this enum used?" (NEW)<a class="headerlink" href="#use-case-7-where-is-this-enum-used-new" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Have an enum, need to know which types use it</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>&gt; whereenum ENUM_ORDER_TYPE_TF
+</code></pre></div></p>
+<p><strong>Result:</strong> Shows all types and fields that use this enum</p>
+<hr />
+<h3 id="use-case-8-generate-documentation-new">USE CASE 8: "Generate documentation" (NEW)<a class="headerlink" href="#use-case-8-generate-documentation-new" title="Permanent link">¶</a></h3>
+<p><strong>Problem:</strong> Need to document type structure for team or external tools</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>&gt; export PositionInfo
+</code></pre></div></p>
+<p><strong>Result:</strong> Gets complete JSON structure with field numbers, types, and enum values</p>
+<hr />
+<h2 id="i-statistics">ℹ️ Statistics<a class="headerlink" href="#i-statistics" title="Permanent link">¶</a></h2>
+<p>When you run the inspector, it provides complete coverage of:</p>
+<ul>
+<li><strong>Total Message Types:</strong> 163 (all MT5 gRPC protobuf message types)</li>
+<li><strong>Total Enums:</strong> 60 (with 644 enum values)</li>
+<li><strong>Total Fields:</strong> 771 (across all types)</li>
+<li><strong>Field Types:</strong> 147 distinct protobuf types</li>
+<li><strong>Coverage:</strong> 100% of MT5 gRPC API</li>
+</ul>
+<hr />
+<h2 id="important-enums-frequently-used">Important Enums (Frequently Used)<a class="headerlink" href="#important-enums-frequently-used" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Enum Name</th>
+<th>Description</th>
+<th>Common Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ENUM_ORDER_TYPE_TF</code></td>
+<td>Order types (trade functions)</td>
+<td>BUY, SELL, BUY_LIMIT, SELL_LIMIT, BUY_STOP, SELL_STOP (9 values)</td>
+</tr>
+<tr>
+<td><code>SUB_ENUM_ORDER_TYPE</code></td>
+<td>Order types (streaming events)</td>
+<td>SUB_ORDER_TYPE_BUY, SUB_ORDER_TYPE_SELL, etc. (9 values)</td>
+</tr>
+<tr>
+<td><code>SUB_ENUM_POSITION_TYPE</code></td>
+<td>Position types (streaming)</td>
+<td>SUB_POSITION_TYPE_BUY, SUB_POSITION_TYPE_SELL (2 values)</td>
+</tr>
+<tr>
+<td><code>SUB_ENUM_DEAL_TYPE</code></td>
+<td>Deal types (streaming)</td>
+<td>SUB_DEAL_TYPE_BUY, SUB_DEAL_TYPE_SELL, etc. (18 values)</td>
+</tr>
+<tr>
+<td><code>SUB_ENUM_ORDER_STATE</code></td>
+<td>Order states (streaming)</td>
+<td>STARTED, PLACED, CANCELED, FILLED, REJECTED (10 values)</td>
+</tr>
+<tr>
+<td><code>MRPC_ENUM_ORDER_TYPE_FILLING</code></td>
+<td>Fill policies</td>
+<td>FOK, IOC, Return, BOC (4 values)</td>
+</tr>
+<tr>
+<td><code>MRPC_ENUM_ORDER_TYPE_TIME</code></td>
+<td>Time in force</td>
+<td>GTC, Day, Specified, Specified_Day (4 values)</td>
+</tr>
+<tr>
+<td><code>BMT5_ENUM_DEAL_REASON</code></td>
+<td>Deal execution reason</td>
+<td>Client, Expert, SL, TP, Mobile (11 values)</td>
+</tr>
+<tr>
+<td><code>BMT5_ENUM_DEAL_ENTRY_TYPE</code></td>
+<td>Deal entry type</td>
+<td>In, Out, InOut, Out_By (4 values)</td>
+</tr>
+<tr>
+<td><code>BMT5_ENUM_POSITION_REASON</code></td>
+<td>Why position opened</td>
+<td>Client, Expert, Dealer, Mobile (7 values)</td>
+</tr>
+<tr>
+<td><code>SymbolInfoDoubleProperty</code></td>
+<td>Symbol price properties</td>
+<td>BID, ASK, POINT, SWAP_LONG, SWAP_SHORT (60 values)</td>
+</tr>
+<tr>
+<td><code>SymbolInfoIntegerProperty</code></td>
+<td>Symbol integer properties</td>
+<td>DIGITS, SPREAD, TRADE_MODE, etc. (37 values)</td>
+</tr>
+<tr>
+<td><code>AccountInfoDoublePropertyType</code></td>
+<td>Account double properties</td>
+<td>BALANCE, EQUITY, MARGIN, etc. (14 values)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Enum names with prefixes (<code>MRPC_</code>, <code>BMT5_</code>, <code>SUB_</code>) indicate their usage context:</p>
+<ul>
+<li><code>MRPC_*</code> - MetaRpc protocol enums (trading operations)</li>
+<li><code>BMT5_*</code> - Base MT5 enums (historical data, reasons)</li>
+<li><code>SUB_*</code> - Subscription/streaming enums (real-time events)</li>
+</ul>
+<hr />
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Case-insensitive search</strong></td>
+<td><code>search Order</code> = <code>search order</code></td>
+</tr>
+<tr>
+<td><strong>Partial field matching</strong></td>
+<td><code>field profit</code> finds both <code>profit</code> and <code>take_profit</code></td>
+</tr>
+<tr>
+<td><strong>Type categorization</strong></td>
+<td>Shows <code>[Request]</code>, <code>[Reply]</code>, <code>[Data]</code>, <code>[Info]</code> tags</td>
+</tr>
+<tr>
+<td><strong>Category filtering</strong></td>
+<td><code>list --request</code>, <code>list --reply</code>, etc.</td>
+</tr>
+<tr>
+<td><strong>Field type search</strong></td>
+<td><code>findtype double</code> finds all double fields</td>
+</tr>
+<tr>
+<td><strong>Enum usage tracking</strong></td>
+<td><code>whereenum &lt;name&gt;</code> shows where enum is used</td>
+</tr>
+<tr>
+<td><strong>JSON export</strong></td>
+<td><code>export &lt;TypeName&gt;</code> outputs structured JSON</td>
+</tr>
+<tr>
+<td><strong>Detailed statistics</strong></td>
+<td><code>stats</code> shows comprehensive metrics</td>
+</tr>
+<tr>
+<td><strong>Array indicators</strong></td>
+<td><code>[]</code> suffix for repeated/array fields</td>
+</tr>
+<tr>
+<td><strong>Protobuf field numbers</strong></td>
+<td>Shows field <code>#N</code> for each field</td>
+</tr>
+<tr>
+<td><strong>Smart error messages</strong></td>
+<td>Suggests alternatives when type not found</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="example-interactive-session">Example Interactive Session<a class="headerlink" href="#example-interactive-session" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>$<span class="w"> </span>python<span class="w"> </span>main.py<span class="w"> </span><span class="nv">inspect</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>MT5<span class="w"> </span>PROTOBUF<span class="w"> </span>TYPES<span class="w"> </span><span class="nv">INSPECTOR</span>
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>&gt;<span class="w"> </span>search<span class="w"> </span>Order
+<a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>FOUND<span class="w"> </span><span class="m">28</span><span class="w"> </span>TYPES<span class="w"> </span>MATCHING<span class="w"> </span><span class="s1">&#39;Order&#39;</span>:
+<a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>-----------------------------------------------------------
+<a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="w">    </span><span class="m">1</span>.<span class="w"> </span>HistoryOrdersGetByTicketRequest
+<a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a><span class="w">    </span><span class="m">2</span>.<span class="w"> </span>HistoryOrdersGetRequest
+<a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a><span class="w">    </span><span class="m">3</span>.<span class="w"> </span>OpenedOrdersGetRequest
+<a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a><span class="w">    </span><span class="m">4</span>.<span class="w"> </span>OrderCalcMarginRequest
+<a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a><span class="w">    </span><span class="m">5</span>.<span class="w"> </span>OrderCheckRequest
+<a id="__codelineno-34-16" name="__codelineno-34-16" href="#__codelineno-34-16"></a><span class="w">    </span><span class="m">6</span>.<span class="w"> </span>OrderCloseRequest
+<a id="__codelineno-34-17" name="__codelineno-34-17" href="#__codelineno-34-17"></a><span class="w">    </span><span class="m">7</span>.<span class="w"> </span>OrderInfo
+<a id="__codelineno-34-18" name="__codelineno-34-18" href="#__codelineno-34-18"></a><span class="w">    </span><span class="m">8</span>.<span class="w"> </span>OrderModifyRequest
+<a id="__codelineno-34-19" name="__codelineno-34-19" href="#__codelineno-34-19"></a><span class="w">    </span><span class="m">9</span>.<span class="w"> </span>OrderSendRequest
+<a id="__codelineno-34-20" name="__codelineno-34-20" href="#__codelineno-34-20"></a><span class="w">   </span>...
+<a id="__codelineno-34-21" name="__codelineno-34-21" href="#__codelineno-34-21"></a>
+<a id="__codelineno-34-22" name="__codelineno-34-22" href="#__codelineno-34-22"></a>&gt;<span class="w"> </span><span class="nv">OrderInfo</span>
+<a id="__codelineno-34-23" name="__codelineno-34-23" href="#__codelineno-34-23"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-24" name="__codelineno-34-24" href="#__codelineno-34-24"></a>TYPE:<span class="w"> </span><span class="nv">OrderInfo</span>
+<a id="__codelineno-34-25" name="__codelineno-34-25" href="#__codelineno-34-25"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-26" name="__codelineno-34-26" href="#__codelineno-34-26"></a>FIELDS<span class="w"> </span><span class="o">(</span><span class="m">25</span><span class="o">)</span>:
+<a id="__codelineno-34-27" name="__codelineno-34-27" href="#__codelineno-34-27"></a>-----------------------------------------------------------
+<a id="__codelineno-34-28" name="__codelineno-34-28" href="#__codelineno-34-28"></a><span class="w">  </span><span class="c1">#  1 ticket                        : uint64</span>
+<a id="__codelineno-34-29" name="__codelineno-34-29" href="#__codelineno-34-29"></a><span class="w">  </span><span class="c1">#  2 type                          : ENUM_ORDER_TYPE_TF</span>
+<a id="__codelineno-34-30" name="__codelineno-34-30" href="#__codelineno-34-30"></a><span class="w">  </span><span class="c1">#  3 state                         : ENUM_ORDER_STATE_TYPE</span>
+<a id="__codelineno-34-31" name="__codelineno-34-31" href="#__codelineno-34-31"></a><span class="w">  </span><span class="c1">#  4 type_filling                  : ENUM_ORDER_TYPE_FILLING</span>
+<a id="__codelineno-34-32" name="__codelineno-34-32" href="#__codelineno-34-32"></a><span class="w">  </span><span class="c1">#  5 type_time                     : ENUM_ORDER_TYPE_TIME</span>
+<a id="__codelineno-34-33" name="__codelineno-34-33" href="#__codelineno-34-33"></a><span class="w">  </span><span class="c1">#  6 magic_number                  : int64</span>
+<a id="__codelineno-34-34" name="__codelineno-34-34" href="#__codelineno-34-34"></a><span class="w">  </span><span class="c1">#  7 position_id                   : int64</span>
+<a id="__codelineno-34-35" name="__codelineno-34-35" href="#__codelineno-34-35"></a><span class="w">  </span><span class="c1">#  8 position_by_id                : int64</span>
+<a id="__codelineno-34-36" name="__codelineno-34-36" href="#__codelineno-34-36"></a><span class="w">  </span><span class="c1">#  9 reason                        : ENUM_ORDER_REASON_TYPE</span>
+<a id="__codelineno-34-37" name="__codelineno-34-37" href="#__codelineno-34-37"></a><span class="w">  </span><span class="c1"># 10 volume_initial                : double</span>
+<a id="__codelineno-34-38" name="__codelineno-34-38" href="#__codelineno-34-38"></a><span class="w">  </span><span class="c1"># 11 volume_current                : double</span>
+<a id="__codelineno-34-39" name="__codelineno-34-39" href="#__codelineno-34-39"></a><span class="w">  </span><span class="c1"># 12 price_open                    : double</span>
+<a id="__codelineno-34-40" name="__codelineno-34-40" href="#__codelineno-34-40"></a><span class="w">  </span><span class="c1"># 13 stop_loss                     : double</span>
+<a id="__codelineno-34-41" name="__codelineno-34-41" href="#__codelineno-34-41"></a><span class="w">  </span><span class="c1"># 14 take_profit                   : double</span>
+<a id="__codelineno-34-42" name="__codelineno-34-42" href="#__codelineno-34-42"></a><span class="w">  </span><span class="c1"># 15 price_current                 : double</span>
+<a id="__codelineno-34-43" name="__codelineno-34-43" href="#__codelineno-34-43"></a><span class="w">  </span><span class="c1"># 16 price_stoplimit               : double</span>
+<a id="__codelineno-34-44" name="__codelineno-34-44" href="#__codelineno-34-44"></a><span class="w">  </span><span class="c1"># 17 symbol                        : string</span>
+<a id="__codelineno-34-45" name="__codelineno-34-45" href="#__codelineno-34-45"></a><span class="w">  </span><span class="c1"># 18 comment                       : string</span>
+<a id="__codelineno-34-46" name="__codelineno-34-46" href="#__codelineno-34-46"></a><span class="w">  </span><span class="c1"># 19 external_id                   : string</span>
+<a id="__codelineno-34-47" name="__codelineno-34-47" href="#__codelineno-34-47"></a><span class="w">  </span><span class="c1"># 20 setup_time                    : Timestamp</span>
+<a id="__codelineno-34-48" name="__codelineno-34-48" href="#__codelineno-34-48"></a><span class="w">  </span><span class="c1"># 21 expiration_time               : Timestamp</span>
+<a id="__codelineno-34-49" name="__codelineno-34-49" href="#__codelineno-34-49"></a><span class="w">  </span><span class="c1"># 22 time_done                     : Timestamp</span>
+<a id="__codelineno-34-50" name="__codelineno-34-50" href="#__codelineno-34-50"></a><span class="w">  </span><span class="c1"># 23 account_login                 : int64</span>
+<a id="__codelineno-34-51" name="__codelineno-34-51" href="#__codelineno-34-51"></a><span class="w">  </span><span class="c1"># 24 index                         : uint32</span>
+<a id="__codelineno-34-52" name="__codelineno-34-52" href="#__codelineno-34-52"></a><span class="w">  </span><span class="c1"># 25 last_update_time              : Timestamp</span>
+<a id="__codelineno-34-53" name="__codelineno-34-53" href="#__codelineno-34-53"></a>
+<a id="__codelineno-34-54" name="__codelineno-34-54" href="#__codelineno-34-54"></a>&gt;<span class="w"> </span>field<span class="w"> </span>magic
+<a id="__codelineno-34-55" name="__codelineno-34-55" href="#__codelineno-34-55"></a>EXACT<span class="w"> </span>MATCH:<span class="w"> </span>field<span class="w"> </span><span class="s1">&#39;magic&#39;</span><span class="w"> </span>found<span class="w"> </span><span class="k">in</span>:
+<a id="__codelineno-34-56" name="__codelineno-34-56" href="#__codelineno-34-56"></a>-----------------------------------------------------------
+<a id="__codelineno-34-57" name="__codelineno-34-57" href="#__codelineno-34-57"></a><span class="w">    </span><span class="m">1</span>.<span class="w"> </span>OrderInfo<span class="w"> </span><span class="o">(</span>magic_number<span class="o">)</span>
+<a id="__codelineno-34-58" name="__codelineno-34-58" href="#__codelineno-34-58"></a><span class="w">    </span><span class="m">2</span>.<span class="w"> </span>PositionInfo<span class="w"> </span><span class="o">(</span>magic_number<span class="o">)</span>
+<a id="__codelineno-34-59" name="__codelineno-34-59" href="#__codelineno-34-59"></a><span class="w">    </span><span class="m">3</span>.<span class="w"> </span>DealInfo<span class="w"> </span><span class="o">(</span>magic_number<span class="o">)</span>
+<a id="__codelineno-34-60" name="__codelineno-34-60" href="#__codelineno-34-60"></a><span class="w">    </span><span class="m">4</span>.<span class="w"> </span>MqlTradeRequest<span class="w"> </span><span class="o">(</span>magic<span class="o">)</span>
+<a id="__codelineno-34-61" name="__codelineno-34-61" href="#__codelineno-34-61"></a><span class="w">    </span>...
+<a id="__codelineno-34-62" name="__codelineno-34-62" href="#__codelineno-34-62"></a>
+<a id="__codelineno-34-63" name="__codelineno-34-63" href="#__codelineno-34-63"></a>PARTIAL<span class="w"> </span>MATCHES<span class="w"> </span><span class="o">(</span>field<span class="w"> </span>contains<span class="w"> </span><span class="s1">&#39;magic&#39;</span><span class="o">)</span>:
+<a id="__codelineno-34-64" name="__codelineno-34-64" href="#__codelineno-34-64"></a>-----------------------------------------------------------
+<a id="__codelineno-34-65" name="__codelineno-34-65" href="#__codelineno-34-65"></a><span class="w">    </span><span class="m">1</span>.<span class="w"> </span>OrderInfo<span class="w"> </span><span class="o">(</span>magic_number<span class="o">)</span>
+<a id="__codelineno-34-66" name="__codelineno-34-66" href="#__codelineno-34-66"></a><span class="w">    </span><span class="m">2</span>.<span class="w"> </span>PositionInfo<span class="w"> </span><span class="o">(</span>magic_number<span class="o">)</span>
+<a id="__codelineno-34-67" name="__codelineno-34-67" href="#__codelineno-34-67"></a><span class="w">    </span><span class="m">3</span>.<span class="w"> </span>DealInfo<span class="w"> </span><span class="o">(</span>magic_number<span class="o">)</span>
+<a id="__codelineno-34-68" name="__codelineno-34-68" href="#__codelineno-34-68"></a><span class="w">    </span>...
+<a id="__codelineno-34-69" name="__codelineno-34-69" href="#__codelineno-34-69"></a>
+<a id="__codelineno-34-70" name="__codelineno-34-70" href="#__codelineno-34-70"></a>&gt;<span class="w"> </span>enum<span class="w"> </span><span class="nv">ENUM_ORDER_STATE_TYPE</span>
+<a id="__codelineno-34-71" name="__codelineno-34-71" href="#__codelineno-34-71"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-72" name="__codelineno-34-72" href="#__codelineno-34-72"></a>ENUM:<span class="w"> </span><span class="nv">ENUM_ORDER_STATE_TYPE</span>
+<a id="__codelineno-34-73" name="__codelineno-34-73" href="#__codelineno-34-73"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-74" name="__codelineno-34-74" href="#__codelineno-34-74"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_STARTED</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-34-75" name="__codelineno-34-75" href="#__codelineno-34-75"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_PLACED</span><span class="w">                  </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-34-76" name="__codelineno-34-76" href="#__codelineno-34-76"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_CANCELED</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<a id="__codelineno-34-77" name="__codelineno-34-77" href="#__codelineno-34-77"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_PARTIAL</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-34-78" name="__codelineno-34-78" href="#__codelineno-34-78"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_FILLED</span><span class="w">                  </span><span class="o">=</span><span class="w"> </span><span class="m">4</span>
+<a id="__codelineno-34-79" name="__codelineno-34-79" href="#__codelineno-34-79"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_REJECTED</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
+<a id="__codelineno-34-80" name="__codelineno-34-80" href="#__codelineno-34-80"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_EXPIRED</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
+<a id="__codelineno-34-81" name="__codelineno-34-81" href="#__codelineno-34-81"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_REQUEST_ADD</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="m">7</span>
+<a id="__codelineno-34-82" name="__codelineno-34-82" href="#__codelineno-34-82"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_REQUEST_MODIFY</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="m">8</span>
+<a id="__codelineno-34-83" name="__codelineno-34-83" href="#__codelineno-34-83"></a><span class="w">  </span><span class="nv">ORDER_STATE_TYPE_REQUEST_CANCEL</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="m">9</span>
+<a id="__codelineno-34-84" name="__codelineno-34-84" href="#__codelineno-34-84"></a>
+<a id="__codelineno-34-85" name="__codelineno-34-85" href="#__codelineno-34-85"></a>&gt;<span class="w"> </span>findtype<span class="w"> </span>double
+<a id="__codelineno-34-86" name="__codelineno-34-86" href="#__codelineno-34-86"></a>FIELDS<span class="w"> </span>OF<span class="w"> </span>TYPE<span class="w"> </span><span class="s1">&#39;double&#39;</span><span class="w"> </span><span class="o">(</span><span class="m">120</span>+<span class="w"> </span>fields<span class="o">)</span>:
+<a id="__codelineno-34-87" name="__codelineno-34-87" href="#__codelineno-34-87"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-88" name="__codelineno-34-88" href="#__codelineno-34-88"></a>
+<a id="__codelineno-34-89" name="__codelineno-34-89" href="#__codelineno-34-89"></a><span class="w">  </span>AccountSummaryData:
+<a id="__codelineno-34-90" name="__codelineno-34-90" href="#__codelineno-34-90"></a><span class="w">    </span>-<span class="w"> </span>account_balance
+<a id="__codelineno-34-91" name="__codelineno-34-91" href="#__codelineno-34-91"></a><span class="w">    </span>-<span class="w"> </span>account_equity
+<a id="__codelineno-34-92" name="__codelineno-34-92" href="#__codelineno-34-92"></a><span class="w">    </span>-<span class="w"> </span>account_freemargin
+<a id="__codelineno-34-93" name="__codelineno-34-93" href="#__codelineno-34-93"></a><span class="w">    </span>-<span class="w"> </span>account_margin
+<a id="__codelineno-34-94" name="__codelineno-34-94" href="#__codelineno-34-94"></a><span class="w">    </span>-<span class="w"> </span>account_profit
+<a id="__codelineno-34-95" name="__codelineno-34-95" href="#__codelineno-34-95"></a>
+<a id="__codelineno-34-96" name="__codelineno-34-96" href="#__codelineno-34-96"></a><span class="w">  </span>DealInfo:
+<a id="__codelineno-34-97" name="__codelineno-34-97" href="#__codelineno-34-97"></a><span class="w">    </span>-<span class="w"> </span>commission
+<a id="__codelineno-34-98" name="__codelineno-34-98" href="#__codelineno-34-98"></a><span class="w">    </span>-<span class="w"> </span>fee
+<a id="__codelineno-34-99" name="__codelineno-34-99" href="#__codelineno-34-99"></a><span class="w">    </span>-<span class="w"> </span>price
+<a id="__codelineno-34-100" name="__codelineno-34-100" href="#__codelineno-34-100"></a><span class="w">    </span>-<span class="w"> </span>profit
+<a id="__codelineno-34-101" name="__codelineno-34-101" href="#__codelineno-34-101"></a><span class="w">    </span>-<span class="w"> </span>swap
+<a id="__codelineno-34-102" name="__codelineno-34-102" href="#__codelineno-34-102"></a><span class="w">    </span>-<span class="w"> </span>volume
+<a id="__codelineno-34-103" name="__codelineno-34-103" href="#__codelineno-34-103"></a>
+<a id="__codelineno-34-104" name="__codelineno-34-104" href="#__codelineno-34-104"></a><span class="w">  </span>OrderInfo:
+<a id="__codelineno-34-105" name="__codelineno-34-105" href="#__codelineno-34-105"></a><span class="w">    </span>-<span class="w"> </span>price_current
+<a id="__codelineno-34-106" name="__codelineno-34-106" href="#__codelineno-34-106"></a><span class="w">    </span>-<span class="w"> </span>price_open
+<a id="__codelineno-34-107" name="__codelineno-34-107" href="#__codelineno-34-107"></a><span class="w">    </span>-<span class="w"> </span>price_stoplimit
+<a id="__codelineno-34-108" name="__codelineno-34-108" href="#__codelineno-34-108"></a><span class="w">    </span>-<span class="w"> </span>stop_loss
+<a id="__codelineno-34-109" name="__codelineno-34-109" href="#__codelineno-34-109"></a><span class="w">    </span>-<span class="w"> </span>take_profit
+<a id="__codelineno-34-110" name="__codelineno-34-110" href="#__codelineno-34-110"></a><span class="w">    </span>-<span class="w"> </span>volume_current
+<a id="__codelineno-34-111" name="__codelineno-34-111" href="#__codelineno-34-111"></a><span class="w">    </span>-<span class="w"> </span>volume_initial
+<a id="__codelineno-34-112" name="__codelineno-34-112" href="#__codelineno-34-112"></a>
+<a id="__codelineno-34-113" name="__codelineno-34-113" href="#__codelineno-34-113"></a><span class="w">  </span>PositionInfo:
+<a id="__codelineno-34-114" name="__codelineno-34-114" href="#__codelineno-34-114"></a><span class="w">    </span>-<span class="w"> </span>position_commission
+<a id="__codelineno-34-115" name="__codelineno-34-115" href="#__codelineno-34-115"></a><span class="w">    </span>-<span class="w"> </span>price_current
+<a id="__codelineno-34-116" name="__codelineno-34-116" href="#__codelineno-34-116"></a><span class="w">    </span>-<span class="w"> </span>price_open
+<a id="__codelineno-34-117" name="__codelineno-34-117" href="#__codelineno-34-117"></a><span class="w">    </span>-<span class="w"> </span>profit
+<a id="__codelineno-34-118" name="__codelineno-34-118" href="#__codelineno-34-118"></a><span class="w">    </span>-<span class="w"> </span>stop_loss
+<a id="__codelineno-34-119" name="__codelineno-34-119" href="#__codelineno-34-119"></a><span class="w">    </span>-<span class="w"> </span>swap
+<a id="__codelineno-34-120" name="__codelineno-34-120" href="#__codelineno-34-120"></a><span class="w">    </span>-<span class="w"> </span>take_profit
+<a id="__codelineno-34-121" name="__codelineno-34-121" href="#__codelineno-34-121"></a><span class="w">    </span>-<span class="w"> </span>volume
+<a id="__codelineno-34-122" name="__codelineno-34-122" href="#__codelineno-34-122"></a>
+<a id="__codelineno-34-123" name="__codelineno-34-123" href="#__codelineno-34-123"></a><span class="w">  </span>SymbolInfo:
+<a id="__codelineno-34-124" name="__codelineno-34-124" href="#__codelineno-34-124"></a><span class="w">    </span>-<span class="w"> </span>ask
+<a id="__codelineno-34-125" name="__codelineno-34-125" href="#__codelineno-34-125"></a><span class="w">    </span>-<span class="w"> </span>bid
+<a id="__codelineno-34-126" name="__codelineno-34-126" href="#__codelineno-34-126"></a><span class="w">    </span>-<span class="w"> </span>point
+<a id="__codelineno-34-127" name="__codelineno-34-127" href="#__codelineno-34-127"></a><span class="w">    </span>-<span class="w"> </span>swap_long
+<a id="__codelineno-34-128" name="__codelineno-34-128" href="#__codelineno-34-128"></a><span class="w">    </span>-<span class="w"> </span>swap_short
+<a id="__codelineno-34-129" name="__codelineno-34-129" href="#__codelineno-34-129"></a><span class="w">    </span>-<span class="w"> </span>volume_max
+<a id="__codelineno-34-130" name="__codelineno-34-130" href="#__codelineno-34-130"></a><span class="w">    </span>-<span class="w"> </span>volume_min
+<a id="__codelineno-34-131" name="__codelineno-34-131" href="#__codelineno-34-131"></a><span class="w">    </span>-<span class="w"> </span>volume_step
+<a id="__codelineno-34-132" name="__codelineno-34-132" href="#__codelineno-34-132"></a>
+<a id="__codelineno-34-133" name="__codelineno-34-133" href="#__codelineno-34-133"></a><span class="w">  </span>...<span class="w"> </span><span class="o">(</span>and<span class="w"> </span>more<span class="o">)</span>
+<a id="__codelineno-34-134" name="__codelineno-34-134" href="#__codelineno-34-134"></a>
+<a id="__codelineno-34-135" name="__codelineno-34-135" href="#__codelineno-34-135"></a>&gt;<span class="w"> </span>whereenum<span class="w"> </span>ENUM_ORDER_TYPE_TF
+<a id="__codelineno-34-136" name="__codelineno-34-136" href="#__codelineno-34-136"></a>ENUM<span class="w"> </span><span class="s1">&#39;ENUM_ORDER_TYPE_TF&#39;</span><span class="w"> </span>USED<span class="w"> </span>IN<span class="w"> </span><span class="o">(</span><span class="m">8</span><span class="w"> </span>fields<span class="o">)</span>:
+<a id="__codelineno-34-137" name="__codelineno-34-137" href="#__codelineno-34-137"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-138" name="__codelineno-34-138" href="#__codelineno-34-138"></a>
+<a id="__codelineno-34-139" name="__codelineno-34-139" href="#__codelineno-34-139"></a><span class="w">  </span>DealInfo:
+<a id="__codelineno-34-140" name="__codelineno-34-140" href="#__codelineno-34-140"></a><span class="w">    </span>-<span class="w"> </span><span class="nb">type</span>
+<a id="__codelineno-34-141" name="__codelineno-34-141" href="#__codelineno-34-141"></a>
+<a id="__codelineno-34-142" name="__codelineno-34-142" href="#__codelineno-34-142"></a><span class="w">  </span>MqlTradeRequest:
+<a id="__codelineno-34-143" name="__codelineno-34-143" href="#__codelineno-34-143"></a><span class="w">    </span>-<span class="w"> </span><span class="nb">type</span>
+<a id="__codelineno-34-144" name="__codelineno-34-144" href="#__codelineno-34-144"></a>
+<a id="__codelineno-34-145" name="__codelineno-34-145" href="#__codelineno-34-145"></a><span class="w">  </span>OrderInfo:
+<a id="__codelineno-34-146" name="__codelineno-34-146" href="#__codelineno-34-146"></a><span class="w">    </span>-<span class="w"> </span><span class="nb">type</span>
+<a id="__codelineno-34-147" name="__codelineno-34-147" href="#__codelineno-34-147"></a>
+<a id="__codelineno-34-148" name="__codelineno-34-148" href="#__codelineno-34-148"></a><span class="w">  </span>OrderSendRequest:
+<a id="__codelineno-34-149" name="__codelineno-34-149" href="#__codelineno-34-149"></a><span class="w">    </span>-<span class="w"> </span>operation
+<a id="__codelineno-34-150" name="__codelineno-34-150" href="#__codelineno-34-150"></a>
+<a id="__codelineno-34-151" name="__codelineno-34-151" href="#__codelineno-34-151"></a><span class="w">  </span>PositionInfo:
+<a id="__codelineno-34-152" name="__codelineno-34-152" href="#__codelineno-34-152"></a><span class="w">    </span>-<span class="w"> </span><span class="nb">type</span>
+<a id="__codelineno-34-153" name="__codelineno-34-153" href="#__codelineno-34-153"></a>
+<a id="__codelineno-34-154" name="__codelineno-34-154" href="#__codelineno-34-154"></a><span class="w">  </span>TradeTransactionInfo:
+<a id="__codelineno-34-155" name="__codelineno-34-155" href="#__codelineno-34-155"></a><span class="w">    </span>-<span class="w"> </span>order_type
+<a id="__codelineno-34-156" name="__codelineno-34-156" href="#__codelineno-34-156"></a><span class="w">    </span>-<span class="w"> </span><span class="nb">type</span>
+<a id="__codelineno-34-157" name="__codelineno-34-157" href="#__codelineno-34-157"></a>
+<a id="__codelineno-34-158" name="__codelineno-34-158" href="#__codelineno-34-158"></a>&gt;<span class="w"> </span>stats
+<a id="__codelineno-34-159" name="__codelineno-34-159" href="#__codelineno-34-159"></a>PROTOBUF<span class="w"> </span>INSPECTOR<span class="w"> </span><span class="nv">STATISTICS</span>
+<a id="__codelineno-34-160" name="__codelineno-34-160" href="#__codelineno-34-160"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-161" name="__codelineno-34-161" href="#__codelineno-34-161"></a>
+<a id="__codelineno-34-162" name="__codelineno-34-162" href="#__codelineno-34-162"></a>Message<span class="w"> </span>Types:<span class="w"> </span><span class="m">163</span><span class="w"> </span>total
+<a id="__codelineno-34-163" name="__codelineno-34-163" href="#__codelineno-34-163"></a>-----------------------------------------------------------
+<a id="__codelineno-34-164" name="__codelineno-34-164" href="#__codelineno-34-164"></a><span class="w">  </span>Request<span class="w">         </span>:<span class="w">  </span><span class="m">47</span><span class="w"> </span>types
+<a id="__codelineno-34-165" name="__codelineno-34-165" href="#__codelineno-34-165"></a><span class="w">  </span>Reply<span class="w">           </span>:<span class="w">  </span><span class="m">44</span><span class="w"> </span>types
+<a id="__codelineno-34-166" name="__codelineno-34-166" href="#__codelineno-34-166"></a><span class="w">  </span>Data<span class="w">            </span>:<span class="w">  </span><span class="m">47</span><span class="w"> </span>types
+<a id="__codelineno-34-167" name="__codelineno-34-167" href="#__codelineno-34-167"></a><span class="w">  </span>Info<span class="w">            </span>:<span class="w">  </span><span class="m">10</span><span class="w"> </span>types
+<a id="__codelineno-34-168" name="__codelineno-34-168" href="#__codelineno-34-168"></a><span class="w">  </span>Other<span class="w">           </span>:<span class="w">  </span><span class="m">15</span><span class="w"> </span>types
+<a id="__codelineno-34-169" name="__codelineno-34-169" href="#__codelineno-34-169"></a>
+<a id="__codelineno-34-170" name="__codelineno-34-170" href="#__codelineno-34-170"></a>Enum<span class="w"> </span>Types:<span class="w"> </span><span class="m">60</span><span class="w"> </span>total
+<a id="__codelineno-34-171" name="__codelineno-34-171" href="#__codelineno-34-171"></a>-----------------------------------------------------------
+<a id="__codelineno-34-172" name="__codelineno-34-172" href="#__codelineno-34-172"></a><span class="w">  </span>Total<span class="w"> </span>enum<span class="w"> </span>values<span class="w">  </span>:<span class="w"> </span><span class="m">644</span>
+<a id="__codelineno-34-173" name="__codelineno-34-173" href="#__codelineno-34-173"></a>
+<a id="__codelineno-34-174" name="__codelineno-34-174" href="#__codelineno-34-174"></a><span class="w">  </span>Top<span class="w"> </span><span class="m">5</span><span class="w"> </span>largest<span class="w"> </span>enums:
+<a id="__codelineno-34-175" name="__codelineno-34-175" href="#__codelineno-34-175"></a><span class="w">    </span>BMT5_ENUM_SYMBOL_INDUSTRY<span class="w">                </span>:<span class="w"> </span><span class="m">152</span><span class="w"> </span>values
+<a id="__codelineno-34-176" name="__codelineno-34-176" href="#__codelineno-34-176"></a><span class="w">    </span>SymbolInfoDoubleProperty<span class="w">                 </span>:<span class="w">  </span><span class="m">60</span><span class="w"> </span>values
+<a id="__codelineno-34-177" name="__codelineno-34-177" href="#__codelineno-34-177"></a><span class="w">    </span>SymbolInfoIntegerProperty<span class="w">                </span>:<span class="w">  </span><span class="m">37</span><span class="w"> </span>values
+<a id="__codelineno-34-178" name="__codelineno-34-178" href="#__codelineno-34-178"></a><span class="w">    </span>EnumOpenTerminalChartWithEaChatPeriod<span class="w">    </span>:<span class="w">  </span><span class="m">22</span><span class="w"> </span>values
+<a id="__codelineno-34-179" name="__codelineno-34-179" href="#__codelineno-34-179"></a><span class="w">    </span>BMT5_ENUM_DEAL_TYPE<span class="w">                      </span>:<span class="w">  </span><span class="m">18</span><span class="w"> </span>values
+<a id="__codelineno-34-180" name="__codelineno-34-180" href="#__codelineno-34-180"></a>
+<a id="__codelineno-34-181" name="__codelineno-34-181" href="#__codelineno-34-181"></a>Field<span class="w"> </span>Types:<span class="w"> </span><span class="m">147</span><span class="w"> </span>distinct<span class="w"> </span>types
+<a id="__codelineno-34-182" name="__codelineno-34-182" href="#__codelineno-34-182"></a>-----------------------------------------------------------
+<a id="__codelineno-34-183" name="__codelineno-34-183" href="#__codelineno-34-183"></a><span class="w">  </span>Top<span class="w"> </span><span class="m">10</span><span class="w"> </span>most<span class="w"> </span>common<span class="w"> </span>field<span class="w"> </span>types:
+<a id="__codelineno-34-184" name="__codelineno-34-184" href="#__codelineno-34-184"></a><span class="w">    </span>double<span class="w">               </span>:<span class="w"> </span><span class="m">209</span><span class="w"> </span>fields
+<a id="__codelineno-34-185" name="__codelineno-34-185" href="#__codelineno-34-185"></a><span class="w">    </span>string<span class="w">               </span>:<span class="w"> </span><span class="m">112</span><span class="w"> </span>fields
+<a id="__codelineno-34-186" name="__codelineno-34-186" href="#__codelineno-34-186"></a><span class="w">    </span>int64<span class="w">                </span>:<span class="w">  </span><span class="m">54</span><span class="w"> </span>fields
+<a id="__codelineno-34-187" name="__codelineno-34-187" href="#__codelineno-34-187"></a><span class="w">    </span>error<span class="w">                </span>:<span class="w">  </span><span class="m">45</span><span class="w"> </span>fields
+<a id="__codelineno-34-188" name="__codelineno-34-188" href="#__codelineno-34-188"></a><span class="w">    </span>int32<span class="w">                </span>:<span class="w">  </span><span class="m">44</span><span class="w"> </span>fields
+<a id="__codelineno-34-189" name="__codelineno-34-189" href="#__codelineno-34-189"></a><span class="w">    </span>uint64<span class="w">               </span>:<span class="w">  </span><span class="m">40</span><span class="w"> </span>fields
+<a id="__codelineno-34-190" name="__codelineno-34-190" href="#__codelineno-34-190"></a><span class="w">    </span>timestamp<span class="w">            </span>:<span class="w">  </span><span class="m">38</span><span class="w"> </span>fields
+<a id="__codelineno-34-191" name="__codelineno-34-191" href="#__codelineno-34-191"></a><span class="w">    </span>bool<span class="w">                 </span>:<span class="w">  </span><span class="m">28</span><span class="w"> </span>fields
+<a id="__codelineno-34-192" name="__codelineno-34-192" href="#__codelineno-34-192"></a><span class="w">    </span>uint32<span class="w">               </span>:<span class="w">  </span><span class="m">16</span><span class="w"> </span>fields
+<a id="__codelineno-34-193" name="__codelineno-34-193" href="#__codelineno-34-193"></a><span class="w">    </span>sub_enum_order_type<span class="w">  </span>:<span class="w">   </span><span class="m">4</span><span class="w"> </span>fields
+<a id="__codelineno-34-194" name="__codelineno-34-194" href="#__codelineno-34-194"></a>
+<a id="__codelineno-34-195" name="__codelineno-34-195" href="#__codelineno-34-195"></a>Total<span class="w"> </span>Fields:<span class="w"> </span><span class="nv">771</span>
+<a id="__codelineno-34-196" name="__codelineno-34-196" href="#__codelineno-34-196"></a><span class="o">===========================================================</span>
+<a id="__codelineno-34-197" name="__codelineno-34-197" href="#__codelineno-34-197"></a>
+<a id="__codelineno-34-198" name="__codelineno-34-198" href="#__codelineno-34-198"></a>&gt;<span class="w"> </span><span class="nb">exit</span>
+<a id="__codelineno-34-199" name="__codelineno-34-199" href="#__codelineno-34-199"></a>
+<a id="__codelineno-34-200" name="__codelineno-34-200" href="#__codelineno-34-200"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Goodbye!
+</code></pre></div>
+<hr />
+<h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">¶</a></h2>
+<p>The Protobuf Inspector uses Python reflection to:</p>
+<ol>
+<li>Register all protobuf types at startup</li>
+<li>Build in-memory indexes for:</li>
+<li>Field names ‚¬„¢ Types mapping</li>
+<li>Field types ‚¬„¢ Fields mapping</li>
+<li>Enum names ‚¬„¢ Usage mapping</li>
+<li>Provide instant search and lookup</li>
+<li>Format output with structure and clarity</li>
+<li>Export to JSON with complete metadata</li>
+</ol>
+<p><strong>Source file:</strong> <code>examples/0_common/16_protobuf_inspector.py</code></p>
+<p><strong>Modules scanned:</strong></p>
+<ul>
+<li><code>mt5_term_api_account_helper_pb2</code></li>
+<li><code>mt5_term_api_account_information_pb2</code></li>
+<li><code>mt5_term_api_market_info_pb2</code></li>
+<li><code>mt5_term_api_trade_functions_pb2</code></li>
+<li><code>mt5_term_api_trading_helper_pb2</code></li>
+<li><code>mt5_term_api_subscriptions_pb2</code> (streaming events, SUB_ENUM_* enums)</li>
+<li><code>mt5_term_api_charts_pb2</code> (chart operations)</li>
+<li><code>mt5_term_api_connection_pb2</code> (connection management)</li>
+</ul>
+<hr />
+<h2 id="technical-notes">Technical Notes<a class="headerlink" href="#technical-notes" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>No MT5 connection required</strong> - This is a purely offline tool that inspects type definitions</li>
+<li><strong>Complete coverage</strong> - All 163 types and 60 enums from the MT5 gRPC API</li>
+<li><strong>Instant search</strong> - In-memory indexes for fast lookup</li>
+<li><strong>Development only</strong> - Not intended for production use</li>
+<li><strong>Python reflection</strong> - Uses protobuf DESCRIPTOR API for introspection</li>
+<li><strong>JSON export</strong> - Compatible with external documentation tools</li>
+</ul>
+<hr />
+<h2 id="when-to-use-this-tool">When to Use This Tool<a class="headerlink" href="#when-to-use-this-tool" title="Permanent link">¶</a></h2>
+<p><strong>Use the inspector when:</strong></p>
+<ul>
+<li>Learning the MT5 gRPC API structure</li>
+<li>Debugging "field not found" errors</li>
+<li>Exploring available protobuf types</li>
+<li>Looking up enum values</li>
+<li>Finding the correct request/response types for API calls</li>
+<li>Understanding message structures before writing code</li>
+<li>Identifying all fields of a specific type (e.g., all double fields)</li>
+<li>Tracking enum usage across the API</li>
+<li>Generating documentation for types</li>
+<li>Analyzing API statistics</li>
+</ul>
+<p><strong>Don't use for:</strong></p>
+<ul>
+<li>Inspecting runtime data (use debugger instead)</li>
+<li>Production code (this is a development tool)</li>
+<li>Testing API connectivity (use demo connections instead)</li>
+</ul>
+<hr />
+<h2 id="tips-and-tricks">Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permanent link">¶</a></h2>
+<ol>
+<li><strong>Start with search</strong> - If you know the general area, use <code>search &lt;keyword&gt;</code> first</li>
+<li><strong>Use field search</strong> - When you see a field name but don't know which type, use <code>field &lt;name&gt;</code></li>
+<li><strong>Explore enums early</strong> - Understanding enum values saves debugging time later</li>
+<li><strong>List is your friend</strong> - When stuck, use <code>list</code> to browse available types</li>
+<li><strong>Case doesn't matter</strong> - Type commands in lowercase, it's faster</li>
+<li><strong>Use filters</strong> - <code>list --request</code> shows only what you need</li>
+<li><strong>Find by type</strong> - <code>findtype double</code> to see all price/volume fields</li>
+<li><strong>Track enum usage</strong> - <code>whereenum</code> shows relationships between types</li>
+<li><strong>Export for docs</strong> - Use <code>export</code> to generate JSON for team documentation</li>
+<li><strong>Check stats</strong> - Use <code>stats</code> to understand API structure overview</li>
+</ol>
+<hr />
+<h2 id="quick-start-workflow">Quick Start Workflow<a class="headerlink" href="#quick-start-workflow" title="Permanent link">¶</a></h2>
+<p><strong>Beginner workflow for exploring the API:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># 1. Start the inspector</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>python<span class="w"> </span>main.py<span class="w"> </span>inspect
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="c1"># 2. Browse what&#39;s available</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>&gt;<span class="w"> </span>list
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="c1"># 3. Search for what you need</span>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>&gt;<span class="w"> </span>search<span class="w"> </span>Position
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="c1"># 4. Inspect a type</span>
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>&gt;<span class="w"> </span>PositionInfo
+<a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>
+<a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a><span class="c1"># 5. Check enum values</span>
+<a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>&gt;<span class="w"> </span>enum<span class="w"> </span>ENUM_ORDER_TYPE_TF
+<a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a>
+<a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a><span class="c1"># 6. Find related types</span>
+<a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>&gt;<span class="w"> </span>field<span class="w"> </span>ticket
+<a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a>
+<a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a><span class="c1"># 7. Find fields by type</span>
+<a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a>&gt;<span class="w"> </span>findtype<span class="w"> </span>double
+<a id="__codelineno-35-22" name="__codelineno-35-22" href="#__codelineno-35-22"></a>
+<a id="__codelineno-35-23" name="__codelineno-35-23" href="#__codelineno-35-23"></a><span class="c1"># 8. Check enum usage</span>
+<a id="__codelineno-35-24" name="__codelineno-35-24" href="#__codelineno-35-24"></a>&gt;<span class="w"> </span>whereenum<span class="w"> </span>ENUM_ORDER_TYPE_TF
+<a id="__codelineno-35-25" name="__codelineno-35-25" href="#__codelineno-35-25"></a>
+<a id="__codelineno-35-26" name="__codelineno-35-26" href="#__codelineno-35-26"></a><span class="c1"># 9. Get detailed stats</span>
+<a id="__codelineno-35-27" name="__codelineno-35-27" href="#__codelineno-35-27"></a>&gt;<span class="w"> </span>stats
+<a id="__codelineno-35-28" name="__codelineno-35-28" href="#__codelineno-35-28"></a>
+<a id="__codelineno-35-29" name="__codelineno-35-29" href="#__codelineno-35-29"></a><span class="c1"># 10. Export to JSON</span>
+<a id="__codelineno-35-30" name="__codelineno-35-30" href="#__codelineno-35-30"></a>&gt;<span class="w"> </span><span class="nb">export</span><span class="w"> </span>PositionInfo
+</code></pre></div>
+<hr />
+<h2 id="learning-session-example">Learning Session Example<a class="headerlink" href="#learning-session-example" title="Permanent link">¶</a></h2>
+<p><strong>Goal:</strong> "I want to close a position, what do I need?"</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>&gt;<span class="w"> </span>search<span class="w"> </span>position<span class="w"> </span>close
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>FOUND<span class="w"> </span><span class="m">2</span><span class="w"> </span>TYPES<span class="w"> </span>MATCHING<span class="w"> </span><span class="s1">&#39;position close&#39;</span>:
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">  </span><span class="s2">&quot; PositionCloseRequest</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="s2">  &quot;</span><span class="w"> </span>PositionCloseRequestReply
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>&gt;<span class="w"> </span>PositionCloseRequest
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>FIELDS<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="o">)</span>:
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="w">  </span><span class="c1">#  1 ticket                        : uint64</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="w">  </span><span class="c1">#  2 deviation                     : uint64</span>
+<a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a><span class="w">  </span><span class="c1">#  3 comment                       : string</span>
+<a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>
+<a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>&gt;<span class="w"> </span>PositionCloseRequestReply
+<a id="__codelineno-36-13" name="__codelineno-36-13" href="#__codelineno-36-13"></a>FIELDS<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>:
+<a id="__codelineno-36-14" name="__codelineno-36-14" href="#__codelineno-36-14"></a><span class="w">  </span><span class="c1">#  1 returned_code                 : uint32</span>
+<a id="__codelineno-36-15" name="__codelineno-36-15" href="#__codelineno-36-15"></a><span class="w">  </span><span class="c1">#  2 order_ticket                  : uint64</span>
+<a id="__codelineno-36-16" name="__codelineno-36-16" href="#__codelineno-36-16"></a>
+<a id="__codelineno-36-17" name="__codelineno-36-17" href="#__codelineno-36-17"></a>&gt;<span class="w"> </span>field<span class="w"> </span>ticket
+<a id="__codelineno-36-18" name="__codelineno-36-18" href="#__codelineno-36-18"></a>EXACT<span class="w"> </span>MATCH:<span class="w"> </span>field<span class="w"> </span><span class="s1">&#39;ticket&#39;</span><span class="w"> </span>found<span class="w"> </span><span class="k">in</span>:
+<a id="__codelineno-36-19" name="__codelineno-36-19" href="#__codelineno-36-19"></a><span class="w">  </span><span class="s2">&quot; PositionInfo</span>
+<a id="__codelineno-36-20" name="__codelineno-36-20" href="#__codelineno-36-20"></a><span class="s2">  &quot;</span><span class="w"> </span>OrderInfo
+<a id="__codelineno-36-21" name="__codelineno-36-21" href="#__codelineno-36-21"></a><span class="w">  </span><span class="s2">&quot; DealInfo</span>
+<a id="__codelineno-36-22" name="__codelineno-36-22" href="#__codelineno-36-22"></a><span class="s2">  &quot;</span><span class="w"> </span>PositionCloseRequest
+<a id="__codelineno-36-23" name="__codelineno-36-23" href="#__codelineno-36-23"></a><span class="w">  </span><span class="s2">&quot; HistoryDealsGetByTicketRequest</span>
+<a id="__codelineno-36-24" name="__codelineno-36-24" href="#__codelineno-36-24"></a><span class="s2">  ...</span>
+<a id="__codelineno-36-25" name="__codelineno-36-25" href="#__codelineno-36-25"></a>
+<a id="__codelineno-36-26" name="__codelineno-36-26" href="#__codelineno-36-26"></a><span class="s2"># Now you know:</span>
+<a id="__codelineno-36-27" name="__codelineno-36-27" href="#__codelineno-36-27"></a><span class="s2"># - Use PositionCloseRequest with ticket field</span>
+<a id="__codelineno-36-28" name="__codelineno-36-28" href="#__codelineno-36-28"></a><span class="s2"># - You&#39;ll get PositionCloseRequestReply back</span>
+<a id="__codelineno-36-29" name="__codelineno-36-29" href="#__codelineno-36-29"></a><span class="s2"># - Check returned_code == 10009 for success (see RETURN_CODES_REFERENCE.md)</span>
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¶</a></h2>
+<p><strong>Q: Type not found</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>&gt; MyType
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>[!] Type not found: MyType
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>    Did you mean: MqlTradeRequest, MqlTradeResult, ...
+</code></pre></div>
+<p><strong>A:</strong> Use search with partial name to find similar types</p>
+<hr />
+<p><strong>Q: Too many results</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>&gt; search data
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>FOUND 156 TYPES...
+</code></pre></div>
+<p><strong>A:</strong> Be more specific in your search query, or use filters like <code>list --data</code></p>
+<hr />
+<p><strong>Q: What's the difference between OrderInfo and OrderSendRequest?</strong></p>
+<p><strong>A:</strong> Use the inspector:</p>
+<ul>
+<li><code>OrderInfo</code> - Information about an existing order (has 25 fields including state, times, etc.)</li>
+<li><code>OrderSendRequest</code> - Request to create a new order (has 15 fields for order parameters)</li>
+</ul>
+<p>Rule:</p>
+<ul>
+<li><code>*Request</code> - Input for API method (what you send)</li>
+<li><code>*Reply</code> - Output from API method (what you receive)</li>
+<li><code>*Info</code> - Structured data about entities (position, order, deal, symbol)</li>
+<li><code>*Data</code> - Helper data structures</li>
+</ul>
+<hr />
+<p><strong>Q: Which fields are double vs int64?</strong></p>
+<p><strong>A:</strong> Use field type search:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>&gt; findtype double    # All price/volume/profit fields
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>&gt; findtype int64     # All ID/magic/ticket fields
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>&gt; findtype string    # All text fields (symbol, comment, etc.)
+</code></pre></div>
+<hr />
+<p><strong>Q: Where is enum X used?</strong></p>
+<p><strong>A:</strong> Use enum usage search:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>&gt; whereenum ENUM_ORDER_TYPE_TF
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a># Shows all types and fields that use this enum
+</code></pre></div>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<p>The Protobuf Inspector is your <strong>first stop</strong> when working with the MT5 gRPC API. Use it to:</p>
+<ol>
+<li><strong>Discover</strong> available types and their structure</li>
+<li></li>
+<li><strong>Learn</strong> message field names and types</li>
+<li></li>
+<li><strong>Debug</strong> field name and type issues</li>
+<li></li>
+<li><strong>Verify</strong> enum values and usage</li>
+<li></li>
+<li><strong>Track</strong> relationships between types</li>
+<li></li>
+<li><strong>Export</strong> documentation for your team</li>
+<li></li>
+<li><strong>Analyze</strong> API structure and statistics</li>
+<li></li>
+<li><strong>Speed up</strong> development workflow</li>
+</ol>
+<p><strong>Remember:</strong> Type <code>help</code> at any time for command reference!</p>
+<hr />
+<h2 id="command-quick-reference">Command Quick Reference<a class="headerlink" href="#command-quick-reference" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>BASIC COMMANDS:
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>  list               - Show all types
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>  list --request     - Show only Request types
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>  &lt;TypeName&gt;         - Inspect type structure
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>  search &lt;text&gt;      - Find types by name
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>  field &lt;name&gt;       - Find types with field
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>  enum &lt;name&gt;        - Show enum values
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>
+<a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>NEW COMMANDS:
+<a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>  findtype &lt;type&gt;    - Find fields by type
+<a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>  whereenum &lt;name&gt;   - Find enum usage
+<a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>  export &lt;TypeName&gt;  - Export to JSON
+<a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>  stats              - Show statistics
+<a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>
+<a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>NAVIGATION:
+<a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a>  help               - Show help
+<a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a>  exit               - Exit inspector
+</code></pre></div>
+<hr />
+<p><strong>Next Steps:</strong></p>
+<ul>
+<li>Run <code>python main.py inspect</code> and explore!</li>
+<li>Check <a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account Master Overview</a> for complete API documentation</li>
+<li>Try the demo examples in <code>examples/</code></li>
+<li>See <a href="../RETURN_CODES_REFERENCE/">RETURN_CODES_REFERENCE.md</a> for error codes</li>
+<li>See <a href="../USERCODE_SANDBOX_GUIDE/">USERCODE_SANDBOX_GUIDE.md</a> for coding examples</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ENUMS_USAGE_REFERENCE/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ENUMs Reference">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ENUMs Reference
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../USERCODE_SANDBOX_GUIDE/" class="md-footer__link md-footer__link--next" aria-label="Next: UserCode Sandbox">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                UserCode Sandbox
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>

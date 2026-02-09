@@ -1,0 +1,2177 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://127.0.0.1:8000/All_Guides/Your_First_Project/">
+      
+      
+        <link rel="prev" href="../GETTING_STARTED/">
+      
+      
+        <link rel="next" href="../PROJECT_MAP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Your First Project - MetaRPC MT5 Python Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#your-first-project-in-10-minutes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-header__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MetaRPC MT5 Python Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Your First Project
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MetaRPC MT5 Python Documentation" class="md-nav__button md-logo" aria-label="MetaRPC MT5 Python Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    MetaRPC MT5 Python Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Guide?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-install-python-38-or-higher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Install Python 3.8 or Higher
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-a-new-python-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create a New Python Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-install-metarpcmt5-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Install MetaRpcMT5 Package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-configuration-file-settingsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create Configuration File settings.json
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create Configuration File settings.json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-json-file-recommended-for-beginners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: JSON file (recommended for beginners)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-environment-variables-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Environment variables (for production)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-write-code-to-connect-and-get-account-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Write Code to Connect and Get Account Information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-run-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Run the Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#congratulations-you-did-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎉 Congratulations! You Did It!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 Your Project Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 What's Next?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 What&#39;s Next?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-more-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Add More Functionality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-study-the-complete-sdk-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Study the Complete SDK Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-explore-ready-made-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Explore Ready-Made Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-read-the-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Read the Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ Frequently Asked Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ Frequently Asked Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-metarpcmt5-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is the MetaRpcMT5 Package?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-work-with-environment-variables-instead-of-settingsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Work with Environment Variables Instead of settings.json?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-level-2-mt5service-and-level-3-mt5sugar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Use Level 2 (MT5Service) and Level 3 (MT5Sugar)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-do-if-errors-occur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Do If Errors Occur?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-what-we-did" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Summary: What We Did
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Guide?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-install-python-38-or-higher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Install Python 3.8 or Higher
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-a-new-python-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create a New Python Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-install-metarpcmt5-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Install MetaRpcMT5 Package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-configuration-file-settingsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create Configuration File settings.json
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create Configuration File settings.json">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-json-file-recommended-for-beginners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 1: JSON file (recommended for beginners)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-environment-variables-for-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method 2: Environment variables (for production)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-write-code-to-connect-and-get-account-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Write Code to Connect and Get Account Information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-run-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Run the Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#congratulations-you-did-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎉 Congratulations! You Did It!
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 Your Project Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 What's Next?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 What&#39;s Next?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-more-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Add More Functionality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-study-the-complete-sdk-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Study the Complete SDK Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-explore-ready-made-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Explore Ready-Made Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-read-the-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Read the Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ Frequently Asked Questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ Frequently Asked Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-metarpcmt5-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is the MetaRpcMT5 Package?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-work-with-environment-variables-instead-of-settingsjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Work with Environment Variables Instead of settings.json?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-level-2-mt5service-and-level-3-mt5sugar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Use Level 2 (MT5Service) and Level 3 (MT5Sugar)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-do-if-errors-occur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Do If Errors Occur?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-what-we-did" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Summary: What We Did
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="your-first-project-in-10-minutes">Your First Project in 10 Minutes<a class="headerlink" href="#your-first-project-in-10-minutes" title="Permanent link">¶</a></h1>
+<blockquote>
+<p><strong>Practice Before Theory</strong> - create a working trading project with MT5 before diving into the documentation</p>
+</blockquote>
+<hr />
+<h2 id="why-this-guide">Why This Guide?<a class="headerlink" href="#why-this-guide" title="Permanent link">¶</a></h2>
+<p>I want to show you with a simple example how easy it is to use our gRPC gateway to work with MetaTrader 5.</p>
+<p><strong>Before diving into the fundamentals and core concepts of the project - let's create your first project.</strong></p>
+<p>We will install one Python package <code>MetaRpcMT5</code>, which contains:</p>
+<ul>
+<li>✅ Protobuf definitions of all MT5 methods</li>
+<li>✅ MT5Account - ready-to-use gRPC client</li>
+<li>✅ Error handler - ApiError types and return codes</li>
+<li>✅ Everything needed to get started</li>
+</ul>
+<p><strong>This is the foundation</strong> for your future algorithmic trading system.</p>
+<hr />
+<blockquote>
+<p>💡 After getting your first results, proceed to <a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account.Master.Overview.md</a> for a deep understanding of the SDK architecture.</p>
+</blockquote>
+<hr />
+<h2 id="step-1-install-python-38-or-higher">Step 1: Install Python 3.8 or Higher<a class="headerlink" href="#step-1-install-python-38-or-higher" title="Permanent link">¶</a></h2>
+<p>If you don't have Python installed yet:</p>
+<p><strong>Download and install:</strong></p>
+<ul>
+<li><a href="https://www.python.org/downloads/">Python Download</a></li>
+</ul>
+<p><strong>Verify installation:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>--version
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Should show: Python 3.8.x or higher</span>
+</code></pre></div>
+<p><strong>On Windows you may need:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>py<span class="w"> </span>--version
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># or</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>python3<span class="w"> </span>--version
+</code></pre></div></p>
+<hr />
+<h2 id="step-2-create-a-new-python-project">Step 2: Create a New Python Project<a class="headerlink" href="#step-2-create-a-new-python-project" title="Permanent link">¶</a></h2>
+<p>Open a terminal (command prompt) and execute:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Create project folder</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>mkdir<span class="w"> </span>MyMT5Project
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">cd</span><span class="w"> </span>MyMT5Project
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Create virtual environment (recommended)</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Activate virtual environment</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># On Windows:</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># On Linux/Mac:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</code></pre></div>
+<p><strong>What happened:</strong></p>
+<ul>
+<li>✅ Created <code>MyMT5Project</code> folder</li>
+<li>✅ Created <code>venv</code> virtual environment - isolated Python environment</li>
+<li>✅ Activated environment - now you can install packages</li>
+</ul>
+<hr />
+<h2 id="step-3-install-metarpcmt5-package">Step 3: Install MetaRpcMT5 Package<a class="headerlink" href="#step-3-install-metarpcmt5-package" title="Permanent link">¶</a></h2>
+<p>This is the most important step - installing the <strong>single package</strong> that contains everything you need:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/MetaRPC/PyMT5.git#subdirectory<span class="o">=</span>package
+</code></pre></div>
+<blockquote>
+<p><strong>📌 Important:</strong> The package will be installed in the <code>venv/</code> virtual environment of your project (not globally on the computer).</p>
+</blockquote>
+<p><strong>How to verify installation?</strong></p>
+<p>Choose any method:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Method 1: Full package information</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>pip<span class="w"> </span>show<span class="w"> </span>MetaRpcMT5
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Method 2: Import check</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from MetaRpcMT5 import MT5Account; print(&#39;✅ OK&#39;)&quot;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Method 3: Package list (Windows PowerShell)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>Select-String<span class="w"> </span><span class="s2">&quot;MetaRpcMT5&quot;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># Method 3: Package list (Linux/Mac)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>MetaRpcMT5
+</code></pre></div>
+<p>If you see package information - <strong>installation successful!</strong> ✅</p>
+<hr />
+<h2 id="step-4-create-configuration-file-settingsjson">Step 4: Create Configuration File settings.json<a class="headerlink" href="#step-4-create-configuration-file-settingsjson" title="Permanent link">¶</a></h2>
+<p>You have <strong>two ways</strong> to store connection settings:</p>
+<h3 id="method-1-json-file-recommended-for-beginners">Method 1: JSON file (recommended for beginners)<a class="headerlink" href="#method-1-json-file-recommended-for-beginners" title="Permanent link">¶</a></h3>
+<p>Create a <code>settings.json</code> file in the project root:</p>
+<p><strong>Basic variant (minimum parameters):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">591129415</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourPassword123&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">&quot;grpc_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">&quot;mt_cluster&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourBroker-MT5 Demo&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">&quot;test_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EURUSD&quot;</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Extended variant (all parameters):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">591129415</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourPassword123&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mt5.mrpc.pro&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">443</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="nt">&quot;grpc_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">&quot;mt_cluster&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YourBroker-MT5 Demo&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="nt">&quot;test_symbol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">  </span><span class="nt">&quot;test_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Parameter explanation:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>user</strong></td>
+<td>✅ Yes</td>
+<td>Your MT5 account number (login)</td>
+</tr>
+<tr>
+<td><strong>password</strong></td>
+<td>✅ Yes</td>
+<td>Master password for MT5 account</td>
+</tr>
+<tr>
+<td><strong>grpc_server</strong></td>
+<td>✅ Yes</td>
+<td>gRPC gateway address: <code>mt5.mrpc.pro:443</code></td>
+</tr>
+<tr>
+<td><strong>mt_cluster</strong></td>
+<td>✅ Yes</td>
+<td>Broker cluster name (server name in MT5)</td>
+</tr>
+<tr>
+<td><strong>test_symbol</strong></td>
+<td>✅ Yes</td>
+<td>Trading symbol: <code>EURUSD</code>, <code>GBPUSD</code>, etc.</td>
+</tr>
+<tr>
+<td><strong>host</strong></td>
+<td>⚪ No</td>
+<td>gRPC server host separately: <code>mt5.mrpc.pro</code></td>
+</tr>
+<tr>
+<td><strong>port</strong></td>
+<td>⚪ No</td>
+<td>gRPC server port: <code>443</code></td>
+</tr>
+<tr>
+<td><strong>test_volume</strong></td>
+<td>⚪ No</td>
+<td>Volume for test orders: <code>0.01</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="method-2-environment-variables-for-production">Method 2: Environment variables (for production)<a class="headerlink" href="#method-2-environment-variables-for-production" title="Permanent link">¶</a></h3>
+<p>Instead of JSON, you can use environment variables:</p>
+<p><strong>Windows (PowerShell):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">$env:MT5_USER</span><span class="p">=</span><span class="s2">&quot;591129415&quot;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">$env:MT5_PASSWORD</span><span class="p">=</span><span class="s2">&quot;YourPassword123&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">$env:MT5_GRPC_SERVER</span><span class="p">=</span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nv">$env:MT5_CLUSTER</span><span class="p">=</span><span class="s2">&quot;YourBroker-MT5 Demo&quot;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nv">$env:MT5_TEST_SYMBOL</span><span class="p">=</span><span class="s2">&quot;EURUSD&quot;</span>
+</code></pre></div>
+<p><strong>Linux/Mac (Bash):</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_USER</span><span class="o">=</span><span class="s2">&quot;591129415&quot;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YourPassword123&quot;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_GRPC_SERVER</span><span class="o">=</span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_CLUSTER</span><span class="o">=</span><span class="s2">&quot;YourBroker-MT5 Demo&quot;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_TEST_SYMBOL</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span>
+</code></pre></div>
+<blockquote>
+<p><strong>💡 Tip:</strong> For this guide, use <strong>Method 1 (JSON)</strong> - it's simpler for beginners</p>
+</blockquote>
+<hr />
+<h2 id="step-5-write-code-to-connect-and-get-account-information">Step 5: Write Code to Connect and Get Account Information<a class="headerlink" href="#step-5-write-code-to-connect-and-get-account-information" title="Permanent link">¶</a></h2>
+<p>Create a <code>main.py</code> file in the project root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="sd">═══════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="sd">YOUR FIRST PROJECT WITH MT5</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="sd">═══════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="sd">This script demonstrates:</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="sd">  - Creating MT5Account</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="sd">  - Connecting to MT5 via gRPC</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="sd">  - Getting account information</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="sd">═══════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="c1"># Import MetaRpcMT5</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Account</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_settings</span><span class="p">():</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Load settings from settings.json&quot;&quot;&quot;</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;settings.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Main function&quot;&quot;&quot;</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;═&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;          WELCOME TO YOUR FIRST PROJECT WITH MT5&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;═&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>    <span class="c1"># STEP 1: LOAD CONFIGURATION</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 Loading configuration...&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>        <span class="n">config</span> <span class="o">=</span> <span class="n">load_settings</span><span class="p">()</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ Error: settings.json file not found!&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   Create settings.json with your MT5 credentials&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error: invalid JSON in settings.json: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a>
+<a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Configuration loaded:&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   User:           </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Cluster:        </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;mt_cluster&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   gRPC Server:    </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;grpc_server&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Test Symbol:    </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a>
+<a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a>    <span class="c1"># STEP 2: CREATE MT5ACCOUNT</span>
+<a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a>
+<a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔌 Creating MT5Account instance...&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a>
+<a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a>    <span class="c1"># Generate unique UUID for this terminal</span>
+<a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a>    <span class="n">terminal_guid</span> <span class="o">=</span> <span class="n">uuid4</span><span class="p">()</span>
+<a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a>
+<a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a>    <span class="c1"># Create MT5Account with credentials</span>
+<a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a>    <span class="n">account</span> <span class="o">=</span> <span class="n">MT5Account</span><span class="p">(</span>
+<a id="__codelineno-9-70" name="__codelineno-9-70" href="#__codelineno-9-70"></a>        <span class="n">user</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span>
+<a id="__codelineno-9-71" name="__codelineno-9-71" href="#__codelineno-9-71"></a>        <span class="n">password</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">],</span>
+<a id="__codelineno-9-72" name="__codelineno-9-72" href="#__codelineno-9-72"></a>        <span class="n">grpc_server</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;grpc_server&#39;</span><span class="p">],</span>
+<a id="__codelineno-9-73" name="__codelineno-9-73" href="#__codelineno-9-73"></a>        <span class="n">id_</span><span class="o">=</span><span class="n">terminal_guid</span>
+<a id="__codelineno-9-74" name="__codelineno-9-74" href="#__codelineno-9-74"></a>    <span class="p">)</span>
+<a id="__codelineno-9-75" name="__codelineno-9-75" href="#__codelineno-9-75"></a>
+<a id="__codelineno-9-76" name="__codelineno-9-76" href="#__codelineno-9-76"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ MT5Account created (UUID: </span><span class="si">{</span><span class="n">terminal_guid</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-77" name="__codelineno-9-77" href="#__codelineno-9-77"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-78" name="__codelineno-9-78" href="#__codelineno-9-78"></a>
+<a id="__codelineno-9-79" name="__codelineno-9-79" href="#__codelineno-9-79"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-80" name="__codelineno-9-80" href="#__codelineno-9-80"></a>    <span class="c1"># STEP 3: CONNECT TO MT5</span>
+<a id="__codelineno-9-81" name="__codelineno-9-81" href="#__codelineno-9-81"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-82" name="__codelineno-9-82" href="#__codelineno-9-82"></a>
+<a id="__codelineno-9-83" name="__codelineno-9-83" href="#__codelineno-9-83"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔗 Connecting to MT5 terminal...&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-84" name="__codelineno-9-84" href="#__codelineno-9-84"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Waiting for response (timeout: 120 seconds)...&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-85" name="__codelineno-9-85" href="#__codelineno-9-85"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-86" name="__codelineno-9-86" href="#__codelineno-9-86"></a>
+<a id="__codelineno-9-87" name="__codelineno-9-87" href="#__codelineno-9-87"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-88" name="__codelineno-9-88" href="#__codelineno-9-88"></a>        <span class="c1"># Connect to MT5 using server name</span>
+<a id="__codelineno-9-89" name="__codelineno-9-89" href="#__codelineno-9-89"></a>        <span class="c1"># This is the RECOMMENDED method - simpler than ConnectEx</span>
+<a id="__codelineno-9-90" name="__codelineno-9-90" href="#__codelineno-9-90"></a>        <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">connect_by_server_name</span><span class="p">(</span>
+<a id="__codelineno-9-91" name="__codelineno-9-91" href="#__codelineno-9-91"></a>            <span class="n">server_name</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;mt_cluster&#39;</span><span class="p">],</span>
+<a id="__codelineno-9-92" name="__codelineno-9-92" href="#__codelineno-9-92"></a>            <span class="n">base_chart_symbol</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">],</span>
+<a id="__codelineno-9-93" name="__codelineno-9-93" href="#__codelineno-9-93"></a>            <span class="n">timeout_seconds</span><span class="o">=</span><span class="mi">120</span>
+<a id="__codelineno-9-94" name="__codelineno-9-94" href="#__codelineno-9-94"></a>        <span class="p">)</span>
+<a id="__codelineno-9-95" name="__codelineno-9-95" href="#__codelineno-9-95"></a>
+<a id="__codelineno-9-96" name="__codelineno-9-96" href="#__codelineno-9-96"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Successfully connected!&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-97" name="__codelineno-9-97" href="#__codelineno-9-97"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Terminal GUID: </span><span class="si">{</span><span class="n">account</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-98" name="__codelineno-9-98" href="#__codelineno-9-98"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-99" name="__codelineno-9-99" href="#__codelineno-9-99"></a>
+<a id="__codelineno-9-100" name="__codelineno-9-100" href="#__codelineno-9-100"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-9-101" name="__codelineno-9-101" href="#__codelineno-9-101"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Connection error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-102" name="__codelineno-9-102" href="#__codelineno-9-102"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   Check:&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-103" name="__codelineno-9-103" href="#__codelineno-9-103"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Correct login/password&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-104" name="__codelineno-9-104" href="#__codelineno-9-104"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - gRPC server availability&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-105" name="__codelineno-9-105" href="#__codelineno-9-105"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   - Correct cluster name&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-106" name="__codelineno-9-106" href="#__codelineno-9-106"></a>        <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-9-107" name="__codelineno-9-107" href="#__codelineno-9-107"></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-9-108" name="__codelineno-9-108" href="#__codelineno-9-108"></a>
+<a id="__codelineno-9-109" name="__codelineno-9-109" href="#__codelineno-9-109"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-110" name="__codelineno-9-110" href="#__codelineno-9-110"></a>    <span class="c1"># STEP 4: GET ACCOUNT INFORMATION</span>
+<a id="__codelineno-9-111" name="__codelineno-9-111" href="#__codelineno-9-111"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-112" name="__codelineno-9-112" href="#__codelineno-9-112"></a>
+<a id="__codelineno-9-113" name="__codelineno-9-113" href="#__codelineno-9-113"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📊 Getting account information...&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-114" name="__codelineno-9-114" href="#__codelineno-9-114"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-115" name="__codelineno-9-115" href="#__codelineno-9-115"></a>
+<a id="__codelineno-9-116" name="__codelineno-9-116" href="#__codelineno-9-116"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-117" name="__codelineno-9-117" href="#__codelineno-9-117"></a>        <span class="c1"># Request full account information in one call</span>
+<a id="__codelineno-9-118" name="__codelineno-9-118" href="#__codelineno-9-118"></a>        <span class="n">summary_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">account_summary</span><span class="p">()</span>
+<a id="__codelineno-9-119" name="__codelineno-9-119" href="#__codelineno-9-119"></a>
+<a id="__codelineno-9-120" name="__codelineno-9-120" href="#__codelineno-9-120"></a>        <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-121" name="__codelineno-9-121" href="#__codelineno-9-121"></a>        <span class="c1"># STEP 5: OUTPUT RESULTS</span>
+<a id="__codelineno-9-122" name="__codelineno-9-122" href="#__codelineno-9-122"></a>        <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-123" name="__codelineno-9-123" href="#__codelineno-9-123"></a>
+<a id="__codelineno-9-124" name="__codelineno-9-124" href="#__codelineno-9-124"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-125" name="__codelineno-9-125" href="#__codelineno-9-125"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;╔════════════════════════════════════════════════════════════════╗&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-126" name="__codelineno-9-126" href="#__codelineno-9-126"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;║              ACCOUNT INFORMATION                               ║&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-127" name="__codelineno-9-127" href="#__codelineno-9-127"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;╚════════════════════════════════════════════════════════════════╝&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-128" name="__codelineno-9-128" href="#__codelineno-9-128"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-129" name="__codelineno-9-129" href="#__codelineno-9-129"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Login:              </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_login</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-130" name="__codelineno-9-130" href="#__codelineno-9-130"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   User name:          </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_user_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-131" name="__codelineno-9-131" href="#__codelineno-9-131"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Company:            </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_company_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-132" name="__codelineno-9-132" href="#__codelineno-9-132"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Currency:           </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-133" name="__codelineno-9-133" href="#__codelineno-9-133"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-134" name="__codelineno-9-134" href="#__codelineno-9-134"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;💰 Balance:            </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_balance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-135" name="__codelineno-9-135" href="#__codelineno-9-135"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;💎 Equity:             </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_equity</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-136" name="__codelineno-9-136" href="#__codelineno-9-136"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-137" name="__codelineno-9-137" href="#__codelineno-9-137"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Credit:             </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_credit</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_currency</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-138" name="__codelineno-9-138" href="#__codelineno-9-138"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Leverage:           1:</span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_leverage</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-139" name="__codelineno-9-139" href="#__codelineno-9-139"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Trade mode:         </span><span class="si">{</span><span class="n">summary_data</span><span class="o">.</span><span class="n">account_trade_mode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-140" name="__codelineno-9-140" href="#__codelineno-9-140"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-141" name="__codelineno-9-141" href="#__codelineno-9-141"></a>
+<a id="__codelineno-9-142" name="__codelineno-9-142" href="#__codelineno-9-142"></a>        <span class="c1"># Server time - protobuf Timestamp, needs conversion</span>
+<a id="__codelineno-9-143" name="__codelineno-9-143" href="#__codelineno-9-143"></a>        <span class="k">if</span> <span class="n">summary_data</span><span class="o">.</span><span class="n">server_time</span><span class="p">:</span>
+<a id="__codelineno-9-144" name="__codelineno-9-144" href="#__codelineno-9-144"></a>            <span class="n">server_time</span> <span class="o">=</span> <span class="n">summary_data</span><span class="o">.</span><span class="n">server_time</span><span class="o">.</span><span class="n">ToDatetime</span><span class="p">()</span>
+<a id="__codelineno-9-145" name="__codelineno-9-145" href="#__codelineno-9-145"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   Server time:        </span><span class="si">{</span><span class="n">server_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-146" name="__codelineno-9-146" href="#__codelineno-9-146"></a>
+<a id="__codelineno-9-147" name="__codelineno-9-147" href="#__codelineno-9-147"></a>        <span class="c1"># UTC offset: server time offset from UTC in minutes</span>
+<a id="__codelineno-9-148" name="__codelineno-9-148" href="#__codelineno-9-148"></a>        <span class="c1"># Example: 120 minutes = UTC+2 (server is 2 hours ahead of UTC)</span>
+<a id="__codelineno-9-149" name="__codelineno-9-149" href="#__codelineno-9-149"></a>        <span class="n">utc_shift</span> <span class="o">=</span> <span class="n">summary_data</span><span class="o">.</span><span class="n">utc_timezone_server_time_shift_minutes</span>
+<a id="__codelineno-9-150" name="__codelineno-9-150" href="#__codelineno-9-150"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   UTC offset:         </span><span class="si">{</span><span class="n">utc_shift</span><span class="si">}</span><span class="s2"> minutes (UTC</span><span class="si">{</span><span class="n">utc_shift</span><span class="o">/</span><span class="mi">60</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-151" name="__codelineno-9-151" href="#__codelineno-9-151"></a>
+<a id="__codelineno-9-152" name="__codelineno-9-152" href="#__codelineno-9-152"></a>        <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-153" name="__codelineno-9-153" href="#__codelineno-9-153"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;╚════════════════════════════════════════════════════════════════╝&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-154" name="__codelineno-9-154" href="#__codelineno-9-154"></a>
+<a id="__codelineno-9-155" name="__codelineno-9-155" href="#__codelineno-9-155"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-9-156" name="__codelineno-9-156" href="#__codelineno-9-156"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error getting account data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-157" name="__codelineno-9-157" href="#__codelineno-9-157"></a>        <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-9-158" name="__codelineno-9-158" href="#__codelineno-9-158"></a>        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-9-159" name="__codelineno-9-159" href="#__codelineno-9-159"></a>
+<a id="__codelineno-9-160" name="__codelineno-9-160" href="#__codelineno-9-160"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-161" name="__codelineno-9-161" href="#__codelineno-9-161"></a>    <span class="c1"># STEP 6: DISCONNECT FROM MT5</span>
+<a id="__codelineno-9-162" name="__codelineno-9-162" href="#__codelineno-9-162"></a>    <span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<a id="__codelineno-9-163" name="__codelineno-9-163" href="#__codelineno-9-163"></a>
+<a id="__codelineno-9-164" name="__codelineno-9-164" href="#__codelineno-9-164"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-165" name="__codelineno-9-165" href="#__codelineno-9-165"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔌 Disconnecting from MT5...&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-166" name="__codelineno-9-166" href="#__codelineno-9-166"></a>
+<a id="__codelineno-9-167" name="__codelineno-9-167" href="#__codelineno-9-167"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-9-168" name="__codelineno-9-168" href="#__codelineno-9-168"></a>        <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">channel</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-9-169" name="__codelineno-9-169" href="#__codelineno-9-169"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Successfully disconnected!&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-170" name="__codelineno-9-170" href="#__codelineno-9-170"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-9-171" name="__codelineno-9-171" href="#__codelineno-9-171"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️  Disconnect warning: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-172" name="__codelineno-9-172" href="#__codelineno-9-172"></a>
+<a id="__codelineno-9-173" name="__codelineno-9-173" href="#__codelineno-9-173"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-174" name="__codelineno-9-174" href="#__codelineno-9-174"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;╔════════════════════════════════════════════════════════════════╗&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-175" name="__codelineno-9-175" href="#__codelineno-9-175"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;║   🎉 CONGRATULATIONS! YOUR FIRST PROJECT WORKS! 🎉             ║&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-176" name="__codelineno-9-176" href="#__codelineno-9-176"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;╚════════════════════════════════════════════════════════════════╝&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-177" name="__codelineno-9-177" href="#__codelineno-9-177"></a>    <span class="nb">print</span><span class="p">()</span>
+<a id="__codelineno-9-178" name="__codelineno-9-178" href="#__codelineno-9-178"></a>
+<a id="__codelineno-9-179" name="__codelineno-9-179" href="#__codelineno-9-179"></a>
+<a id="__codelineno-9-180" name="__codelineno-9-180" href="#__codelineno-9-180"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-9-181" name="__codelineno-9-181" href="#__codelineno-9-181"></a>    <span class="c1"># Run async function</span>
+<a id="__codelineno-9-182" name="__codelineno-9-182" href="#__codelineno-9-182"></a>    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<hr />
+<h2 id="step-6-run-the-project">Step 6: Run the Project<a class="headerlink" href="#step-6-run-the-project" title="Permanent link">¶</a></h2>
+<p>Save all files and execute:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python<span class="w"> </span>main.py
+</code></pre></div>
+<p><strong>Expected output:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>════════════════════════════════════════════════════════════════════════════════
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>          WELCOME TO YOUR FIRST PROJECT WITH MT5
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>════════════════════════════════════════════════════════════════════════════════
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>📋 Loading configuration...
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>✅ Configuration loaded:
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>   User:           591129415
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>   Cluster:        FxPro-MT5 Demo
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>   gRPC Server:    mt5.mrpc.pro:443
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>   Test Symbol:    EURUSD
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>🔌 Creating MT5Account instance...
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>✅ MT5Account created (UUID: 12345678-90ab-cdef-1234-567890abcdef)
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>🔗 Connecting to MT5 terminal...
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>   Waiting for response (timeout: 120 seconds)...
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>✅ Successfully connected!
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>   Terminal GUID: 12345678-90ab-cdef-1234-567890abcdef
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>📊 Getting account information...
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>════════════════════════════════════════════════════════════════
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>             ACCOUNT INFORMATION                               
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>════════════════════════════════════════════════════════════════
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>   Login:              591129415
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>   User name:          Demo User
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>   Company:            FxPro Financial Services Ltd
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>   Currency:           USD
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>💰 Balance:            10000.00 USD
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>💎 Equity:             10000.00 USD
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>   Credit:             0.00 USD
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>   Leverage:           1:100
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>   Trade mode:         0
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a>   Server time:        2026-02-04 15:30:45
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>   UTC offset:         120 minutes (UTC+2.0)
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>════════════════════════════════════════════════════════════════
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a>
+<a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a>🔌 Disconnecting from MT5...
+<a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>✅ Successfully disconnected!
+<a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a>
+<a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a>════════════════════════════════════════════════════════════════
+<a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a>   🎉 CONGRATULATIONS! YOUR FIRST PROJECT WORKS! 🎉            
+<a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a>════════════════════════════════════════════════════════════════
+</code></pre></div>
+<hr />
+<h2 id="congratulations-you-did-it">🎉 Congratulations! You Did It!<a class="headerlink" href="#congratulations-you-did-it" title="Permanent link">¶</a></h2>
+<p>You just:</p>
+<p>✅ Created a new Python project from scratch</p>
+<p>✅ Integrated the <strong>single</strong> Python package <code>MetaRpcMT5</code> to work with MT5</p>
+<p>✅ Configured connection parameters</p>
+<p>✅ Connected to MT5 terminal via gRPC</p>
+<p>✅ Retrieved full account information programmatically</p>
+<p><strong>This was a low-level approach</strong> using <code>MT5Account</code> and protobuf directly.</p>
+<hr />
+<h2 id="your-project-structure">📁 Your Project Structure<a class="headerlink" href="#your-project-structure" title="Permanent link">¶</a></h2>
+<p>After completing all steps, the project structure should look like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>MyMT5Project/
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>├── venv/                # Python virtual environment
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>├── settings.json        # MT5 connection configuration
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>├── main.py              # Main application code
+</code></pre></div>
+<p><strong>requirements.txt contents (optional):</strong></p>
+<p>If you want to save dependencies:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>pip<span class="w"> </span>freeze<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+</code></pre></div>
+<p>The content will be approximately:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>MetaRpcMT5 @ git+https://github.com/MetaRPC/PyMT5.git@main#subdirectory=package
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>grpcio&gt;=1.60.0
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>grpcio-tools&gt;=1.60.0
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>googleapis-common-protos&gt;=1.56.0
+</code></pre></div>
+<hr />
+<h2 id="whats-next">🚀 What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
+<p>Now that you have a working project, you can:</p>
+<h3 id="1-add-more-functionality">1. Add More Functionality<a class="headerlink" href="#1-add-more-functionality" title="Permanent link">¶</a></h3>
+<p><strong>Examples of what you can do:</strong></p>
+<h4 id="get-current-quotes">Get Current Quotes<a class="headerlink" href="#get-current-quotes" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Get last tick for symbol</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">tick_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">symbol_info_tick</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">])</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Last tick for </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Bid: </span><span class="si">{</span><span class="n">tick_data</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Ask: </span><span class="si">{</span><span class="n">tick_data</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Last: </span><span class="si">{</span><span class="n">tick_data</span><span class="o">.</span><span class="n">last</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="get-all-open-positions">Get All Open Positions<a class="headerlink" href="#get-all-open-positions" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Get all open orders and positions</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">opened_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">opened_orders</span><span class="p">()</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Open positions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">opened_data</span><span class="o">.</span><span class="n">position_infos</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">opened_data</span><span class="o">.</span><span class="n">position_infos</span><span class="p">:</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  #</span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">ticket</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">symbol</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">volume</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> lots, Profit: </span><span class="si">{</span><span class="n">pos</span><span class="o">.</span><span class="n">profit</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="open-market-order">Open Market Order<a class="headerlink" href="#open-market-order" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">MetaRpcMT5</span><span class="w"> </span><span class="kn">import</span> <span class="n">mt5_term_api_trading_helper_pb2</span> <span class="k">as</span> <span class="n">trading_pb2</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># Create order request</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">order_req</span> <span class="o">=</span> <span class="n">trading_pb2</span><span class="o">.</span><span class="n">OrderSendRequest</span><span class="p">(</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="n">symbol</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">],</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="n">operation</span><span class="o">=</span><span class="n">trading_pb2</span><span class="o">.</span><span class="n">TMT5_ORDER_TYPE_BUY</span><span class="p">,</span>  <span class="c1"># Buy</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="n">volume</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># 0.01 lot</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;PyMT5 Test Order&quot;</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="p">)</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="c1"># Send order</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="n">order_result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">account</span><span class="o">.</span><span class="n">order_send</span><span class="p">(</span><span class="n">order_req</span><span class="p">)</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="k">if</span> <span class="n">order_result</span><span class="o">.</span><span class="n">retcode</span> <span class="o">==</span> <span class="mi">10009</span><span class="p">:</span>  <span class="c1"># TRADE_RETCODE_DONE</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Order opened: Deal #</span><span class="si">{</span><span class="n">order_result</span><span class="o">.</span><span class="n">deal</span><span class="si">}</span><span class="s2">, Order #</span><span class="si">{</span><span class="n">order_result</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Order error: code </span><span class="si">{</span><span class="n">order_result</span><span class="o">.</span><span class="n">retcode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="data-streaming">Data Streaming<a class="headerlink" href="#data-streaming" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Subscribe to real-time ticks</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># The on_symbol_tick method accepts a list of symbols directly</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">tick_stream</span> <span class="o">=</span> <span class="n">account</span><span class="o">.</span><span class="n">on_symbol_tick</span><span class="p">(</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">symbols</span><span class="o">=</span><span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">]]</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="p">)</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🔄 Receiving tick stream for </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;test_symbol&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   (Press Ctrl+C to stop)&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="n">event_count</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="k">async</span> <span class="k">for</span> <span class="n">tick_event</span> <span class="ow">in</span> <span class="n">tick_stream</span><span class="p">:</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        <span class="n">event_count</span> <span class="o">+=</span> <span class="mi">1</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>        <span class="n">tick</span> <span class="o">=</span> <span class="n">tick_event</span><span class="o">.</span><span class="n">symbol_tick</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">event_count</span><span class="si">}</span><span class="s2">] Bid: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">bid</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, Ask: </span><span class="si">{</span><span class="n">tick</span><span class="o">.</span><span class="n">ask</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>        <span class="c1"># Stop after 10 events (for example)</span>
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>        <span class="k">if</span> <span class="n">event_count</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>            <span class="k">break</span>
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✅ Received </span><span class="si">{</span><span class="n">event_count</span><span class="si">}</span><span class="s2"> events&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="2-study-the-complete-sdk-architecture">2. Study the Complete SDK Architecture<a class="headerlink" href="#2-study-the-complete-sdk-architecture" title="Permanent link">¶</a></h3>
+<p>The PyMT5 repository has <strong>three API levels</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>┌─────────────────────────────────────────────
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>│  MT5Sugar (Level 3) - Convenient API
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>│  examples/3_sugar/
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>│  sugar.buy_market(&quot;EURUSD&quot;, 0.01)
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>└─────────────────────────────────────────────
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>              ↓ uses
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>┌─────────────────────────────────────────────
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>│  MT5Service (Level 2) - Wrappers
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>│  examples/2_service/
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>│  service.get_balance()
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>└─────────────────────────────────────────────
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>              ↓ uses
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>┌─────────────────────────────────────────────
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>│  MT5Account (Level 1) - Base gRPC ⭐
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>│  package/MetaRpcMT5/helpers/mt5_account.py
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>│  account.account_summary()
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>└─────────────────────────────────────────────
+</code></pre></div>
+<p><strong>You just used Level 1 (MT5Account)</strong> - this is the foundation of everything!</p>
+<p>To study levels 2 and 3:</p>
+<ul>
+<li>Explore examples in the <code>examples/</code> folder</li>
+<li>Read <a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account.Master.Overview.md</a></li>
+<li>Check out ready-made demonstrations</li>
+</ul>
+<h3 id="3-explore-ready-made-examples">3. Explore Ready-Made Examples<a class="headerlink" href="#3-explore-ready-made-examples" title="Permanent link">¶</a></h3>
+<p>The PyMT5 repository contains many examples:</p>
+<ul>
+<li><code>examples/1_lowlevel/</code> - examples with MT5Account (what you used)</li>
+<li><code>examples/2_service/</code> - examples with MT5Service</li>
+<li><code>examples/3_sugar/</code> - examples with MT5Sugar</li>
+<li><code>examples/4_orchestrators/</code> - complex trading strategies</li>
+</ul>
+<p><strong>Running examples:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">cd</span><span class="w"> </span>examples
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>python<span class="w"> </span>main.py
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># Select the desired example from the interactive menu</span>
+</code></pre></div>
+<h3 id="4-read-the-documentation">4. Read the Documentation<a class="headerlink" href="#4-read-the-documentation" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="../../API_Reference/MT5Account/">MT5Account API Reference</a> - ⭐ complete reference for the base level</li>
+<li><a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account.Master.Overview.md</a> - project map and architecture</li>
+<li><a href="../GRPC_STREAM_MANAGEMENT/">GRPC_STREAM_MANAGEMENT.md</a> - working with streaming data</li>
+<li><a href="../RETURN_CODES_REFERENCE/">RETURN_CODES_REFERENCE.md</a> - operation return codes</li>
+<li><a href="../ENUMS_USAGE_REFERENCE/">ENUMS_USAGE_REFERENCE.md</a> - using enumerations</li>
+</ul>
+<hr />
+<h2 id="frequently-asked-questions">❓ Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">¶</a></h2>
+<h3 id="what-is-the-metarpcmt5-package">What Is the MetaRpcMT5 Package?<a class="headerlink" href="#what-is-the-metarpcmt5-package" title="Permanent link">¶</a></h3>
+<p><code>MetaRpcMT5</code> is an <strong>independent Python package</strong> that contains:</p>
+<ul>
+<li>MT5Account (base gRPC client)</li>
+<li>All protobuf definitions of MT5 API</li>
+<li>gRPC stubs for all methods</li>
+<li>Helper types and structures</li>
+</ul>
+<p>It's a <strong>portable package</strong> - you can use it in any Python project!</p>
+<h3 id="how-to-work-with-environment-variables-instead-of-settingsjson">How to Work with Environment Variables Instead of settings.json?<a class="headerlink" href="#how-to-work-with-environment-variables-instead-of-settingsjson" title="Permanent link">¶</a></h3>
+<p>You can use environment variables:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_settings_from_env</span><span class="p">():</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Load settings from environment variables&quot;&quot;&quot;</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>        <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MT5_USER&#39;</span><span class="p">)),</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>        <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MT5_PASSWORD&#39;</span><span class="p">),</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>        <span class="s1">&#39;grpc_server&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MT5_GRPC_SERVER&#39;</span><span class="p">),</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>        <span class="s1">&#39;mt_cluster&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MT5_CLUSTER&#39;</span><span class="p">),</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>        <span class="s1">&#39;test_symbol&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MT5_TEST_SYMBOL&#39;</span><span class="p">,</span> <span class="s1">&#39;EURUSD&#39;</span><span class="p">)</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="p">}</span>
+</code></pre></div>
+<p><strong>Set variables:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Windows (PowerShell)</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nv">$env</span>:MT5_USER<span class="o">=</span><span class="s2">&quot;591129415&quot;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nv">$env</span>:MT5_PASSWORD<span class="o">=</span><span class="s2">&quot;YourPassword123&quot;</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="nv">$env</span>:MT5_GRPC_SERVER<span class="o">=</span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="nv">$env</span>:MT5_CLUSTER<span class="o">=</span><span class="s2">&quot;FxPro-MT5 Demo&quot;</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="nv">$env</span>:MT5_TEST_SYMBOL<span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="c1"># Linux/Mac</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_USER</span><span class="o">=</span><span class="s2">&quot;591129415&quot;</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YourPassword123&quot;</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_GRPC_SERVER</span><span class="o">=</span><span class="s2">&quot;mt5.mrpc.pro:443&quot;</span>
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_CLUSTER</span><span class="o">=</span><span class="s2">&quot;FxPro-MT5 Demo&quot;</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MT5_TEST_SYMBOL</span><span class="o">=</span><span class="s2">&quot;EURUSD&quot;</span>
+</code></pre></div>
+<h3 id="how-to-use-level-2-mt5service-and-level-3-mt5sugar">How to Use Level 2 (MT5Service) and Level 3 (MT5Sugar)?<a class="headerlink" href="#how-to-use-level-2-mt5service-and-level-3-mt5sugar" title="Permanent link">¶</a></h3>
+<p>These levels are in the <strong>main PyMT5 repository</strong>:</p>
+<ol>
+<li>Clone the repository (or download files):</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/MetaRPC/PyMT5.git
+</code></pre></div>
+<ol>
+<li>
+<p>Copy the necessary files to your project:</p>
+</li>
+<li>
+<p>From the <code>src/</code> folder (or corresponding)</p>
+</li>
+<li>
+<p>MT5Service and MT5Sugar classes</p>
+</li>
+<li>
+<p>Use convenient methods:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">mt5_service</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Service</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">mt5_sugar</span><span class="w"> </span><span class="kn">import</span> <span class="n">MT5Sugar</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Level 2 - Service</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="n">service</span> <span class="o">=</span> <span class="n">MT5Service</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="n">balance</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_balance</span><span class="p">()</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="c1"># Level 3 - Sugar</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="n">sugar</span> <span class="o">=</span> <span class="n">MT5Sugar</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="n">ticket</span> <span class="o">=</span> <span class="k">await</span> <span class="n">sugar</span><span class="o">.</span><span class="n">buy_market</span><span class="p">(</span><span class="s2">&quot;EURUSD&quot;</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div>
+<p>See details in <a href="../../MT5Account/MT5Account.Master.Overview/">MT5Account.Master.Overview.md</a></p>
+<h3 id="what-to-do-if-errors-occur">What to Do If Errors Occur?<a class="headerlink" href="#what-to-do-if-errors-occur" title="Permanent link">¶</a></h3>
+<p><strong>Connection error:</strong></p>
+<ul>
+<li>Check correct login/password</li>
+<li>Make sure gRPC server is available</li>
+<li>Check cluster name (exact MT5 server name)</li>
+</ul>
+<p><strong>Connection timeout:</strong></p>
+<ul>
+<li>Increase <code>timeout_seconds</code> to 180 or 240</li>
+<li>Check internet connection</li>
+<li>Check firewall/antivirus</li>
+</ul>
+<p><strong>Import errors:</strong></p>
+<ul>
+<li>Make sure virtual environment is activated</li>
+<li>Reinstall package:</li>
+</ul>
+<p><strong>Windows PowerShell:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">pip</span> <span class="n">uninstall</span> <span class="n">MetaRpcMT5</span> <span class="n">-y</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="p">+</span><span class="n">https</span><span class="p">://</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">MetaRPC</span><span class="p">/</span><span class="n">PyMT5</span><span class="p">.</span><span class="n">git</span><span class="c">#subdirectory=package</span>
+</code></pre></div>
+<p><strong>Linux/Mac/PowerShell 7+:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>pip<span class="w"> </span>uninstall<span class="w"> </span>MetaRpcMT5<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/MetaRPC/PyMT5.git#subdirectory<span class="o">=</span>package
+</code></pre></div>
+<hr />
+<h2 id="summary-what-we-did">📝 Summary: What We Did<a class="headerlink" href="#summary-what-we-did" title="Permanent link">¶</a></h2>
+<p>In this guide, you created a minimalist project that:</p>
+<ol>
+<li>
+<p>✅ <strong>Uses only Python modules</strong> - doesn't require cloning the repository</p>
+</li>
+<li>
+<p>✅ <strong>Imports MetaRpcMT5 package</strong> - the only dependency for MT5</p>
+</li>
+<li>
+<p>✅ <strong>Connects to MT5</strong> via gRPC gateway</p>
+</li>
+<li>
+<p>✅ <strong>Reads configuration</strong> from <code>settings.json</code></p>
+</li>
+<li>
+<p>✅ <strong>Uses MT5Account</strong> (Level 1 - base level)</p>
+</li>
+<li>
+<p>✅ <strong>Gets account information</strong> and outputs to console</p>
+</li>
+</ol>
+<p><strong>This is the foundation</strong> for any of your MT5 projects in Python.</p>
+<hr />
+<p><strong>Good luck developing trading systems! 🚀</strong></p>
+<p>"Trade safely, code cleanly, and may your gRPC connections always be stable."</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../GETTING_STARTED/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Started">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Getting Started
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../PROJECT_MAP/" class="md-footer__link md-footer__link--next" aria-label="Next: Project Map">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Project Map
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>
