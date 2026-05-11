@@ -46,6 +46,16 @@ class ConnectionStub(object):
                 request_serializer=mt5__term__api__connection__pb2.ReconnectRequest.SerializeToString,
                 response_deserializer=mt5__term__api__connection__pb2.ReconnectReply.FromString,
                 )
+        self.GetBrokerServersByBrokerName = channel.unary_unary(
+                '/mt5_term_api.Connection/GetBrokerServersByBrokerName',
+                request_serializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameReply.FromString,
+                )
+        self.GetTerminalJournalContent = channel.unary_unary(
+                '/mt5_term_api.Connection/GetTerminalJournalContent',
+                request_serializer=mt5__term__api__connection__pb2.GetTerminalJournalContentRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.GetTerminalJournalContentReply.FromString,
+                )
 
 
 class ConnectionServicer(object):
@@ -55,6 +65,12 @@ class ConnectionServicer(object):
 
     def ConnectEx(self, request, context):
         """Creates terminal connection to the MT5 server by MT cluster name, waits for connection and returns Guid of it 
+        [DefaultValues]
+        {
+        "user": "213827411",
+        "password": "_rVx1tMn",
+        "mtClusterName": "OctaFX-Demo"
+        }  
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -68,8 +84,7 @@ class ConnectionServicer(object):
         "password": "1nJeS+Ae",
         "host": "95.217.147.61",
         "port": "443",
-        "baseChartSymbol": "EURUSD",  
-        "waitForTerminalIsAlive": "true"
+        "baseChartSymbol": "EURUSD"
         }  
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -116,6 +131,18 @@ class ConnectionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetBrokerServersByBrokerName(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTerminalJournalContent(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ConnectionServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -148,6 +175,16 @@ def add_ConnectionServicer_to_server(servicer, server):
                     servicer.Reconnect,
                     request_deserializer=mt5__term__api__connection__pb2.ReconnectRequest.FromString,
                     response_serializer=mt5__term__api__connection__pb2.ReconnectReply.SerializeToString,
+            ),
+            'GetBrokerServersByBrokerName': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBrokerServersByBrokerName,
+                    request_deserializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameReply.SerializeToString,
+            ),
+            'GetTerminalJournalContent': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTerminalJournalContent,
+                    request_deserializer=mt5__term__api__connection__pb2.GetTerminalJournalContentRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.GetTerminalJournalContentReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -260,5 +297,39 @@ class Connection(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/Reconnect',
             mt5__term__api__connection__pb2.ReconnectRequest.SerializeToString,
             mt5__term__api__connection__pb2.ReconnectReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetBrokerServersByBrokerName(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/GetBrokerServersByBrokerName',
+            mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameRequest.SerializeToString,
+            mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetTerminalJournalContent(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/GetTerminalJournalContent',
+            mt5__term__api__connection__pb2.GetTerminalJournalContentRequest.SerializeToString,
+            mt5__term__api__connection__pb2.GetTerminalJournalContentReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

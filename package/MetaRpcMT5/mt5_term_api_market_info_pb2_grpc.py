@@ -90,6 +90,11 @@ class MarketInfoStub(object):
                 request_serializer=mt5__term__api__market__info__pb2.MarketBookGetRequest.SerializeToString,
                 response_deserializer=mt5__term__api__market__info__pb2.MarketBookGetReply.FromString,
                 )
+        self.SymbolList = channel.unary_unary(
+                '/mt5_term_api.MarketInfo/SymbolList',
+                request_serializer=mt5__term__api__market__info__pb2.SymbolListRequest.SerializeToString,
+                response_deserializer=mt5__term__api__market__info__pb2.SymbolListReply.FromString,
+                )
 
 
 class MarketInfoServicer(object):
@@ -216,6 +221,13 @@ class MarketInfoServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SymbolList(self, request, context):
+        """Returns a collection of a broker symbols
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MarketInfoServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -293,6 +305,11 @@ def add_MarketInfoServicer_to_server(servicer, server):
                     servicer.MarketBookGet,
                     request_deserializer=mt5__term__api__market__info__pb2.MarketBookGetRequest.FromString,
                     response_serializer=mt5__term__api__market__info__pb2.MarketBookGetReply.SerializeToString,
+            ),
+            'SymbolList': grpc.unary_unary_rpc_method_handler(
+                    servicer.SymbolList,
+                    request_deserializer=mt5__term__api__market__info__pb2.SymbolListRequest.FromString,
+                    response_serializer=mt5__term__api__market__info__pb2.SymbolListReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -557,5 +574,22 @@ class MarketInfo(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.MarketInfo/MarketBookGet',
             mt5__term__api__market__info__pb2.MarketBookGetRequest.SerializeToString,
             mt5__term__api__market__info__pb2.MarketBookGetReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SymbolList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.MarketInfo/SymbolList',
+            mt5__term__api__market__info__pb2.SymbolListRequest.SerializeToString,
+            mt5__term__api__market__info__pb2.SymbolListReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

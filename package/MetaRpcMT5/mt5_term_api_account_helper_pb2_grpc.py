@@ -49,6 +49,11 @@ class AccountHelperStub(object):
                 request_serializer=mt5__term__api__account__helper__pb2.PositionsHistoryRequest.SerializeToString,
                 response_deserializer=mt5__term__api__account__helper__pb2.PositionsHistoryReply.FromString,
                 )
+        self.AllHistoryOrders = channel.unary_unary(
+                '/mt5_term_api.AccountHelper/AllHistoryOrders',
+                request_serializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersRequest.SerializeToString,
+                response_deserializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersReply.FromString,
+                )
 
 
 class AccountHelperServicer(object):
@@ -108,6 +113,12 @@ class AccountHelperServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AllHistoryOrders(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountHelperServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -145,6 +156,11 @@ def add_AccountHelperServicer_to_server(servicer, server):
                     servicer.PositionsHistory,
                     request_deserializer=mt5__term__api__account__helper__pb2.PositionsHistoryRequest.FromString,
                     response_serializer=mt5__term__api__account__helper__pb2.PositionsHistoryReply.SerializeToString,
+            ),
+            'AllHistoryOrders': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllHistoryOrders,
+                    request_deserializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersRequest.FromString,
+                    response_serializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -272,5 +288,22 @@ class AccountHelper(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.AccountHelper/PositionsHistory',
             mt5__term__api__account__helper__pb2.PositionsHistoryRequest.SerializeToString,
             mt5__term__api__account__helper__pb2.PositionsHistoryReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AllHistoryOrders(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.AccountHelper/AllHistoryOrders',
+            mt5__term__api__account__helper__pb2.AllHistoryOrdersRequest.SerializeToString,
+            mt5__term__api__account__helper__pb2.AllHistoryOrdersReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
