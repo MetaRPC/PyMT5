@@ -51,10 +51,25 @@ class ConnectionStub(object):
                 request_serializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameRequest.SerializeToString,
                 response_deserializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameReply.FromString,
                 )
-        self.GetTerminalJournalContent = channel.unary_unary(
-                '/mt5_term_api.Connection/GetTerminalJournalContent',
-                request_serializer=mt5__term__api__connection__pb2.GetTerminalJournalContentRequest.SerializeToString,
-                response_deserializer=mt5__term__api__connection__pb2.GetTerminalJournalContentReply.FromString,
+        self.Screenshot = channel.unary_unary(
+                '/mt5_term_api.Connection/Screenshot',
+                request_serializer=mt5__term__api__connection__pb2.ScreenshotRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.ScreenshotReply.FromString,
+                )
+        self.GetId = channel.unary_unary(
+                '/mt5_term_api.Connection/GetId',
+                request_serializer=mt5__term__api__connection__pb2.GetIdRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.GetIdReply.FromString,
+                )
+        self.ConnectStream = channel.unary_stream(
+                '/mt5_term_api.Connection/ConnectStream',
+                request_serializer=mt5__term__api__connection__pb2.ConnectRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.ConnectStreamEvent.FromString,
+                )
+        self.ConnectExStream = channel.unary_stream(
+                '/mt5_term_api.Connection/ConnectExStream',
+                request_serializer=mt5__term__api__connection__pb2.ConnectExRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.ConnectStreamEvent.FromString,
                 )
 
 
@@ -69,7 +84,8 @@ class ConnectionServicer(object):
         {
         "user": "213827411",
         "password": "_rVx1tMn",
-        "mtClusterName": "OctaFX-Demo"
+        "mtClusterName": "OctaFX-Demo",
+        "timeoutSeconds": "120"
         }  
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -84,7 +100,7 @@ class ConnectionServicer(object):
         "password": "1nJeS+Ae",
         "host": "95.217.147.61",
         "port": "443",
-        "baseChartSymbol": "EURUSD"
+        "timeoutSeconds": "120"
         }  
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -137,8 +153,56 @@ class ConnectionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetTerminalJournalContent(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+    def Screenshot(self, request, context):
+        """Captures the Xvfb display screenshot for the terminal instance
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetId(self, request, context):
+        """Generates a deterministic GUID from user and password.
+        The same user/password combination always produces the same GUID.
+        Use this GUID as the 'id' header for Connect and other endpoints.
+        [DefaultValues]
+        {
+        "user": "213827411",
+        "password": "_rVx1tMn"
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConnectStream(self, request, context):
+        """Same as Connect but streams real-time progress events.
+        Requires 'id' header — use GetId to generate.
+        Swagger does not support streaming — use /connect-stream interactive viewer.
+        [DefaultValues]
+        {
+        "user": "21455",
+        "password": "1nJeS+Ae",
+        "host": "95.217.147.61",
+        "port": "443",
+        "timeoutSeconds": "120"
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConnectExStream(self, request, context):
+        """Same as ConnectEx but streams real-time progress events.
+        Requires 'id' header — use GetId to generate.
+        Swagger does not support streaming — use /connect-stream interactive viewer.
+        [DefaultValues]
+        {
+        "user": "213827411",
+        "password": "_rVx1tMn",
+        "mtClusterName": "OctaFX-Demo",
+        "timeoutSeconds": "120"
+        }
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -181,10 +245,25 @@ def add_ConnectionServicer_to_server(servicer, server):
                     request_deserializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameRequest.FromString,
                     response_serializer=mt5__term__api__connection__pb2.GetBrokerServersByBrokerNameReply.SerializeToString,
             ),
-            'GetTerminalJournalContent': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetTerminalJournalContent,
-                    request_deserializer=mt5__term__api__connection__pb2.GetTerminalJournalContentRequest.FromString,
-                    response_serializer=mt5__term__api__connection__pb2.GetTerminalJournalContentReply.SerializeToString,
+            'Screenshot': grpc.unary_unary_rpc_method_handler(
+                    servicer.Screenshot,
+                    request_deserializer=mt5__term__api__connection__pb2.ScreenshotRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.ScreenshotReply.SerializeToString,
+            ),
+            'GetId': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetId,
+                    request_deserializer=mt5__term__api__connection__pb2.GetIdRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.GetIdReply.SerializeToString,
+            ),
+            'ConnectStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.ConnectStream,
+                    request_deserializer=mt5__term__api__connection__pb2.ConnectRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.ConnectStreamEvent.SerializeToString,
+            ),
+            'ConnectExStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.ConnectExStream,
+                    request_deserializer=mt5__term__api__connection__pb2.ConnectExRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.ConnectStreamEvent.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -318,7 +397,7 @@ class Connection(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetTerminalJournalContent(request,
+    def Screenshot(request,
             target,
             options=(),
             channel_credentials=None,
@@ -328,8 +407,205 @@ class Connection(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/GetTerminalJournalContent',
-            mt5__term__api__connection__pb2.GetTerminalJournalContentRequest.SerializeToString,
-            mt5__term__api__connection__pb2.GetTerminalJournalContentReply.FromString,
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/Screenshot',
+            mt5__term__api__connection__pb2.ScreenshotRequest.SerializeToString,
+            mt5__term__api__connection__pb2.ScreenshotReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetId(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/GetId',
+            mt5__term__api__connection__pb2.GetIdRequest.SerializeToString,
+            mt5__term__api__connection__pb2.GetIdReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConnectStream(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Connection/ConnectStream',
+            mt5__term__api__connection__pb2.ConnectRequest.SerializeToString,
+            mt5__term__api__connection__pb2.ConnectStreamEvent.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConnectExStream(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Connection/ConnectExStream',
+            mt5__term__api__connection__pb2.ConnectExRequest.SerializeToString,
+            mt5__term__api__connection__pb2.ConnectStreamEvent.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class LogsStub(object):
+    """Provides access to terminal log content (Journal and Experts tabs).
+    Reads log entries directly from the MT5 terminal GUI.
+    Requires 'id' header with the terminal connection GUID returned by Connect.
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Journal = channel.unary_unary(
+                '/mt5_term_api.Logs/Journal',
+                request_serializer=mt5__term__api__connection__pb2.JournalRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.JournalReply.FromString,
+                )
+        self.Experts = channel.unary_unary(
+                '/mt5_term_api.Logs/Experts',
+                request_serializer=mt5__term__api__connection__pb2.JournalRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.JournalReply.FromString,
+                )
+        self.WarmConnect = channel.unary_unary(
+                '/mt5_term_api.Logs/WarmConnect',
+                request_serializer=mt5__term__api__connection__pb2.WarmConnectLogRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.WarmConnectLogReply.FromString,
+                )
+
+
+class LogsServicer(object):
+    """Provides access to terminal log content (Journal and Experts tabs).
+    Reads log entries directly from the MT5 terminal GUI.
+    Requires 'id' header with the terminal connection GUID returned by Connect.
+    """
+
+    def Journal(self, request, context):
+        """Returns log entries from the terminal Journal tab.
+        The Journal tab contains system messages about terminal connection status, 
+        network activity, server synchronization and other internal events.
+        Works regardless of which tab is currently active in the terminal UI.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Experts(self, request, context):
+        """Returns log entries from the terminal Experts tab.
+        The Experts tab contains messages from Expert Advisors (EAs), scripts and indicators
+        including Print() output, initialization/deinitialization events and runtime errors.
+        Works regardless of which tab is currently active in the terminal UI.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def WarmConnect(self, request, context):
+        """Returns warm pool connection logs for diagnostics.
+        Handled locally by Terminal Manager (not proxied to the terminal process).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_LogsServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'Journal': grpc.unary_unary_rpc_method_handler(
+                    servicer.Journal,
+                    request_deserializer=mt5__term__api__connection__pb2.JournalRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.JournalReply.SerializeToString,
+            ),
+            'Experts': grpc.unary_unary_rpc_method_handler(
+                    servicer.Experts,
+                    request_deserializer=mt5__term__api__connection__pb2.JournalRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.JournalReply.SerializeToString,
+            ),
+            'WarmConnect': grpc.unary_unary_rpc_method_handler(
+                    servicer.WarmConnect,
+                    request_deserializer=mt5__term__api__connection__pb2.WarmConnectLogRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.WarmConnectLogReply.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'mt5_term_api.Logs', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class Logs(object):
+    """Provides access to terminal log content (Journal and Experts tabs).
+    Reads log entries directly from the MT5 terminal GUI.
+    Requires 'id' header with the terminal connection GUID returned by Connect.
+    """
+
+    @staticmethod
+    def Journal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Logs/Journal',
+            mt5__term__api__connection__pb2.JournalRequest.SerializeToString,
+            mt5__term__api__connection__pb2.JournalReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Experts(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Logs/Experts',
+            mt5__term__api__connection__pb2.JournalRequest.SerializeToString,
+            mt5__term__api__connection__pb2.JournalReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def WarmConnect(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Logs/WarmConnect',
+            mt5__term__api__connection__pb2.WarmConnectLogRequest.SerializeToString,
+            mt5__term__api__connection__pb2.WarmConnectLogReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

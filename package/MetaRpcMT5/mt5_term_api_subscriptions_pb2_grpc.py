@@ -45,31 +45,46 @@ class SubscriptionServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def OnSymbolTick(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Streams real-time symbol tick data for the specified symbols.
+        Requires 'id' header with the terminal connection GUID returned by Connect.
+        Swagger does not support streaming — use /subscription-stream interactive viewer.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OnTrade(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Streams real-time trade events (orders, positions, deals changes).
+        Requires 'id' header with the terminal connection GUID returned by Connect.
+        Swagger does not support streaming — use /subscription-stream interactive viewer.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OnPositionProfit(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Streams real-time position profit updates at the specified timer interval.
+        Requires 'id' header with the terminal connection GUID returned by Connect.
+        Swagger does not support streaming — use /subscription-stream interactive viewer.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OnPositionsAndPendingOrdersTickets(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Streams real-time position and pending order ticket changes.
+        Requires 'id' header with the terminal connection GUID returned by Connect.
+        Swagger does not support streaming — use /subscription-stream interactive viewer.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def OnTradeTransaction(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Streams real-time trade transaction events (order add/update/delete, deal add, position changes).
+        Requires 'id' header with the terminal connection GUID returned by Connect.
+        Swagger does not support streaming — use /subscription-stream interactive viewer.
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
