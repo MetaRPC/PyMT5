@@ -15,7 +15,7 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18mt5-term-api-admin.proto\x12\nmrpc_admin\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"+\n\x16\x41\x63tiveTerminalsRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\"\xbe\x01\n\x0cTerminalInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0buser_number\x18\x02 \x01(\r\x12\x14\n\x0cwindows_user\x18\x03 \x01(\t\x12\x0f\n\x07\x61\x63\x63ount\x18\x04 \x01(\x04\x12\x0e\n\x06server\x18\x05 \x01(\t\x12\x0c\n\x04port\x18\x06 \x01(\r\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x10windows_password\x18\x08 \x01(\t\"}\n\x14\x41\x63tiveTerminalsReply\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12+\n\tterminals\x18\x04 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x05 \x01(\t\"\x99\x01\n\x0cPodTerminals\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12\x11\n\tnovnc_url\x18\x04 \x01(\t\x12+\n\tterminals\x18\x05 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x06 \x01(\t\x12\x0f\n\x07host_ip\x18\x07 \x01(\t\"E\n\x1b\x41\x63tiveTerminalsClusterReply\x12&\n\x04pods\x18\x01 \x03(\x0b\x32\x18.mrpc_admin.PodTerminals2\x86\x02\n\x08\x41\x64minApi\x12q\n\x0f\x41\x63tiveTerminals\x12\".mrpc_admin.ActiveTerminalsRequest\x1a .mrpc_admin.ActiveTerminalsReply\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/ActiveTerminals\x12\x86\x01\n\x16\x41\x63tiveTerminalsCluster\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\'.mrpc_admin.ActiveTerminalsClusterReply\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/ActiveTerminalsClusterB@Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\nmrpc_adminb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18mt5-term-api-admin.proto\x12\nmrpc_admin\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"w\n\x0bUsageSample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0b\x63pu_percent\x18\x02 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x03 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x04 \x01(\x04\"\x8b\x01\n\x10SystemUsageReply\x12\x13\n\x0b\x63pu_percent\x18\x01 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x02 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x03 \x01(\x04\x12(\n\x07history\x18\x04 \x03(\x0b\x32\x17.mrpc_admin.UsageSample\x12\r\n\x05\x65rror\x18\x05 \x01(\t\"+\n\x16\x41\x63tiveTerminalsRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\"\xbe\x01\n\x0cTerminalInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0buser_number\x18\x02 \x01(\r\x12\x14\n\x0cwindows_user\x18\x03 \x01(\t\x12\x0f\n\x07\x61\x63\x63ount\x18\x04 \x01(\x04\x12\x0e\n\x06server\x18\x05 \x01(\t\x12\x0c\n\x04port\x18\x06 \x01(\r\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x10windows_password\x18\x08 \x01(\t\"\xed\x01\n\x14\x41\x63tiveTerminalsReply\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12+\n\tterminals\x18\x04 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x05 \x01(\t\x12\x13\n\x0b\x63pu_percent\x18\x06 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x07 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x08 \x01(\x04\x12.\n\rusage_history\x18\t \x03(\x0b\x32\x17.mrpc_admin.UsageSample\"\x89\x02\n\x0cPodTerminals\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12\x11\n\tnovnc_url\x18\x04 \x01(\t\x12+\n\tterminals\x18\x05 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x06 \x01(\t\x12\x0f\n\x07host_ip\x18\x07 \x01(\t\x12\x13\n\x0b\x63pu_percent\x18\x08 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\t \x01(\x04\x12\x14\n\x0cram_total_mb\x18\n \x01(\x04\x12.\n\rusage_history\x18\x0b \x03(\x0b\x32\x17.mrpc_admin.UsageSample\"E\n\x1b\x41\x63tiveTerminalsClusterReply\x12&\n\x04pods\x18\x01 \x03(\x0b\x32\x18.mrpc_admin.PodTerminals2\xed\x02\n\x08\x41\x64minApi\x12q\n\x0f\x41\x63tiveTerminals\x12\".mrpc_admin.ActiveTerminalsRequest\x1a .mrpc_admin.ActiveTerminalsReply\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/ActiveTerminals\x12\x86\x01\n\x16\x41\x63tiveTerminalsCluster\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\'.mrpc_admin.ActiveTerminalsClusterReply\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/ActiveTerminalsCluster\x12\x65\n\x0bSystemUsage\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\x1c.mrpc_admin.SystemUsageReply\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/SystemUsageB@Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\nmrpc_adminb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'mt5_term_api_admin_pb2', globals())
@@ -27,16 +27,22 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _ADMINAPI.methods_by_name['ActiveTerminals']._serialized_options = b'\202\323\344\223\002\022\022\020/ActiveTerminals'
   _ADMINAPI.methods_by_name['ActiveTerminalsCluster']._options = None
   _ADMINAPI.methods_by_name['ActiveTerminalsCluster']._serialized_options = b'\202\323\344\223\002\031\022\027/ActiveTerminalsCluster'
-  _ACTIVETERMINALSREQUEST._serialized_start=103
-  _ACTIVETERMINALSREQUEST._serialized_end=146
-  _TERMINALINFO._serialized_start=149
-  _TERMINALINFO._serialized_end=339
-  _ACTIVETERMINALSREPLY._serialized_start=341
-  _ACTIVETERMINALSREPLY._serialized_end=466
-  _PODTERMINALS._serialized_start=469
-  _PODTERMINALS._serialized_end=622
-  _ACTIVETERMINALSCLUSTERREPLY._serialized_start=624
-  _ACTIVETERMINALSCLUSTERREPLY._serialized_end=693
-  _ADMINAPI._serialized_start=696
-  _ADMINAPI._serialized_end=958
+  _ADMINAPI.methods_by_name['SystemUsage']._options = None
+  _ADMINAPI.methods_by_name['SystemUsage']._serialized_options = b'\202\323\344\223\002\016\022\014/SystemUsage'
+  _USAGESAMPLE._serialized_start=103
+  _USAGESAMPLE._serialized_end=222
+  _SYSTEMUSAGEREPLY._serialized_start=225
+  _SYSTEMUSAGEREPLY._serialized_end=364
+  _ACTIVETERMINALSREQUEST._serialized_start=366
+  _ACTIVETERMINALSREQUEST._serialized_end=409
+  _TERMINALINFO._serialized_start=412
+  _TERMINALINFO._serialized_end=602
+  _ACTIVETERMINALSREPLY._serialized_start=605
+  _ACTIVETERMINALSREPLY._serialized_end=842
+  _PODTERMINALS._serialized_start=845
+  _PODTERMINALS._serialized_end=1110
+  _ACTIVETERMINALSCLUSTERREPLY._serialized_start=1112
+  _ACTIVETERMINALSCLUSTERREPLY._serialized_end=1181
+  _ADMINAPI._serialized_start=1184
+  _ADMINAPI._serialized_end=1549
 # @@protoc_insertion_point(module_scope)

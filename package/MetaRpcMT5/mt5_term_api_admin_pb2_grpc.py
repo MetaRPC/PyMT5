@@ -30,6 +30,11 @@ class AdminApiStub(object):
                 request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsClusterReply.FromString,
                 )
+        self.SystemUsage = channel.unary_unary(
+                '/mrpc_admin.AdminApi/SystemUsage',
+                request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.SystemUsageReply.FromString,
+                )
 
 
 class AdminApiServicer(object):
@@ -56,6 +61,13 @@ class AdminApiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SystemUsage(self, request, context):
+        """Whole-machine CPU % and physical RAM (current + short history) for THIS pod.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AdminApiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -68,6 +80,11 @@ def add_AdminApiServicer_to_server(servicer, server):
                     servicer.ActiveTerminalsCluster,
                     request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
                     response_serializer=mt5__term__api__admin__pb2.ActiveTerminalsClusterReply.SerializeToString,
+            ),
+            'SystemUsage': grpc.unary_unary_rpc_method_handler(
+                    servicer.SystemUsage,
+                    request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.SystemUsageReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -116,5 +133,22 @@ class AdminApi(object):
         return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/ActiveTerminalsCluster',
             mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
             mt5__term__api__admin__pb2.ActiveTerminalsClusterReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SystemUsage(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/SystemUsage',
+            mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.SystemUsageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
