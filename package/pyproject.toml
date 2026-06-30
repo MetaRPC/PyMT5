@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MetaRpcMT5"
-version = "1.0.196"
+version = "1.0.197"
 description = "MetaRPC MT5 gRPC Python client"
 authors = [{ name = "MetaRPC", email = "admin@mrpc.pro" }]
 readme = "README.md"
