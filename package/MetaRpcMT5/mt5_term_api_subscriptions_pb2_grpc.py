@@ -48,6 +48,10 @@ class SubscriptionServiceServicer(object):
         """Streams real-time symbol tick data for the specified symbols.
         Requires 'id' header with the terminal connection GUID returned by Connect.
         Swagger does not support streaming — use /subscription-stream interactive viewer.
+        [DefaultValues]
+        {
+        "symbolNames": "EURUSD,BTCUSD"
+        }
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
