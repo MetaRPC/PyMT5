@@ -60,6 +60,11 @@ class AdminApiStub(object):
                 request_serializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotOnPodRequest.SerializeToString,
                 response_deserializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.FromString,
                 )
+        self.RefreshMrpcRest = channel.unary_unary(
+                '/mrpc_admin.AdminApi/RefreshMrpcRest',
+                request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.RefreshMrpcRestReply.FromString,
+                )
 
 
 class AdminApiServicer(object):
@@ -138,6 +143,18 @@ class AdminApiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RefreshMrpcRest(self, request, context):
+        """Runs, in-process (LocalSystem, no guest logon/SSH needed), the same refresh
+        startup.bat performs on a successful ONLOGON boot: robocopy published-app (including
+        mrpc-rest) from the host share, then create/start MrpcRestService. Exists because
+        ONLOGON is unreliable (autologon-dependent) - this lets a stuck deploy be repaired
+        through the Terminal Manager's own already-running gRPC/HTTP API instead of waiting
+        on that trigger or requiring interactive guest access.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AdminApiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -180,6 +197,11 @@ def add_AdminApiServicer_to_server(servicer, server):
                     servicer.CaptureSessionScreenshotOnPod,
                     request_deserializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotOnPodRequest.FromString,
                     response_serializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.SerializeToString,
+            ),
+            'RefreshMrpcRest': grpc.unary_unary_rpc_method_handler(
+                    servicer.RefreshMrpcRest,
+                    request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.RefreshMrpcRestReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -330,5 +352,22 @@ class AdminApi(object):
         return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/CaptureSessionScreenshotOnPod',
             mt5__term__api__admin__pb2.CaptureSessionScreenshotOnPodRequest.SerializeToString,
             mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RefreshMrpcRest(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/RefreshMrpcRest',
+            mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.RefreshMrpcRestReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
