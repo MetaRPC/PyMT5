@@ -15,7 +15,7 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18mt5-term-api-admin.proto\x12\nmrpc_admin\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"w\n\x0bUsageSample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0b\x63pu_percent\x18\x02 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x03 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x04 \x01(\x04\"\x8b\x01\n\x10SystemUsageReply\x12\x13\n\x0b\x63pu_percent\x18\x01 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x02 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x03 \x01(\x04\x12(\n\x07history\x18\x04 \x03(\x0b\x32\x17.mrpc_admin.UsageSample\x12\r\n\x05\x65rror\x18\x05 \x01(\t\"+\n\x16\x41\x63tiveTerminalsRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\"\xbe\x01\n\x0cTerminalInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0buser_number\x18\x02 \x01(\r\x12\x14\n\x0cwindows_user\x18\x03 \x01(\t\x12\x0f\n\x07\x61\x63\x63ount\x18\x04 \x01(\x04\x12\x0e\n\x06server\x18\x05 \x01(\t\x12\x0c\n\x04port\x18\x06 \x01(\r\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x10windows_password\x18\x08 \x01(\t\"\xed\x01\n\x14\x41\x63tiveTerminalsReply\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12+\n\tterminals\x18\x04 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x05 \x01(\t\x12\x13\n\x0b\x63pu_percent\x18\x06 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x07 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x08 \x01(\x04\x12.\n\rusage_history\x18\t \x03(\x0b\x32\x17.mrpc_admin.UsageSample\"\x89\x02\n\x0cPodTerminals\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12\x11\n\tnovnc_url\x18\x04 \x01(\t\x12+\n\tterminals\x18\x05 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x06 \x01(\t\x12\x0f\n\x07host_ip\x18\x07 \x01(\t\x12\x13\n\x0b\x63pu_percent\x18\x08 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\t \x01(\x04\x12\x14\n\x0cram_total_mb\x18\n \x01(\x04\x12.\n\rusage_history\x18\x0b \x03(\x0b\x32\x17.mrpc_admin.UsageSample\"E\n\x1b\x41\x63tiveTerminalsClusterReply\x12&\n\x04pods\x18\x01 \x03(\x0b\x32\x18.mrpc_admin.PodTerminals2\xed\x02\n\x08\x41\x64minApi\x12q\n\x0f\x41\x63tiveTerminals\x12\".mrpc_admin.ActiveTerminalsRequest\x1a .mrpc_admin.ActiveTerminalsReply\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/ActiveTerminals\x12\x86\x01\n\x16\x41\x63tiveTerminalsCluster\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\'.mrpc_admin.ActiveTerminalsClusterReply\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/ActiveTerminalsCluster\x12\x65\n\x0bSystemUsage\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\x1c.mrpc_admin.SystemUsageReply\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/SystemUsageB@Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\nmrpc_adminb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18mt5-term-api-admin.proto\x12\nmrpc_admin\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"K\n\x11ListLogFilesReply\x12\'\n\x05\x66iles\x18\x01 \x03(\x0b\x32\x18.mrpc_admin.LogFileEntry\x12\r\n\x05\x65rror\x18\x02 \x01(\t\"a\n\x0cLogFileEntry\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x12\n\nsize_bytes\x18\x02 \x01(\x03\x12/\n\x0bmodified_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"L\n\x11GetLogFileRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\x12\x11\n\tfile_name\x18\x02 \x01(\t\x12\x11\n\tmax_bytes\x18\x03 \x01(\x03\"^\n\x0fGetLogFileReply\x12\x0f\n\x07\x63ontent\x18\x01 \x01(\t\x12\x11\n\ttruncated\x18\x02 \x01(\x08\x12\x18\n\x10total_size_bytes\x18\x03 \x01(\x03\x12\r\n\x05\x65rror\x18\x04 \x01(\t\"S\n\x19GetEventLogEntriesRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\x12\x10\n\x08log_name\x18\x02 \x01(\t\x12\x11\n\tmax_count\x18\x03 \x01(\x05\"9\n\x17GetEventLogEntriesReply\x12\x0f\n\x07\x65ntries\x18\x01 \x03(\t\x12\r\n\x05\x65rror\x18\x02 \x01(\t\"O\n\x1f\x43\x61ptureSessionScreenshotRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\x12\x19\n\x11session_user_name\x18\x02 \x01(\t\"d\n$CaptureSessionScreenshotOnPodRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\x12\x0e\n\x06pod_ip\x18\x02 \x01(\t\x12\x19\n\x11session_user_name\x18\x03 \x01(\t\"A\n\x1d\x43\x61ptureSessionScreenshotReply\x12\x11\n\timage_png\x18\x01 \x01(\x0c\x12\r\n\x05\x65rror\x18\x02 \x01(\t\"w\n\x0bUsageSample\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x13\n\x0b\x63pu_percent\x18\x02 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x03 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x04 \x01(\x04\"\x8b\x01\n\x10SystemUsageReply\x12\x13\n\x0b\x63pu_percent\x18\x01 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x02 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x03 \x01(\x04\x12(\n\x07history\x18\x04 \x03(\x0b\x32\x17.mrpc_admin.UsageSample\x12\r\n\x05\x65rror\x18\x05 \x01(\t\"+\n\x16\x41\x63tiveTerminalsRequest\x12\x11\n\tadmin_key\x18\x01 \x01(\t\"\xbe\x01\n\x0cTerminalInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0buser_number\x18\x02 \x01(\r\x12\x14\n\x0cwindows_user\x18\x03 \x01(\t\x12\x0f\n\x07\x61\x63\x63ount\x18\x04 \x01(\x04\x12\x0e\n\x06server\x18\x05 \x01(\t\x12\x0c\n\x04port\x18\x06 \x01(\r\x12.\n\ncreated_at\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x18\n\x10windows_password\x18\x08 \x01(\t\"\xed\x01\n\x14\x41\x63tiveTerminalsReply\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12+\n\tterminals\x18\x04 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x05 \x01(\t\x12\x13\n\x0b\x63pu_percent\x18\x06 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\x07 \x01(\x04\x12\x14\n\x0cram_total_mb\x18\x08 \x01(\x04\x12.\n\rusage_history\x18\t \x03(\x0b\x32\x17.mrpc_admin.UsageSample\"\x89\x02\n\x0cPodTerminals\x12\x0b\n\x03pod\x18\x01 \x01(\t\x12\x0c\n\x04node\x18\x02 \x01(\t\x12\x0e\n\x06pod_ip\x18\x03 \x01(\t\x12\x11\n\tnovnc_url\x18\x04 \x01(\t\x12+\n\tterminals\x18\x05 \x03(\x0b\x32\x18.mrpc_admin.TerminalInfo\x12\r\n\x05\x65rror\x18\x06 \x01(\t\x12\x0f\n\x07host_ip\x18\x07 \x01(\t\x12\x13\n\x0b\x63pu_percent\x18\x08 \x01(\x01\x12\x13\n\x0bram_used_mb\x18\t \x01(\x04\x12\x14\n\x0cram_total_mb\x18\n \x01(\x04\x12.\n\rusage_history\x18\x0b \x03(\x0b\x32\x17.mrpc_admin.UsageSample\"E\n\x1b\x41\x63tiveTerminalsClusterReply\x12&\n\x04pods\x18\x01 \x03(\x0b\x32\x18.mrpc_admin.PodTerminals2\xf4\x07\n\x08\x41\x64minApi\x12q\n\x0f\x41\x63tiveTerminals\x12\".mrpc_admin.ActiveTerminalsRequest\x1a .mrpc_admin.ActiveTerminalsReply\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/ActiveTerminals\x12\x86\x01\n\x16\x41\x63tiveTerminalsCluster\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\'.mrpc_admin.ActiveTerminalsClusterReply\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/ActiveTerminalsCluster\x12\x65\n\x0bSystemUsage\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\x1c.mrpc_admin.SystemUsageReply\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/SystemUsage\x12h\n\x0cListLogFiles\x12\".mrpc_admin.ActiveTerminalsRequest\x1a\x1d.mrpc_admin.ListLogFilesReply\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/ListLogFiles\x12]\n\nGetLogFile\x12\x1d.mrpc_admin.GetLogFileRequest\x1a\x1b.mrpc_admin.GetLogFileReply\"\x13\x82\xd3\xe4\x93\x02\r\x12\x0b/GetLogFile\x12}\n\x12GetEventLogEntries\x12%.mrpc_admin.GetEventLogEntriesRequest\x1a#.mrpc_admin.GetEventLogEntriesReply\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/GetEventLogEntries\x12\x95\x01\n\x18\x43\x61ptureSessionScreenshot\x12+.mrpc_admin.CaptureSessionScreenshotRequest\x1a).mrpc_admin.CaptureSessionScreenshotReply\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/CaptureSessionScreenshot\x12\xa4\x01\n\x1d\x43\x61ptureSessionScreenshotOnPod\x12\x30.mrpc_admin.CaptureSessionScreenshotOnPodRequest\x1a).mrpc_admin.CaptureSessionScreenshotReply\"&\x82\xd3\xe4\x93\x02 \x12\x1e/CaptureSessionScreenshotOnPodB@Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\nmrpc_adminb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'mt5_term_api_admin_pb2', globals())
@@ -29,20 +29,48 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _ADMINAPI.methods_by_name['ActiveTerminalsCluster']._serialized_options = b'\202\323\344\223\002\031\022\027/ActiveTerminalsCluster'
   _ADMINAPI.methods_by_name['SystemUsage']._options = None
   _ADMINAPI.methods_by_name['SystemUsage']._serialized_options = b'\202\323\344\223\002\016\022\014/SystemUsage'
-  _USAGESAMPLE._serialized_start=103
-  _USAGESAMPLE._serialized_end=222
-  _SYSTEMUSAGEREPLY._serialized_start=225
-  _SYSTEMUSAGEREPLY._serialized_end=364
-  _ACTIVETERMINALSREQUEST._serialized_start=366
-  _ACTIVETERMINALSREQUEST._serialized_end=409
-  _TERMINALINFO._serialized_start=412
-  _TERMINALINFO._serialized_end=602
-  _ACTIVETERMINALSREPLY._serialized_start=605
-  _ACTIVETERMINALSREPLY._serialized_end=842
-  _PODTERMINALS._serialized_start=845
-  _PODTERMINALS._serialized_end=1110
-  _ACTIVETERMINALSCLUSTERREPLY._serialized_start=1112
-  _ACTIVETERMINALSCLUSTERREPLY._serialized_end=1181
-  _ADMINAPI._serialized_start=1184
-  _ADMINAPI._serialized_end=1549
+  _ADMINAPI.methods_by_name['ListLogFiles']._options = None
+  _ADMINAPI.methods_by_name['ListLogFiles']._serialized_options = b'\202\323\344\223\002\017\022\r/ListLogFiles'
+  _ADMINAPI.methods_by_name['GetLogFile']._options = None
+  _ADMINAPI.methods_by_name['GetLogFile']._serialized_options = b'\202\323\344\223\002\r\022\013/GetLogFile'
+  _ADMINAPI.methods_by_name['GetEventLogEntries']._options = None
+  _ADMINAPI.methods_by_name['GetEventLogEntries']._serialized_options = b'\202\323\344\223\002\025\022\023/GetEventLogEntries'
+  _ADMINAPI.methods_by_name['CaptureSessionScreenshot']._options = None
+  _ADMINAPI.methods_by_name['CaptureSessionScreenshot']._serialized_options = b'\202\323\344\223\002\033\022\031/CaptureSessionScreenshot'
+  _ADMINAPI.methods_by_name['CaptureSessionScreenshotOnPod']._options = None
+  _ADMINAPI.methods_by_name['CaptureSessionScreenshotOnPod']._serialized_options = b'\202\323\344\223\002 \022\036/CaptureSessionScreenshotOnPod'
+  _LISTLOGFILESREPLY._serialized_start=103
+  _LISTLOGFILESREPLY._serialized_end=178
+  _LOGFILEENTRY._serialized_start=180
+  _LOGFILEENTRY._serialized_end=277
+  _GETLOGFILEREQUEST._serialized_start=279
+  _GETLOGFILEREQUEST._serialized_end=355
+  _GETLOGFILEREPLY._serialized_start=357
+  _GETLOGFILEREPLY._serialized_end=451
+  _GETEVENTLOGENTRIESREQUEST._serialized_start=453
+  _GETEVENTLOGENTRIESREQUEST._serialized_end=536
+  _GETEVENTLOGENTRIESREPLY._serialized_start=538
+  _GETEVENTLOGENTRIESREPLY._serialized_end=595
+  _CAPTURESESSIONSCREENSHOTREQUEST._serialized_start=597
+  _CAPTURESESSIONSCREENSHOTREQUEST._serialized_end=676
+  _CAPTURESESSIONSCREENSHOTONPODREQUEST._serialized_start=678
+  _CAPTURESESSIONSCREENSHOTONPODREQUEST._serialized_end=778
+  _CAPTURESESSIONSCREENSHOTREPLY._serialized_start=780
+  _CAPTURESESSIONSCREENSHOTREPLY._serialized_end=845
+  _USAGESAMPLE._serialized_start=847
+  _USAGESAMPLE._serialized_end=966
+  _SYSTEMUSAGEREPLY._serialized_start=969
+  _SYSTEMUSAGEREPLY._serialized_end=1108
+  _ACTIVETERMINALSREQUEST._serialized_start=1110
+  _ACTIVETERMINALSREQUEST._serialized_end=1153
+  _TERMINALINFO._serialized_start=1156
+  _TERMINALINFO._serialized_end=1346
+  _ACTIVETERMINALSREPLY._serialized_start=1349
+  _ACTIVETERMINALSREPLY._serialized_end=1586
+  _PODTERMINALS._serialized_start=1589
+  _PODTERMINALS._serialized_end=1854
+  _ACTIVETERMINALSCLUSTERREPLY._serialized_start=1856
+  _ACTIVETERMINALSCLUSTERREPLY._serialized_end=1925
+  _ADMINAPI._serialized_start=1928
+  _ADMINAPI._serialized_end=2940
 # @@protoc_insertion_point(module_scope)

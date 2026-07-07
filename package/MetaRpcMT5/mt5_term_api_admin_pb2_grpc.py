@@ -35,6 +35,31 @@ class AdminApiStub(object):
                 request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__admin__pb2.SystemUsageReply.FromString,
                 )
+        self.ListLogFiles = channel.unary_unary(
+                '/mrpc_admin.AdminApi/ListLogFiles',
+                request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.ListLogFilesReply.FromString,
+                )
+        self.GetLogFile = channel.unary_unary(
+                '/mrpc_admin.AdminApi/GetLogFile',
+                request_serializer=mt5__term__api__admin__pb2.GetLogFileRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.GetLogFileReply.FromString,
+                )
+        self.GetEventLogEntries = channel.unary_unary(
+                '/mrpc_admin.AdminApi/GetEventLogEntries',
+                request_serializer=mt5__term__api__admin__pb2.GetEventLogEntriesRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.GetEventLogEntriesReply.FromString,
+                )
+        self.CaptureSessionScreenshot = channel.unary_unary(
+                '/mrpc_admin.AdminApi/CaptureSessionScreenshot',
+                request_serializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.FromString,
+                )
+        self.CaptureSessionScreenshotOnPod = channel.unary_unary(
+                '/mrpc_admin.AdminApi/CaptureSessionScreenshotOnPod',
+                request_serializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotOnPodRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.FromString,
+                )
 
 
 class AdminApiServicer(object):
@@ -68,6 +93,51 @@ class AdminApiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ListLogFiles(self, request, context):
+        """Lists the diagnostic log files on \\host.lan\Data\logs (mrpc.log, startup.log,
+        install.log, boot-diag.log, and any future additions) - the exact files the container's
+        postStart hook tails into "kubectl logs", readable here without cluster/kubectl access.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetLogFile(self, request, context):
+        """Content of one log file from \\host.lan\Data\logs (see ListLogFiles). Truncated to the
+        LAST max_bytes bytes if larger (0 = server default, 256 KiB).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetEventLogEntries(self, request, context):
+        """On-demand dump of recent Windows Event Log entries (Service Control Manager events,
+        shutdown/restart events, Application errors) - the same data boot-diag.bat captures on a
+        service state change, available here without waiting for that trigger.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CaptureSessionScreenshot(self, request, context):
+        """Screenshot of a Windows interactive session's whole desktop - a specific
+        MrpcTerminalUser<N> session, or (if session_user_name is empty) the pod's main/autologon
+        session, the one startup.bat runs in.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CaptureSessionScreenshotOnPod(self, request, context):
+        """Same as CaptureSessionScreenshot, but fanned out from THIS pod to a DIFFERENT pod by IP
+        (mirroring the ActiveTerminalsCluster fan-out) - a browser can only reach the pod that is
+        currently serving it, not other pods' ClusterIPs, so the cluster admin view asks whichever
+        pod it's connected to relay the request.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AdminApiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -85,6 +155,31 @@ def add_AdminApiServicer_to_server(servicer, server):
                     servicer.SystemUsage,
                     request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
                     response_serializer=mt5__term__api__admin__pb2.SystemUsageReply.SerializeToString,
+            ),
+            'ListLogFiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListLogFiles,
+                    request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.ListLogFilesReply.SerializeToString,
+            ),
+            'GetLogFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLogFile,
+                    request_deserializer=mt5__term__api__admin__pb2.GetLogFileRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.GetLogFileReply.SerializeToString,
+            ),
+            'GetEventLogEntries': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEventLogEntries,
+                    request_deserializer=mt5__term__api__admin__pb2.GetEventLogEntriesRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.GetEventLogEntriesReply.SerializeToString,
+            ),
+            'CaptureSessionScreenshot': grpc.unary_unary_rpc_method_handler(
+                    servicer.CaptureSessionScreenshot,
+                    request_deserializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.SerializeToString,
+            ),
+            'CaptureSessionScreenshotOnPod': grpc.unary_unary_rpc_method_handler(
+                    servicer.CaptureSessionScreenshotOnPod,
+                    request_deserializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotOnPodRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -150,5 +245,90 @@ class AdminApi(object):
         return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/SystemUsage',
             mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
             mt5__term__api__admin__pb2.SystemUsageReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ListLogFiles(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/ListLogFiles',
+            mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.ListLogFilesReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetLogFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetLogFile',
+            mt5__term__api__admin__pb2.GetLogFileRequest.SerializeToString,
+            mt5__term__api__admin__pb2.GetLogFileReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetEventLogEntries(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetEventLogEntries',
+            mt5__term__api__admin__pb2.GetEventLogEntriesRequest.SerializeToString,
+            mt5__term__api__admin__pb2.GetEventLogEntriesReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CaptureSessionScreenshot(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/CaptureSessionScreenshot',
+            mt5__term__api__admin__pb2.CaptureSessionScreenshotRequest.SerializeToString,
+            mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CaptureSessionScreenshotOnPod(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/CaptureSessionScreenshotOnPod',
+            mt5__term__api__admin__pb2.CaptureSessionScreenshotOnPodRequest.SerializeToString,
+            mt5__term__api__admin__pb2.CaptureSessionScreenshotReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
