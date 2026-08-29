@@ -36,6 +36,21 @@ class ConnectionStub(object):
                 request_serializer=mt5__term__api__connection__pb2.CheckConnectRequest.SerializeToString,
                 response_deserializer=mt5__term__api__connection__pb2.CheckConnectReply.FromString,
                 )
+        self.ConnectState = channel.unary_unary(
+                '/mt5_term_api.Connection/ConnectState',
+                request_serializer=mt5__term__api__connection__pb2.ConnectStateRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.ConnectStateReply.FromString,
+                )
+        self.OnConnectState = channel.unary_stream(
+                '/mt5_term_api.Connection/OnConnectState',
+                request_serializer=mt5__term__api__connection__pb2.OnConnectStateRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.OnConnectStateReply.FromString,
+                )
+        self.ConnectionStatus = channel.unary_unary(
+                '/mt5_term_api.Connection/ConnectionStatus',
+                request_serializer=mt5__term__api__connection__pb2.ConnectionStatusRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.ConnectionStatusReply.FromString,
+                )
         self.Disconnect = channel.unary_unary(
                 '/mt5_term_api.Connection/Disconnect',
                 request_serializer=mt5__term__api__connection__pb2.DisconnectRequest.SerializeToString,
@@ -45,6 +60,11 @@ class ConnectionStub(object):
                 '/mt5_term_api.Connection/Reconnect',
                 request_serializer=mt5__term__api__connection__pb2.ReconnectRequest.SerializeToString,
                 response_deserializer=mt5__term__api__connection__pb2.ReconnectReply.FromString,
+                )
+        self.ConnectByToken = channel.unary_unary(
+                '/mt5_term_api.Connection/ConnectByToken',
+                request_serializer=mt5__term__api__connection__pb2.ConnectByTokenRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.ConnectExReply.FromString,
                 )
         self.GetBrokerServersByBrokerName = channel.unary_unary(
                 '/mt5_term_api.Connection/GetBrokerServersByBrokerName',
@@ -82,8 +102,8 @@ class ConnectionServicer(object):
         """Creates terminal connection to the MT5 server by MT cluster name, waits for connection and returns Guid of it 
         [DefaultValues]
         {
-        "user": "213827411",
-        "password": "_rVx1tMn",
+        "user": "213889529",
+        "password": "7dPjA*Jm",
         "mtClusterName": "OctaFX-Demo",
         "timeoutSeconds": "120"
         }  
@@ -96,9 +116,9 @@ class ConnectionServicer(object):
         """Creates terminal connection to the MT5 server and returns Guid of it 
         [DefaultValues]
         {
-        "user": "21455",
-        "password": "1nJeS+Ae",
-        "host": "95.217.147.61",
+        "user": "213889529",
+        "password": "7dPjA*Jm",
+        "host": "d51a1.octanetwork.net",
         "port": "443",
         "timeoutSeconds": "120"
         }  
@@ -111,9 +131,9 @@ class ConnectionServicer(object):
         """Connect to account with user, password, host, port.
         [DefaultValues] 
         { 
-        "user": "21455", 
-        "password": "1nJeS+Ae", 
-        "host": "95.217.147.61", 
+        "user": "213889529", 
+        "password": "7dPjA*Jm", 
+        "host": "d51a1.octanetwork.net", 
         "port": "443", 
         "proxyUser": "ProxyUser123", 
         "proxyPassword": "qwerty123", 
@@ -133,6 +153,27 @@ class ConnectionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ConnectState(self, request, context):
+        """Returns detailed live connection state of this terminal instance
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def OnConnectState(self, request, context):
+        """Streams real-time connection state changes for specified or visible terminals
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConnectionStatus(self, request, context):
+        """Deprecated alias for ConnectState
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def Disconnect(self, request, context):
         """Close terminal connection to MT5 server
         """
@@ -142,6 +183,16 @@ class ConnectionServicer(object):
 
     def Reconnect(self, request, context):
         """If you need to recreate terminal instance with the same id
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ConnectByToken(self, request, context):
+        """Rebuild a terminal instance from a previously-saved token_details_mt5 row. The id header
+        names the terminal to bring back; every credential (User/Password/Server or Host+Port,
+        proxy settings, servers.dat bytes, PfxFile, HardwareId, Build) is read from the DB. Same
+        reply as ConnectEx so callers do not need a separate result path.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -166,8 +217,8 @@ class ConnectionServicer(object):
         Use this GUID as the 'id' header for Connect and other endpoints.
         [DefaultValues]
         {
-        "user": "213827411",
-        "password": "_rVx1tMn"
+        "user": "213889529",
+        "password": "7dPjA*Jm"
         }
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -180,9 +231,9 @@ class ConnectionServicer(object):
         Swagger does not support streaming — use /connect-stream interactive viewer.
         [DefaultValues]
         {
-        "user": "21455",
-        "password": "1nJeS+Ae",
-        "host": "95.217.147.61",
+        "user": "213889529",
+        "password": "7dPjA*Jm",
+        "host": "d51a1.octanetwork.net",
         "port": "443",
         "timeoutSeconds": "120"
         }
@@ -197,8 +248,8 @@ class ConnectionServicer(object):
         Swagger does not support streaming — use /connect-stream interactive viewer.
         [DefaultValues]
         {
-        "user": "213827411",
-        "password": "_rVx1tMn",
+        "user": "213889529",
+        "password": "7dPjA*Jm",
         "mtClusterName": "OctaFX-Demo",
         "timeoutSeconds": "120"
         }
@@ -230,6 +281,21 @@ def add_ConnectionServicer_to_server(servicer, server):
                     request_deserializer=mt5__term__api__connection__pb2.CheckConnectRequest.FromString,
                     response_serializer=mt5__term__api__connection__pb2.CheckConnectReply.SerializeToString,
             ),
+            'ConnectState': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConnectState,
+                    request_deserializer=mt5__term__api__connection__pb2.ConnectStateRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.ConnectStateReply.SerializeToString,
+            ),
+            'OnConnectState': grpc.unary_stream_rpc_method_handler(
+                    servicer.OnConnectState,
+                    request_deserializer=mt5__term__api__connection__pb2.OnConnectStateRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.OnConnectStateReply.SerializeToString,
+            ),
+            'ConnectionStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConnectionStatus,
+                    request_deserializer=mt5__term__api__connection__pb2.ConnectionStatusRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.ConnectionStatusReply.SerializeToString,
+            ),
             'Disconnect': grpc.unary_unary_rpc_method_handler(
                     servicer.Disconnect,
                     request_deserializer=mt5__term__api__connection__pb2.DisconnectRequest.FromString,
@@ -239,6 +305,11 @@ def add_ConnectionServicer_to_server(servicer, server):
                     servicer.Reconnect,
                     request_deserializer=mt5__term__api__connection__pb2.ReconnectRequest.FromString,
                     response_serializer=mt5__term__api__connection__pb2.ReconnectReply.SerializeToString,
+            ),
+            'ConnectByToken': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConnectByToken,
+                    request_deserializer=mt5__term__api__connection__pb2.ConnectByTokenRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.ConnectExReply.SerializeToString,
             ),
             'GetBrokerServersByBrokerName': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBrokerServersByBrokerName,
@@ -346,6 +417,57 @@ class Connection(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def ConnectState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/ConnectState',
+            mt5__term__api__connection__pb2.ConnectStateRequest.SerializeToString,
+            mt5__term__api__connection__pb2.ConnectStateReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OnConnectState(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Connection/OnConnectState',
+            mt5__term__api__connection__pb2.OnConnectStateRequest.SerializeToString,
+            mt5__term__api__connection__pb2.OnConnectStateReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConnectionStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/ConnectionStatus',
+            mt5__term__api__connection__pb2.ConnectionStatusRequest.SerializeToString,
+            mt5__term__api__connection__pb2.ConnectionStatusReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def Disconnect(request,
             target,
             options=(),
@@ -376,6 +498,23 @@ class Connection(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/Reconnect',
             mt5__term__api__connection__pb2.ReconnectRequest.SerializeToString,
             mt5__term__api__connection__pb2.ReconnectReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ConnectByToken(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Connection/ConnectByToken',
+            mt5__term__api__connection__pb2.ConnectByTokenRequest.SerializeToString,
+            mt5__term__api__connection__pb2.ConnectExReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -482,15 +621,20 @@ class LogsStub(object):
                 request_serializer=mt5__term__api__connection__pb2.JournalRequest.SerializeToString,
                 response_deserializer=mt5__term__api__connection__pb2.JournalReply.FromString,
                 )
+        self.OnJournal = channel.unary_stream(
+                '/mt5_term_api.Logs/OnJournal',
+                request_serializer=mt5__term__api__connection__pb2.OnJournalRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.OnJournalReply.FromString,
+                )
         self.Experts = channel.unary_unary(
                 '/mt5_term_api.Logs/Experts',
                 request_serializer=mt5__term__api__connection__pb2.JournalRequest.SerializeToString,
                 response_deserializer=mt5__term__api__connection__pb2.JournalReply.FromString,
                 )
-        self.WarmConnect = channel.unary_unary(
-                '/mt5_term_api.Logs/WarmConnect',
-                request_serializer=mt5__term__api__connection__pb2.WarmConnectLogRequest.SerializeToString,
-                response_deserializer=mt5__term__api__connection__pb2.WarmConnectLogReply.FromString,
+        self.OnExperts = channel.unary_stream(
+                '/mt5_term_api.Logs/OnExperts',
+                request_serializer=mt5__term__api__connection__pb2.OnJournalRequest.SerializeToString,
+                response_deserializer=mt5__term__api__connection__pb2.OnJournalReply.FromString,
                 )
 
 
@@ -510,6 +654,14 @@ class LogsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def OnJournal(self, request, context):
+        """Streams log entries from the terminal Journal tab in real-time.
+        Requires 'id' header with the terminal connection GUID returned by Connect.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def Experts(self, request, context):
         """Returns log entries from the terminal Experts tab.
         The Experts tab contains messages from Expert Advisors (EAs), scripts and indicators
@@ -520,9 +672,9 @@ class LogsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def WarmConnect(self, request, context):
-        """Returns warm pool connection logs for diagnostics.
-        Handled locally by Terminal Manager (not proxied to the terminal process).
+    def OnExperts(self, request, context):
+        """Streams log entries from the terminal Experts tab in real-time.
+        Requires 'id' header with the terminal connection GUID returned by Connect.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -536,15 +688,20 @@ def add_LogsServicer_to_server(servicer, server):
                     request_deserializer=mt5__term__api__connection__pb2.JournalRequest.FromString,
                     response_serializer=mt5__term__api__connection__pb2.JournalReply.SerializeToString,
             ),
+            'OnJournal': grpc.unary_stream_rpc_method_handler(
+                    servicer.OnJournal,
+                    request_deserializer=mt5__term__api__connection__pb2.OnJournalRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.OnJournalReply.SerializeToString,
+            ),
             'Experts': grpc.unary_unary_rpc_method_handler(
                     servicer.Experts,
                     request_deserializer=mt5__term__api__connection__pb2.JournalRequest.FromString,
                     response_serializer=mt5__term__api__connection__pb2.JournalReply.SerializeToString,
             ),
-            'WarmConnect': grpc.unary_unary_rpc_method_handler(
-                    servicer.WarmConnect,
-                    request_deserializer=mt5__term__api__connection__pb2.WarmConnectLogRequest.FromString,
-                    response_serializer=mt5__term__api__connection__pb2.WarmConnectLogReply.SerializeToString,
+            'OnExperts': grpc.unary_stream_rpc_method_handler(
+                    servicer.OnExperts,
+                    request_deserializer=mt5__term__api__connection__pb2.OnJournalRequest.FromString,
+                    response_serializer=mt5__term__api__connection__pb2.OnJournalReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -577,6 +734,23 @@ class Logs(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def OnJournal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Logs/OnJournal',
+            mt5__term__api__connection__pb2.OnJournalRequest.SerializeToString,
+            mt5__term__api__connection__pb2.OnJournalReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def Experts(request,
             target,
             options=(),
@@ -594,7 +768,7 @@ class Logs(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def WarmConnect(request,
+    def OnExperts(request,
             target,
             options=(),
             channel_credentials=None,
@@ -604,8 +778,8 @@ class Logs(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Logs/WarmConnect',
-            mt5__term__api__connection__pb2.WarmConnectLogRequest.SerializeToString,
-            mt5__term__api__connection__pb2.WarmConnectLogReply.FromString,
+        return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Logs/OnExperts',
+            mt5__term__api__connection__pb2.OnJournalRequest.SerializeToString,
+            mt5__term__api__connection__pb2.OnJournalReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -65,6 +65,26 @@ class AdminApiStub(object):
                 request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__admin__pb2.RefreshMrpcRestReply.FromString,
                 )
+        self.GetVersion = channel.unary_unary(
+                '/mrpc_admin.AdminApi/GetVersion',
+                request_serializer=mt5__term__api__admin__pb2.VersionRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.VersionReply.FromString,
+                )
+        self.GetTerminalJournal = channel.unary_unary(
+                '/mrpc_admin.AdminApi/GetTerminalJournal',
+                request_serializer=mt5__term__api__admin__pb2.GetTerminalJournalRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.GetTerminalJournalReply.FromString,
+                )
+        self.GetAllLogs = channel.unary_unary(
+                '/mrpc_admin.AdminApi/GetAllLogs',
+                request_serializer=mt5__term__api__admin__pb2.GetAllLogsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.GetAllLogsReply.FromString,
+                )
+        self.GetSessionRestoreLogs = channel.unary_unary(
+                '/mrpc_admin.AdminApi/GetSessionRestoreLogs',
+                request_serializer=mt5__term__api__admin__pb2.GetSessionRestoreLogsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.GetSessionRestoreLogsReply.FromString,
+                )
 
 
 class AdminApiServicer(object):
@@ -155,6 +175,44 @@ class AdminApiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetVersion(self, request, context):
+        """Build/version identity of the Terminal Manager running on THIS pod, so a deploy can be
+        VERIFIED rather than guessed. No admin_key required - it exposes no secrets. mrpc-rest
+        transcodes GET /version-tm onto this (its own build is at GET /version).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetTerminalJournal(self, request, context):
+        """Diagnostic MT5/MT4 journal for a SPECIFIC terminal instance on THIS pod: reads the terminal's
+        own journal (logs\*.log) and the expert/script journal (MQL5\logs\*.log) straight from the
+        terminal's working directory. Lets us see WHY a terminal failed to start / log in to the broker
+        without RDP/noVNC access. The terminal must live on the pod serving this request (its record
+        must be in the local registry); if it is on another pod or was already cleaned up, `error` says so.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAllLogs(self, request, context):
+        """One-shot bundle of EVERY diagnostic log available on this pod: every *.log file on the
+        shared Data folder AND in C:\OEM (mrpc.log, mrpc-rest.log, boot-diag.log, startup.log,
+        install.log, ...), plus the Windows Application + System event logs. Each entry carries a
+        tail of its content so a single call gives the full diagnostic picture for the pod without
+        needing to know file names up front (contrast ListLogFiles + N× GetLogFile).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSessionRestoreLogs(self, request, context):
+        """Session restore logs for the latest startup sequence on a pod (stored in MongoDB session_restore_logs).
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AdminApiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -202,6 +260,26 @@ def add_AdminApiServicer_to_server(servicer, server):
                     servicer.RefreshMrpcRest,
                     request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
                     response_serializer=mt5__term__api__admin__pb2.RefreshMrpcRestReply.SerializeToString,
+            ),
+            'GetVersion': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetVersion,
+                    request_deserializer=mt5__term__api__admin__pb2.VersionRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.VersionReply.SerializeToString,
+            ),
+            'GetTerminalJournal': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetTerminalJournal,
+                    request_deserializer=mt5__term__api__admin__pb2.GetTerminalJournalRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.GetTerminalJournalReply.SerializeToString,
+            ),
+            'GetAllLogs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAllLogs,
+                    request_deserializer=mt5__term__api__admin__pb2.GetAllLogsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.GetAllLogsReply.SerializeToString,
+            ),
+            'GetSessionRestoreLogs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSessionRestoreLogs,
+                    request_deserializer=mt5__term__api__admin__pb2.GetSessionRestoreLogsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.GetSessionRestoreLogsReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -369,5 +447,73 @@ class AdminApi(object):
         return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/RefreshMrpcRest',
             mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
             mt5__term__api__admin__pb2.RefreshMrpcRestReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetVersion(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetVersion',
+            mt5__term__api__admin__pb2.VersionRequest.SerializeToString,
+            mt5__term__api__admin__pb2.VersionReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetTerminalJournal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetTerminalJournal',
+            mt5__term__api__admin__pb2.GetTerminalJournalRequest.SerializeToString,
+            mt5__term__api__admin__pb2.GetTerminalJournalReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetAllLogs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetAllLogs',
+            mt5__term__api__admin__pb2.GetAllLogsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.GetAllLogsReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSessionRestoreLogs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetSessionRestoreLogs',
+            mt5__term__api__admin__pb2.GetSessionRestoreLogsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.GetSessionRestoreLogsReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

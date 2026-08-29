@@ -19,6 +19,11 @@ class TradingHelperStub(object):
                 request_serializer=mt5__term__api__trading__helper__pb2.OrderSendRequest.SerializeToString,
                 response_deserializer=mt5__term__api__trading__helper__pb2.OrderSendReply.FromString,
                 )
+        self.OrderSendWithoutChecks = channel.unary_unary(
+                '/mt5_term_api.TradingHelper/OrderSendWithoutChecks',
+                request_serializer=mt5__term__api__trading__helper__pb2.OrderSendRequest.SerializeToString,
+                response_deserializer=mt5__term__api__trading__helper__pb2.OrderSendReply.FromString,
+                )
         self.OrderModify = channel.unary_unary(
                 '/mt5_term_api.TradingHelper/OrderModify',
                 request_serializer=mt5__term__api__trading__helper__pb2.OrderModifyRequest.SerializeToString,
@@ -36,6 +41,28 @@ class TradingHelperServicer(object):
 
     def OrderSend(self, request, context):
         """Send market or pending order
+        [DefaultValues]
+        {
+        "symbol": "EURUSD",
+        "operation": "TMT5_ORDER_TYPE_BUY",
+        "volume": "0.1"
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def OrderSendWithoutChecks(self, request, context):
+        """Send market or pending order immediately, with no Market Watch or quotes preparation.
+        Same request and reply as OrderSend, but nothing is checked first and quotes_wait_ms is
+        ignored. Use only for a symbol already known to be streaming; otherwise the trade server
+        rejects the order (ErrMarketLasttimeUnknown 4304 "no ticks" and friends).
+        [DefaultValues]
+        {
+        "symbol": "EURUSD",
+        "operation": "TMT5_ORDER_TYPE_BUY",
+        "volume": "0.1"
+        }
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -60,6 +87,11 @@ def add_TradingHelperServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OrderSend': grpc.unary_unary_rpc_method_handler(
                     servicer.OrderSend,
+                    request_deserializer=mt5__term__api__trading__helper__pb2.OrderSendRequest.FromString,
+                    response_serializer=mt5__term__api__trading__helper__pb2.OrderSendReply.SerializeToString,
+            ),
+            'OrderSendWithoutChecks': grpc.unary_unary_rpc_method_handler(
+                    servicer.OrderSendWithoutChecks,
                     request_deserializer=mt5__term__api__trading__helper__pb2.OrderSendRequest.FromString,
                     response_serializer=mt5__term__api__trading__helper__pb2.OrderSendReply.SerializeToString,
             ),
@@ -95,6 +127,23 @@ class TradingHelper(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.TradingHelper/OrderSend',
+            mt5__term__api__trading__helper__pb2.OrderSendRequest.SerializeToString,
+            mt5__term__api__trading__helper__pb2.OrderSendReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def OrderSendWithoutChecks(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.TradingHelper/OrderSendWithoutChecks',
             mt5__term__api__trading__helper__pb2.OrderSendRequest.SerializeToString,
             mt5__term__api__trading__helper__pb2.OrderSendReply.FromString,
             options, channel_credentials,
