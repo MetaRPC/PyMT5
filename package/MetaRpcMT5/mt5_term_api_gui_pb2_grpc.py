@@ -59,6 +59,11 @@ class GuiStub(object):
                 request_serializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
                 response_deserializer=mt5__term__api__gui__pb2.GuiDemoProgressEvent.FromString,
                 )
+        self.DemoOpenAccountInteractive = channel.stream_stream(
+                '/mt5_term_api.Gui/DemoOpenAccountInteractive',
+                request_serializer=mt5__term__api__gui__pb2.GuiDemoInteractiveClientMessage.SerializeToString,
+                response_deserializer=mt5__term__api__gui__pb2.GuiDemoInteractiveServerMessage.FromString,
+                )
 
 
 class GuiServicer(object):
@@ -118,6 +123,12 @@ class GuiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DemoOpenAccountInteractive(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_GuiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -165,6 +176,11 @@ def add_GuiServicer_to_server(servicer, server):
                     servicer.DemoOpenAccountWithProgress,
                     request_deserializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.FromString,
                     response_serializer=mt5__term__api__gui__pb2.GuiDemoProgressEvent.SerializeToString,
+            ),
+            'DemoOpenAccountInteractive': grpc.stream_stream_rpc_method_handler(
+                    servicer.DemoOpenAccountInteractive,
+                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoInteractiveClientMessage.FromString,
+                    response_serializer=mt5__term__api__gui__pb2.GuiDemoInteractiveServerMessage.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -326,5 +342,22 @@ class Gui(object):
         return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Gui/DemoOpenAccountWithProgress',
             mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
             mt5__term__api__gui__pb2.GuiDemoProgressEvent.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DemoOpenAccountInteractive(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_stream(request_iterator, target, '/mt5_term_api.Gui/DemoOpenAccountInteractive',
+            mt5__term__api__gui__pb2.GuiDemoInteractiveClientMessage.SerializeToString,
+            mt5__term__api__gui__pb2.GuiDemoInteractiveServerMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
