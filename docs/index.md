@@ -1,5 +1,8 @@
 # PyMT5 SDK Documentation
 
+> ℹ️ **Account ID Note (`GetId`)**: MetaRPC requires generating a deterministic account GUID via `GetId` using your trading account login and password before connecting or streaming. Both `APIKey` and `id` headers are required on all terminal requests.
+
+
 **Complete Python SDK for MetaTrader 5 trading automation via gRPC**
 
 <div class="home-grid">
