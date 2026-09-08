@@ -26,6 +26,16 @@ pip install metarpc-mt5
 
 ---
 
+## 🔑 API Key & Authentication
+
+Connecting to MetaRPC production endpoints (`mt5.mrpc.pro:443`) requires an API key:
+
+1. **Sign Up**: Create an account for free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
+2. **Generate API Key**: In your MetaRPC Portal dashboard at [https://mrpc.pro/my](https://mrpc.pro/my), go to **API Keys** to generate and copy your personal API token.
+3. **Configure Connection**: Pass your API key / token along with the server address (`mt5.mrpc.pro:443`) in your connection settings.
+
+---
+
 ## 🔌 Minimal Connection Example
 
 Here is how easy it is to initialize `MT5Account`, connect to your MetaTrader terminal, and retrieve your account balance:

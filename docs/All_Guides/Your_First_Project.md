@@ -4,6 +4,15 @@
 
 ---
 
+## Step 0: Obtain Your API Key
+
+To connect to MetaRPC endpoints (`mt5.mrpc.pro:443`), obtain your API key:
+1. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
+2. Generate your API token in your dashboard at [https://mrpc.pro/my](https://mrpc.pro/my).
+3. Set your token in your environment or connection config.
+
+---
+
 ## Step 1: Create Your Project
 
 Create a new directory for your trading bot:

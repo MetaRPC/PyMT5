@@ -78,7 +78,7 @@ def load_settings() -> Dict[str, Any]:
             "{\n"
             '  "user": 12345678,\n'
             '  "password": "your_password",\n'
-            '  "grpc_server": "127.0.0.1:9999",\n'
+            '  "grpc_server": "mt5.mrpc.pro:443",\n'
             '  "mt_cluster": "MetaQuotes-Demo",\n'
             '  "test_symbol": "EURUSD"\n'
             "}"

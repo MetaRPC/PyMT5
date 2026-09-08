@@ -398,7 +398,7 @@ class MT5Account:
             grpc.aio.AioRpcError: If the gRPC call fails due to communication errors.
 
         Example:
-            >>> account = MT5Account(user=12345, password="pass", grpc_server="localhost:9999")
+            >>> account = MT5Account(user=12345, password="pass", grpc_server="mt5.mrpc.pro:443")
             >>> await account.connect_by_host_port("mt5.broker.com", 443, "EURUSD")
             >>> print(f"Connected! Terminal GUID: {account.id}")
         """
@@ -465,7 +465,7 @@ class MT5Account:
             grpc.aio.AioRpcError: If the gRPC call fails due to communication errors.
 
         Example:
-            >>> account = MT5Account(user=12345, password="pass", grpc_server="localhost:9999")
+            >>> account = MT5Account(user=12345, password="pass", grpc_server="mt5.mrpc.pro:443")
             >>> await account.connect_by_server_name("MetaQuotes-Demo", "EURUSD")
             >>> print(f"Connected! Terminal GUID: {account.id}")
         """

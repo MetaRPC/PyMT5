@@ -197,7 +197,7 @@ async def main():
     account = MT5Account(
         user=12345678,  # MT5 login number
         password="password",
-        grpc_server="127.0.0.1:9999",  # optional, default "mt5.mrpc.pro:443"
+        grpc_server="mt5.mrpc.pro:443",  # default "mt5.mrpc.pro:443"
         id_=uuid4()  # optional UUID for terminal instance
     )
 

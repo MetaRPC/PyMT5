@@ -210,7 +210,7 @@ and updates the instance GUID (self.id) from server response.
 
 !!! example "Usage Example"
     ```python
-    account = MT5Account(user=12345, password="pass", grpc_server="localhost:9999")
+    account = MT5Account(user=12345, password="pass", grpc_server="mt5.mrpc.pro:443")
     await account.connect_by_server_name("MetaQuotes-Demo", "EURUSD")
     print(f"Connected! Terminal GUID: {account.id}")
     ```
@@ -235,7 +235,7 @@ and updates the instance GUID (self.id) from server response.
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `host` | str | - | Server IP address or hostname (e.g., "mt5.broker.com") |
+| `host` | str | - | Server IP address or hostname (e.g., "mt5.mrpc.pro") |
 | `port` | int | 443 | Server port number |
 | `base_chart_symbol` | str | "EURUSD" | Base symbol for chart initialization |
 | `wait_for_terminal_is_alive` | bool | True | Wait for terminal readiness before returning |
@@ -249,8 +249,8 @@ and updates the instance GUID (self.id) from server response.
 
 !!! example "Usage Example"
     ```python
-    account = MT5Account(user=12345, password="pass", grpc_server="localhost:9999")
-    await account.connect_by_host_port("mt5.broker.com", 443, "EURUSD")
+    account = MT5Account(user=12345, password="pass", grpc_server="mt5.mrpc.pro:443")
+    await account.connect_by_host_port("mt5.mrpc.pro", 443, "EURUSD")
     print(f"Connected! Terminal GUID: {account.id}")
     ```
 
