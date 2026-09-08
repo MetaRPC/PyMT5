@@ -226,17 +226,17 @@ ACCOUNT_BALANCE  # NameError: name 'ACCOUNT_BALANCE' is not defined
 
 
 
-- [Account Information Overview](../MT5Account/1.%20Account_Information/Account_Information.Overview.md)
+- [Account Information Overview](../API_Reference/MT5Account.md)
 
-- [Symbol Information Overview](../MT5Account/2.%20Symbol_Information/Symbol_Information.Overview.md)
+- [Symbol Information Overview](../API_Reference/MT5Account.md)
 
-- [Positions & Orders Overview](../MT5Account/3.%20Positions_Orders/Positions_Orders.Overview.md)
+- [Positions & Orders Overview](../API_Reference/MT5Account.md)
 
-- [Market Depth Overview](../MT5Account/4.%20Market_Depth/Market_Depth.Overview.md)
+- [Market Depth Overview](../API_Reference/MT5Account.md)
 
-- [Trading Operations Overview](../MT5Account/5.%20Trading_Operations/Trading_Operations.Overview.md)
+- [Trading Operations Overview](../API_Reference/MT5Account.md)
 
-- [Streaming Methods Overview](../MT5Account/6.%20Streaming_Methods/Streaming_Methods.Overview.md)
+- [Streaming Methods Overview](../API_Reference/MT5Account.md)
 
 
 

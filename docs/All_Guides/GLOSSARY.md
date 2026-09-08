@@ -37,7 +37,7 @@ Base layer providing direct access to MT5 terminal via gRPC protocol.
 
 **Location:** `package/MetaRpcMT5/helpers/mt5_account.py` (2100+ lines)
 
-**Documentation:** [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
+**Documentation:** [MT5Account.Master.Overview.md](../API_Reference/MT5Account.md)
 
 
 ---
@@ -68,7 +68,7 @@ Middle layer providing simplified method signatures without proto complexity.
 
 **Location:** `src/pymt5/mt5_service.py` (1200+ lines)
 
-**Documentation:** [MT5Service.Overview.md](../MT5Service/MT5Service.Overview.md)
+**Documentation:** [MT5Service.Overview.md](../API_Reference/MT5Service.md)
 
 
 ---
@@ -102,7 +102,7 @@ High-level API for common trading operations.
 
 **Location:** `src/pymt5/mt5_sugar.py` (2100+ lines)
 
-**Documentation:** [MT5Sugar Overview](../MT5Sugar/MT5Sugar.Master.Overview.md)
+**Documentation:** [MT5Sugar Overview](../API_Reference/MT5Sugar.md)
 
 
 ---
@@ -1212,8 +1212,8 @@ balance = await service.get_account_double(
 
 ## See Also
 
-- **[MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md)** - Complete low-level API reference
-- **[MT5Service API Overview](../MT5Service/MT5Service.Overview.md)** - Mid-level wrappers API
+- **[MT5Account Master Overview](../API_Reference/MT5Account.md)** - Complete low-level API reference
+- **[MT5Service API Overview](../API_Reference/MT5Service.md)** - Mid-level wrappers API
 - **[MT5Sugar API Reference](../API_Reference/MT5Sugar.md)** - High-level Sugar API
 - **[gRPC Stream Management](GRPC_STREAM_MANAGEMENT.md)** - Guide to streaming subscriptions
 - **[Return Codes Reference](RETURN_CODES_REFERENCE.md)** - Complete return codes reference

@@ -142,9 +142,9 @@ All streaming methods return **async generators** that yield data objects.
 **All support `cancellation_event` parameter for graceful stopping!**
 
 **Documentation:**
-- [Streaming Methods Overview](../MT5Account/6.%20Streaming_Methods/Streaming_Methods.Overview.md)
-- [on_symbol_tick](../MT5Account/6.%20Streaming_Methods/on_symbol_tick.md)
-- [on_trade](../MT5Account/6.%20Streaming_Methods/on_trade.md)
+- [Streaming Methods Overview](../API_Reference/MT5Account.md)
+- [on_symbol_tick](../API_Reference/MT5Account.md)
+- [on_trade](../API_Reference/MT5Account.md)
 
 **Examples:**
 
@@ -1240,9 +1240,9 @@ async def debug_pending_tasks():
 
 ## See Also
 
-* **[Streaming Methods Overview](../MT5Account/6.%20Streaming_Methods/Streaming_Methods.Overview.md)** - Complete streaming methods documentation
-* **[on_symbol_tick](../MT5Account/6.%20Streaming_Methods/on_symbol_tick.md)** - Tick streaming reference
-* **[on_trade](../MT5Account/6.%20Streaming_Methods/on_trade.md)** - Trade events reference
+* **[Streaming Methods Overview](../API_Reference/MT5Account.md)** - Complete streaming methods documentation
+* **[on_symbol_tick](../API_Reference/MT5Account.md)** - Tick streaming reference
+* **[on_trade](../API_Reference/MT5Account.md)** - Trade events reference
 * **[Python asyncio documentation](https://docs.python.org/3/library/asyncio.html)** - Official asyncio guide
 * **[gRPC Python](https://grpc.io/docs/languages/python/)** - Official gRPC Python guide
 

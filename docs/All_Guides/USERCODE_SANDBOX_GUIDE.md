@@ -294,9 +294,9 @@ except Exception as e:
 
 ## 📝 Documentation
 
-- [MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md) - Complete API reference (40 methods)
-- [MT5Service Overview](../MT5Service/MT5Service.Overview.md) - Mid-level wrapper (36 methods)
-- [MT5Sugar Master Overview](../MT5Sugar/MT5Sugar.Master.Overview.md) - High-level Sugar API (62+ methods)
+- [MT5Account Master Overview](../API_Reference/MT5Account.md) - Complete API reference (40 methods)
+- [MT5Service Overview](../API_Reference/MT5Service.md) - Mid-level wrapper (36 methods)
+- [MT5Sugar Master Overview](../API_Reference/MT5Sugar.md) - High-level Sugar API (62+ methods)
 - [ENUMS Usage Reference](ENUMS_USAGE_REFERENCE.md) - All ENUMs in one place
 
 ## 🔑 Configuration
@@ -331,7 +331,7 @@ $env:MT5_PASSWORD="YourPassword"
 $env:MT5_GRPC_SERVER="127.0.0.1:9999"
 ```
 
-See [demo_helpers.py](../../examples/0_common/demo_helpers.py) for details.
+See [demo_helpers.py](#) for details.
 
 ## Tips
 

@@ -21,13 +21,13 @@ MT5Account represents a low-level async Python client for MetaTrader 5 terminal 
 !!! tip "Detailed Guides Available"
     For in-depth understanding of each method group with examples and best practices, see:
 
-    - 📖 [MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md) - Complete low-level API guide
-    - 👤 [Account Information](../MT5Account/1.%20Account_Information/Account_Information.Overview.md) - Balance, equity, margin methods
-    - 📊 [Symbol Information](../MT5Account/2.%20Symbol_Information/Symbol_Information.Overview.md) - Symbol properties, ticks, sessions
-    - 📈 [Positions & Orders](../MT5Account/3.%20Positions_Orders/Positions_Orders.Overview.md) - Position/order snapshots and history
-    - 📖 [Market Depth](../MT5Account/4.%20Market_Depth/Market_Depth.Overview.md) - Level II quotes (DOM)
-    - 💰 [Trading Operations](../MT5Account/5.%20Trading_Operations/Trading_Operations.Overview.md) - Order execution and validation
-    - 📡 [Streaming Methods](../MT5Account/6.%20Streaming_Methods/Streaming_Methods.Overview.md) - Real-time data streams
+    - 📖 [MT5Account Master Overview](../API_Reference/MT5Account.md) - Complete low-level API guide
+    - 👤 [Account Information](../API_Reference/MT5Account.md) - Balance, equity, margin methods
+    - 📊 [Symbol Information](../API_Reference/MT5Account.md) - Symbol properties, ticks, sessions
+    - 📈 [Positions & Orders](../API_Reference/MT5Account.md) - Position/order snapshots and history
+    - 📖 [Market Depth](../API_Reference/MT5Account.md) - Level II quotes (DOM)
+    - 💰 [Trading Operations](../API_Reference/MT5Account.md) - Order execution and validation
+    - 📡 [Streaming Methods](../API_Reference/MT5Account.md) - Real-time data streams
 
 ---
 

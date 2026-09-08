@@ -1147,7 +1147,7 @@ NAVIGATION:
 **Next Steps:**
 
 - Run `python main.py inspect` and explore!
-- Check [MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md) for complete API documentation
+- Check [MT5Account Master Overview](../API_Reference/MT5Account.md) for complete API documentation
 - Try the demo examples in `examples/`
 - See [RETURN_CODES_REFERENCE.md](RETURN_CODES_REFERENCE.md) for error codes
 - See [USERCODE_SANDBOX_GUIDE.md](USERCODE_SANDBOX_GUIDE.md) for coding examples

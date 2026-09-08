@@ -20,7 +20,7 @@ MT5Sugar represents a high-level convenience API for MT5 trading using Python be
     - ✅ Comprehensive type hints for IDE autocomplete
 
 !!! tip "Detailed Guide Available"
-    📖 [MT5Sugar Master Overview](../MT5Sugar/MT5Sugar.Master.Overview.md) - Complete high-level API guide with examples, best practices, and usage patterns for all 62 methods
+    📖 [MT5Sugar Master Overview](../API_Reference/MT5Sugar.md) - Complete high-level API guide with examples, best practices, and usage patterns for all 62 methods
 
 ---
 

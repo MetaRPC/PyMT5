@@ -45,13 +45,13 @@ MT5Service represents a mid-level Python wrapper over MT5Account (low-level gRPC
 !!! tip "Detailed Guides Available"
     For in-depth understanding of each method group, see:
 
-    - 📖 [Complete MT5Service Overview](../MT5Service/MT5Service.Overview.md) - Value analysis of all 36 methods
-    - 👤 [Account Information](../MT5Service/1.%20Account_Information.md) - 4 methods (1 HIGH, 3 NONE)
-    - 📊 [Symbol Information](../MT5Service/2.%20Symbol_Information.md) - 13 methods (4 HIGH, 5 LOW, 4 NONE)
-    - 📈 [Positions & Orders](../MT5Service/3.%20Positions_Orders.md) - 5 methods (1 MEDIUM, 1 LOW, 3 NONE)
-    - 📖 [Market Depth](../MT5Service/4.%20Market_Depth.md) - 3 methods (1 HIGH, 2 MEDIUM)
-    - 💰 [Trading Operations](../MT5Service/5.%20Trading_Operations.md) - 6 methods (3 HIGH, 3 LOW)
-    - 📡 [Streaming Methods](../MT5Service/6.%20Streaming_Methods.md) - 5 methods (1 HIGH, 4 NONE)
+    - 📖 [Complete MT5Service Overview](../API_Reference/MT5Service.md) - Value analysis of all 36 methods
+    - 👤 [Account Information](../API_Reference/MT5Service.md) - 4 methods (1 HIGH, 3 NONE)
+    - 📊 [Symbol Information](../API_Reference/MT5Service.md) - 13 methods (4 HIGH, 5 LOW, 4 NONE)
+    - 📈 [Positions & Orders](../API_Reference/MT5Service.md) - 5 methods (1 MEDIUM, 1 LOW, 3 NONE)
+    - 📖 [Market Depth](../API_Reference/MT5Service.md) - 3 methods (1 HIGH, 2 MEDIUM)
+    - 💰 [Trading Operations](../API_Reference/MT5Service.md) - 6 methods (3 HIGH, 3 LOW)
+    - 📡 [Streaming Methods](../API_Reference/MT5Service.md) - 5 methods (1 HIGH, 4 NONE)
 
 ---
 

@@ -828,17 +828,17 @@ catch (Exception ex)
 
 ## 📖 Related Documentation
 
-* **[MT5Account - Master Overview](../MT5Account/MT5Account.Master.Overview.md)** - Low-level gRPC API reference.
+* **[MT5Account - Master Overview](../API_Reference/MT5Account.md)** - Low-level gRPC API reference.
 
-* **[MT5Service Documentation](../MT5Service/MT5Service.Overview.md)** - Simplified wrapper methods.
+* **[MT5Service Documentation](../API_Reference/MT5Service.md)** - Simplified wrapper methods.
 
-* **[MT5Sugar Documentation](../MT5Sugar/MT5Sugar.API_Overview.md)** - High-level convenience API.
+* **[MT5Sugar Documentation](../API_Reference/MT5Sugar.md)** - High-level convenience API.
 
-* **[GRPC_STREAM_MANAGEMENT.md](../GRPC_STREAM_MANAGEMENT.md)** - Streaming subscriptions guide.
+* **[GRPC_STREAM_MANAGEMENT.md](../All_Guides/GRPC_STREAM_MANAGEMENT.md)** - Streaming subscriptions guide.
 
-* **[Sync_vs_Async.md](../Sync_vs_Async.md)** - Async/sync patterns explained.
+* **[Sync_vs_Async.md](../All_Guides/SYNC_VS_ASYNC.md)** - Async/sync patterns explained.
 
-* **[UserCode_Sandbox_Guide.md](../UserCode_Sandbox_Guide.md)** - How to write custom strategies.
+* **[UserCode_Sandbox_Guide.md](../All_Guides/USERCODE_SANDBOX_GUIDE.md)** - How to write custom strategies.
 
 ---
 

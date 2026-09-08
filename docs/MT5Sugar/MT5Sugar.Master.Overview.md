@@ -382,8 +382,8 @@ print(f"\nTotal floating P/L: ${total_floating:.2f}")
 
 ## Related Documentation
 
-- **MT5Account** -- Low-level gRPC/Proto methods | [MT5Account Overview](../MT5Account/MT5Account.Master.Overview.md)
-- **MT5Service** -- Mid-level service layer | [MT5Service Overview](../MT5Service/MT5Service.Overview.md)
+- **MT5Account** -- Low-level gRPC/Proto methods | [MT5Account Overview](../API_Reference/MT5Account.md)
+- **MT5Service** -- Mid-level service layer | [MT5Service Overview](../API_Reference/MT5Service.md)
 - **MT5Sugar** (this document) -- High-level convenience methods
 
 ---
