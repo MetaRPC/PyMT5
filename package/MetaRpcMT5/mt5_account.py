@@ -1,3 +1,4 @@
+import os
 import asyncio
 import grpc
 import uuid
@@ -41,7 +42,8 @@ class ApiExceptionMT5(Exception):
 
 # === MT5Account Class ===
 class MT5Account:
-    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[str] = None):
+    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[str] = None, api_key: Optional[str] = None):
+        self.api_key = api_key or os.getenv('MRPC_API_KEY')
         self.user = user
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
@@ -72,7 +74,28 @@ class MT5Account:
 
     # === Utility: headers ===
     def get_headers(self):
-        return [("id", self.id)]
+        headers = []
+        if self.id:
+            headers.append(("id", str(self.id)))
+        if getattr(self, "api_key", None):
+            headers.append(("apikey", str(self.api_key)))
+        return headers
+
+    async def get_id(self, user: Optional[int] = None, password: Optional[str] = None) -> str:
+        req_user = str(user if user is not None else self.user)
+        req_pass = str(password if password is not None else self.password)
+        request = connection_pb2.GetIdRequest(user=req_user, password=req_pass)
+        headers = []
+        if getattr(self, "api_key", None):
+            headers.append(("apikey", str(self.api_key)))
+        res = await self.connection_client.GetId(request, metadata=headers)
+        if res.HasField("error"):
+            err = res.error
+            msg = getattr(err, "message", "") or getattr(err, "error_message", "")
+            if msg:
+                raise ApiExceptionMT5(res.error)
+        self.id = res.data.id
+        return self.id
 
     # === Utility: reconnect ===
     async def reconnect(self, deadline: Optional[datetime] = None):

@@ -11,14 +11,21 @@ from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as helper_pb
 
 class TestMT5Account(unittest.TestCase):
     def test_account_initialization(self):
-        account = MT5Account(user=12345678, password="test_password", grpc_server="custom.server:443")
+        account = MT5Account(user=12345678, password="test_password", grpc_server="custom.server:443", api_key="test_key")
         self.assertEqual(account.user, 12345678)
         self.assertEqual(account.password, "test_password")
         self.assertEqual(account.grpc_server, "custom.server:443")
+        self.assertEqual(account.api_key, "test_key")
 
     def test_default_grpc_server(self):
         account = MT5Account(user=12345678, password="test_password")
         self.assertEqual(account.grpc_server, "mt5.mrpc.pro:443")
+
+    def test_get_headers_with_auth(self):
+        account = MT5Account(user=12345678, password="test_password", id_="test-guid", api_key="my_api_key")
+        headers = account.get_headers()
+        self.assertIn(("id", "test-guid"), headers)
+        self.assertIn(("apikey", "my_api_key"), headers)
 
     def test_connect_request_proto(self):
         req = conn_pb.ConnectRequest(
@@ -31,6 +38,19 @@ class TestMT5Account(unittest.TestCase):
         self.assertEqual(req.password, "test_password")
         self.assertEqual(req.host, "127.0.0.1")
         self.assertEqual(req.port, 443)
+
+    def test_get_id_request_proto(self):
+        req = conn_pb.GetIdRequest(
+            user="12345678",
+            password="test_password"
+        )
+        self.assertEqual(req.user, "12345678")
+        self.assertEqual(req.password, "test_password")
+
+        reply = conn_pb.GetIdReply(
+            data=conn_pb.GetIdData(id="68c935ee-a2b1-4f3e-bb36-3982845cfa85")
+        )
+        self.assertEqual(reply.data.id, "68c935ee-a2b1-4f3e-bb36-3982845cfa85")
 
     def test_account_summary_data_proto(self):
         data = helper_pb.AccountSummaryData(
