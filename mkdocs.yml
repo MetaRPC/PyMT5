@@ -1,9 +1,10 @@
-site_name: MetaRPC MT5 Python Documentation
-site_url: http://127.0.0.1:8000/
+site_name: PyMT5 SDK Documentation
+site_url: https://metarpc.github.io/PyMT5/
+site_description: Complete Python SDK for MetaTrader 5 trading automation via gRPC
 
 repo_name: MetaRPC/PyMT5
 repo_url: https://github.com/MetaRPC/PyMT5
-edit_uri: ""
+edit_uri: edit/main/docs/
 
 theme:
   name: material
@@ -50,30 +51,6 @@ extra_css:
 extra_javascript:
   - javascripts/ux.js
 
-copyright: >
-  Copyright © 2024–2025 PyMT5. MT5 is a trademark of MetaQuotes Software Corp.
-  This documentation is community-maintained and not affiliated with MetaQuotes.
-
-nav:
-  - Home: index.md
-
-  - Guides:
-    - Getting Started: All_Guides/GETTING_STARTED.md
-    - Your First Project: All_Guides/Your_First_Project.md
-    - Project Map: All_Guides/PROJECT_MAP.md
-    - Glossary: All_Guides/GLOSSARY.md
-    - MT5 for Beginners: All_Guides/MT5_For_Beginners.md
-    - gRPC Streaming: All_Guides/GRPC_STREAM_MANAGEMENT.md
-    - Return Codes: All_Guides/RETURN_CODES_REFERENCE.md
-    - ENUMs Reference: All_Guides/ENUMS_USAGE_REFERENCE.md
-    - Protobuf Inspector: All_Guides/PROTOBUF_INSPECTOR_GUIDE.md
-    - UserCode Sandbox: All_Guides/USERCODE_SANDBOX_GUIDE.md
-
-  - API Reference:
-    - MT5Account API: API_Reference/MT5Account.md
-    - MT5Service API: API_Reference/MT5Service.md
-    - MT5Sugar API: API_Reference/MT5Sugar.md
-
 markdown_extensions:
   - admonition
   - md_in_html
@@ -91,3 +68,32 @@ markdown_extensions:
 
 plugins:
   - search
+
+copyright: >
+  Copyright © 2024–2025 MetaRPC. MT5 is a trademark of MetaQuotes Software Corp.
+  This documentation is community-maintained and not affiliated with MetaQuotes.
+
+nav:
+  - Home: index.md
+
+  - Guides:
+    - Getting Started: All_Guides/GETTING_STARTED.md
+    - Your First Project: All_Guides/Your_First_Project.md
+    - Project Map: All_Guides/PROJECT_MAP.md
+    - Glossary: All_Guides/GLOSSARY.md
+    - MT5 for Beginners: All_Guides/MT5_For_Beginners.md
+    - gRPC Streaming: All_Guides/GRPC_STREAM_MANAGEMENT.md
+    - Return Codes: All_Guides/RETURN_CODES_REFERENCE.md
+    - ENUMs Reference: All_Guides/ENUMS_USAGE_REFERENCE.md
+    - Protobuf Inspector: All_Guides/PROTOBUF_INSPECTOR_GUIDE.md
+    - UserCode Sandbox: All_Guides/USERCODE_SANDBOX_GUIDE.md
+    - Sync vs Async: All_Guides/SYNC_VS_ASYNC.md
+
+  - API Reference:
+    - MT5Account API: API_Reference/MT5Account.md
+    - MT5Service API: API_Reference/MT5Service.md
+    - MT5Sugar API: API_Reference/MT5Sugar.md
+
+  - Strategies:
+    - Master Overview: Strategies/Strategies.Master.Overview.md
+    - Presets: Strategies/Presets/AdaptiveMarketModePreset.md

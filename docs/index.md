@@ -32,19 +32,19 @@
 </a>
 
 <!-- Bottom Row (4-5-6) - Teal, Mint, Green -->
-<a href="MT5Service/MT5Service.Overview/" class="card card-4">
+<a href="API_Reference/MT5Service/" class="card card-4">
   <span class="material-symbols-rounded">build</span>
   <h3>MT5Service</h3>
   <p>Wrapper methods layer</p>
 </a>
 
-<a href="MT5Account/MT5Account.Master.Overview/" class="card card-5">
+<a href="API_Reference/MT5Account/" class="card card-5">
   <span class="material-symbols-rounded">settings</span>
   <h3>MT5Account</h3>
   <p>Low-level gRPC protocol layer</p>
 </a>
 
-<a href="MT5Sugar/MT5Sugar.Master.Overview/" class="card card-6">
+<a href="API_Reference/MT5Sugar/" class="card card-6">
   <span class="material-symbols-rounded">auto_awesome</span>
   <h3>MT5Sugar</h3>
   <p>High-level convenience API</p>
