@@ -1,4 +1,3 @@
-import os
 import asyncio
 import grpc
 import uuid
@@ -40,24 +39,13 @@ class ApiExceptionMT5(Exception):
         self.error = error
 
 
-import hashlib
-
 # === MT5Account Class ===
 class MT5Account:
-    @staticmethod
-    def compute_deterministic_id(user: int, password: str) -> str:
-        h = hashlib.sha256(f"{user}:{password}".encode('utf-8')).digest()
-        b = h[:16]
-        return f"{b[3]:02x}{b[2]:02x}{b[1]:02x}{b[0]:02x}-{b[5]:02x}{b[4]:02x}-{b[7]:02x}{b[6]:02x}-{b[8]:02x}{b[9]:02x}-{b[10]:02x}{b[11]:02x}{b[12]:02x}{b[13]:02x}{b[14]:02x}{b[15]:02x}"
-
-    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, api_key: Optional[str] = None, id_: Optional[str] = None):
-        if api_key and ('-' in str(api_key) and len(str(api_key)) == 36) and not id_:
-            id_ = api_key
-            api_key = None
-        self.api_key = api_key or os.getenv('MRPC_API_KEY')
+    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[str] = None):
         self.user = user
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
+        self.id = id_
 
         # Async gRPC secure channel (TLS)
         self.channel = grpc.aio.secure_channel(
@@ -74,8 +62,6 @@ class MT5Account:
         self.trade_functions_client = trade_functions_pb2_grpc.TradeFunctionsStub(self.channel)
         self.account_information_client = account_information_pb2_grpc.AccountInformationStub(self.channel)
 
-        self.id = str(id_) if id_ else self.get_id()
-
         # Connection state
         self.host = None
         self.port = None
@@ -83,50 +69,10 @@ class MT5Account:
         self.base_chart_symbol = None
         self.connect_timeout_seconds = 30
 
-    def get_id(self) -> str:
-        """Call gRPC GetId method to retrieve the deterministic account ID."""
-        request = connection_pb2.GetIdRequest(user=str(self.user), password=self.password)
-        metadata = []
-        if self.api_key:
-            metadata.append(("apikey", self.api_key))
-        try:
-            target = self.grpc_server.replace("https://", "").replace("http://", "")
-            creds = grpc.ssl_channel_credentials()
-            with grpc.secure_channel(target, creds) as channel:
-                stub = connection_pb2_grpc.ConnectionStub(channel)
-                reply = stub.GetId(request, metadata=metadata, timeout=5.0)
-                if reply.HasField("error") and reply.error.message:
-                    raise ApiExceptionMT5(reply.error)
-                if reply.HasField("data") and reply.data.id:
-                    self.id = reply.data.id
-                    return self.id
-        except Exception:
-            self.id = self.compute_deterministic_id(self.user, self.password)
-        return self.id
-
-    async def get_id_async(self) -> str:
-        """Retrieve account ID via async gRPC GetId endpoint."""
-        request = connection_pb2.GetIdRequest(user=str(self.user), password=self.password)
-        metadata = []
-        if self.api_key:
-            metadata.append(("apikey", self.api_key))
-        try:
-            reply = await self.connection_client.GetId(request, metadata=metadata, timeout=5.0)
-            if reply.HasField("error") and reply.error.message:
-                raise ApiExceptionMT5(reply.error)
-            if reply.HasField("data") and reply.data.id:
-                self.id = reply.data.id
-                return self.id
-        except Exception:
-            self.id = self.compute_deterministic_id(self.user, self.password)
-        return self.id
 
     # === Utility: headers ===
     def get_headers(self):
-        headers = [("id", self.id)]
-        if self.api_key:
-            headers.append(("apikey", self.api_key))
-        return headers
+        return [("id", self.id)]
 
     # === Utility: reconnect ===
     async def reconnect(self, deadline: Optional[datetime] = None):
@@ -191,7 +137,10 @@ class MT5Account:
             terminal_readiness_waiting_timeout_seconds=timeout_seconds,
         )
 
-        headers = self.get_headers()
+        headers = []
+        if self.id:
+            headers.append(("id", str(self.id)))
+        
         res = await self.connection_client.Connect(
             request,
             metadata=headers,
@@ -206,9 +155,7 @@ class MT5Account:
         self.port = port
         self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
-        guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
-        if guid:
-            self.id = guid
+        self.id = res.data.terminalInstanceGuid
 
     async def connect_by_server_name(
         self,
@@ -227,7 +174,9 @@ class MT5Account:
             terminal_readiness_waiting_timeout_seconds=timeout_seconds,
         )
 
-        headers = self.get_headers()
+        headers = []
+        if self.id:
+            headers.append(("id", str(self.id)))
         res = await self.connection_client.ConnectEx(
             request,
             metadata=headers,
@@ -241,9 +190,7 @@ class MT5Account:
         self.server_name = server_name
         self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
-        guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
-        if guid:
-            self.id = guid
+        self.id = res.data.terminal_instance_guid
 
     async def account_summary(
         self,
