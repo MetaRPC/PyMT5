@@ -145,7 +145,6 @@ class MT5Account:
         self.user = user
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
-        self.id = str(id_) if id_ else self.compute_deterministic_id(user, password)
 
         # Configure TLS credentials
         credentials = grpc.ssl_channel_credentials()
@@ -197,12 +196,52 @@ class MT5Account:
         self.trade_functions_client = trade_functions_pb2_grpc.TradeFunctionsStub(self.channel)
         self.account_information_client = account_information_pb2_grpc.AccountInformationStub(self.channel)
 
+        self.id = str(id_) if id_ else self.get_id()
+
         # Connection state
         self.host = None
         self.port = None
         self.server_name = None
         self.base_chart_symbol = None
         self.connect_timeout_seconds = 30
+
+    def get_id(self) -> str:
+        """Call gRPC GetId method to retrieve the deterministic account ID."""
+        request = connection_pb2.GetIdRequest(user=str(self.user), password=self.password)
+        metadata = []
+        if self.api_key:
+            metadata.append(("apikey", self.api_key))
+        try:
+            target = self.grpc_server.replace("https://", "").replace("http://", "")
+            creds = grpc.ssl_channel_credentials()
+            with grpc.secure_channel(target, creds) as channel:
+                stub = connection_pb2_grpc.ConnectionStub(channel)
+                reply = stub.GetId(request, metadata=metadata, timeout=5.0)
+                if reply.HasField("error") and reply.error.message:
+                    raise ApiExceptionMT5(reply.error)
+                if reply.HasField("data") and reply.data.id:
+                    self.id = reply.data.id
+                    return self.id
+        except Exception:
+            self.id = self.compute_deterministic_id(self.user, self.password)
+        return self.id
+
+    async def get_id_async(self) -> str:
+        """Retrieve account ID via async gRPC GetId endpoint."""
+        request = connection_pb2.GetIdRequest(user=str(self.user), password=self.password)
+        metadata = []
+        if self.api_key:
+            metadata.append(("apikey", self.api_key))
+        try:
+            reply = await self.connection_client.GetId(request, metadata=metadata, timeout=5.0)
+            if reply.HasField("error") and reply.error.message:
+                raise ApiExceptionMT5(reply.error)
+            if reply.HasField("data") and reply.data.id:
+                self.id = reply.data.id
+                return self.id
+        except Exception:
+            self.id = self.compute_deterministic_id(self.user, self.password)
+        return self.id
 
     # ══════════════════════════════════════════════════════════════════════════
     # region FACTORY METHODS
