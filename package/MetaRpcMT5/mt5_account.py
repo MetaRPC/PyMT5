@@ -39,13 +39,25 @@ class ApiExceptionMT5(Exception):
         self.error = error
 
 
+import hashlib
+
 # === MT5Account Class ===
 class MT5Account:
-    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[str] = None):
+    @staticmethod
+    def compute_deterministic_id(user: int, password: str) -> str:
+        h = hashlib.sha256(f"{user}:{password}".encode('utf-8')).digest()
+        b = h[:16]
+        return f"{b[3]:02x}{b[2]:02x}{b[1]:02x}{b[0]:02x}-{b[5]:02x}{b[4]:02x}-{b[7]:02x}{b[6]:02x}-{b[8]:02x}{b[9]:02x}-{b[10]:02x}{b[11]:02x}{b[12]:02x}{b[13]:02x}{b[14]:02x}{b[15]:02x}"
+
+    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, api_key: Optional[str] = None, id_: Optional[str] = None):
+        if api_key and ('-' in str(api_key) and len(str(api_key)) == 36) and not id_:
+            id_ = api_key
+            api_key = None
+        self.api_key = api_key or os.getenv('MRPC_API_KEY')
         self.user = user
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
-        self.id = id_
+        self.id = id_ or self.compute_deterministic_id(user, password)
 
         # Async gRPC secure channel (TLS)
         self.channel = grpc.aio.secure_channel(
@@ -137,10 +149,7 @@ class MT5Account:
             terminal_readiness_waiting_timeout_seconds=timeout_seconds,
         )
 
-        headers = []
-        if self.id:
-            headers.append(("id", str(self.id)))
-        
+        headers = self.get_headers()
         res = await self.connection_client.Connect(
             request,
             metadata=headers,
@@ -155,7 +164,9 @@ class MT5Account:
         self.port = port
         self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
-        self.id = res.data.terminalInstanceGuid
+        guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
+        if guid:
+            self.id = guid
 
     async def connect_by_server_name(
         self,
@@ -174,9 +185,7 @@ class MT5Account:
             terminal_readiness_waiting_timeout_seconds=timeout_seconds,
         )
 
-        headers = []
-        if self.id:
-            headers.append(("id", str(self.id)))
+        headers = self.get_headers()
         res = await self.connection_client.ConnectEx(
             request,
             metadata=headers,
@@ -190,7 +199,9 @@ class MT5Account:
         self.server_name = server_name
         self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
-        self.id = res.data.terminal_instance_guid
+        guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
+        if guid:
+            self.id = guid
 
     async def account_summary(
         self,

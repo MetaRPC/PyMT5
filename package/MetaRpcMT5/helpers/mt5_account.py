@@ -82,6 +82,8 @@ UTILITIES:
 ══════════════════════════════════════════════════════════════════════════════
 """
 
+import os
+import hashlib
 import asyncio
 import grpc
 from uuid import UUID, uuid4
@@ -119,7 +121,13 @@ from .errors import (
 
 # === MT5Account Class ===
 class MT5Account:
-    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[UUID] = None):
+    @staticmethod
+    def compute_deterministic_id(user: int, password: str) -> str:
+        h = hashlib.sha256(f"{user}:{password}".encode('utf-8')).digest()
+        b = h[:16]
+        return f"{b[3]:02x}{b[2]:02x}{b[1]:02x}{b[0]:02x}-{b[5]:02x}{b[4]:02x}-{b[7]:02x}{b[6]:02x}-{b[8]:02x}{b[9]:02x}-{b[10]:02x}{b[11]:02x}{b[12]:02x}{b[13]:02x}{b[14]:02x}{b[15]:02x}"
+
+    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, api_key: Optional[str] = None, id_: Optional[Any] = None):
         """
         Initialize MT5Account with gRPC connection.
 
@@ -127,12 +135,17 @@ class MT5Account:
             user: MT5 account login
             password: MT5 account password
             grpc_server: gRPC server address (default: "mt5.mrpc.pro:443")
-            id_: Terminal instance UUID (auto-generated if not provided)
+            api_key: MetaRPC API key (optional, falls back to MRPC_API_KEY environment variable)
+            id_: Terminal instance UUID (computed deterministically if not provided)
         """
+        if api_key and ('-' in str(api_key) and len(str(api_key)) == 36) and not id_:
+            id_ = api_key
+            api_key = None
+        self.api_key = api_key or os.getenv('MRPC_API_KEY')
         self.user = user
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
-        self.id = str(id_) if id_ else None
+        self.id = str(id_) if id_ else self.compute_deterministic_id(user, password)
 
         # Configure TLS credentials
         credentials = grpc.ssl_channel_credentials()
@@ -201,45 +214,14 @@ class MT5Account:
         user: int,
         password: str,
         grpc_server: str = "",
-        id_: Optional[UUID] = None
+        api_key: Optional[str] = None,
+        id_: Optional[Any] = None
     ) -> "MT5Account":
         """
-        Create MT5Account instance with auto-generated or explicit UUID.
-
-        RECOMMENDED factory method that creates a new MT5Account with gRPC connection.
-        The connection is established with TLS, keepalive, and automatic reconnect configured.
-        If id_ is not provided, a random UUID is automatically generated.
-
-        Args:
-            user: MT5 account login number
-            password: MT5 account password
-            grpc_server: gRPC server address (default: "mt5.mrpc.pro:443" if empty)
-            id_: Terminal instance UUID (optional, auto-generated if not provided)
-
-        Returns:
-            MT5Account: Initialized account instance (not yet connected to MT5 server)
-
-        Examples:
-            >>> # Auto-generated UUID (RECOMMENDED for most cases)
-            >>> account = MT5Account.create(
-            ...     user=12345678,
-            ...     password="mypassword",
-            ...     grpc_server="mt5.mrpc.pro:443"
-            ... )
-            >>>
-            >>> # Explicit UUID (for advanced use cases)
-            >>> from uuid import uuid4
-            >>> account = MT5Account.create(
-            ...     user=12345678,
-            ...     password="mypassword",
-            ...     grpc_server="mt5.mrpc.pro:443",
-            ...     id_=uuid4()
-            ... )
-            >>> await account.connect_by_server_name("MetaQuotes-Demo", "EURUSD")
+        Create MT5Account instance with auto-computed deterministic ID or explicit UUID.
         """
         server = grpc_server if grpc_server else "mt5.mrpc.pro:443"
-        terminal_id = id_ if id_ else uuid4()
-        return cls(user=user, password=password, grpc_server=server, id_=terminal_id)
+        return cls(user=user, password=password, grpc_server=server, api_key=api_key, id_=id_)
 
     # endregion
 
@@ -248,7 +230,12 @@ class MT5Account:
     # ══════════════════════════════════════════════════════════════════════════
 
     def get_headers(self):
-        return [("id", self.id)]
+        headers = []
+        if self.id:
+            headers.append(("id", str(self.id)))
+        if getattr(self, "api_key", None):
+            headers.append(("apikey", str(self.api_key)))
+        return headers
 
     async def reconnect(self, deadline: Optional[datetime] = None):
         if self.server_name:
@@ -413,10 +400,7 @@ class MT5Account:
             terminal_readiness_waiting_timeout_seconds=timeout_seconds,
         )
 
-        headers = []
-        if self.id:
-            headers.append(("id", str(self.id)))
-
+        headers = self.get_headers()
         res = await self.connection_client.Connect(
             request,
             metadata=headers,
@@ -431,7 +415,9 @@ class MT5Account:
         self.port = port
         self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
-        self.id = res.data.terminalInstanceGuid
+        guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
+        if guid:
+            self.id = guid
 
     async def connect_by_server_name(
         self,
@@ -478,9 +464,7 @@ class MT5Account:
             terminal_readiness_waiting_timeout_seconds=timeout_seconds,
         )
 
-        headers = []
-        if self.id:
-            headers.append(("id", str(self.id)))
+        headers = self.get_headers()
         res = await self.connection_client.ConnectEx(
             request,
             metadata=headers,
@@ -494,7 +478,9 @@ class MT5Account:
         self.server_name = server_name
         self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
-        self.id = res.data.terminal_instance_guid
+        guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
+        if guid:
+            self.id = guid
 
     # endregion
 
