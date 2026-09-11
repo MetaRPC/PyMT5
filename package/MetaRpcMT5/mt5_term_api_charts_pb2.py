@@ -12,10 +12,11 @@ _sym_db = _symbol_database.Default()
 
 
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from . import mrpc_mt5_error_pb2 as mrpc__mt5__error__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19mt5-term-api-charts.proto\x12\x0cmt5_term_api\x1a\x1cgoogle/api/annotations.proto\x1a\x14mrpc-mt5-error.proto\"*\n\x12GetEaParamsRequest\x12\x14\n\x0c\x65\x61_file_name\x18\x01 \x01(\t\"s\n\x10GetEaParamsReply\x12-\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x1d.mt5_term_api.GetEaParamsDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"v\n\x0fGetEaParamsData\x12\x0f\n\x07\x65\x61_name\x18\x01 \x01(\t\x12\x10\n\x08\x65\x61_found\x18\x02 \x01(\x08\x12\x15\n\rea_has_params\x18\x03 \x01(\x08\x12)\n\nparameters\x18\x04 \x03(\x0b\x32\x15.mt5_term_api.EaParam\"B\n\x07\x45\x61Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x04type\x18\x02 \x01(\x0e\x32\x1b.mt5_term_api.EA_PARAM_TYPE\"\xdd\x01\n\x1eOpenTerminalChartWithEaRequest\x12\x13\n\x0bsymbol_name\x18\x01 \x01(\t\x12\x14\n\x0c\x65\x61_file_name\x18\x02 \x01(\t\x12I\n\x0c\x63hart_period\x18\x03 \x01(\x0e\x32\x33.mt5_term_api.EnumOpenTerminalChartWithEaChatPeriod\x12\x45\n\rea_parameters\x18\x04 \x03(\x0b\x32..mt5_term_api.OpenTerminalChartWithEaParameter\"\x81\x03\n OpenTerminalChartWithEaParameter\x12\r\n\x05index\x18\x01 \x01(\x05\x12\x44\n\x04type\x18\x02 \x01(\x0e\x32\x36.mt5_term_api.EnumOpenTerminalChartWithEaParameterType\x12\x1c\n\x0fint_param_value\x18\x03 \x01(\x05H\x00\x88\x01\x01\x12\x1d\n\x10long_param_value\x18\x04 \x01(\x03H\x01\x88\x01\x01\x12\x1d\n\x10\x62ool_param_value\x18\x05 \x01(\x08H\x02\x88\x01\x01\x12\x1f\n\x12string_param_value\x18\x06 \x01(\tH\x03\x88\x01\x01\x12\x1f\n\x12\x64ouble_param_value\x18\x07 \x01(\x01H\x04\x88\x01\x01\x42\x12\n\x10_int_param_valueB\x13\n\x11_long_param_valueB\x13\n\x11_bool_param_valueB\x15\n\x13_string_param_valueB\x15\n\x13_double_param_value\"\x8b\x01\n\x1cOpenTerminalChartWithEaReply\x12\x39\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32).mt5_term_api.OpenTerminalChartWithEaDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"/\n\x1bOpenTerminalChartWithEaData\x12\x10\n\x08\x63hart_id\x18\x01 \x01(\x03*\x96\x01\n\rEA_PARAM_TYPE\x12\x1b\n\x17\x45\x41_PARAM_TYPE_UNDEFINED\x10\x00\x12\x18\n\x14\x45\x41_PARAM_TYPE_STRING\x10\x01\x12\x19\n\x15\x45\x41_PARAM_TYPE_INTEGER\x10\x02\x12\x18\n\x14\x45\x41_PARAM_TYPE_DOUBLE\x10\x03\x12\x19\n\x15\x45\x41_PARAM_TYPE_BOOLEAN\x10\x04*\xa5\x01\n(EnumOpenTerminalChartWithEaParameterType\x12\x15\n\x11MRPC_EA_PARAM_INT\x10\x00\x12\x16\n\x12MRPC_EA_PARAM_LONG\x10\x01\x12\x16\n\x12MRPC_EA_PARAM_BOOL\x10\x02\x12\x18\n\x14MRPC_EA_PARAM_STRING\x10\x03\x12\x18\n\x14MRPC_EA_PARAM_DOUBLE\x10\x04*\xb1\x05\n%EnumOpenTerminalChartWithEaChatPeriod\x12 \n\x1cMRPC_EA_CHART_PERIOD_CURRENT\x10\x00\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M1\x10\x01\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M2\x10\x02\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M3\x10\x03\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M4\x10\x04\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M5\x10\x05\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M6\x10\x06\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M10\x10\x07\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M12\x10\x08\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M15\x10\t\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M20\x10\n\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M30\x10\x0b\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H1\x10\x0c\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H2\x10\r\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H3\x10\x0e\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H4\x10\x0f\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H6\x10\x10\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H8\x10\x11\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_H12\x10\x12\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_D1\x10\x13\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_W1\x10\x14\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_MN1\x10\x15\x32\x87\x02\n\x06\x43harts\x12\x95\x01\n\x17OpenTerminalChartWithEa\x12,.mt5_term_api.OpenTerminalChartWithEaRequest\x1a*.mt5_term_api.OpenTerminalChartWithEaReply\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/OpenTerminalChartWithEa\x12\x65\n\x0bGetEaParams\x12 .mt5_term_api.GetEaParamsRequest\x1a\x1e.mt5_term_api.GetEaParamsReply\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/GetEaParamsBBZ1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\x0cmt5_term_apib\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19mt5-term-api-charts.proto\x12\x0cmt5_term_api\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x14mrpc-mt5-error.proto\"*\n\x12GetEaParamsRequest\x12\x14\n\x0c\x65\x61_file_name\x18\x01 \x01(\t\"s\n\x10GetEaParamsReply\x12-\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x1d.mt5_term_api.GetEaParamsDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"v\n\x0fGetEaParamsData\x12\x0f\n\x07\x65\x61_name\x18\x01 \x01(\t\x12\x10\n\x08\x65\x61_found\x18\x02 \x01(\x08\x12\x15\n\rea_has_params\x18\x03 \x01(\x08\x12)\n\nparameters\x18\x04 \x03(\x0b\x32\x15.mt5_term_api.EaParam\"B\n\x07\x45\x61Param\x12\x0c\n\x04name\x18\x01 \x01(\t\x12)\n\x04type\x18\x02 \x01(\x0e\x32\x1b.mt5_term_api.EA_PARAM_TYPE\"\xdd\x01\n\x1eOpenTerminalChartWithEaRequest\x12\x13\n\x0bsymbol_name\x18\x01 \x01(\t\x12\x14\n\x0c\x65\x61_file_name\x18\x02 \x01(\t\x12I\n\x0c\x63hart_period\x18\x03 \x01(\x0e\x32\x33.mt5_term_api.EnumOpenTerminalChartWithEaChatPeriod\x12\x45\n\rea_parameters\x18\x04 \x03(\x0b\x32..mt5_term_api.OpenTerminalChartWithEaParameter\"\x81\x03\n OpenTerminalChartWithEaParameter\x12\r\n\x05index\x18\x01 \x01(\x05\x12\x44\n\x04type\x18\x02 \x01(\x0e\x32\x36.mt5_term_api.EnumOpenTerminalChartWithEaParameterType\x12\x1c\n\x0fint_param_value\x18\x03 \x01(\x05H\x00\x88\x01\x01\x12\x1d\n\x10long_param_value\x18\x04 \x01(\x03H\x01\x88\x01\x01\x12\x1d\n\x10\x62ool_param_value\x18\x05 \x01(\x08H\x02\x88\x01\x01\x12\x1f\n\x12string_param_value\x18\x06 \x01(\tH\x03\x88\x01\x01\x12\x1f\n\x12\x64ouble_param_value\x18\x07 \x01(\x01H\x04\x88\x01\x01\x42\x12\n\x10_int_param_valueB\x13\n\x11_long_param_valueB\x13\n\x11_bool_param_valueB\x15\n\x13_string_param_valueB\x15\n\x13_double_param_value\"\x8b\x01\n\x1cOpenTerminalChartWithEaReply\x12\x39\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32).mt5_term_api.OpenTerminalChartWithEaDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"/\n\x1bOpenTerminalChartWithEaData\x12\x10\n\x08\x63hart_id\x18\x01 \x01(\x03\"\xf4\x02\n\x0f\x41ttachEaRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x14\n\x0c\x65\x61_file_name\x18\x02 \x01(\t\x12\x13\n\x0bsymbol_name\x18\x03 \x01(\t\x12I\n\x0c\x63hart_period\x18\x04 \x01(\x0e\x32\x33.mt5_term_api.EnumOpenTerminalChartWithEaChatPeriod\x12\x45\n\rea_parameters\x18\x05 \x03(\x0b\x32..mt5_term_api.OpenTerminalChartWithEaParameter\x12\x1c\n\x0f\x65\x61_file_content\x18\x06 \x01(\x0cH\x00\x88\x01\x01\x12\x1c\n\x0fmax_cpu_percent\x18\x07 \x01(\x01H\x01\x88\x01\x01\x12\x1a\n\rmax_ram_bytes\x18\x08 \x01(\x03H\x02\x88\x01\x01\x42\x12\n\x10_ea_file_contentB\x12\n\x10_max_cpu_percentB\x10\n\x0e_max_ram_bytes\"m\n\rAttachEaReply\x12*\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x1a.mt5_term_api.AttachEaDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"\x84\x01\n\x0c\x41ttachEaData\x12\r\n\x05\x65\x61_id\x18\x01 \x01(\t\x12\x16\n\x0e\x65\x61_terminal_id\x18\x02 \x01(\t\x12\x19\n\x11parent_session_id\x18\x03 \x01(\t\x12\x0f\n\x07\x65\x61_name\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t\x12\x12\n\nprocess_id\x18\x06 \x01(\x05\"\\\n\x14GetRunningEasRequest\x12\x17\n\nsession_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05\x65\x61_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x42\r\n\x0b_session_idB\x08\n\x06_ea_id\"w\n\x12GetRunningEasReply\x12/\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x1f.mt5_term_api.GetRunningEasDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"=\n\x11GetRunningEasData\x12(\n\x03\x65\x61s\x18\x01 \x03(\x0b\x32\x1b.mt5_term_api.RunningEaInfo\"\xf6\x02\n\rRunningEaInfo\x12\r\n\x05\x65\x61_id\x18\x01 \x01(\t\x12\x0f\n\x07\x65\x61_name\x18\x02 \x01(\t\x12\x19\n\x11parent_session_id\x18\x03 \x01(\t\x12\x16\n\x0e\x65\x61_terminal_id\x18\x04 \x01(\t\x12\x12\n\nprocess_id\x18\x05 \x01(\x05\x12\x0e\n\x06symbol\x18\x06 \x01(\t\x12\x0e\n\x06period\x18\x07 \x01(\t\x12\r\n\x05state\x18\x08 \x01(\t\x12.\n\nstarted_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x16\n\x0e\x65\x61_cpu_percent\x18\n \x01(\x01\x12\x17\n\x0fref_cpu_percent\x18\x0b \x01(\x01\x12\x11\n\tcpu_ratio\x18\x0c \x01(\x01\x12\x14\n\x0c\x65\x61_ram_bytes\x18\r \x01(\x03\x12\x15\n\rref_ram_bytes\x18\x0e \x01(\x03\x12\x11\n\tram_ratio\x18\x0f \x01(\x01\x12\x1b\n\x13resource_multiplier\x18\x10 \x01(\x01\"E\n\x10GetEaLogsRequest\x12\r\n\x05\x65\x61_id\x18\x01 \x01(\t\x12\x15\n\x08log_type\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\x0b\n\t_log_type\"o\n\x0eGetEaLogsReply\x12+\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x1b.mt5_term_api.GetEaLogsDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"5\n\rGetEaLogsData\x12$\n\x04rows\x18\x01 \x03(\x0b\x32\x16.mt5_term_api.EaLogRow\"U\n\x08\x45\x61LogRow\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\">\n\rStopEaRequest\x12\r\n\x05\x65\x61_id\x18\x01 \x01(\t\x12\x13\n\x06reason\x18\x02 \x01(\tH\x00\x88\x01\x01\x42\t\n\x07_reason\"i\n\x0bStopEaReply\x12(\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x18.mt5_term_api.StopEaDataH\x00\x12$\n\x05\x65rror\x18\x02 \x01(\x0b\x32\x13.mt5_term_api.ErrorH\x00\x42\n\n\x08response\"=\n\nStopEaData\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\r\n\x05\x65\x61_id\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t*\x96\x01\n\rEA_PARAM_TYPE\x12\x1b\n\x17\x45\x41_PARAM_TYPE_UNDEFINED\x10\x00\x12\x18\n\x14\x45\x41_PARAM_TYPE_STRING\x10\x01\x12\x19\n\x15\x45\x41_PARAM_TYPE_INTEGER\x10\x02\x12\x18\n\x14\x45\x41_PARAM_TYPE_DOUBLE\x10\x03\x12\x19\n\x15\x45\x41_PARAM_TYPE_BOOLEAN\x10\x04*\xa5\x01\n(EnumOpenTerminalChartWithEaParameterType\x12\x15\n\x11MRPC_EA_PARAM_INT\x10\x00\x12\x16\n\x12MRPC_EA_PARAM_LONG\x10\x01\x12\x16\n\x12MRPC_EA_PARAM_BOOL\x10\x02\x12\x18\n\x14MRPC_EA_PARAM_STRING\x10\x03\x12\x18\n\x14MRPC_EA_PARAM_DOUBLE\x10\x04*\xb1\x05\n%EnumOpenTerminalChartWithEaChatPeriod\x12 \n\x1cMRPC_EA_CHART_PERIOD_CURRENT\x10\x00\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M1\x10\x01\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M2\x10\x02\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M3\x10\x03\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M4\x10\x04\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M5\x10\x05\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_M6\x10\x06\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M10\x10\x07\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M12\x10\x08\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M15\x10\t\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M20\x10\n\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_M30\x10\x0b\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H1\x10\x0c\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H2\x10\r\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H3\x10\x0e\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H4\x10\x0f\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H6\x10\x10\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_H8\x10\x11\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_H12\x10\x12\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_D1\x10\x13\x12\x1b\n\x17MRPC_EA_CHART_PERIOD_W1\x10\x14\x12\x1c\n\x18MRPC_EA_CHART_PERIOD_MN1\x10\x15\x32\xa5\x05\n\x06\x43harts\x12\x95\x01\n\x17OpenTerminalChartWithEa\x12,.mt5_term_api.OpenTerminalChartWithEaRequest\x1a*.mt5_term_api.OpenTerminalChartWithEaReply\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/OpenTerminalChartWithEa\x12\x65\n\x0bGetEaParams\x12 .mt5_term_api.GetEaParamsRequest\x1a\x1e.mt5_term_api.GetEaParamsReply\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/GetEaParams\x12\x63\n\x08\x41ttachEa\x12\x1d.mt5_term_api.AttachEaRequest\x1a\x1b.mt5_term_api.AttachEaReply\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x10/Charts/AttachEa:\x01*\x12t\n\rGetRunningEas\x12\".mt5_term_api.GetRunningEasRequest\x1a .mt5_term_api.GetRunningEasReply\"\x1d\x82\xd3\xe4\x93\x02\x17\x12\x15/Charts/GetRunningEas\x12\x64\n\tGetEaLogs\x12\x1e.mt5_term_api.GetEaLogsRequest\x1a\x1c.mt5_term_api.GetEaLogsReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/Charts/GetEaLogs\x12[\n\x06StopEa\x12\x1b.mt5_term_api.StopEaRequest\x1a\x19.mt5_term_api.StopEaReply\"\x19\x82\xd3\xe4\x93\x02\x13\"\x0e/Charts/StopEa:\x01*BBZ1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\x0cmt5_term_apib\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'mt5_term_api_charts_pb2', globals())
@@ -27,28 +28,64 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CHARTS.methods_by_name['OpenTerminalChartWithEa']._serialized_options = b'\202\323\344\223\002\032\022\030/OpenTerminalChartWithEa'
   _CHARTS.methods_by_name['GetEaParams']._options = None
   _CHARTS.methods_by_name['GetEaParams']._serialized_options = b'\202\323\344\223\002\016\022\014/GetEaParams'
-  _EA_PARAM_TYPE._serialized_start=1248
-  _EA_PARAM_TYPE._serialized_end=1398
-  _ENUMOPENTERMINALCHARTWITHEAPARAMETERTYPE._serialized_start=1401
-  _ENUMOPENTERMINALCHARTWITHEAPARAMETERTYPE._serialized_end=1566
-  _ENUMOPENTERMINALCHARTWITHEACHATPERIOD._serialized_start=1569
-  _ENUMOPENTERMINALCHARTWITHEACHATPERIOD._serialized_end=2258
-  _GETEAPARAMSREQUEST._serialized_start=95
-  _GETEAPARAMSREQUEST._serialized_end=137
-  _GETEAPARAMSREPLY._serialized_start=139
-  _GETEAPARAMSREPLY._serialized_end=254
-  _GETEAPARAMSDATA._serialized_start=256
-  _GETEAPARAMSDATA._serialized_end=374
-  _EAPARAM._serialized_start=376
-  _EAPARAM._serialized_end=442
-  _OPENTERMINALCHARTWITHEAREQUEST._serialized_start=445
-  _OPENTERMINALCHARTWITHEAREQUEST._serialized_end=666
-  _OPENTERMINALCHARTWITHEAPARAMETER._serialized_start=669
-  _OPENTERMINALCHARTWITHEAPARAMETER._serialized_end=1054
-  _OPENTERMINALCHARTWITHEAREPLY._serialized_start=1057
-  _OPENTERMINALCHARTWITHEAREPLY._serialized_end=1196
-  _OPENTERMINALCHARTWITHEADATA._serialized_start=1198
-  _OPENTERMINALCHARTWITHEADATA._serialized_end=1245
-  _CHARTS._serialized_start=2261
-  _CHARTS._serialized_end=2524
+  _CHARTS.methods_by_name['AttachEa']._options = None
+  _CHARTS.methods_by_name['AttachEa']._serialized_options = b'\202\323\344\223\002\025\"\020/Charts/AttachEa:\001*'
+  _CHARTS.methods_by_name['GetRunningEas']._options = None
+  _CHARTS.methods_by_name['GetRunningEas']._serialized_options = b'\202\323\344\223\002\027\022\025/Charts/GetRunningEas'
+  _CHARTS.methods_by_name['GetEaLogs']._options = None
+  _CHARTS.methods_by_name['GetEaLogs']._serialized_options = b'\202\323\344\223\002\023\022\021/Charts/GetEaLogs'
+  _CHARTS.methods_by_name['StopEa']._options = None
+  _CHARTS.methods_by_name['StopEa']._serialized_options = b'\202\323\344\223\002\023\"\016/Charts/StopEa:\001*'
+  _EA_PARAM_TYPE._serialized_start=3117
+  _EA_PARAM_TYPE._serialized_end=3267
+  _ENUMOPENTERMINALCHARTWITHEAPARAMETERTYPE._serialized_start=3270
+  _ENUMOPENTERMINALCHARTWITHEAPARAMETERTYPE._serialized_end=3435
+  _ENUMOPENTERMINALCHARTWITHEACHATPERIOD._serialized_start=3438
+  _ENUMOPENTERMINALCHARTWITHEACHATPERIOD._serialized_end=4127
+  _GETEAPARAMSREQUEST._serialized_start=128
+  _GETEAPARAMSREQUEST._serialized_end=170
+  _GETEAPARAMSREPLY._serialized_start=172
+  _GETEAPARAMSREPLY._serialized_end=287
+  _GETEAPARAMSDATA._serialized_start=289
+  _GETEAPARAMSDATA._serialized_end=407
+  _EAPARAM._serialized_start=409
+  _EAPARAM._serialized_end=475
+  _OPENTERMINALCHARTWITHEAREQUEST._serialized_start=478
+  _OPENTERMINALCHARTWITHEAREQUEST._serialized_end=699
+  _OPENTERMINALCHARTWITHEAPARAMETER._serialized_start=702
+  _OPENTERMINALCHARTWITHEAPARAMETER._serialized_end=1087
+  _OPENTERMINALCHARTWITHEAREPLY._serialized_start=1090
+  _OPENTERMINALCHARTWITHEAREPLY._serialized_end=1229
+  _OPENTERMINALCHARTWITHEADATA._serialized_start=1231
+  _OPENTERMINALCHARTWITHEADATA._serialized_end=1278
+  _ATTACHEAREQUEST._serialized_start=1281
+  _ATTACHEAREQUEST._serialized_end=1653
+  _ATTACHEAREPLY._serialized_start=1655
+  _ATTACHEAREPLY._serialized_end=1764
+  _ATTACHEADATA._serialized_start=1767
+  _ATTACHEADATA._serialized_end=1899
+  _GETRUNNINGEASREQUEST._serialized_start=1901
+  _GETRUNNINGEASREQUEST._serialized_end=1993
+  _GETRUNNINGEASREPLY._serialized_start=1995
+  _GETRUNNINGEASREPLY._serialized_end=2114
+  _GETRUNNINGEASDATA._serialized_start=2116
+  _GETRUNNINGEASDATA._serialized_end=2177
+  _RUNNINGEAINFO._serialized_start=2180
+  _RUNNINGEAINFO._serialized_end=2554
+  _GETEALOGSREQUEST._serialized_start=2556
+  _GETEALOGSREQUEST._serialized_end=2625
+  _GETEALOGSREPLY._serialized_start=2627
+  _GETEALOGSREPLY._serialized_end=2738
+  _GETEALOGSDATA._serialized_start=2740
+  _GETEALOGSDATA._serialized_end=2793
+  _EALOGROW._serialized_start=2795
+  _EALOGROW._serialized_end=2880
+  _STOPEAREQUEST._serialized_start=2882
+  _STOPEAREQUEST._serialized_end=2944
+  _STOPEAREPLY._serialized_start=2946
+  _STOPEAREPLY._serialized_end=3051
+  _STOPEADATA._serialized_start=3053
+  _STOPEADATA._serialized_end=3114
+  _CHARTS._serialized_start=4130
+  _CHARTS._serialized_end=4807
 # @@protoc_insertion_point(module_scope)

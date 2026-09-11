@@ -24,6 +24,26 @@ class ChartsStub(object):
                 request_serializer=mt5__term__api__charts__pb2.GetEaParamsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__charts__pb2.GetEaParamsReply.FromString,
                 )
+        self.AttachEa = channel.unary_unary(
+                '/mt5_term_api.Charts/AttachEa',
+                request_serializer=mt5__term__api__charts__pb2.AttachEaRequest.SerializeToString,
+                response_deserializer=mt5__term__api__charts__pb2.AttachEaReply.FromString,
+                )
+        self.GetRunningEas = channel.unary_unary(
+                '/mt5_term_api.Charts/GetRunningEas',
+                request_serializer=mt5__term__api__charts__pb2.GetRunningEasRequest.SerializeToString,
+                response_deserializer=mt5__term__api__charts__pb2.GetRunningEasReply.FromString,
+                )
+        self.GetEaLogs = channel.unary_unary(
+                '/mt5_term_api.Charts/GetEaLogs',
+                request_serializer=mt5__term__api__charts__pb2.GetEaLogsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__charts__pb2.GetEaLogsReply.FromString,
+                )
+        self.StopEa = channel.unary_unary(
+                '/mt5_term_api.Charts/StopEa',
+                request_serializer=mt5__term__api__charts__pb2.StopEaRequest.SerializeToString,
+                response_deserializer=mt5__term__api__charts__pb2.StopEaReply.FromString,
+                )
 
 
 class ChartsServicer(object):
@@ -41,6 +61,30 @@ class ChartsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AttachEa(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRunningEas(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetEaLogs(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StopEa(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChartsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +97,26 @@ def add_ChartsServicer_to_server(servicer, server):
                     servicer.GetEaParams,
                     request_deserializer=mt5__term__api__charts__pb2.GetEaParamsRequest.FromString,
                     response_serializer=mt5__term__api__charts__pb2.GetEaParamsReply.SerializeToString,
+            ),
+            'AttachEa': grpc.unary_unary_rpc_method_handler(
+                    servicer.AttachEa,
+                    request_deserializer=mt5__term__api__charts__pb2.AttachEaRequest.FromString,
+                    response_serializer=mt5__term__api__charts__pb2.AttachEaReply.SerializeToString,
+            ),
+            'GetRunningEas': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRunningEas,
+                    request_deserializer=mt5__term__api__charts__pb2.GetRunningEasRequest.FromString,
+                    response_serializer=mt5__term__api__charts__pb2.GetRunningEasReply.SerializeToString,
+            ),
+            'GetEaLogs': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetEaLogs,
+                    request_deserializer=mt5__term__api__charts__pb2.GetEaLogsRequest.FromString,
+                    response_serializer=mt5__term__api__charts__pb2.GetEaLogsReply.SerializeToString,
+            ),
+            'StopEa': grpc.unary_unary_rpc_method_handler(
+                    servicer.StopEa,
+                    request_deserializer=mt5__term__api__charts__pb2.StopEaRequest.FromString,
+                    response_serializer=mt5__term__api__charts__pb2.StopEaReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +159,73 @@ class Charts(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/GetEaParams',
             mt5__term__api__charts__pb2.GetEaParamsRequest.SerializeToString,
             mt5__term__api__charts__pb2.GetEaParamsReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AttachEa(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/AttachEa',
+            mt5__term__api__charts__pb2.AttachEaRequest.SerializeToString,
+            mt5__term__api__charts__pb2.AttachEaReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetRunningEas(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/GetRunningEas',
+            mt5__term__api__charts__pb2.GetRunningEasRequest.SerializeToString,
+            mt5__term__api__charts__pb2.GetRunningEasReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetEaLogs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/GetEaLogs',
+            mt5__term__api__charts__pb2.GetEaLogsRequest.SerializeToString,
+            mt5__term__api__charts__pb2.GetEaLogsReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StopEa(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/StopEa',
+            mt5__term__api__charts__pb2.StopEaRequest.SerializeToString,
+            mt5__term__api__charts__pb2.StopEaReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
