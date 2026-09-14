@@ -44,6 +44,11 @@ class ChartsStub(object):
                 request_serializer=mt5__term__api__charts__pb2.StopEaRequest.SerializeToString,
                 response_deserializer=mt5__term__api__charts__pb2.StopEaReply.FromString,
                 )
+        self.StartEa = channel.unary_unary(
+                '/mt5_term_api.Charts/StartEa',
+                request_serializer=mt5__term__api__charts__pb2.StartEaRequest.SerializeToString,
+                response_deserializer=mt5__term__api__charts__pb2.StartEaReply.FromString,
+                )
 
 
 class ChartsServicer(object):
@@ -85,6 +90,12 @@ class ChartsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def StartEa(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChartsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -117,6 +128,11 @@ def add_ChartsServicer_to_server(servicer, server):
                     servicer.StopEa,
                     request_deserializer=mt5__term__api__charts__pb2.StopEaRequest.FromString,
                     response_serializer=mt5__term__api__charts__pb2.StopEaReply.SerializeToString,
+            ),
+            'StartEa': grpc.unary_unary_rpc_method_handler(
+                    servicer.StartEa,
+                    request_deserializer=mt5__term__api__charts__pb2.StartEaRequest.FromString,
+                    response_serializer=mt5__term__api__charts__pb2.StartEaReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -227,5 +243,22 @@ class Charts(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/StopEa',
             mt5__term__api__charts__pb2.StopEaRequest.SerializeToString,
             mt5__term__api__charts__pb2.StopEaReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StartEa(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Charts/StartEa',
+            mt5__term__api__charts__pb2.StartEaRequest.SerializeToString,
+            mt5__term__api__charts__pb2.StartEaReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
