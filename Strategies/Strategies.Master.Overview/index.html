@@ -1,0 +1,3119 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete Python SDK for MetaTrader 5 trading automation via gRPC">
+      
+      
+      
+        <link rel="canonical" href="https://metarpc.github.io/PyMT5/Strategies/Strategies.Master.Overview/">
+      
+      
+        <link rel="prev" href="../../API_Reference/MT5Sugar/">
+      
+      
+        <link rel="next" href="../Presets/AdaptiveMarketModePreset/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Master Overview - PyMT5 SDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#strategies-master-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PyMT5 SDK Documentation" class="md-header__button md-logo" aria-label="PyMT5 SDK Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PyMT5 SDK Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Master Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PyMT5 SDK Documentation" class="md-nav__button md-logo" aria-label="PyMT5 SDK Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    PyMT5 SDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../All_Guides/SYNC_VS_ASYNC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sync vs Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strategies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strategies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important-disclaimer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ IMPORTANT DISCLAIMER
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ IMPORTANT DISCLAIMER">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical Limitations:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demo-accounts-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ DEMO ACCOUNTS ONLY
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-here-strategy-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 Start here - Strategy Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚦 Start here - Strategy Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrators-single-strategy-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrators - Single-Strategy Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#presets-multi-strategy-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Presets - Multi-Strategy Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-strategy-selector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Quick Strategy Selector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-index-all-strategy-specs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Full Index · All Strategy Specs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orchestrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Orchestrators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Orchestrators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grid-trading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid Trading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hedging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hedging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#news-straddle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        News Straddle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending-breakout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pending Breakout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎛️ Presets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎛️ Presets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-market-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptive Market Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-layer-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-Layer System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-features-all-orchestrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Features (All Orchestrators)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 Usage Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-an-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running an Orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-a-preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running a Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Shortcuts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategy-selection-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Strategy Selection Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Strategy Selection Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#by-market-volatility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By Market Volatility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-market-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By Market Event
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-trading-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By Trading Style
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Key Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volatility-calculation-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volatility Calculation (Simplified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#news-detection-hardcoded-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        News Detection (Hardcoded Schedule)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#point-based-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point-Based Calculations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Important Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ Important Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trading-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trading Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-strategy-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Strategy Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-risk-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Risk Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-runtime-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Runtime Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Learning Path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Learning Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beginner-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beginner Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-jump-all-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Quick Jump - All Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Quick Jump - All Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrators_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#presets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Presets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Presets/AdaptiveMarketModePreset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#important-disclaimer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ IMPORTANT DISCLAIMER
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ IMPORTANT DISCLAIMER">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#critical-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Critical Limitations:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demo-accounts-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ DEMO ACCOUNTS ONLY
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-here-strategy-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚦 Start here - Strategy Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚦 Start here - Strategy Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrators-single-strategy-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrators - Single-Strategy Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#presets-multi-strategy-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Presets - Multi-Strategy Systems
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-strategy-selector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Quick Strategy Selector
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-index-all-strategy-specs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Full Index · All Strategy Specs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#orchestrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Orchestrators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Orchestrators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grid-trading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid Trading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scalping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scalping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hedging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hedging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#news-straddle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        News Straddle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pending-breakout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pending Breakout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎛️ Presets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎛️ Presets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-market-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adaptive Market Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏗️ Architecture Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Architecture Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-layer-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-Layer System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-features-all-orchestrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Features (All Orchestrators)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔌 Usage Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔌 Usage Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-an-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running an Orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-a-preset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running a Preset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-line-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Line Shortcuts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategy-selection-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Strategy Selection Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Strategy Selection Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#by-market-volatility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By Market Volatility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-market-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By Market Event
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#by-trading-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By Trading Style
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        💡 Key Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Key Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volatility-calculation-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volatility Calculation (Simplified)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#news-detection-hardcoded-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        News Detection (Hardcoded Schedule)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#point-based-calculations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Point-Based Calculations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#risk-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚠️ Important Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ Important Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trading-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trading Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution Safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Considerations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-strategy-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Strategy Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-risk-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Risk Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-runtime-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Runtime Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#learning-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Learning Path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎓 Learning Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beginner-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beginner Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intermediate-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intermediate Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📖 Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-jump-all-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎯 Quick Jump - All Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Quick Jump - All Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrators_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#presets_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Presets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="strategies-master-overview">Strategies - Master Overview<a class="headerlink" href="#strategies-master-overview" title="Permanent link">¶</a></h1>
+<blockquote>
+<p>One page to <strong>orient fast</strong>: what orchestrators and presets are available, how to choose the right strategy, and jump links to every <strong>strategy spec</strong> in this docs set.</p>
+</blockquote>
+<hr />
+<h2 id="important-disclaimer">⚠️ IMPORTANT DISCLAIMER<a class="headerlink" href="#important-disclaimer" title="Permanent link">¶</a></h2>
+<p><strong>🎓 EDUCATIONAL &amp; DEMONSTRATION PURPOSE ONLY</strong></p>
+<p>All orchestrators and presets in this documentation are <strong>DEMONSTRATION EXAMPLES</strong> designed to showcase the CSharpMT5 API capabilities and serve as templates for building your own trading strategies.</p>
+<p><strong>These are NOT production-ready trading systems.</strong></p>
+<h3 id="critical-limitations">Critical Limitations:<a class="headerlink" href="#critical-limitations" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p><strong>Simplified Market Analysis</strong>:</p>
+</li>
+<li>
+<p>Volatility calculation uses basic formula (<code>spread × 10</code>)</p>
+</li>
+<li>News detection uses hardcoded UTC schedule (not real economic calendar)</li>
+<li>
+<p>No advanced technical indicators or ML-based analysis</p>
+</li>
+<li>
+<p><strong>No Risk Management</strong>:</p>
+</li>
+<li>
+<p>No account balance protection</p>
+</li>
+<li>No drawdown limits</li>
+<li>No position correlation analysis</li>
+<li>
+<p>No portfolio-level risk controls</p>
+</li>
+<li>
+<p><strong>Basic Execution Logic</strong>:</p>
+</li>
+<li>
+<p>No slippage handling</p>
+</li>
+<li>No adverse market condition detection</li>
+<li>No dynamic parameter adjustment</li>
+</ol>
+<h3 id="demo-accounts-only">⚠️ DEMO ACCOUNTS ONLY<a class="headerlink" href="#demo-accounts-only" title="Permanent link">¶</a></h3>
+<p><strong>NEVER use these strategies on live accounts without:</strong></p>
+<ul>
+<li>Complete understanding of the algorithm</li>
+<li>Comprehensive backtesting on historical data</li>
+<li>Forward testing on demo accounts for extended periods</li>
+<li>Proper risk management implementation</li>
+<li>Real-time monitoring and alerting systems</li>
+<li>Professional trading strategy validation</li>
+</ul>
+<p><strong>Recommended approach:</strong></p>
+<ol>
+<li>Study the code and understand every line</li>
+<li>Test on demo accounts extensively</li>
+<li>Modify and enhance with proper risk management</li>
+<li>Build your own strategies using these as templates</li>
+<li>Only after thorough validation, consider live trading with minimal capital</li>
+</ol>
+<p><strong>By using these strategies, you acknowledge that:</strong></p>
+<ul>
+<li>You are fully responsible for any trading decisions</li>
+<li>These are educational examples, not investment advice</li>
+<li>Trading involves substantial risk of loss</li>
+<li>Past performance does not guarantee future results</li>
+</ul>
+<hr />
+<h2 id="start-here-strategy-types">🚦 Start here - Strategy Types<a class="headerlink" href="#start-here-strategy-types" title="Permanent link">¶</a></h2>
+<h3 id="orchestrators-single-strategy-execution">Orchestrators - Single-Strategy Execution<a class="headerlink" href="#orchestrators-single-strategy-execution" title="Permanent link">¶</a></h3>
+<p><strong>What</strong>: Individual trading strategies that execute one specific algorithm.</p>
+<p><strong>When to use</strong>:</p>
+<ul>
+<li>You know exactly which strategy fits current market conditions</li>
+<li>Testing or optimizing a specific trading approach</li>
+<li>Building custom presets with specific orchestrator combinations</li>
+</ul>
+<p><strong>Available Orchestrators</strong>:</p>
+<ul>
+<li>
+<p><strong><a href="../Orchestrators_EN/GridTradingOrchestrator/">GridTradingOrchestrator</a></strong> - Grid trading for range-bound markets</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/SimpleScalpingOrchestrator/">SimpleScalpingOrchestrator</a></strong> - Quick scalping trades with tight stops</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/QuickHedgeOrchestrator/">QuickHedgeOrchestrator</a></strong> - Hedging strategy for high volatility</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/NewsStraddleOrchestrator/">NewsStraddleOrchestrator</a></strong> - Breakout trading around news events</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/PendingBreakoutOrchestrator/">PendingBreakoutOrchestrator</a></strong> - Pending orders for breakout trading</p>
+</li>
+</ul>
+<hr />
+<h3 id="presets-multi-strategy-systems">Presets - Multi-Strategy Systems<a class="headerlink" href="#presets-multi-strategy-systems" title="Permanent link">¶</a></h3>
+<p><strong>What</strong>: Intelligent systems that combine multiple orchestrators with automatic strategy selection based on market analysis.</p>
+<p><strong>When to use</strong>:</p>
+<ul>
+<li>
+<p>Want automated strategy selection based on market conditions</p>
+</li>
+<li>
+<p>Running strategies without constant monitoring</p>
+</li>
+<li>
+<p>Testing complex multi-strategy systems</p>
+</li>
+<li>
+<p>Production trading with adaptive behavior</p>
+</li>
+</ul>
+<p><strong>Available Presets</strong>:</p>
+<ul>
+<li><strong><a href="../Presets/AdaptiveMarketModePreset/">AdaptiveMarketModePreset</a></strong> - Intelligent multi-strategy system that analyzes market and selects optimal orchestrator</li>
+</ul>
+<hr />
+<h2 id="quick-strategy-selector">🧭 Quick Strategy Selector<a class="headerlink" href="#quick-strategy-selector" title="Permanent link">¶</a></h2>
+<p><strong>Range-bound / Low volatility</strong>
+→ <a href="../Orchestrators_EN/GridTradingOrchestrator/">GridTradingOrchestrator</a>
+   <em>Captures oscillations within tight range</em>.</p>
+<p><strong>Normal volatility / Trending</strong>
+→ <a href="../Orchestrators_EN/SimpleScalpingOrchestrator/">SimpleScalpingOrchestrator</a>
+   <em>Quick entries/exits with tight risk control</em>.</p>
+<p><strong>High volatility / Choppy</strong>
+→ <a href="../Orchestrators_EN/QuickHedgeOrchestrator/">QuickHedgeOrchestrator</a>
+   <em>Hedged positions reduce directional risk</em>.</p>
+<p><strong>News events / Economic calendar</strong>
+→ <a href="../Orchestrators_EN/NewsStraddleOrchestrator/">NewsStraddleOrchestrator</a>
+   <em>Captures breakout in either direction</em>.</p>
+<p><strong>Technical breakout setup</strong>
+→ <a href="../Orchestrators_EN/PendingBreakoutOrchestrator/">PendingBreakoutOrchestrator</a>
+   <em>Pending orders at key levels</em>.</p>
+<p><strong>Unknown / Dynamic conditions</strong>
+→ <a href="../Presets/AdaptiveMarketModePreset/">AdaptiveMarketModePreset</a>
+   <em>Automatically selects best strategy</em>.</p>
+<hr />
+<h2 id="full-index-all-strategy-specs">📚 Full Index · All Strategy Specs<a class="headerlink" href="#full-index-all-strategy-specs" title="Permanent link">¶</a></h2>
+<hr />
+<h2 id="orchestrators">🎯 Orchestrators<a class="headerlink" href="#orchestrators" title="Permanent link">¶</a></h2>
+<h3 id="grid-trading">Grid Trading<a class="headerlink" href="#grid-trading" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong><a href="../Orchestrators_EN/GridTradingOrchestrator/">GridTradingOrchestrator.md</a></strong> - Complete specification.</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/GridTradingOrchestrator.HOW_IT_WORKS/">GridTradingOrchestrator.HOW_IT_WORKS.md</a></strong> - Detailed algorithm explanation.</p>
+</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Places Buy Limit orders below price, Sell Limit orders above</li>
+<li>Configurable grid levels and spacing</li>
+<li>Automatic TP/SL for each level</li>
+<li>Best for: Range-bound markets (low volatility &lt; 15 points)</li>
+</ul>
+<p><strong>Quick Start</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span>grid
+</code></pre></div></p>
+<p><strong>Configuration Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GridTradingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">GridLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">              </span><span class="c1">// 3 levels each direction</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">GridSpacingPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">      </span><span class="c1">// 20 points between levels</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">VolumePerLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">       </span><span class="c1">// 0.01 lots per level</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">         </span><span class="c1">// 50 points SL</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">       </span><span class="c1">// 30 points TP</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">MaxRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="w">           </span><span class="c1">// Run for 15 minutes</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h3 id="scalping">Scalping<a class="headerlink" href="#scalping" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong><a href="../Orchestrators_EN/SimpleScalpingOrchestrator/">SimpleScalpingOrchestrator.md</a></strong> - Complete specification.</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/SimpleScalpingOrchestrator.HOW_IT_WORKS/">SimpleScalpingOrchestrator.HOW_IT_WORKS.md</a></strong> - Detailed algorithm explanation.</p>
+</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Quick market entries with tight stops</li>
+<li>Risk-based position sizing</li>
+<li>Configurable hold time (seconds)</li>
+<li>Random or fixed direction</li>
+<li>Best for: Normal volatility (15-40 points)</li>
+</ul>
+<p><strong>Quick Start</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span>scalping
+</code></pre></div></p>
+<p><strong>Configuration Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleScalpingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">RiskAmount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span><span class="w">           </span><span class="c1">// Risk $20 per trade</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">         </span><span class="c1">// 15 points SL</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">       </span><span class="c1">// 25 points TP (R:R ≈ 1:1.67)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="n">MaxHoldSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w">         </span><span class="c1">// Hold max 60 seconds</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">IsBuy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="w">                 </span><span class="c1">// Buy direction (or false for Sell)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h3 id="hedging">Hedging<a class="headerlink" href="#hedging" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong><a href="../Orchestrators_EN/QuickHedgeOrchestrator/">QuickHedgeOrchestrator.md</a></strong> - Complete specification.</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/QuickHedgeOrchestrator.HOW_IT_WORKS/">QuickHedgeOrchestrator.HOW_IT_WORKS.md</a></strong> - Detailed algorithm explanation.</p>
+</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Opens hedged positions (Buy + Sell simultaneously)</li>
+<li>Closes losing position, keeps winner</li>
+<li>Reduces directional risk</li>
+<li>Best for: High volatility (&gt; 40 points)</li>
+</ul>
+<p><strong>Quick Start</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span>hedge
+</code></pre></div></p>
+<p><strong>Configuration Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QuickHedgeOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">               </span><span class="c1">// 0.01 lots per position</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">         </span><span class="c1">// 30 points SL</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">       </span><span class="c1">// 50 points TP</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="n">MaxHoldSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="w">         </span><span class="c1">// Hold max 2 minutes</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h3 id="news-straddle">News Straddle<a class="headerlink" href="#news-straddle" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong><a href="../Orchestrators_EN/NewsStraddleOrchestrator/">NewsStraddleOrchestrator.md</a></strong> - Complete specification.</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/NewsStraddleOrchestrator.HOW_IT_WORKS/">NewsStraddleOrchestrator.HOW_IT_WORKS.md</a></strong> - Detailed algorithm explanation.</p>
+</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Places Buy Stop above + Sell Stop below current price</li>
+<li>Captures breakout in either direction</li>
+<li>Cancels opposite order after one triggers</li>
+<li>Best for: News events (UTC schedule: 08:30, 12:30, 14:00, 18:00, 19:00)</li>
+</ul>
+<p><strong>Quick Start</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span>news
+</code></pre></div></p>
+<p><strong>Configuration Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NewsStraddleOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">               </span><span class="c1">// 0.01 lots per position</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="n">DistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">         </span><span class="c1">// 30 points above/below price</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">         </span><span class="c1">// 20 points SL</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">       </span><span class="c1">// 40 points TP</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="n">MaxWaitSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="w">         </span><span class="c1">// Wait max 5 minutes</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h3 id="pending-breakout">Pending Breakout<a class="headerlink" href="#pending-breakout" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong><a href="../Orchestrators_EN/PendingBreakoutOrchestrator/">PendingBreakoutOrchestrator.md</a></strong> - Complete specification.</p>
+</li>
+<li>
+<p><strong><a href="../Orchestrators_EN/PendingBreakoutOrchestrator.HOW_IT_WORKS/">PendingBreakoutOrchestrator.HOW_IT_WORKS.md</a></strong> - Detailed algorithm explanation.</p>
+</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Places pending orders at technical levels</li>
+<li>Multiple levels with configurable spacing</li>
+<li>Automatic order management</li>
+<li>Best for: Technical breakout setups (spread &gt; 3 points)</li>
+</ul>
+<p><strong>Quick Start</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span>breakout
+</code></pre></div></p>
+<p><strong>Configuration Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PendingBreakoutOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="p">{</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">               </span><span class="c1">// 0.01 lots per order</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="n">Levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">                  </span><span class="c1">// 3 pending orders</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="n">LevelSpacingPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">     </span><span class="c1">// 25 points between levels</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">         </span><span class="c1">// 40 points SL</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w">       </span><span class="c1">// 60 points TP</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="n">MaxRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="w">           </span><span class="c1">// Run for 20 minutes</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h2 id="presets">🎛️ Presets<a class="headerlink" href="#presets" title="Permanent link">¶</a></h2>
+<h3 id="adaptive-market-mode">Adaptive Market Mode<a class="headerlink" href="#adaptive-market-mode" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong><a href="../Presets/AdaptiveMarketModePreset/">AdaptiveMarketModePreset.md</a></strong> - Complete specification with decision tree.</li>
+</ul>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Analyzes market every cycle (5 minutes)</li>
+<li>Calculates volatility: <code>spread × 10</code> (simplified)</li>
+<li>Checks news schedule (hardcoded UTC times)</li>
+<li>Detects breakouts (spread &gt; 3 points)</li>
+<li>Automatically selects and executes optimal orchestrator</li>
+<li>Combines ALL 5 orchestrators into one adaptive system</li>
+</ul>
+<p><strong>Decision Tree</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1. NEWS TIME? (UTC: 08:30, 12:30, 14:00, 18:00, 19:00)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>   └─► YES → NewsStraddleOrchestrator (HIGHEST PRIORITY)
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>2. SPREAD &gt; 3 points? (Breakout signal)
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>   └─► YES → PendingBreakoutOrchestrator
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>3. VOLATILITY &lt; 15 points? (Range-bound)
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>   └─► YES → GridTradingOrchestrator
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>4. VOLATILITY &lt; 40 points? (Normal)
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>   └─► YES → SimpleScalpingOrchestrator
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>5. DEFAULT (High volatility &gt; 40 points)
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>   └─► QuickHedgeOrchestrator (Protection mode)
+</code></pre></div></p>
+<p><strong>Quick Start</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span>preset
+</code></pre></div></p>
+<p><strong>Configuration Example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">preset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdaptiveMarketModePreset</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="p">{</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="n">BaseRiskAmount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span><span class="w">           </span><span class="c1">// Base risk for scalping</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="n">LowVolatilityThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">15.0</span><span class="p">,</span><span class="w">   </span><span class="c1">// &lt; 15 pts = grid</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="n">HighVolatilityThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">40.0</span><span class="p">,</span><span class="w">  </span><span class="c1">// &gt; 40 pts = hedge</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="n">EnableNewsMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span><span class="w">            </span><span class="c1">// Enable news detection</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="n">MinutesBeforeNews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">          </span><span class="c1">// Start 10 min before news</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="n">CycleDurationMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">        </span><span class="c1">// 5 minutes per cycle</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="n">TotalRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="w">             </span><span class="c1">// Run for 1 hour</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="p">};</span>
+</code></pre></div></p>
+<hr />
+<h2 id="architecture-overview">🏗️ Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">¶</a></h2>
+<h3 id="three-layer-system">Three-Layer System<a class="headerlink" href="#three-layer-system" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>LAYER 3: PRESETS
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  Multi-strategy systems with automatic selection
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  • AdaptiveMarketModePreset
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    ↓
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>LAYER 2: ORCHESTRATORS
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>  Single-strategy execution engines
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>  • GridTrading  • Scalping  • Hedge
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>  • NewsStraddle • PendingBreakout
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    ↓
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>LAYER 1: MT5 SERVICE
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>  Core trading API (Account, Service, Sugar)
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>  • MT5Account (low-level gRPC)
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>  • MT5Service (simplified wrappers)
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>  • MT5Sugar (high-level helpers)
+</code></pre></div>
+<hr />
+<h3 id="common-features-all-orchestrators">Common Features (All Orchestrators)<a class="headerlink" href="#common-features-all-orchestrators" title="Permanent link">¶</a></h3>
+<p><strong>Market Analysis</strong>:</p>
+<ul>
+<li>Real-time volatility calculation</li>
+<li>Spread monitoring</li>
+<li>Price movement tracking</li>
+<li>Time-based conditions</li>
+</ul>
+<p><strong>Risk Management</strong>:</p>
+<ul>
+<li>Configurable stop loss (points)</li>
+<li>Configurable take profit (points)</li>
+<li>Volume/lot size control</li>
+<li>Risk-based position sizing (where applicable)</li>
+</ul>
+<p><strong>Execution Control</strong>:</p>
+<ul>
+<li>Maximum runtime limits</li>
+<li>Emergency stop functionality</li>
+<li>Position monitoring</li>
+<li>Automatic cleanup on exit</li>
+</ul>
+<p><strong>Progress Reporting</strong>:</p>
+<ul>
+<li>Console output with status updates</li>
+<li>Performance metrics (balance, equity, profit/loss)</li>
+<li>Order placement confirmations</li>
+<li>Error handling and logging</li>
+</ul>
+<hr />
+<h2 id="usage-patterns">🔌 Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">¶</a></h2>
+<h3 id="running-an-orchestrator">Running an Orchestrator<a class="headerlink" href="#running-an-orchestrator" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// 1. Create MT5 connection</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConnectionHelper</span><span class="p">.</span><span class="n">BuildConfiguration</span><span class="p">();</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">ConnectionHelper</span><span class="p">.</span><span class="n">CreateAndConnectAccountAsync</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MT5Service</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1">// 2. Configure orchestrator</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GridTradingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">{</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="n">GridLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">    </span><span class="n">GridSpacingPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">    </span><span class="n">VolumePerLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">    </span><span class="n">MaxRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="p">};</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="c1">// 3. Run orchestrator</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="k">await</span><span class="w"> </span><span class="n">orchestrator</span><span class="p">.</span><span class="n">RunAsync</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h3 id="running-a-preset">Running a Preset<a class="headerlink" href="#running-a-preset" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// 1. Create MT5 connection (same as above)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConnectionHelper</span><span class="p">.</span><span class="n">BuildConfiguration</span><span class="p">();</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">ConnectionHelper</span><span class="p">.</span><span class="n">CreateAndConnectAccountAsync</span><span class="p">(</span><span class="n">config</span><span class="p">);</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MT5Service</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1">// 2. Configure preset</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="kt">var</span><span class="w"> </span><span class="n">preset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdaptiveMarketModePreset</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="p">{</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="n">BaseRiskAmount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="n">LowVolatilityThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">15.0</span><span class="p">,</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="n">HighVolatilityThreshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">40.0</span><span class="p">,</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">    </span><span class="n">EnableNewsMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="n">CycleDurationMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">    </span><span class="n">TotalRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="p">};</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="c1">// 3. Run preset (will automatically select strategies)</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="k">await</span><span class="w"> </span><span class="n">preset</span><span class="p">.</span><span class="n">RunAsync</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h3 id="command-line-shortcuts">Command-Line Shortcuts<a class="headerlink" href="#command-line-shortcuts" title="Permanent link">¶</a></h3>
+<p>Every orchestrator and preset has multiple command-line aliases:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Orchestrators</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>dotnet<span class="w"> </span>run<span class="w"> </span>grid<span class="w">          </span><span class="c1"># or: gridtrading, 9</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>dotnet<span class="w"> </span>run<span class="w"> </span>scalping<span class="w">      </span><span class="c1"># or: scalp, 10</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>dotnet<span class="w"> </span>run<span class="w"> </span>hedge<span class="w">         </span><span class="c1"># or: quickhedge, 11</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>dotnet<span class="w"> </span>run<span class="w"> </span>news<span class="w">          </span><span class="c1"># or: newsstraddle, 12</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>dotnet<span class="w"> </span>run<span class="w"> </span>breakout<span class="w">      </span><span class="c1"># or: pendingbreakout, 13</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1"># Presets</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>dotnet<span class="w"> </span>run<span class="w"> </span>preset<span class="w">        </span><span class="c1"># or: adaptive, adaptivemarket, 14</span>
+</code></pre></div>
+<hr />
+<h2 id="strategy-selection-guide">🎯 Strategy Selection Guide<a class="headerlink" href="#strategy-selection-guide" title="Permanent link">¶</a></h2>
+<h3 id="by-market-volatility">By Market Volatility<a class="headerlink" href="#by-market-volatility" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>LOW VOLATILITY (&lt; 15 points)
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>└─► GridTradingOrchestrator
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    • Tight range
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    • Frequent oscillations
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    • Low spread
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>MEDIUM VOLATILITY (15-40 points)
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>└─► SimpleScalpingOrchestrator
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    • Normal movement
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>    • Clear short-term trends
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>    • Moderate spread
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>HIGH VOLATILITY (&gt; 40 points)
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>└─► QuickHedgeOrchestrator
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>    • Choppy price action
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>    • Wide spread
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>    • Uncertain direction
+</code></pre></div>
+<hr />
+<h3 id="by-market-event">By Market Event<a class="headerlink" href="#by-market-event" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>NEWS EVENT (Economic Calendar)
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>└─► NewsStraddleOrchestrator
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    • High-impact news release
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    • Expected volatility spike
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    • Directional breakout likely
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>TECHNICAL BREAKOUT (Chart Pattern)
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>└─► PendingBreakoutOrchestrator
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    • Support/resistance level
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>    • Consolidation pattern
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>    • Pending breakout setup
+</code></pre></div>
+<hr />
+<h3 id="by-trading-style">By Trading Style<a class="headerlink" href="#by-trading-style" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>PASSIVE / HANDS-OFF
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>└─► AdaptiveMarketModePreset
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    • Let system choose strategy
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    • Automatic market analysis
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    • Multi-hour runtime
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>ACTIVE / MANUAL CONTROL
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>└─► Individual Orchestrators
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    • You analyze market conditions
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>    • Select specific strategy
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>    • Shorter runtime (5-20 minutes)
+</code></pre></div>
+<hr />
+<h2 id="key-concepts">💡 Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">¶</a></h2>
+<h3 id="volatility-calculation-simplified">Volatility Calculation (Simplified)<a class="headerlink" href="#volatility-calculation-simplified" title="Permanent link">¶</a></h3>
+<p>All strategies use this simplified volatility metric:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="n">SymbolInfoTickAsync</span><span class="p">(</span><span class="n">symbol</span><span class="p">);</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">service</span><span class="p">.</span><span class="n">GetPointAsync</span><span class="p">(</span><span class="n">symbol</span><span class="p">);</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">spreadPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">tick</span><span class="p">.</span><span class="n">Ask</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tick</span><span class="p">.</span><span class="n">Bid</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">point</span><span class="p">;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">volatility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spreadPoints</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">  </span><span class="c1">// Simplified metric</span>
+</code></pre></div>
+<p><strong>Real Production Note</strong>: This is a <strong>demonstration formula</strong>. In real production systems, use proper volatility indicators:</p>
+<ul>
+<li>ATR (Average True Range)</li>
+<li>Standard deviation of price changes</li>
+<li>Bollinger Band width</li>
+<li>Historical volatility calculations</li>
+</ul>
+<hr />
+<h3 id="news-detection-hardcoded-schedule">News Detection (Hardcoded Schedule)<a class="headerlink" href="#news-detection-hardcoded-schedule" title="Permanent link">¶</a></h3>
+<p><strong>Current Implementation</strong>: Hardcoded UTC time schedule.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">newsHours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">19</span><span class="w"> </span><span class="p">};</span><span class="w">  </span><span class="c1">// UTC hours</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kt">int</span><span class="p">[]</span><span class="w"> </span><span class="n">newsMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="p">};</span><span class="w">                </span><span class="c1">// xx:30</span>
+</code></pre></div></p>
+<p><strong>Real Production Note</strong>: This is a <strong>demonstration approach</strong>. In real production systems:</p>
+<ul>
+<li>Integrate with economic calendar API (e.g., Forex Factory, Investing.com)</li>
+<li>Parse real news events with impact levels (high/medium/low)</li>
+<li>Dynamic schedule updates</li>
+<li>Currency-specific news filtering</li>
+</ul>
+<hr />
+<h3 id="point-based-calculations">Point-Based Calculations<a class="headerlink" href="#point-based-calculations" title="Permanent link">¶</a></h3>
+<p>All orchestrators use <strong>points</strong> (not pips) for distance calculations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1">// For EURUSD (5 digits):</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="c1">// 1 pip = 10 points</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="c1">// 20 points = 2 pips = 0.00020 price distance</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="c1">// Conversion:</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="kt">double</span><span class="w"> </span><span class="n">priceDistance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">symbolPoint</span><span class="p">;</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="kt">double</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">priceDistance</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">symbolPoint</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Why points?</strong> Universal across all instruments (forex, metals, indices, crypto).</p>
+<hr />
+<h3 id="risk-management">Risk Management<a class="headerlink" href="#risk-management" title="Permanent link">¶</a></h3>
+<p><strong>Position Sizing Options</strong>:</p>
+<ol>
+<li>
+<p><strong>Fixed Volume</strong>: <code>VolumePerLevel = 0.01</code> (Grid, Hedge, News)</p>
+</li>
+<li>
+<p><strong>Risk-Based</strong>: <code>RiskAmount = 20.0</code> (Scalping) - calculates volume based on SL distance</p>
+</li>
+</ol>
+<p><strong>Stop Loss / Take Profit</strong>:</p>
+<ul>
+<li>Always specified in <strong>points</strong></li>
+<li>Automatically normalized to symbol precision</li>
+<li>Applied to every order/position</li>
+</ul>
+<p><strong>Maximum Runtime</strong>:</p>
+<ul>
+<li><code>MaxRunMinutes</code> - hard limit on execution time</li>
+<li>Prevents runaway strategies</li>
+<li>Automatic cleanup on timeout</li>
+</ul>
+<hr />
+<h2 id="important-notes">⚠️ Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">¶</a></h2>
+<h3 id="trading-environment">Trading Environment<a class="headerlink" href="#trading-environment" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong>Demo account first</strong>: Always test on demo before live trading</p>
+</li>
+<li>
+<p><strong>Network stability</strong>: gRPC connection required throughout runtime</p>
+</li>
+<li>
+<p><strong>Broker compatibility</strong>: Some features may not be available on all brokers</p>
+</li>
+<li>
+<p><strong>Hedging support</strong>: QuickHedgeOrchestrator requires hedging-enabled account</p>
+</li>
+</ul>
+<hr />
+<h3 id="execution-safety">Execution Safety<a class="headerlink" href="#execution-safety" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong>Emergency stop</strong>: Press <code>Ctrl+C</code> to stop any strategy immediately</p>
+</li>
+<li>
+<p><strong>Position cleanup</strong>: All orchestrators close positions on exit</p>
+</li>
+<li>
+<p><strong>Order cancellation</strong>: Pending orders are cancelled on exit</p>
+</li>
+<li>
+<p><strong>Error handling</strong>: Connection errors trigger retry logic (3 attempts with exponential backoff)</p>
+</li>
+</ul>
+<hr />
+<h3 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong>Retry logic</strong>: Built-in retry with exponential backoff (1s → 2s → 4s)</p>
+</li>
+<li>
+<p><strong>Rate limiting</strong>: 3-second delay between order placements</p>
+</li>
+<li>
+<p><strong>Connection pooling</strong>: Single gRPC connection shared across operations</p>
+</li>
+<li>
+<p><strong>Progress bars</strong>: Visual feedback for long-running operations</p>
+</li>
+</ul>
+<hr />
+<h2 id="best-practices">📋 Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">¶</a></h2>
+<h3 id="1-strategy-selection">1. Strategy Selection<a class="headerlink" href="#1-strategy-selection" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1">// ❌ BAD: Running grid strategy in high volatility</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">grid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GridTradingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="p">{</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="n">GridLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">  </span><span class="c1">// Will hit all SL levels quickly!</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="c1">// ...</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="p">};</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="c1">// ✅ GOOD: Use preset for automatic selection</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="kt">var</span><span class="w"> </span><span class="n">preset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AdaptiveMarketModePreset</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="p">{</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">    </span><span class="c1">// Preset will detect high volatility and switch to hedge</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="2-risk-configuration">2. Risk Configuration<a class="headerlink" href="#2-risk-configuration" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1">// ❌ BAD: Excessive risk per trade</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">scalping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleScalpingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="p">{</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="n">RiskAmount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">500.0</span><span class="p">,</span><span class="w">  </span><span class="c1">// Too high for demo account!</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">  </span><span class="c1">// Very tight SL</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="p">};</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="c1">// ✅ GOOD: Conservative risk settings</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="kt">var</span><span class="w"> </span><span class="n">scalping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleScalpingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="p">{</span>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="w">    </span><span class="n">RiskAmount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">,</span><span class="w">   </span><span class="c1">// 1-2% of typical demo balance</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="c1">// Reasonable SL distance</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="3-runtime-limits">3. Runtime Limits<a class="headerlink" href="#3-runtime-limits" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1">// ❌ BAD: No runtime limit</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GridTradingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">{</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="n">MaxRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">999999</span><span class="p">,</span><span class="w">  </span><span class="c1">// Runs indefinitely!</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="p">};</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1">// ✅ GOOD: Reasonable runtime with monitoring</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="kt">var</span><span class="w"> </span><span class="n">orchestrator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">GridTradingOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="p">{</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">    </span><span class="n">MaxRunMinutes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">  </span><span class="c1">// Clear exit condition</span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="p">};</span>
+</code></pre></div>
+<hr />
+<h3 id="4-error-handling">4. Error Handling<a class="headerlink" href="#4-error-handling" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">try</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="p">{</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">orchestrator</span><span class="p">.</span><span class="n">RunAsync</span><span class="p">();</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">}</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">OperationCanceledException</span><span class="p">)</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="p">{</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Strategy stopped by user (Ctrl+C)"</span><span class="p">);</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="p">}</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="p">{</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"Strategy error: {ex.Message}"</span><span class="p">);</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="w">    </span><span class="c1">// Cleanup positions/orders here if needed</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="learning-path">🎓 Learning Path<a class="headerlink" href="#learning-path" title="Permanent link">¶</a></h2>
+<h3 id="beginner-path">Beginner Path<a class="headerlink" href="#beginner-path" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>1. Start with: GridTradingOrchestrator
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>   • Simplest to understand
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>   • Visual grid concept
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>   • Clear entry/exit rules
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>2. Study: Program.cs routing logic
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>   • How commands map to orchestrators
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>   • Configuration patterns
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>3. Read: GridTradingOrchestrator.HOW_IT_WORKS.md
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>   • Understand algorithm step-by-step
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>   • Learn MT5Sugar methods used
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>4. Experiment: Modify grid parameters
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>   • Change GridLevels
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>   • Adjust GridSpacingPoints
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>   • Test on demo account
+</code></pre></div>
+<hr />
+<h3 id="intermediate-path">Intermediate Path<a class="headerlink" href="#intermediate-path" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>1. Compare: All 5 orchestrators side-by-side
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>   • Identify common patterns (MT5Service usage)
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>   • See differences in algorithms
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>   • Understand when to use each
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>2. Study: AdaptiveMarketModePreset
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>   • How it analyzes market conditions
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>   • Decision tree logic
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>   • Orchestrator instantiation
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>3. Modify: Add custom orchestrator
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>   • Copy existing orchestrator as template
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>   • Implement your algorithm
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>   • Add to Program.cs routing
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>4. Test: Run preset for extended period
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>   • Observe strategy switching
+<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>   • Analyze performance across conditions
+</code></pre></div>
+<hr />
+<h3 id="advanced-path">Advanced Path<a class="headerlink" href="#advanced-path" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>1. Enhance: Market analysis algorithms
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>   • Replace simplified volatility with ATR
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>   • Integrate real economic calendar API
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>   • Add ML-based condition detection
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>2. Build: Custom preset with your logic
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>   • Define your market conditions
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>   • Create decision tree
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>   • Combine orchestrators your way
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>3. Optimize: Parameters via backtesting
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>   • Historical data analysis
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>   • Parameter sensitivity testing
+<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>   • Walk-forward optimization
+<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>
+<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>4. Production: Deploy with monitoring
+<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>   • Add logging and metrics
+<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>   • Implement alerting
+<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>   • Set up performance tracking
+</code></pre></div>
+<hr />
+<h2 id="related-documentation">📖 Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">¶</a></h2>
+<ul>
+<li>
+<p><strong><a href="../../API_Reference/MT5Account/">MT5Account - Master Overview</a></strong> - Low-level gRPC API reference.</p>
+</li>
+<li>
+<p><strong><a href="../../API_Reference/MT5Service/">MT5Service Documentation</a></strong> - Simplified wrapper methods.</p>
+</li>
+<li>
+<p><strong><a href="../../API_Reference/MT5Sugar/">MT5Sugar Documentation</a></strong> - High-level convenience API.</p>
+</li>
+<li>
+<p><strong><a href="../../All_Guides/GRPC_STREAM_MANAGEMENT/">GRPC_STREAM_MANAGEMENT.md</a></strong> - Streaming subscriptions guide.</p>
+</li>
+<li>
+<p><strong><a href="../../All_Guides/SYNC_VS_ASYNC/">Sync_vs_Async.md</a></strong> - Async/sync patterns explained.</p>
+</li>
+<li>
+<p><strong><a href="../../All_Guides/USERCODE_SANDBOX_GUIDE/">UserCode_Sandbox_Guide.md</a></strong> - How to write custom strategies.</p>
+</li>
+</ul>
+<hr />
+<h2 id="quick-jump-all-files">🎯 Quick Jump - All Files<a class="headerlink" href="#quick-jump-all-files" title="Permanent link">¶</a></h2>
+<h3 id="orchestrators_1">Orchestrators<a class="headerlink" href="#orchestrators_1" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="../Orchestrators_EN/GridTradingOrchestrator/">GridTradingOrchestrator.md</a></li>
+<li><a href="../Orchestrators_EN/GridTradingOrchestrator.HOW_IT_WORKS/">GridTradingOrchestrator.HOW_IT_WORKS.md</a></li>
+<li><a href="../Orchestrators_EN/SimpleScalpingOrchestrator/">SimpleScalpingOrchestrator.md</a></li>
+<li><a href="../Orchestrators_EN/SimpleScalpingOrchestrator.HOW_IT_WORKS/">SimpleScalpingOrchestrator.HOW_IT_WORKS.md</a></li>
+<li><a href="../Orchestrators_EN/QuickHedgeOrchestrator/">QuickHedgeOrchestrator.md</a></li>
+<li><a href="../Orchestrators_EN/QuickHedgeOrchestrator.HOW_IT_WORKS/">QuickHedgeOrchestrator.HOW_IT_WORKS.md</a></li>
+<li><a href="../Orchestrators_EN/NewsStraddleOrchestrator/">NewsStraddleOrchestrator.md</a></li>
+<li><a href="../Orchestrators_EN/NewsStraddleOrchestrator.HOW_IT_WORKS/">NewsStraddleOrchestrator.HOW_IT_WORKS.md</a></li>
+<li><a href="../Orchestrators_EN/PendingBreakoutOrchestrator/">PendingBreakoutOrchestrator.md</a></li>
+<li><a href="../Orchestrators_EN/PendingBreakoutOrchestrator.HOW_IT_WORKS/">PendingBreakoutOrchestrator.HOW_IT_WORKS.md</a></li>
+</ul>
+<h3 id="presets_1">Presets<a class="headerlink" href="#presets_1" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="../Presets/AdaptiveMarketModePreset/">AdaptiveMarketModePreset.md</a></li>
+</ul>
+<hr />
+<p>"Trade smart, code clean, and may your orchestrators always close positions profitably."</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../API_Reference/MT5Sugar/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MT5Sugar API">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                MT5Sugar API
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Presets/AdaptiveMarketModePreset/" class="md-footer__link md-footer__link--next" aria-label="Next: Presets">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Presets
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 MetaRPC. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>
