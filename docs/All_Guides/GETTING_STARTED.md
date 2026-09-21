@@ -41,11 +41,11 @@ Connecting to MetaRPC production endpoints (`mt5.mrpc.pro:443`) requires an API 
 
 ## 🆔 Automatic Account ID & Authentication
 
-MetaRPC endpoints require two credentials for all terminal operations:
+MetaRPC endpoints require authentication and session management:
 1. **`APIKey`**: Your personal authentication token from [https://mrpc.pro/my](https://mrpc.pro/my) (obtained by registering at [https://mrpc.pro/signup](https://mrpc.pro/signup)). Sent in the `APIKey` header.
-2. **`id`**: A deterministic account GUID derived from your MetaTrader `user` (login number) and `password`.
+2. **`id`**: A terminal session GUID returned by `Connect` / `ConnectEx` (`terminalInstanceGuid`).
 
-> 💡 **Seamless Automation**: You do not need to call `GetId` manually. The SDK automatically derives your deterministic account ID from your credentials upon initialization and attaches both the `id` and `APIKey` headers to all requests and streaming subscriptions.
+> 💡 **Seamless Automation**: You do not need to call `GetId` or provide an `id` header when connecting. The server automatically generates a session GUID upon connection and returns it to the caller. The SDK automatically captures this session ID and attaches it alongside your `APIKey` to all subsequent requests and streaming subscriptions.
 
 ## 🔌 Minimal Connection Example
 

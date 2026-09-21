@@ -16,7 +16,7 @@
 - **Zero Windows VPS**: Stop paying $20–$80/month for buggy Windows servers. Run trading bots in lightweight Linux containers or serverless workers.
 - **Ultra-Low Latency**: High-speed gRPC streaming and execution co-located with London (LD4) and New York (NY4) broker data centers (<20ms execution).
 - **Universal Broker & Prop Firm Support**: Connects to 500+ brokers and prop firms including **FTMO, IC Markets, Pepperstone, Exness, FundedNext, Tickmill, XM, FXCM**.
-- **Automatic Identity Derivation**: Account GUID (`id`) and cryptographic headers are derived automatically from your credentials.
+- **Automatic Session Management**: Session GUID (`id`) is generated automatically by the server upon connection and attached to all subsequent requests.
 - **Asyncio Native**: Modern asynchronous Python design with automatic reconnection, heartbeat monitoring, and resilience.
 
 ---

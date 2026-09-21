@@ -37,7 +37,7 @@ Create your main application file and paste the following snippet:
 ```
 from pymt5 import MT5Account
 
-# Account ID generation (GetId) and authentication are handled automatically
+# Session ID generation on Connect and authentication are handled automatically
 account = MT5Account(user=user, password=password, host=grpc_server, api_key=api_key)
 await account.connect_by_server_name(server_name, "EURUSD", timeout=30)
 summary = await account.account_summary()

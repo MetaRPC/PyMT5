@@ -18,8 +18,16 @@ class TestMT5Account(unittest.TestCase):
         self.assertEqual(account.api_key, "test_key")
 
     def test_default_grpc_server(self):
-        account = MT5Account(user=12345678, password="test_password")
-        self.assertEqual(account.grpc_server, "mt5.mrpc.pro:443")
+        old_env = os.environ.pop("MRPC_API_KEY", None)
+        try:
+            account = MT5Account(user=12345678, password="test_password")
+            self.assertEqual(account.grpc_server, "mt5.mrpc.pro:443")
+            self.assertEqual(account.api_key, "TRIAL")
+            headers = account.get_headers()
+            self.assertIn(("apikey", "TRIAL"), headers)
+        finally:
+            if old_env is not None:
+                os.environ["MRPC_API_KEY"] = old_env
 
     def test_get_headers_with_auth(self):
         account = MT5Account(user=12345678, password="test_password", id_="test-guid", api_key="my_api_key")

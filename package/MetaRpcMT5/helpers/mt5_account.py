@@ -141,7 +141,7 @@ class MT5Account:
         if api_key and ('-' in str(api_key) and len(str(api_key)) == 36) and not id_:
             id_ = api_key
             api_key = None
-        self.api_key = api_key or os.getenv('MRPC_API_KEY')
+        self.api_key = api_key or os.getenv('MRPC_API_KEY') or "TRIAL"
         self.user = user
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
@@ -196,7 +196,7 @@ class MT5Account:
         self.trade_functions_client = trade_functions_pb2_grpc.TradeFunctionsStub(self.channel)
         self.account_information_client = account_information_pb2_grpc.AccountInformationStub(self.channel)
 
-        self.id = str(id_) if id_ else self.get_id()
+        self.id = str(id_) if id_ else None
 
         # Connection state
         self.host = None
@@ -208,9 +208,7 @@ class MT5Account:
     def get_id(self) -> str:
         """Call gRPC GetId method to retrieve the deterministic account ID."""
         request = connection_pb2.GetIdRequest(user=str(self.user), password=self.password)
-        metadata = []
-        if self.api_key:
-            metadata.append(("apikey", self.api_key))
+        metadata = [("apikey", str(self.api_key or "TRIAL"))]
         try:
             target = self.grpc_server.replace("https://", "").replace("http://", "")
             creds = grpc.ssl_channel_credentials()
@@ -229,9 +227,7 @@ class MT5Account:
     async def get_id_async(self) -> str:
         """Retrieve account ID via async gRPC GetId endpoint."""
         request = connection_pb2.GetIdRequest(user=str(self.user), password=self.password)
-        metadata = []
-        if self.api_key:
-            metadata.append(("apikey", self.api_key))
+        metadata = [("apikey", str(self.api_key or "TRIAL"))]
         try:
             reply = await self.connection_client.GetId(request, metadata=metadata, timeout=5.0)
             if reply.HasField("error") and reply.error.message:
@@ -272,8 +268,7 @@ class MT5Account:
         headers = []
         if self.id:
             headers.append(("id", str(self.id)))
-        if getattr(self, "api_key", None):
-            headers.append(("apikey", str(self.api_key)))
+        headers.append(("apikey", str(getattr(self, "api_key", None) or "TRIAL")))
         return headers
 
     async def reconnect(self, deadline: Optional[datetime] = None):
