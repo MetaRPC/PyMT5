@@ -34,30 +34,10 @@ class GuiStub(object):
                 request_serializer=mt5__term__api__gui__pb2.GuiCloseDialogsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__gui__pb2.GuiCloseDialogsReply.FromString,
                 )
-        self.DemoFindCompanies = channel.unary_unary(
-                '/mt5_term_api.Gui/DemoFindCompanies',
-                request_serializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesRequest.SerializeToString,
-                response_deserializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesReply.FromString,
-                )
-        self.DemoServersAndTypes = channel.unary_unary(
-                '/mt5_term_api.Gui/DemoServersAndTypes',
-                request_serializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesRequest.SerializeToString,
-                response_deserializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesReply.FromString,
-                )
         self.DemoOpenAccount = channel.unary_unary(
                 '/mt5_term_api.Gui/DemoOpenAccount',
                 request_serializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
                 response_deserializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountReply.FromString,
-                )
-        self.DemoEnumControls = channel.unary_unary(
-                '/mt5_term_api.Gui/DemoEnumControls',
-                request_serializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsRequest.SerializeToString,
-                response_deserializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsReply.FromString,
-                )
-        self.DemoOpenAccountWithProgress = channel.unary_stream(
-                '/mt5_term_api.Gui/DemoOpenAccountWithProgress',
-                request_serializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
-                response_deserializer=mt5__term__api__gui__pb2.GuiDemoProgressEvent.FromString,
                 )
         self.DemoOpenAccountInteractive = channel.stream_stream(
                 '/mt5_term_api.Gui/DemoOpenAccountInteractive',
@@ -93,31 +73,7 @@ class GuiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DemoFindCompanies(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DemoServersAndTypes(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def DemoOpenAccount(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DemoEnumControls(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def DemoOpenAccountWithProgress(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -152,30 +108,10 @@ def add_GuiServicer_to_server(servicer, server):
                     request_deserializer=mt5__term__api__gui__pb2.GuiCloseDialogsRequest.FromString,
                     response_serializer=mt5__term__api__gui__pb2.GuiCloseDialogsReply.SerializeToString,
             ),
-            'DemoFindCompanies': grpc.unary_unary_rpc_method_handler(
-                    servicer.DemoFindCompanies,
-                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesRequest.FromString,
-                    response_serializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesReply.SerializeToString,
-            ),
-            'DemoServersAndTypes': grpc.unary_unary_rpc_method_handler(
-                    servicer.DemoServersAndTypes,
-                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesRequest.FromString,
-                    response_serializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesReply.SerializeToString,
-            ),
             'DemoOpenAccount': grpc.unary_unary_rpc_method_handler(
                     servicer.DemoOpenAccount,
                     request_deserializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.FromString,
                     response_serializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountReply.SerializeToString,
-            ),
-            'DemoEnumControls': grpc.unary_unary_rpc_method_handler(
-                    servicer.DemoEnumControls,
-                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsRequest.FromString,
-                    response_serializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsReply.SerializeToString,
-            ),
-            'DemoOpenAccountWithProgress': grpc.unary_stream_rpc_method_handler(
-                    servicer.DemoOpenAccountWithProgress,
-                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.FromString,
-                    response_serializer=mt5__term__api__gui__pb2.GuiDemoProgressEvent.SerializeToString,
             ),
             'DemoOpenAccountInteractive': grpc.stream_stream_rpc_method_handler(
                     servicer.DemoOpenAccountInteractive,
@@ -261,40 +197,6 @@ class Gui(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def DemoFindCompanies(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Gui/DemoFindCompanies',
-            mt5__term__api__gui__pb2.GuiDemoFindCompaniesRequest.SerializeToString,
-            mt5__term__api__gui__pb2.GuiDemoFindCompaniesReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def DemoServersAndTypes(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Gui/DemoServersAndTypes',
-            mt5__term__api__gui__pb2.GuiDemoServersAndTypesRequest.SerializeToString,
-            mt5__term__api__gui__pb2.GuiDemoServersAndTypesReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def DemoOpenAccount(request,
             target,
             options=(),
@@ -308,40 +210,6 @@ class Gui(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Gui/DemoOpenAccount',
             mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
             mt5__term__api__gui__pb2.GuiDemoOpenAccountReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def DemoEnumControls(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.Gui/DemoEnumControls',
-            mt5__term__api__gui__pb2.GuiDemoEnumControlsRequest.SerializeToString,
-            mt5__term__api__gui__pb2.GuiDemoEnumControlsReply.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def DemoOpenAccountWithProgress(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/mt5_term_api.Gui/DemoOpenAccountWithProgress',
-            mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
-            mt5__term__api__gui__pb2.GuiDemoProgressEvent.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
