@@ -90,6 +90,16 @@ class AdminApiStub(object):
                 request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__admin__pb2.GetSessionRestoreStatusReply.FromString,
                 )
+        self.KillAllTrialTerminals = channel.unary_unary(
+                '/mrpc_admin.AdminApi/KillAllTrialTerminals',
+                request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.FromString,
+                )
+        self.KillAllTrialTerminalsLocal = channel.unary_unary(
+                '/mrpc_admin.AdminApi/KillAllTrialTerminalsLocal',
+                request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.FromString,
+                )
 
 
 class AdminApiServicer(object):
@@ -225,6 +235,21 @@ class AdminApiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def KillAllTrialTerminals(self, request, context):
+        """Kills all active trial terminals across ALL pods of this StatefulSet/Deployment
+        and marks them stopped in database.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def KillAllTrialTerminalsLocal(self, request, context):
+        """Kills all active trial terminals on THIS pod.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AdminApiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -297,6 +322,16 @@ def add_AdminApiServicer_to_server(servicer, server):
                     servicer.GetSessionRestoreStatus,
                     request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
                     response_serializer=mt5__term__api__admin__pb2.GetSessionRestoreStatusReply.SerializeToString,
+            ),
+            'KillAllTrialTerminals': grpc.unary_unary_rpc_method_handler(
+                    servicer.KillAllTrialTerminals,
+                    request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.SerializeToString,
+            ),
+            'KillAllTrialTerminalsLocal': grpc.unary_unary_rpc_method_handler(
+                    servicer.KillAllTrialTerminalsLocal,
+                    request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -549,5 +584,39 @@ class AdminApi(object):
         return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/GetSessionRestoreStatus',
             mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
             mt5__term__api__admin__pb2.GetSessionRestoreStatusReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def KillAllTrialTerminals(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/KillAllTrialTerminals',
+            mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def KillAllTrialTerminalsLocal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/KillAllTrialTerminalsLocal',
+            mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
+            mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
