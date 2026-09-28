@@ -29,6 +29,28 @@ pip install MetaRpcMT5
 
 ---
 
+## 🏃 How to Run Examples
+
+Clone the repository and run the examples out-of-the-box:
+
+```bash
+git clone https://github.com/MetaRPC/PyMT5.git
+cd PyMT5/examples
+pip install MetaRpcMT5
+
+# 1. Run with default TRIAL key:
+python main.py
+
+# 2. Or pass your MetaRPC API key directly:
+python main.py your_api_key_here
+
+# 3. Or use the MRPC_API_KEY environment variable:
+export MRPC_API_KEY="your_api_key_here"        # Windows CMD: set MRPC_API_KEY=your_api_key_here
+python main.py                                # Windows PowerShell: $env:MRPC_API_KEY="your_api_key_here"
+```
+
+---
+
 ## 🚀 30-Second Quick Start
 
 ```python
