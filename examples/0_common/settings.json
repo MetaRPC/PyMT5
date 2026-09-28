@@ -1,10 +1,10 @@
 {
-  "user": 591129415,
-  "password": "IpoHj17tYu67@",
+  "user": 113299629,
+  "password": "@cZnJ2Mr",
   "host": "mt5.mrpc.pro",
   "port": 443,
   "grpc_server": "mt5.mrpc.pro:443",
-  "mt_cluster": "FxPro-MT5 Demo",
+  "mt_cluster": "MetaQuotes-Demo",
   "test_symbol": "EURUSD",
   "test_volume": 0.01,
   "api_key": "TRIAL"
