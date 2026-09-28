@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 from MetaRpcMT5.mt5_account import MT5Account
 
 
@@ -10,8 +10,8 @@ async def test_account_summary():
     server_name = "MetaQuotes-Demo"
 
     account = MT5Account(user=user, password=password)
-    #await account.connect_by_host_port(host=host, port=port, base_chart_symbol="EURUSD")
-    await account.connect_by_server_name(server_name=server_name, base_chart_symbol="EURUSD")
+    #await account.connect_by_host_port(host=host, port=port)
+    await account.connect_by_server_name(server_name=server_name)
 
     summary = await account.account_summary()
     print("✅ Account summary:")

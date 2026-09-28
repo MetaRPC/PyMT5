@@ -6,5 +6,6 @@
   "grpc_server": "mt5.mrpc.pro:443",
   "mt_cluster": "FxPro-MT5 Demo",
   "test_symbol": "EURUSD",
-  "test_volume": 0.01
+  "test_volume": 0.01,
+  "api_key": "TRIAL"
 }

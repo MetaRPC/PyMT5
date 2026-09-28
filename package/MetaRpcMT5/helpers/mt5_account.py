@@ -202,7 +202,6 @@ class MT5Account:
         self.host = None
         self.port = None
         self.server_name = None
-        self.base_chart_symbol = None
         self.connect_timeout_seconds = 30
 
     def get_id(self) -> str:
@@ -215,7 +214,7 @@ class MT5Account:
             with grpc.secure_channel(target, creds) as channel:
                 stub = connection_pb2_grpc.ConnectionStub(channel)
                 reply = stub.GetId(request, metadata=metadata, timeout=5.0)
-                if reply.HasField("error") and reply.error.message:
+                if reply.HasField("error") and (getattr(reply.error, "error_message", None) or getattr(reply.error, "message", None)):
                     raise ApiExceptionMT5(reply.error)
                 if reply.HasField("data") and reply.data.id:
                     self.id = reply.data.id
@@ -273,12 +272,20 @@ class MT5Account:
 
     async def reconnect(self, deadline: Optional[datetime] = None):
         if self.server_name:
-            await self.connect_by_server_name(self.server_name, self.base_chart_symbol or "EURUSD",
-                                              True, self.connect_timeout_seconds, deadline)
+            await self.connect_by_server_name(
+                server_name=self.server_name,
+                wait_for_terminal_is_alive=True,
+                timeout_seconds=self.connect_timeout_seconds,
+                deadline=deadline,
+            )
         elif self.host:
-            await self.connect_by_host_port(self.host, self.port or 443,
-                                            self.base_chart_symbol or "EURUSD", True,
-                                            self.connect_timeout_seconds, deadline)
+            await self.connect_by_host_port(
+                host=self.host,
+                port=self.port or 443,
+                wait_for_terminal_is_alive=True,
+                timeout_seconds=self.connect_timeout_seconds,
+                deadline=deadline,
+            )
 
     async def execute_with_reconnect(
         self,
@@ -389,10 +396,12 @@ class MT5Account:
         self,
         host: str,
         port: int = 443,
-        base_chart_symbol: str = "EURUSD",
         wait_for_terminal_is_alive: bool = True,
         timeout_seconds: int = 30,
         deadline: Optional[datetime] = None,
+        base_chart_symbol: Optional[str] = None,
+        *args,
+        **kwargs,
     ):
         """
         Connects to MT5 server by IP address or hostname and port.
@@ -406,8 +415,6 @@ class MT5Account:
         Args:
             host (str): Server IP address or hostname (e.g., "mt5.broker.com").
             port (int, optional): Server port number. Defaults to 443.
-            base_chart_symbol (str, optional): Base symbol for chart initialization.
-                Defaults to "EURUSD".
             wait_for_terminal_is_alive (bool, optional): Wait for terminal readiness
                 before returning. Defaults to True.
             timeout_seconds (int, optional): Timeout in seconds for terminal readiness
@@ -420,34 +427,48 @@ class MT5Account:
 
         Example:
             >>> account = MT5Account(user=12345, password="pass", grpc_server="mt5.mrpc.pro:443")
-            >>> await account.connect_by_host_port("mt5.broker.com", 443, "EURUSD")
+            >>> await account.connect_by_host_port("mt5.broker.com", 443)
             >>> print(f"Connected! Terminal GUID: {account.id}")
         """
-        #Build connect request
+        if isinstance(wait_for_terminal_is_alive, str):
+            wait_for_terminal_is_alive = True
+
+        # Build connect request
         request = connection_pb2.ConnectRequest(
             user=self.user,
             password=self.password,
             host=host,
             port=port,
-            base_chart_symbol=base_chart_symbol,
-            wait_for_terminal_is_alive=wait_for_terminal_is_alive,
-            terminal_readiness_waiting_timeout_seconds=timeout_seconds,
+            timeout_seconds=timeout_seconds,
         )
 
-        headers = self.get_headers()
-        res = await self.connection_client.Connect(
-            request,
-            metadata=headers,
-            timeout=30.0 if deadline is None else (deadline - datetime.utcnow()).total_seconds(),
-        )
+        timeout_val = float(timeout_seconds) if deadline is None else (deadline - datetime.utcnow()).total_seconds()
+        start_time = datetime.utcnow()
+        while True:
+            headers = self.get_headers()
+            elapsed = (datetime.utcnow() - start_time).total_seconds()
+            remaining = timeout_val - elapsed
+            if remaining <= 0:
+                raise TimeoutError("Connection timed out waiting for server")
+            try:
+                res = await self.connection_client.Connect(
+                    request,
+                    metadata=headers,
+                    timeout=max(remaining, 5.0),
+                )
+                break
+            except grpc.aio.AioRpcError as ex:
+                if ex.code() == grpc.StatusCode.UNAVAILABLE and (datetime.utcnow() - start_time).total_seconds() + 2.0 < timeout_val:
+                    await asyncio.sleep(2.0)
+                    continue
+                raise
 
-        if res.HasField("error") and res.error.error_message:
+        if res.HasField("error") and (getattr(res.error, "error_message", None) or getattr(res.error, "message", None)):
             raise ApiExceptionMT5(res.error)
 
         # Save state
         self.host = host
         self.port = port
-        self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
         guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
         if guid:
@@ -456,10 +477,12 @@ class MT5Account:
     async def connect_by_server_name(
         self,
         server_name: str,
-        base_chart_symbol: str = "EURUSD",
         wait_for_terminal_is_alive: bool = True,
         timeout_seconds: int = 30,
         deadline: Optional[datetime] = None,
+        base_chart_symbol: Optional[str] = None,
+        *args,
+        **kwargs,
     ):
         """
         Connects to MT5 server by broker server name (cluster name).
@@ -472,8 +495,6 @@ class MT5Account:
 
         Args:
             server_name (str): MT5 broker server/cluster name (e.g., "MetaQuotes-Demo").
-            base_chart_symbol (str, optional): Base symbol for chart initialization.
-                Defaults to "EURUSD".
             wait_for_terminal_is_alive (bool, optional): Wait for terminal readiness
                 before returning. Defaults to True.
             timeout_seconds (int, optional): Timeout in seconds for terminal readiness
@@ -486,35 +507,62 @@ class MT5Account:
 
         Example:
             >>> account = MT5Account(user=12345, password="pass", grpc_server="mt5.mrpc.pro:443")
-            >>> await account.connect_by_server_name("MetaQuotes-Demo", "EURUSD")
+            >>> await account.connect_by_server_name("MetaQuotes-Demo")
             >>> print(f"Connected! Terminal GUID: {account.id}")
         """
+        if isinstance(wait_for_terminal_is_alive, str):
+            wait_for_terminal_is_alive = True
+
         # Build connect request 
         request = connection_pb2.ConnectExRequest(
             user=self.user,
             password=self.password,
             mt_cluster_name=server_name,
-            base_chart_symbol=base_chart_symbol,
-            terminal_readiness_waiting_timeout_seconds=timeout_seconds,
+            timeout_seconds=timeout_seconds,
         )
 
-        headers = self.get_headers()
-        res = await self.connection_client.ConnectEx(
-            request,
-            metadata=headers,
-            timeout=30.0 if deadline is None else (deadline - datetime.utcnow()).total_seconds(),
-        )
+        timeout_val = float(timeout_seconds) if deadline is None else (deadline - datetime.utcnow()).total_seconds()
+        start_time = datetime.utcnow()
+        while True:
+            headers = self.get_headers()
+            elapsed = (datetime.utcnow() - start_time).total_seconds()
+            remaining = timeout_val - elapsed
+            if remaining <= 0:
+                raise TimeoutError("Connection timed out waiting for server")
+            try:
+                res = await self.connection_client.ConnectEx(
+                    request,
+                    metadata=headers,
+                    timeout=max(remaining, 5.0),
+                )
+                break
+            except grpc.aio.AioRpcError as ex:
+                if ex.code() == grpc.StatusCode.UNAVAILABLE and (datetime.utcnow() - start_time).total_seconds() + 2.0 < timeout_val:
+                    await asyncio.sleep(2.0)
+                    continue
+                raise
 
-        if res.HasField("error") and res.error.error_message:
+        if res.HasField("error") and (getattr(res.error, "error_message", None) or getattr(res.error, "message", None)):
             raise ApiExceptionMT5(res.error)
 
         # Save state
         self.server_name = server_name
-        self.base_chart_symbol = base_chart_symbol
         self.connect_timeout_seconds = timeout_seconds
         guid = getattr(res.data, 'terminal_instance_guid', None) or getattr(res.data, 'terminalInstanceGuid', None)
         if guid:
             self.id = guid
+
+    async def disconnect(self):
+        """Disconnect from MT5 server and close the gRPC channel."""
+        try:
+            if self.id and self.connection_client:
+                req = connection_pb2.DisconnectRequest()
+                await self.connection_client.Disconnect(req, metadata=self.get_headers(), timeout=5.0)
+        except Exception:
+            pass
+        finally:
+            if self.channel:
+                await self.channel.close()
 
     # endregion
 

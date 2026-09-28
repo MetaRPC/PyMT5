@@ -82,22 +82,28 @@ from MetaRpcMT5.helpers.errors import (
     get_retcode_message,
 )
 
+# Import low-level account class
+from MetaRpcMT5.mt5_account import MT5Account, ConnectExceptionMT5, ApiExceptionMT5
+
 # Import service layer (mid-level)
 from .mt5_service import MT5Service
 
-# Import sugar layer (high-level) - when ready
-# from .mt5_sugar import MT5Sugar
+# Import sugar layer (high-level)
+from .mt5_sugar import MT5Sugar
 
 __version__ = '1.0.0'
 
 __all__ = [
-    # Service classes
+    # Core Account & Service classes
+    'MT5Account',
     'MT5Service',
-    # 'MT5Sugar',  # Coming soon
+    'MT5Sugar',
 
     # Error classes
     'ApiError',
     'NotConnectedError',
+    'ConnectExceptionMT5',
+    'ApiExceptionMT5',
 
     # RetCode constants
     'TRADE_RETCODE_SUCCESS',

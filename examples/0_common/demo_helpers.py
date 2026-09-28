@@ -94,6 +94,9 @@ def load_settings() -> Dict[str, Any]:
     if missing_fields:
         raise ValueError(f"Missing required fields in settings.json: {', '.join(missing_fields)}")
 
+    # Set default api_key if not present
+    settings['api_key'] = settings.get('api_key') or os.getenv('MRPC_API_KEY') or "TRIAL"
+
     return settings
 
 
@@ -119,22 +122,24 @@ async def create_and_connect_mt5(config: Dict[str, Any]) -> MT5Account:
 
     # Create unique GUID for this terminal instance
     terminal_guid = uuid4()
+    api_key = config.get('api_key') or os.getenv('MRPC_API_KEY') or "TRIAL"
 
     # Initialize MT5Account with credentials
     account = MT5Account(
         user=config['user'],
         password=config['password'],
         grpc_server=config['grpc_server'],
-        id_=terminal_guid
+        id_=terminal_guid,
+        api_key=api_key
     )
 
     print(f"[OK] MT5Account created (UUID: {terminal_guid})")
+    print(f"  APIKey:        {api_key}")
     print()
     print("Connecting to MT5 server...")
     print(f"  User:          {config['user']}")
     print(f"  gRPC Server:   {config['grpc_server']}")
     print(f"  MT Cluster:    {config['mt_cluster']}")
-    print(f"  Base Symbol:   {config['test_symbol']}")
     print(f"  Timeout:       120 seconds")
     print()
 
@@ -142,7 +147,6 @@ async def create_and_connect_mt5(config: Dict[str, Any]) -> MT5Account:
     # This is RECOMMENDED method - simpler than ConnectEx
     await account.connect_by_server_name(
         server_name=config['mt_cluster'],
-        base_chart_symbol=config['test_symbol'],
         timeout_seconds=120
     )
 

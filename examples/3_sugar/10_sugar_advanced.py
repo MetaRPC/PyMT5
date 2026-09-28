@@ -488,7 +488,7 @@ async def run_sugar_advanced_demo():
     print("=" * 80)
 
     try:
-        await account.channel.close()
+        await sugar.disconnect()
         print("✓ Disconnected successfully")
     except Exception as e:
         print(f"⚠️  Disconnect warning: {e}")

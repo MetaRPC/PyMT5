@@ -469,7 +469,7 @@ async def run_sugar_trading_demo():
     print("=" * 80)
 
     try:
-        await account.channel.close()
+        await sugar.disconnect()
         print("[OK] Disconnected successfully")
     except Exception as e:
         print(f"[WARN] Disconnect warning: {e}")

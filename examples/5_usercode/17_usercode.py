@@ -81,75 +81,84 @@ async def run_user_code():
     # Create high-level sugar API
     sugar = MT5Sugar(service, default_symbol=config.get('test_symbol', 'EURUSD'))
 
-    print("[OK] Connected! All 3 API levels initialized:")
-    print("   - account (MT5Account) - Low-level gRPC")
-    print("   - service (MT5Service) - Mid-level Python types")
-    print("   - sugar   (MT5Sugar)   - High-level convenience")
-    print()
-    print("=" * 60)
-    print("YOUR CODE STARTS HERE")
-    print("=" * 60)
-    print()
+    try:
+        print("[OK] Connected! All 3 API levels initialized:")
+        print("   - account (MT5Account) - Low-level gRPC")
+        print("   - service (MT5Service) - Mid-level Python types")
+        print("   - sugar   (MT5Sugar)   - High-level convenience")
+        print()
+        print("=" * 60)
+        print("YOUR CODE STARTS HERE")
+        print("=" * 60)
+        print()
 
-    # =================================================================
-    # QUICK START EXAMPLES (Uncomment to try)
-    # =================================================================
+        # =================================================================
+        # QUICK START EXAMPLES (Uncomment to try)
+        # =================================================================
 
-    # Example 1: Get account balance (Sugar - easiest)
-    # -----------------------------------------------------------------
-    print("\nExample 1: Get account balance (Sugar API)")
-    print("-" * 60)
-    balance = await sugar.get_balance()
-    print(f"Balance: {balance:.2f}")
+        # Example 1: Get account balance (Sugar - easiest)
+        # -----------------------------------------------------------------
+        print("\nExample 1: Get account balance (Sugar API)")
+        print("-" * 60)
+        balance = await sugar.get_balance()
+        print(f"Balance: {balance:.2f}")
 
-    # Example 2: Get account info (Service - more control)
-    # -----------------------------------------------------------------
-    print("\nExample 2: Get account info (Service API)")
-    print("-" * 60)
-    account_info = await service.get_account_summary()
-    print(f"Balance: {account_info.balance:.2f} {account_info.currency}")
-    print(f"Equity:  {account_info.equity:.2f}")
+        # Example 2: Get account info (Service - more control)
+        # -----------------------------------------------------------------
+        print("\nExample 2: Get account info (Service API)")
+        print("-" * 60)
+        account_info = await service.get_account_summary()
+        print(f"Balance: {account_info.balance:.2f} {account_info.currency}")
+        print(f"Equity:  {account_info.equity:.2f}")
 
-    # Example 3: Get account via protobuf (Account - full control)
-    # -----------------------------------------------------------------
-    print("\nExample 3: Get account via protobuf (Account API)")
-    print("-" * 60)
-    reply = await account.account_summary()
-    print(f"Balance (protobuf): {reply.account_balance:.2f}")
+        # Example 3: Get account via protobuf (Account - full control)
+        # -----------------------------------------------------------------
+        print("\nExample 3: Get account via protobuf (Account API)")
+        print("-" * 60)
+        reply = await account.account_summary()
+        print(f"Balance (protobuf): {reply.account_balance:.2f}")
 
-    # Example 4: Get current price (Sugar)
-    # -----------------------------------------------------------------
-    print("\nExample 4: Get current price (Sugar API)")
-    print("-" * 60)
-    bid = await sugar.get_bid()
-    ask = await sugar.get_ask()
-    spread = await sugar.get_spread()
-    print(f"EURUSD: Bid={bid:.5f} Ask={ask:.5f} Spread={spread:.1f} pips")
+        # Example 4: Get current price (Sugar)
+        # -----------------------------------------------------------------
+        print("\nExample 4: Get current price (Sugar API)")
+        print("-" * 60)
+        bid = await sugar.get_bid()
+        ask = await sugar.get_ask()
+        spread = await sugar.get_spread()
+        print(f"EURUSD: Bid={bid:.5f} Ask={ask:.5f} Spread={spread:.1f} pips")
 
-    # Example 5: Get open positions (Sugar)
-    # -----------------------------------------------------------------
-    print("\nExample 5: Get open positions (Sugar API)")
-    print("-" * 60)
-    positions = await sugar.get_open_positions()
-    print(f"Open positions: {len(positions)}")
-    for pos in positions:
-        # Note: Use SUB_ENUM_ORDER_TYPE from subscriptions_pb2 for position type
-        pos_type = "BUY" if pos.type == pb_subscriptions.SUB_ORDER_TYPE_BUY else "SELL"
-        print(f"  #{pos.ticket}: {pos.symbol} {pos_type} Vol={pos.volume:.2f} "
-              f"Profit={pos.profit:.2f}")
+        # Example 5: Get open positions (Sugar)
+        # -----------------------------------------------------------------
+        print("\nExample 5: Get open positions (Sugar API)")
+        print("-" * 60)
+        positions = await sugar.get_open_positions()
+        print(f"Open positions: {len(positions)}")
+        for pos in positions:
+            # Note: Use SUB_ENUM_ORDER_TYPE from subscriptions_pb2 for position type
+            pos_type = "BUY" if pos.type == pb_subscriptions.SUB_ORDER_TYPE_BUY else "SELL"
+            print(f"  #{pos.ticket}: {pos.symbol} {pos_type} Vol={pos.volume:.2f} "
+                  f"Profit={pos.profit:.2f}")
 
-    # =================================================================
-    # YOUR CODE HERE
-    # =================================================================
+        # =================================================================
+        # YOUR CODE HERE
+        # =================================================================
 
-    # TODO: Write your trading logic here
-    # - Use account.* for low-level protobuf access
-    # - Use service.* for mid-level Python types
-    # - Use sugar.* for high-level one-liners
+        # TODO: Write your trading logic here
+        # - Use account.* for low-level protobuf access
+        # - Use service.* for mid-level Python types
+        # - Use sugar.* for high-level one-liners
 
-    print("\n" + "=" * 60)
-    print("User code completed!")
-    print("=" * 60 + "\n")
+        print("\n" + "=" * 60)
+        print("User code completed!")
+        print("=" * 60 + "\n")
+
+    finally:
+        print("\nDisconnecting from MT5...")
+        try:
+            await account.disconnect()
+            print("[OK] Disconnected successfully")
+        except Exception as e:
+            print(f"[WARN] Disconnect warning: {e}")
 
 
 # ==============================================================================

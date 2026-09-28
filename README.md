@@ -47,7 +47,7 @@ async def main():
 
     # 2. Connect by broker server name
     print("Connecting to MetaTrader 5 Cloud...")
-    await account.connect_by_server_name("MetaQuotes-Demo", base_chart_symbol="EURUSD", timeout_seconds=30)
+    await account.connect_by_server_name("MetaQuotes-Demo", timeout_seconds=30)
     print("Connected successfully!")
 
     # 3. Get real-time account summary

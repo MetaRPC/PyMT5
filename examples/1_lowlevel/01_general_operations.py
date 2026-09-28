@@ -849,7 +849,7 @@ async def run_general_demo():
         print("\n\nFINAL: Disconnect")
         print("─" * 59)
         try:
-            await account.channel.close()
+            await account.disconnect()
             print("✓ Disconnected successfully")
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")

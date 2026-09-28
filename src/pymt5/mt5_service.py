@@ -1218,4 +1218,11 @@ class MT5Service:
         async for data in self._account.on_trade_transaction(cancellation_event):
             yield data
 
+    async def disconnect(self):
+        """Disconnect from MT5 server and close channel."""
+        if hasattr(self._account, "disconnect"):
+            await self._account.disconnect()
+        elif hasattr(self._account, "channel") and self._account.channel:
+            await self._account.channel.close()
+
     # endregion

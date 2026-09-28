@@ -1030,7 +1030,7 @@ async def main():
         print("─" * 59)
 
         try:
-            await account.channel.close()
+            await service.disconnect()
             print("✓ Disconnected successfully")
         except Exception as e:
             print_if_error(e, "Disconnect failed")

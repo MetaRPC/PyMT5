@@ -337,7 +337,7 @@ class MT5Sugar:
         except (asyncio.TimeoutError, Exception):
             return False
 
-    async def quick_connect(self, cluster_name: str, base_symbol: str = "EURUSD") -> None:
+    async def quick_connect(self, cluster_name: str, timeout_seconds: int = 30, **kwargs) -> None:
         """
         Quick connect (or reconnect) to MT5 cluster by name.
 
@@ -347,7 +347,7 @@ class MT5Sugar:
 
         Args:
             cluster_name: MT5 cluster identifier (e.g., "ICMarkets-Demo", "FxPro-Live01")
-            base_symbol: Base chart symbol for connection (default: "EURUSD")
+            timeout_seconds: Timeout in seconds for connection (default: 30)
 
         Raises:
             RuntimeError: If credentials are not accessible in MT5Account
@@ -372,9 +372,8 @@ class MT5Sugar:
         # Connect using server name (ConnectEx in protobuf)
         await account.connect_by_server_name(
             server_name=cluster_name,
-            base_chart_symbol=base_symbol,
             wait_for_terminal_is_alive=True,
-            timeout_seconds=30
+            timeout_seconds=timeout_seconds,
         )
     # endregion
 
@@ -2121,6 +2120,15 @@ class MT5Sugar:
     # endregion
 
 
+    async def disconnect(self):
+        """Disconnect underlying service and account."""
+        if hasattr(self._service, "disconnect"):
+            await self._service.disconnect()
+        elif hasattr(self._account, "disconnect"):
+            await self._account.disconnect()
+        elif hasattr(self._account, "channel") and self._account.channel:
+            await self._account.channel.close()
+
     # ══════════════════════════════════════════════════════════════════════════
     # CONTEXT MANAGER SUPPORT
     # ══════════════════════════════════════════════════════════════════════════
@@ -2130,6 +2138,5 @@ class MT5Sugar:
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        """Async context manager exit"""
-        # Cleanup if needed
-        pass
+        """Async context manager exit - disconnects cleanly"""
+        await self.disconnect()

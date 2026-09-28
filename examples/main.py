@@ -457,10 +457,18 @@ async def execute_command(command: str) -> tuple[bool, Exception | None]:
 
 async def main_loop():
     """Main application loop"""
+    # Check for API key in CLI args
+    for i, arg in enumerate(sys.argv):
+        if arg.startswith("--api-key="):
+            os.environ["MRPC_API_KEY"] = arg.split("=", 1)[1]
+        elif arg in ("--api-key", "-k") and i + 1 < len(sys.argv):
+            os.environ["MRPC_API_KEY"] = sys.argv[i + 1]
+
     while True:
         # Get command from CLI args or interactive menu
-        if len(sys.argv) > 1:
-            command = sys.argv[1].lower()
+        filtered_args = [a for a in sys.argv[1:] if not a.startswith("--api-key") and not (sys.argv.index(a) > 0 and sys.argv[sys.argv.index(a)-1] in ("--api-key", "-k"))]
+        if filtered_args:
+            command = filtered_args[0].lower()
         else:
             print_banner()
             command = show_menu()

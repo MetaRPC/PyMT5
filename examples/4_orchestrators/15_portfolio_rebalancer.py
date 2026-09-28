@@ -739,7 +739,7 @@ async def main():
         # Disconnect
         print("\nDisconnecting from MT5...")
         try:
-            await account.channel.close()
+            await account.disconnect()
             print_success("Disconnected successfully")
         except Exception as e:
             print_if_error(e, "Disconnect failed")

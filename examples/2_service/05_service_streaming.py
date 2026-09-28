@@ -349,7 +349,7 @@ async def main():
 
         # Step 3: Disconnect from MT5 and close channel
         try:
-            await account.channel.close()
+            await service.disconnect()
             print_success("Disconnected successfully")
         except Exception as e:
             print_if_error(e, "Disconnect failed")

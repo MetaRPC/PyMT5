@@ -436,10 +436,10 @@ async def run_streaming_demo():
         await asyncio.sleep(0.5)
         print("  → Waiting for streams to finish...")
 
-        # Step 3: Close gRPC channel
+        # Step 3: Disconnect and close gRPC channel
         try:
-            await account.channel.close()
-            print("✓ Channel closed successfully")
+            await account.disconnect()
+            print("✓ Disconnected successfully")
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 

@@ -105,14 +105,18 @@ class ApiError(Exception):
                 print(f"Trade error: {e}")
     """
 
-    def __init__(self, error: error_pb2.Error):
+    def __init__(self, error: error_pb2.Error | str):
         """
-        Create ApiError from protobuf Error.
+        Create ApiError from protobuf Error or error message string.
 
         Parameters:
-            error: Protobuf Error message from MT5 server
+            error: Protobuf Error message from MT5 server or string
         """
-        self._error = error
+        if isinstance(error, str):
+            self._error = error_pb2.Error(error_message=error)
+        else:
+            self._error = error
+        self.error = self._error
         # IMPORTANT: Call super().__init__() with our clean message, not str(error)
         # This prevents protobuf dump in exception messages
         super().__init__(self._format_short())
@@ -147,6 +151,11 @@ class ApiError(Exception):
             return f"{self.mql_error_description()} ({code_str})"
 
         # Generic API error
+        if self._error.error_message:
+            if self._error.error_code:
+                return f"{self._error.error_message} ({self._error.error_code})"
+            return self._error.error_message
+
         if self._error.error_code:
             return f"API error: {self._error.error_code}"
 
