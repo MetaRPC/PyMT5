@@ -10,15 +10,18 @@ async def test_account_summary():
     server_name = "MetaQuotes-Demo"
 
     account = MT5Account(user=user, password=password)
-    #await account.connect_by_host_port(host=host, port=port)
-    await account.connect_by_server_name(server_name=server_name)
+    try:
+        #await account.connect_by_host_port(host=host, port=port)
+        await account.connect_by_server_name(server_name=server_name)
 
-    summary = await account.account_summary()
-    print("✅ Account summary:")
-    print(summary)
+        summary = await account.account_summary()
+        print("✅ Account summary:")
+        print(summary)
 
-    async for tick in account.on_symbol_tick(["EURUSD", "GBPUSD"]):
-        print(tick)
+        async for tick in account.on_symbol_tick(["EURUSD", "GBPUSD"]):
+            print(tick)
+    finally:
+        await account.disconnect(delete=True)
 
 
 if __name__ == "__main__":

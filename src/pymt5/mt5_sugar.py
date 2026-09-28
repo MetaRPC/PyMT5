@@ -2120,12 +2120,12 @@ class MT5Sugar:
     # endregion
 
 
-    async def disconnect(self):
+    async def disconnect(self, delete: bool = False):
         """Disconnect underlying service and account."""
         if hasattr(self._service, "disconnect"):
-            await self._service.disconnect()
+            await self._service.disconnect(delete=delete)
         elif hasattr(self._account, "disconnect"):
-            await self._account.disconnect()
+            await self._account.disconnect(delete=delete)
         elif hasattr(self._account, "channel") and self._account.channel:
             await self._account.channel.close()
 

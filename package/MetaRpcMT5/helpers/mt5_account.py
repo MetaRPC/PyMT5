@@ -552,11 +552,11 @@ class MT5Account:
         if guid:
             self.id = guid
 
-    async def disconnect(self):
+    async def disconnect(self, delete: bool = False):
         """Disconnect from MT5 server and close the gRPC channel."""
         try:
             if self.id and self.connection_client:
-                req = connection_pb2.DisconnectRequest()
+                req = connection_pb2.DisconnectRequest(delete=delete)
                 await self.connection_client.Disconnect(req, metadata=self.get_headers(), timeout=5.0)
         except Exception:
             pass
