@@ -100,6 +100,16 @@ class AdminApiStub(object):
                 request_serializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
                 response_deserializer=mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.FromString,
                 )
+        self.Drain = channel.unary_unary(
+                '/mrpc_admin.AdminApi/Drain',
+                request_serializer=mt5__term__api__admin__pb2.DrainRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.DrainReply.FromString,
+                )
+        self.StopTerminalLocal = channel.unary_unary(
+                '/mrpc_admin.AdminApi/StopTerminalLocal',
+                request_serializer=mt5__term__api__admin__pb2.StopTerminalLocalRequest.SerializeToString,
+                response_deserializer=mt5__term__api__admin__pb2.StopTerminalLocalReply.FromString,
+                )
 
 
 class AdminApiServicer(object):
@@ -250,6 +260,26 @@ class AdminApiServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Drain(self, request, context):
+        """Puts THIS pod into the draining state ahead of shutdown (StatefulSet preStop hook). While draining the
+        pod stops renewing its terminal ownership leases, suppresses crash persistence for terminals ending with
+        the VM, and starts no new work; peers restore its terminals once the leases expire. One-way for the
+        lifetime of the process; calling it again reports already_draining.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def StopTerminalLocal(self, request, context):
+        """Stops THIS pod's local copy of one terminal (pod-to-pod: user-stop fan-out, duplicate prune, rebalance
+        migration). Local only: never forwarded to another pod and never persisted to UserTerminals (the caller
+        records any stop intent). cause is a StopCause name; only customer/API/admin/delete/test stops and
+        InternalReap are accepted. Callers must check reply.error.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AdminApiServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -332,6 +362,16 @@ def add_AdminApiServicer_to_server(servicer, server):
                     servicer.KillAllTrialTerminalsLocal,
                     request_deserializer=mt5__term__api__admin__pb2.ActiveTerminalsRequest.FromString,
                     response_serializer=mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.SerializeToString,
+            ),
+            'Drain': grpc.unary_unary_rpc_method_handler(
+                    servicer.Drain,
+                    request_deserializer=mt5__term__api__admin__pb2.DrainRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.DrainReply.SerializeToString,
+            ),
+            'StopTerminalLocal': grpc.unary_unary_rpc_method_handler(
+                    servicer.StopTerminalLocal,
+                    request_deserializer=mt5__term__api__admin__pb2.StopTerminalLocalRequest.FromString,
+                    response_serializer=mt5__term__api__admin__pb2.StopTerminalLocalReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -618,5 +658,39 @@ class AdminApi(object):
         return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/KillAllTrialTerminalsLocal',
             mt5__term__api__admin__pb2.ActiveTerminalsRequest.SerializeToString,
             mt5__term__api__admin__pb2.KillAllTrialTerminalsReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Drain(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/Drain',
+            mt5__term__api__admin__pb2.DrainRequest.SerializeToString,
+            mt5__term__api__admin__pb2.DrainReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def StopTerminalLocal(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mrpc_admin.AdminApi/StopTerminalLocal',
+            mt5__term__api__admin__pb2.StopTerminalLocalRequest.SerializeToString,
+            mt5__term__api__admin__pb2.StopTerminalLocalReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
