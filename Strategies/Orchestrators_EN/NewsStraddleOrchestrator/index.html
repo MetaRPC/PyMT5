@@ -1,0 +1,2254 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete Python SDK for MetaTrader 5 trading automation via gRPC">
+      
+      
+      
+        <link rel="canonical" href="https://metarpc.github.io/PyMT5/Strategies/Orchestrators_EN/NewsStraddleOrchestrator/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>NewsStraddleOrchestrator - News Straddle - PyMT5 SDK Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../styles/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#newsstraddleorchestrator-news-straddle" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="PyMT5 SDK Documentation" class="md-header__button md-logo" aria-label="PyMT5 SDK Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PyMT5 SDK Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NewsStraddleOrchestrator - News Straddle
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PyMT5 SDK Documentation" class="md-nav__button md-logo" aria-label="PyMT5 SDK Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 7.5A2.86 2.86 0 0 1 22 10.36v3.78A2.86 2.86 0 0 1 19.14 17H12c0 .39.32.96.71.96H17v1.68a2.86 2.86 0 0 1-2.86 2.86H9.86A2.86 2.86 0 0 1 7 19.64v-3.75a2.85 2.85 0 0 1 2.86-2.85h5.25a2.85 2.85 0 0 0 2.85-2.86V7.5zm-4.28 11.79c-.4 0-.72.3-.72.89s.32.71.72.71a.71.71 0 0 0 .71-.71c0-.59-.32-.89-.71-.89m-10-1.79A2.86 2.86 0 0 1 2 14.64v-3.78A2.86 2.86 0 0 1 4.86 8H12c0-.39-.32-.96-.71-.96H7V5.36A2.86 2.86 0 0 1 9.86 2.5h4.28A2.86 2.86 0 0 1 17 5.36v3.75a2.85 2.85 0 0 1-2.86 2.85H8.89a2.85 2.85 0 0 0-2.85 2.86v2.68zM9.14 5.71c.4 0 .72-.3.72-.89s-.32-.71-.72-.71c-.39 0-.71.12-.71.71s.32.89.71.89"/></svg>
+
+    </a>
+    PyMT5 SDK Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MetaRPC/PyMT5" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MetaRPC/PyMT5
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/GETTING_STARTED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/Your_First_Project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/PROJECT_MAP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Map
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/GLOSSARY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/MT5_For_Beginners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5 for Beginners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/GRPC_STREAM_MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC Streaming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/RETURN_CODES_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/ENUMS_USAGE_REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENUMs Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/PROTOBUF_INSPECTOR_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protobuf Inspector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/USERCODE_SANDBOX_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UserCode Sandbox
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../All_Guides/SYNC_VS_ASYNC/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sync vs Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../API_Reference/MT5Account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Account API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../API_Reference/MT5Service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../API_Reference/MT5Sugar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MT5Sugar API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Strategies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Strategies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Strategies.Master.Overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Master Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Presets/AdaptiveMarketModePreset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Description
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flowchart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step-by-Step Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategy-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy Visualization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strategy Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-1-upward-breakout-typical-nfp-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 1: UPWARD Breakout (typical NFP scenario)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-2-downward-breakout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 2: DOWNWARD Breakout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-3-extreme-volatility-both-orders-triggered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 3: Extreme volatility (BOTH orders triggered)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-4-no-breakout-weak-news" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 4: No breakout (weak news)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-news-straddle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use News Straddle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use News Straddle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-news-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Best News Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bad-news-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Bad News Events
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risk-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risk Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Risk Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choosing-straddledistancepoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing StraddleDistancePoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rr-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R:R Calculation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximum Risk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommendations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-nfp-trading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: NFP Trading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-cpi-trading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: CPI Trading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-fomc-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: FOMC Decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Possible Improvements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-orchestrators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Orchestrators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console Output
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Console Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-example-upward-breakout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output example (upward breakout)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="newsstraddleorchestrator-news-straddle">NewsStraddleOrchestrator - News Straddle<a class="headerlink" href="#newsstraddleorchestrator-news-straddle" title="Permanent link">¶</a></h1>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">¶</a></h2>
+<p><strong>NewsStraddleOrchestrator</strong> is an orchestrator for news trading using the straddle method. Before important news release, it places two pending Stop orders: Buy Stop above and Sell Stop below the current price. When the news comes out and the price moves sharply in either direction, the corresponding order is triggered and the opposite is cancelled.</p>
+<p><strong>Operating Principle</strong>: "News Trading" - catch volatility from news without predicting direction. Straddle allows catching the movement regardless of whether the price goes up or down after the news (NFP, CPI, central bank decisions, etc.).</p>
+<p><strong>File</strong>: <code>Examples\Orchestrators\NewsStraddleOrchestrator.cs</code></p>
+<hr />
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>NEWS STRADDLE ORCHESTRATOR
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ↓
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>MT5Service Instance
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ↓
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  ┌─────┼─────┐
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  ↓     ↓     ↓
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>BuyStop SellStop CloseBy
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Points  Points   Ticket
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>(above) (below)  (cancel)
+</code></pre></div>
+<h3 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>MT5Service</strong>: Service layer for MT5</li>
+<li><strong>MT5Sugar Extension Methods</strong>: <code>BuyStopPoints</code>, <code>SellStopPoints</code>, <code>CloseByTicket</code>, <code>CloseAll</code></li>
+<li><strong>mt5_term_api</strong>: gRPC types (<code>OrderSendData</code>, <code>OpenedOrdersTicketsData</code>)</li>
+</ul>
+<hr />
+<h2 id="configuration-parameters">Configuration Parameters<a class="headerlink" href="#configuration-parameters" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Symbol</code></td>
+<td>string</td>
+<td><code>"EURUSD"</code></td>
+<td>Trading instrument</td>
+</tr>
+<tr>
+<td><code>StraddleDistancePoints</code></td>
+<td>int</td>
+<td><code>15</code></td>
+<td>Distance of orders from current price (in points)</td>
+</tr>
+<tr>
+<td><code>Volume</code></td>
+<td>double</td>
+<td><code>0.02</code></td>
+<td>Volume of each order in lots</td>
+</tr>
+<tr>
+<td><code>StopLossPoints</code></td>
+<td>int</td>
+<td><code>20</code></td>
+<td>Stop-loss in points</td>
+</tr>
+<tr>
+<td><code>TakeProfitPoints</code></td>
+<td>int</td>
+<td><code>40</code></td>
+<td>Take-profit in points</td>
+</tr>
+<tr>
+<td><code>SecondsBeforeNews</code></td>
+<td>int</td>
+<td><code>60</code></td>
+<td>Waiting time before news (sec)</td>
+</tr>
+<tr>
+<td><code>MaxWaitAfterNewsSeconds</code></td>
+<td>int</td>
+<td><code>180</code></td>
+<td>Maximum waiting time for breakout after placing orders</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration-example">Configuration Example<a class="headerlink" href="#configuration-example" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">newsStraddle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NewsStraddleOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">    </span><span class="c1">// Orders at distance of 20 points</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">                  </span><span class="c1">// Conservative volume</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">            </span><span class="c1">// SL = 25 points</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w">          </span><span class="c1">// TP = 60 points (R:R = 1:2.4)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="n">SecondsBeforeNews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">        </span><span class="c1">// Wait 2 minutes before news</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">MaxWaitAfterNewsSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="w">   </span><span class="c1">// Wait for breakout 5 minutes</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">};</span>
+</code></pre></div>
+<hr />
+<h2 id="how-to-run">How to Run<a class="headerlink" href="#how-to-run" title="Permanent link">¶</a></h2>
+<p>You can run this orchestrator using any of the following commands:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>dotnet<span class="w"> </span>run<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>dotnet<span class="w"> </span>run<span class="w"> </span>news
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>dotnet<span class="w"> </span>run<span class="w"> </span>newsstraddle
+</code></pre></div>
+<hr />
+<h2 id="algorithm">Algorithm<a class="headerlink" href="#algorithm" title="Permanent link">¶</a></h2>
+<h3 id="flowchart">Flowchart<a class="headerlink" href="#flowchart" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>START
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  ↓
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Get initial balance
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  ↓
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Task.Delay(SecondsBeforeNews × 1000)  // Countdown
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  ↓
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>"NEWS EVENT IMMINENT!"
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  ↓
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>SymbolInfoTickAsync() → current price
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  ↓
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>BuyStopPoints(+StraddleDistancePoints)
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  → If error → return 0
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>  ↓
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>SellStopPoints(-StraddleDistancePoints)
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  → If error → cancel BuyStop, return 0
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>  ↓
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>"STRADDLE ACTIVE"
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>  ↓
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>MONITORING (every second, max MaxWaitAfterNewsSeconds)
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>  → OpenedOrdersTicketsAsync()
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>  → Check: BuyStop still pending?
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>  → Check: SellStop still pending?
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>  → CONDITIONS:
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>      If BuyStop executed, SellStop pending
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>        → UPWARD breakout → cancel SellStop
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>      If SellStop executed, BuyStop pending
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>        → DOWNWARD breakout → cancel BuyStop
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>      If both executed
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>        → BOTH (extreme volatility!)
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>      Timeout → cancel both
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>  ↓
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>Task.Delay(60000)  // Hold position 60 sec
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>  ↓
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>CloseAll(Symbol)
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>  ↓
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>Return profit
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>END
+</code></pre></div>
+<h3 id="step-by-step-description">Step-by-Step Description<a class="headerlink" href="#step-by-step-description" title="Permanent link">¶</a></h3>
+<h4 id="1-initialization-and-countdown-lines-36-47">1. Initialization and countdown (lines 36-47)<a class="headerlink" href="#1-initialization-and-countdown-lines-36-47" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">initialBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">GetBalanceAsync</span><span class="p">();</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Starting balance: ${initialBalance:F2}"</span><span class="p">);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Symbol: {Symbol}"</span><span class="p">);</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Straddle distance: {StraddleDistancePoints} pts"</span><span class="p">);</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">// │  COUNTDOWN TO NEWS                                      </span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1">// │  Simulating waiting before event                        </span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1">// └─────────────────────────────────────────────────────────</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  ⏲  Waiting {SecondsBeforeNews}s before news event...\n"</span><span class="p">);</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="n">SecondsBeforeNews</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>What happens</strong>:</p>
+<ul>
+<li>Waiting before news (default 60 seconds)</li>
+<li>In real trading: run orchestrator 1-2 minutes before exact news time</li>
+<li>Example: NFP releases at 13:30 UTC → run orchestrator at 13:29:00</li>
+</ul>
+<h4 id="2-getting-current-price-before-news-lines-49-51">2. Getting current price before news (lines 49-51)<a class="headerlink" href="#2-getting-current-price-before-news-lines-49-51" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">SymbolInfoTickAsync</span><span class="p">(</span><span class="n">Symbol</span><span class="p">);</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  📰 NEWS EVENT IMMINENT!"</span><span class="p">);</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Current: Bid={tick.Bid:F5}, Ask={tick.Ask:F5}\n"</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Critically important</strong>:</p>
+<ul>
+<li>Price is obtained <strong>IMMEDIATELY</strong> before placing orders</li>
+<li>Ensures straddle symmetry relative to current price</li>
+</ul>
+<h4 id="3-placing-buy-stop-upper-straddle-order-lines-53-70">3. Placing Buy Stop (upper straddle order) (lines 53-70)<a class="headerlink" href="#3-placing-buy-stop-upper-straddle-order-lines-53-70" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  Placing BUY STOP (upper straddle)..."</span><span class="p">);</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">buyStopResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">BuyStopPoints</span><span class="p">(</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="n">symbol</span><span class="p">:</span><span class="w"> </span><span class="n">Symbol</span><span class="p">,</span><span class="w">                         </span><span class="c1">// "EURUSD"</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="n">volume</span><span class="p">:</span><span class="w"> </span><span class="n">Volume</span><span class="p">,</span><span class="w">                         </span><span class="c1">// 0.02</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="n">priceOffsetPoints</span><span class="p">:</span><span class="w"> </span><span class="n">StraddleDistancePoints</span><span class="p">,</span><span class="w">  </span><span class="c1">// +15 (POSITIVE!)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="n">slPoints</span><span class="p">:</span><span class="w"> </span><span class="n">StopLossPoints</span><span class="p">,</span><span class="w">               </span><span class="c1">// 20</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">tpPoints</span><span class="p">:</span><span class="w"> </span><span class="n">TakeProfitPoints</span><span class="p">,</span><span class="w">             </span><span class="c1">// 40</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="n">comment</span><span class="p">:</span><span class="w"> </span><span class="s">"News-Buy"</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">);</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buyStopResult</span><span class="p">.</span><span class="n">ReturnedCode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">10009</span><span class="p">)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="p">{</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  ✗ BUY STOP failed: {buyStopResult.Comment}\n"</span><span class="p">);</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">}</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  ✓ BUY STOP: #{buyStopResult.Order}\n"</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Calculation example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Current Ask price: 1.10000
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>StraddleDistancePoints: 15
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>point: 0.00001
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>BuyStop price = 1.10000 + (15 × 0.00001) = 1.10015
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>When news comes out and price shoots UP to 1.10015 → order executes
+</code></pre></div></p>
+<h4 id="4-placing-sell-stop-lower-straddle-order-lines-72-91">4. Placing Sell Stop (lower straddle order) (lines 72-91)<a class="headerlink" href="#4-placing-sell-stop-lower-straddle-order-lines-72-91" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  Placing SELL STOP (lower straddle)..."</span><span class="p">);</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">sellStopResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">SellStopPoints</span><span class="p">(</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">symbol</span><span class="p">:</span><span class="w"> </span><span class="n">Symbol</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">volume</span><span class="p">:</span><span class="w"> </span><span class="n">Volume</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="n">priceOffsetPoints</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="n">StraddleDistancePoints</span><span class="p">,</span><span class="w">  </span><span class="c1">// -15 (NEGATIVE!)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="n">slPoints</span><span class="p">:</span><span class="w"> </span><span class="n">StopLossPoints</span><span class="p">,</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">tpPoints</span><span class="p">:</span><span class="w"> </span><span class="n">TakeProfitPoints</span><span class="p">,</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="n">comment</span><span class="p">:</span><span class="w"> </span><span class="s">"News-Sell"</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">);</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sellStopResult</span><span class="p">.</span><span class="n">ReturnedCode</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">10009</span><span class="p">)</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="p">{</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  ✗ SELL STOP failed: {sellStopResult.Comment}"</span><span class="p">);</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  Canceling BUY STOP..."</span><span class="p">);</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">    </span><span class="c1">// │  IMPORTANT: Cancel first order!                 </span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">    </span><span class="c1">// └─────────────────────────────────────────────────</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">CloseByTicket</span><span class="p">(</span><span class="n">buyStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">);</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="p">}</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  ✓ SELL STOP: #{sellStopResult.Order}\n"</span><span class="p">);</span>
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  ✅ STRADDLE ACTIVE - Waiting for news spike!\n"</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Calculation example</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Current Bid price: 1.10000
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>StraddleDistancePoints: 15 (but use -15)
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>point: 0.00001
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>SellStop price = 1.10000 + (-15 × 0.00001) = 1.09985
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>When news comes out and price shoots DOWN to 1.09985 → order executes
+</code></pre></div></p>
+<p><strong>Result</strong>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>│  STRADDLE PLACED:                                   
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>│                                                     
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>│  1.10015  BUY STOP  (upward breakout)               
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>│           SL: 1.09995, TP: 1.10055                  
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>│                                                     
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>│  1.10000  CURRENT PRICE                             
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>│                                                     
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>│  1.09985  SELL STOP (downward breakout)             
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>│           SL: 1.10005, TP: 1.09945                  
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>└─────────────────────────────────────────────────────
+</code></pre></div></p>
+<h4 id="5-monitoring-for-breakout-after-news-lines-94-136">5. Monitoring for breakout after news (lines 94-136)<a class="headerlink" href="#5-monitoring-for-breakout-after-news-lines-94-136" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">monitorStart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DateTime</span><span class="p">.</span><span class="n">UtcNow</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kt">var</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="n">MaxWaitAfterNewsSeconds</span><span class="p">);</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kt">ulong?</span><span class="w"> </span><span class="n">executedOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kt">ulong?</span><span class="w"> </span><span class="n">pendingOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kt">string</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span><span class="p">;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1">// │  MONITORING LOOP (every 1 sec, max 3 minutes)          </span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1">// └─────────────────────────────────────────────────────────</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">UtcNow</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">monitorStart</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">ct</span><span class="p">.</span><span class="n">IsCancellationRequested</span><span class="p">)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="p">{</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">);</span><span class="w">  </span><span class="c1">// Every second (faster than PendingBreakout!)</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="kt">var</span><span class="w"> </span><span class="n">tickets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">OpenedOrdersTicketsAsync</span><span class="p">();</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">buyStillPending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">sellStillPending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">var</span><span class="w"> </span><span class="n">ticket</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">tickets</span><span class="p">.</span><span class="n">OpenedOrdersTickets</span><span class="p">)</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ticket</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">buyStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">)</span><span class="w"> </span><span class="n">buyStillPending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ticket</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">sellStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">)</span><span class="w"> </span><span class="n">sellStillPending</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">    </span><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span><span class="c1">// SCENARIO 1: UPWARD BREAKOUT</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">    </span><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">buyStillPending</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">sellStillPending</span><span class="p">)</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">        </span><span class="n">executedOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buyStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">;</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="w">        </span><span class="n">pendingOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sellStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">;</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">        </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"UPWARD"</span><span class="p">;</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="w">    </span><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="w">    </span><span class="c1">// SCENARIO 2: DOWNWARD BREAKOUT</span>
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="w">    </span><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">buyStillPending</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">sellStillPending</span><span class="p">)</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="w">        </span><span class="n">executedOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sellStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">;</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a><span class="w">        </span><span class="n">pendingOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buyStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">;</span>
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a><span class="w">        </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"DOWNWARD"</span><span class="p">;</span>
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>
+<a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="w">    </span><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="w">    </span><span class="c1">// SCENARIO 3: BOTH TRIGGERED (rare case!)</span>
+<a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a><span class="w">    </span><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">buyStillPending</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">sellStillPending</span><span class="p">)</span>
+<a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a><span class="w">        </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  ⚡ BOTH ORDERS TRIGGERED - Extreme volatility!"</span><span class="p">);</span>
+<a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a><span class="w">        </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"BOTH"</span><span class="p">;</span>
+<a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a><span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a>
+<a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a><span class="w">    </span><span class="c1">// SCENARIO 4: Both still pending → continue waiting</span>
+<a id="__codelineno-11-57" name="__codelineno-11-57" href="#__codelineno-11-57"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Key differences from PendingBreakoutOrchestrator</strong>:</p>
+<ul>
+<li>Check <strong>every second</strong> (instead of 3 seconds) → news requires fast reaction</li>
+<li>Additional scenario <strong>"BOTH"</strong> for extreme volatility</li>
+<li>Short timeout (3 minutes) → news acts quickly</li>
+</ul>
+<h4 id="6-breakout-handling-lines-138-161">6. Breakout handling (lines 138-161)<a class="headerlink" href="#6-breakout-handling-lines-138-161" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">// SCENARIO A: ONE ORDER TRIGGERED (normal breakout)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">executedOrder</span><span class="p">.</span><span class="n">HasValue</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">pendingOrder</span><span class="p">.</span><span class="n">HasValue</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  🚀 {direction} BREAKOUT DETECTED!"</span><span class="p">);</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Position opened: #{executedOrder.Value}"</span><span class="p">);</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Canceling opposite order #{pendingOrder.Value}..."</span><span class="p">);</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="c1">// Cancel opposite order</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">CloseByTicket</span><span class="p">(</span><span class="n">pendingOrder</span><span class="p">.</span><span class="n">Value</span><span class="p">);</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  ✓ Opposite order canceled\n"</span><span class="p">);</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">    </span><span class="c1">// │  Hold position for 60 seconds                   </span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">    </span><span class="c1">// │  SL or TP may trigger during this time          </span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="c1">// └─────────────────────────────────────────────────</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  ⏳ Holding position for 60 seconds..."</span><span class="p">);</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">);</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="p">}</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="c1">// SCENARIO B: BOTH ORDERS TRIGGERED (extreme volatility)</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">direction</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">"BOTH"</span><span class="p">)</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="p">{</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="w">    </span><span class="c1">// Price jerked in both directions very fast!</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="w">    </span><span class="c1">// TWO positions opened (BUY and SELL simultaneously)</span>
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  ⏳ Holding both positions for 30 seconds..."</span><span class="p">);</span>
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">30000</span><span class="p">,</span><span class="w"> </span><span class="n">ct</span><span class="p">);</span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="p">}</span>
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="c1">// SCENARIO C: TIMEOUT (breakout didn't happen)</span>
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="c1">// ═══════════════════════════════════════════════════════</span>
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="k">else</span>
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="p">{</span>
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  ⏱ No breakout after {MaxWaitAfterNewsSeconds}s"</span><span class="p">);</span>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  Canceling both pending orders..."</span><span class="p">);</span>
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="w">    </span><span class="c1">// Cancel both orders</span>
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">CloseByTicket</span><span class="p">(</span><span class="n">buyStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">);</span>
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">CloseByTicket</span><span class="p">(</span><span class="n">sellStopResult</span><span class="p">.</span><span class="n">Order</span><span class="p">);</span>
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="7-final-close-lines-163-176">7. Final close (lines 163-176)<a class="headerlink" href="#7-final-close-lines-163-176" title="Permanent link">¶</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">// │  Close all remaining positions                          </span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1">// └─────────────────────────────────────────────────────────</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"\n  Closing all remaining positions..."</span><span class="p">);</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">CloseAll</span><span class="p">(</span><span class="n">Symbol</span><span class="p">);</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"  ✓ All closed"</span><span class="p">);</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="kt">var</span><span class="w"> </span><span class="n">finalBalance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">GetBalanceAsync</span><span class="p">();</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="kt">var</span><span class="w"> </span><span class="n">profit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">finalBalance</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">initialBalance</span><span class="p">;</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"\n  Final balance: ${finalBalance:F2}"</span><span class="p">);</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Profit/Loss: ${profit:F2}"</span><span class="p">);</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"  Direction: {(string.IsNullOrEmpty(direction) ? "</span><span class="n">None</span><span class="s">" : direction)}"</span><span class="p">);</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="k">return</span><span class="w"> </span><span class="n">profit</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="strategy-visualization">Strategy Visualization<a class="headerlink" href="#strategy-visualization" title="Permanent link">¶</a></h2>
+<h3 id="scenario-1-upward-breakout-typical-nfp-scenario">Scenario 1: UPWARD Breakout (typical NFP scenario)<a class="headerlink" href="#scenario-1-upward-breakout-typical-nfp-scenario" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>T=0      START
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>         SecondsBeforeNews = 60
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>         │
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>         ├─► Task.Delay(60000) → waiting for news
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>         │
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>T=60s    ├─► "NEWS EVENT IMMINENT!"
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>         │   Current price: Bid=1.10000, Ask=1.10002
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>         │
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>         ├─► BuyStopPoints(+15)  → order @ 1.10017
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>         ├─► SellStopPoints(-15) → order @ 1.09985
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>         │
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>         │   STRADDLE PLACED:
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>         │   
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>         │   │ BUY STOP  @ 1.10017              
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>         │   │ CURRENT   @ 1.10000              
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>         │   │ SELL STOP @ 1.09985              
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>         │   └──────────────────────────────────
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>         │
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>T=61s    ├─► NEWS RELEASED! (NFP better than forecast)
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>         │   Price shoots UP:
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>         │   1.10000 → 1.10010 → 1.10018...
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>         │
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>T=62s    ├─► BUY STOP TRIGGERED @ 1.10017!
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>         │   Opened BUY position 0.02 lots
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>         │   SL: 1.09997, TP: 1.10057
+<a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>         │
+<a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>         ├─► Monitoring detected:
+<a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>         │   buyStillPending = false (disappeared from list)
+<a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>         │   sellStillPending = true
+<a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>         │
+<a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>         │   → "UPWARD BREAKOUT DETECTED!"
+<a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>         │   → Cancel SELL STOP @ 1.09985
+<a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>         │
+<a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>         │   STATE:
+<a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>         │   
+<a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>         │   │ Position: BUY 0.02 @ 1.10017     
+<a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>         │   │ SL: 1.09997, TP: 1.10057         
+<a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>         │   └──────────────────────────────────
+<a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>         │
+<a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a>         │   Price continues to rise:
+<a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>         │   1.10018 → 1.10035 → 1.10050 → 1.10057...
+<a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>         │
+<a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a>T=90s    ├─► TP HIT @ 1.10057!
+<a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a>         │   Profit: +40 pts × 0.02 lots = +$8.00
+<a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>         │
+<a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a>T=120s   ├─► Task.Delay(60000) finished
+<a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a>         │
+<a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a>         ├─► CloseAll("EURUSD")
+<a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a>         │   └─► Position already closed (TP hit earlier)
+<a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a>         │
+<a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a>         └─► Result: Profit +$8.00
+<a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a>
+<a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a>TOTAL: Caught movement from news WITHOUT predicting direction!
+</code></pre></div>
+<h3 id="scenario-2-downward-breakout">Scenario 2: DOWNWARD Breakout<a class="headerlink" href="#scenario-2-downward-breakout" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>T=60s    STRADDLE PLACED:
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>         BUY STOP  @ 1.10017
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>         SELL STOP @ 1.09985
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>T=61s    NEWS: NFP worse than forecast
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>         Price shoots down:
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>         1.10000 → 1.09995 → 1.09985 → 1.09980...
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>T=62s    SELL STOP TRIGGERED @ 1.09985!
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>         Opened SELL position 0.02 lots
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>         SL: 1.10005, TP: 1.09945
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>         → "DOWNWARD BREAKOUT DETECTED!"
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>         → Cancel BUY STOP @ 1.10017
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>         Price continues to fall:
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>         1.09980 → 1.09960 → 1.09945...
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>T=85s    TP HIT @ 1.09945!
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>         Profit: +40 pts × 0.02 lots = +$8.00
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>Result: Profit +$8.00
+</code></pre></div>
+<h3 id="scenario-3-extreme-volatility-both-orders-triggered">Scenario 3: Extreme volatility (BOTH orders triggered)<a class="headerlink" href="#scenario-3-extreme-volatility-both-orders-triggered" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>T=60s    STRADDLE PLACED:
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>         BUY STOP  @ 1.10017
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>         SELL STOP @ 1.09985
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>T=61s    NEWS: Unexpected data!
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>         Price sharply DOWN:
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>         1.10000 → 1.09985 (SELL STOP triggered!)
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>T=62s    Then sharply UP (correction):
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>         1.09985 → 1.10000 → 1.10017 (BUY STOP triggered!)
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>         │ ⚡ BOTH ORDERS TRIGGERED!                 
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>         │                                          
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>         │ Position 1: SELL 0.02 @ 1.09985          
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>         │ Position 2: BUY  0.02 @ 1.10017          
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>         │                                          
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>         │ This is HEDGE (mutually neutralize)!     
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>         └──────────────────────────────────────────
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>T=92s    Task.Delay(30000) finished
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>         CloseAll("EURUSD")
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>         ├─► Closed SELL @ current price 1.10010
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>         │   P/L: (1.09985 - 1.10010) × 0.02 = -$5
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>         │
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>         └─► Closed BUY @ current price 1.10010
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>             P/L: (1.10010 - 1.10017) × 0.02 = -$1.40
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a>         Total: -$5 + (-$1.40) = -$6.40
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a>
+<a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a>Result: Loss -$6.40 (spreads and commissions on whipsaw)
+</code></pre></div>
+<h3 id="scenario-4-no-breakout-weak-news">Scenario 4: No breakout (weak news)<a class="headerlink" href="#scenario-4-no-breakout-weak-news" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>T=60s    STRADDLE PLACED:
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>         BUY STOP  @ 1.10017
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>         SELL STOP @ 1.09985
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>T=61s    NEWS: Data within forecast range
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>         Price moves in narrow range:
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>         1.10000 → 1.10005 → 1.09998 → 1.10003...
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>T=180s   NO ORDERS TRIGGERED!
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>         (Price didn't reach either 1.10017 or 1.09985)
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>         → "No breakout after 180s"
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>         → Cancel BUY STOP
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>         → Cancel SELL STOP
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>Result: Profit $0.00 (orders not executed)
+</code></pre></div>
+<hr />
+<h2 id="when-to-use-news-straddle">When to Use News Straddle<a class="headerlink" href="#when-to-use-news-straddle" title="Permanent link">¶</a></h2>
+<h3 id="best-news-events">✅ Best News Events<a class="headerlink" href="#best-news-events" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Non-Farm Payrolls (NFP)</strong>:</li>
+<li>USA, first Friday of month, 13:30 UTC</li>
+<li>Highest volatility</li>
+<li>
+<p>Recommended parameters:
+     <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">70</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Central Bank Decisions</strong>:</p>
+</li>
+<li>Fed (FOMC), ECB, BoE</li>
+<li>Huge movements on rate decisions</li>
+<li>
+<p>Recommended parameters:
+     <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">35</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>CPI (Inflation Data)</strong>:</p>
+</li>
+<li>USA, mid-month, 13:30 UTC</li>
+<li>Strong movements, especially on surprises</li>
+<li>
+<p>Recommended parameters:
+     <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>GDP</strong>:</p>
+</li>
+<li>Quarterly data</li>
+<li>Medium volatility</li>
+<li>Recommended parameters:
+     <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
+</code></pre></div></li>
+</ol>
+<h3 id="bad-news-events">❌ Bad News Events<a class="headerlink" href="#bad-news-events" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong>Secondary data</strong>: Consumer Confidence, Housing Starts.</p>
+</li>
+<li>
+<p><strong>Central bank speeches</strong>: Unpredictable volatility timing.</p>
+</li>
+<li>
+<p><strong>Corporate earnings</strong>: More for stocks, not forex.</p>
+</li>
+<li>
+<p><strong>Geopolitical events</strong>: Unpredictable, may cause whipsaw.</p>
+</li>
+</ul>
+<hr />
+<h2 id="risk-management">Risk Management<a class="headerlink" href="#risk-management" title="Permanent link">¶</a></h2>
+<h3 id="choosing-straddledistancepoints">Choosing StraddleDistancePoints<a class="headerlink" href="#choosing-straddledistancepoints" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Too close (5-10 pts):
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  ✗ False triggers from noise before news
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  ✗ Both orders may trigger (whipsaw)
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>Optimal (15-25 pts):
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>  ✓ Protection from noise
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>  ✓ Catches real breakouts
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>  ✓ Rarely both orders trigger
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>Too far (30+ pts):
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>  ✗ Will miss weak news
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>  ✗ Late execution (less movement before TP)
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>Recommendation:
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>StraddleDistancePoints = ATR(14) × 0.3-0.5
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>For EURUSD with ATR=12: use 15-20 pts
+</code></pre></div>
+<h3 id="rr-calculation">R:R Calculation<a class="headerlink" href="#rr-calculation" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Default:
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>- StraddleDistancePoints = 15
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>- StopLossPoints = 20
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>- TakeProfitPoints = 40
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>Risk/Reward:
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>- Risk: 20 pts
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>- Reward: 40 pts
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>- R:R = 1:2 ✓
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>Why this is good:
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>- Even with 40% win rate → profitable
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>- News often gives strong directional movements
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>- TP reachable within 1-3 minutes after news
+</code></pre></div>
+<h3 id="maximum-risk">Maximum Risk<a class="headerlink" href="#maximum-risk" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Worst Case: Both orders triggered (whipsaw)
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>Position 1: SELL 0.02 @ 1.09985, SL 1.10005
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>Position 2: BUY 0.02 @ 1.10017, SL 1.09997
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>If both SL trigger:
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>  SELL SL: -20 pts × 0.02 = -$4.00
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>  BUY SL:  -20 pts × 0.02 = -$4.00
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>  ────────────────────────────────
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>  Maximum loss: -$8.00
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>Probability: ~5-10% (rarely both SL trigger simultaneously)
+</code></pre></div>
+<h3 id="recommendations">Recommendations<a class="headerlink" href="#recommendations" title="Permanent link">¶</a></h3>
+<ol>
+<li><strong>Position volume</strong>:</li>
+<li>Conservative: 0.01 lots (risk $2-4)</li>
+<li>Moderate: 0.02 lots (risk $4-8)</li>
+<li>
+<p>Aggressive: 0.05 lots (risk $10-20)</p>
+</li>
+<li>
+<p><strong>Placement timing</strong>:</p>
+</li>
+<li>Run orchestrator 1-2 minutes before exact news time</li>
+<li>Too early → risk of triggering from noise</li>
+<li>
+<p>Too late → miss start of movement</p>
+</li>
+<li>
+<p><strong>Calendar check</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1">// Always check economic calendar!</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="c1">// Use only HIGH IMPACT news</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Spread</strong>:</p>
+</li>
+<li>Spread widens before news!</li>
+<li>EURUSD: usually 0.5-1 point, during news can be 3-5 points</li>
+<li>Account for this in <code>StraddleDistancePoints</code></li>
+</ol>
+<hr />
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">¶</a></h2>
+<h3 id="example-1-nfp-trading">Example 1: NFP Trading<a class="headerlink" href="#example-1-nfp-trading" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1">// Non-Farm Payrolls - first Friday of month, 13:30 UTC</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="c1">// Run at 13:29:00</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">nfpStraddle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NewsStraddleOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="p">{</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">    </span><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">    </span><span class="c1">// Wide (strong volatility)</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">                  </span><span class="c1">// Conservative</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">            </span><span class="c1">// Wide SL</span>
+<a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">70</span><span class="p">,</span><span class="w">          </span><span class="c1">// Ambitious TP (R:R = 1:2.3)</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="w">    </span><span class="n">SecondsBeforeNews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w">         </span><span class="c1">// Wait 1 minute</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a><span class="w">    </span><span class="n">MaxWaitAfterNewsSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">240</span><span class="w">   </span><span class="c1">// 4 minutes for breakout</span>
+<a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a><span class="p">};</span>
+<a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>
+<a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a><span class="kt">var</span><span class="w"> </span><span class="n">profit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">nfpStraddle</span><span class="p">.</span><span class="n">ExecuteAsync</span><span class="p">();</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$"NFP Trade: ${profit:F2}"</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="example-2-cpi-trading">Example 2: CPI Trading<a class="headerlink" href="#example-2-cpi-trading" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1">// CPI - mid-month, 13:30 UTC</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="c1">// Run at 13:29:30</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">cpiStraddle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NewsStraddleOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="p">{</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">    </span><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.02</span><span class="p">,</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w">          </span><span class="c1">// R:R = 1:2.4</span>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w">    </span><span class="n">SecondsBeforeNews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">         </span><span class="c1">// Short wait</span>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w">    </span><span class="n">MaxWaitAfterNewsSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">180</span>
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="p">};</span>
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="kt">var</span><span class="w"> </span><span class="n">profit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">cpiStraddle</span><span class="p">.</span><span class="n">ExecuteAsync</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="example-3-fomc-decision">Example 3: FOMC Decision<a class="headerlink" href="#example-3-fomc-decision" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1">// FOMC - 8 times per year, ~19:00 UTC</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="c1">// Run at 18:58:00</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="kt">var</span><span class="w"> </span><span class="n">fomcStraddle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">NewsStraddleOrchestrator</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="p">{</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="w">    </span><span class="n">Symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"EURUSD"</span><span class="p">,</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="w">    </span><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">    </span><span class="c1">// VERY wide</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a><span class="w">    </span><span class="n">Volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="w">    </span><span class="n">StopLossPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">            </span><span class="c1">// Protection from whipsaw</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a><span class="w">    </span><span class="n">TakeProfitPoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">         </span><span class="c1">// R:R = 1:2.5</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="w">    </span><span class="n">SecondsBeforeNews</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">        </span><span class="c1">// 2 minutes before</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a><span class="w">    </span><span class="n">MaxWaitAfterNewsSeconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="w">   </span><span class="c1">// 5 minutes</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a><span class="p">};</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a><span class="kt">var</span><span class="w"> </span><span class="n">profit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">fomcStraddle</span><span class="p">.</span><span class="n">ExecuteAsync</span><span class="p">();</span>
+</code></pre></div>
+<hr />
+<h2 id="optimization">Optimization<a class="headerlink" href="#optimization" title="Permanent link">¶</a></h2>
+<h3 id="possible-improvements">Possible Improvements<a class="headerlink" href="#possible-improvements" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p><strong>Adaptive distance based on ATR</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">atr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">GetATR</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span><span class="w"> </span><span class="n">period</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">);</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="n">StraddleDistancePoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">atr</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.4</span><span class="p">);</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Asymmetric straddle</strong> (if there's bias):
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1">// Expect upward breakout more than downward</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="n">buyStopDistance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="p">;</span><span class="w">   </span><span class="c1">// Closer</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">sellStopDistance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">;</span><span class="w">  </span><span class="c1">// Further</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Partial close on profit</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1">// After +20 pts close 50%, trail the rest</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="k">await</span><span class="w"> </span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">10000</span><span class="p">);</span><span class="w">  </span><span class="c1">// 10 sec</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="kt">var</span><span class="w"> </span><span class="n">positions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">PositionsAsync</span><span class="p">(</span><span class="n">Symbol</span><span class="p">);</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">positions</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="p">{</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">ClosePartial</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Ticket</span><span class="p">,</span><span class="w"> </span><span class="n">percent</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">);</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="n">_service</span><span class="p">.</span><span class="n">TrailStart</span><span class="p">(</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Ticket</span><span class="p">,</span><span class="w"> </span><span class="n">trailPoints</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Cancel orders if spread too wide</strong>:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kt">var</span><span class="w"> </span><span class="n">spread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tick</span><span class="p">.</span><span class="n">Ask</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tick</span><span class="p">.</span><span class="n">Bid</span><span class="p">;</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">spread</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0.0005</span><span class="p">)</span><span class="w">  </span><span class="c1">// 5 points for EURUSD</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="p">{</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">    </span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">"Spread too wide - aborting"</span><span class="p">);</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="p">}</span>
+</code></pre></div></p>
+</li>
+</ol>
+<hr />
+<h2 id="related-orchestrators">Related Orchestrators<a class="headerlink" href="#related-orchestrators" title="Permanent link">¶</a></h2>
+<ul>
+<li>
+<p><strong><a href="../PendingBreakoutOrchestrator/">PendingBreakoutOrchestrator</a></strong>: General breakout (not just news).</p>
+</li>
+<li>
+<p><strong><a href="../QuickHedgeOrchestrator/">QuickHedgeOrchestrator</a></strong>: Protection through hedging.</p>
+</li>
+<li>
+<p><strong><a href="../SimpleScalpingOrchestrator/">SimpleScalpingOrchestrator</a></strong>: Market entry after breakout.</p>
+</li>
+</ul>
+<hr />
+<h2 id="console-output">Console Output<a class="headerlink" href="#console-output" title="Permanent link">¶</a></h2>
+<h3 id="output-example-upward-breakout">Output example (upward breakout)<a class="headerlink" href="#output-example-upward-breakout" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>+============================================================+
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>|  NEWS STRADDLE ORCHESTRATOR                               |
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>+============================================================+
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>  Starting balance: $10000.00
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>  Symbol: EURUSD
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>  Straddle distance: 15 pts
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>  Volume: 0.02 lots
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>  SL: 20 pts | TP: 40 pts
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>  ⏲  Waiting 60s before news event...
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>  📰 NEWS EVENT IMMINENT!
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>  Current: Bid=1.10000, Ask=1.10002
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>  Placing BUY STOP (upper straddle)...
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>  ✓ BUY STOP: #123456789
+<a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>
+<a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>  Placing SELL STOP (lower straddle)...
+<a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a>  ✓ SELL STOP: #123456790
+<a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a>
+<a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a>  ✅ STRADDLE ACTIVE - Waiting for news spike!
+<a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a>
+<a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a>  🚀 UPWARD BREAKOUT DETECTED!
+<a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a>  Position opened: #123456789
+<a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a>  Canceling opposite order #123456790...
+<a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>  ✓ Opposite order canceled
+<a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a>
+<a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a>  ⏳ Holding position for 60 seconds...
+<a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a>
+<a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a>  Closing all remaining positions...
+<a id="__codelineno-33-32" name="__codelineno-33-32" href="#__codelineno-33-32"></a>  ✓ All closed
+<a id="__codelineno-33-33" name="__codelineno-33-33" href="#__codelineno-33-33"></a>
+<a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a>  Final balance: $10008.00
+<a id="__codelineno-33-35" name="__codelineno-33-35" href="#__codelineno-33-35"></a>  Profit/Loss: $8.00
+<a id="__codelineno-33-36" name="__codelineno-33-36" href="#__codelineno-33-36"></a>  Direction: UPWARD
+<a id="__codelineno-33-37" name="__codelineno-33-37" href="#__codelineno-33-37"></a>
+<a id="__codelineno-33-38" name="__codelineno-33-38" href="#__codelineno-33-38"></a>+============================================================+
+</code></pre></div>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<p><strong>NewsStraddleOrchestrator</strong> is a powerful strategy for news trading:</p>
+<p>✅ <strong>Pros</strong>:</p>
+<ul>
+<li><strong>No need to predict direction</strong> - catch movement in any direction</li>
+<li>Excellent R:R ratio (1:2 and better)</li>
+<li>Automation of news trading</li>
+<li>Works on most volatile events</li>
+<li>OCO mechanism (cancel opposite order)</li>
+</ul>
+<p>❌ <strong>Cons</strong>:</p>
+<ul>
+<li>Whipsaw risk (both orders trigger)</li>
+<li>Wide spreads during news</li>
+<li>Requires precise timing (run 1-2 min before news)</li>
+<li>Not all news gives strong movements</li>
+<li>Stress from high volatility</li>
+</ul>
+<p><strong>Recommendation</strong>:
+ Use ONLY for HIGH IMPACT news (NFP, CPI, FOMC). Always check economic calendar. Start with small lots (0.01). Test on demo account before real trading. Avoid trading all news indiscriminately - choose 2-3 most important per month.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024–2025 MetaRPC. MT5 is a trademark of MetaQuotes Software Corp. This documentation is community-maintained and not affiliated with MetaQuotes.
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/MetaRPC/PyMT5" target="_blank" rel="noopener" title="PyMT5 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tracking", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../../javascripts/ux.js"></script>
+      
+    
+  </body>
+</html>
