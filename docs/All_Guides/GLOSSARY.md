@@ -37,7 +37,7 @@ Base layer providing direct access to MT5 terminal via gRPC protocol.
 
 **Location:** `package/MetaRpcMT5/helpers/mt5_account.py` (2100+ lines)
 
-**Documentation:** [MT5Account.Master.Overview.md](../API_Reference/MT5Account.md)
+**Documentation:** [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
 
 
 ---
@@ -68,7 +68,7 @@ Middle layer providing simplified method signatures without proto complexity.
 
 **Location:** `src/pymt5/mt5_service.py` (1200+ lines)
 
-**Documentation:** [MT5Service.Overview.md](../API_Reference/MT5Service.md)
+**Documentation:** [MT5Service.Overview.md](../MT5Service/MT5Service.Overview.md)
 
 
 ---
@@ -102,7 +102,7 @@ High-level API for common trading operations.
 
 **Location:** `src/pymt5/mt5_sugar.py` (2100+ lines)
 
-**Documentation:** [MT5Sugar Overview](../API_Reference/MT5Sugar.md)
+**Documentation:** [MT5Sugar Overview](../MT5Sugar/MT5Sugar.Master.Overview.md)
 
 
 ---
@@ -230,6 +230,7 @@ except asyncio.TimeoutError:
 Python's computed attributes that look like simple fields.
 
 **MT5Sugar uses properties for instant access:**
+
 ```python
 # Properties - no parentheses needed!
 balance = await sugar.balance       # Not sugar.get_balance()
@@ -377,6 +378,7 @@ normalized_price = round(price, digits)
 ---
 
 ### Risk-Based Volume Calculation
+
 Calculate position size based on dollar risk rather than fixed lot size.
 
 **Formula:** `volume = risk_amount / (stop_loss_pips * pip_value)`
@@ -464,6 +466,7 @@ ticket = await sugar.sell_limit_with_sltp("EURUSD", 0.01, price=current_bid + 0.
 ---
 
 ### Trailing Stop
+
 Dynamic Stop Loss that follows price in profit direction.
 
 **How it works:**
@@ -475,6 +478,7 @@ Dynamic Stop Loss that follows price in profit direction.
 5. Locks in profit as price moves favorably
 
 **Implementation example:**
+
 ```python
 from MetaRpcMT5 import mt5_term_api_market_info_pb2 as market_info_pb2
 
@@ -549,6 +553,7 @@ Order that executes automatically when price reaches specified level.
 - **SELL STOP:** Sell at price BELOW current (breakout down)
 
 **Methods (MT5Sugar):**
+
 ```python
 # Buy limit without SL/TP
 ticket = await sugar.buy_limit("EURUSD", 0.01, price=1.09950)
@@ -569,6 +574,7 @@ await sugar.modify_position_sltp(ticket, sl=1.10000, tp=1.09900)
 ## 🔌 gRPC and Protocol Terms
 
 ### gRPC
+
 High-performance RPC (Remote Procedure Call) framework using HTTP/2.
 
 **In PyMT5:**
@@ -597,6 +603,7 @@ await account.connect_by_server_name(
 ---
 
 ### Protobuf
+
 Protocol Buffers - Google's language-neutral data serialization format.
 
 **In PyMT5:**
@@ -630,6 +637,7 @@ balance = await service.get_account_double(
 ---
 
 ### ℹ️ Return Codes
+
 Protobuf return codes indicating operation success/failure.
 
 **Common codes:**
@@ -1212,9 +1220,9 @@ balance = await service.get_account_double(
 
 ## See Also
 
-- **[MT5Account Master Overview](../API_Reference/MT5Account.md)** - Complete low-level API reference
-- **[MT5Service API Overview](../API_Reference/MT5Service.md)** - Mid-level wrappers API
-- **[MT5Sugar API Reference](../API_Reference/MT5Sugar.md)** - High-level Sugar API
+- **[MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md)** - Complete low-level API reference
+- **[MT5Service API Overview](../MT5Service/MT5Service.Overview.md)** - Mid-level wrappers API
+- **[MT5Sugar API Reference](../MT5Sugar/MT5Sugar.Master.Overview.md)** - High-level Sugar API
 - **[gRPC Stream Management](GRPC_STREAM_MANAGEMENT.md)** - Guide to streaming subscriptions
 - **[Return Codes Reference](RETURN_CODES_REFERENCE.md)** - Complete return codes reference
 - **[User Code Sandbox Guide](USERCODE_SANDBOX_GUIDE.md)** - How to write custom code

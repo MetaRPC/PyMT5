@@ -70,6 +70,7 @@ If this popup doesn't appear automatically, you need to find the **Navigator** p
 The **Navigator** panel is usually located on the **left side** of the screen, below the **Market Watch** panel.
 
 **Inside the Navigator panel** you'll see several sections:
+
 - Accounts
 - Subscriptions
 - Indicators
@@ -149,6 +150,7 @@ MT5 will now create your demo account and display your credentials:
 - **Server**: Server name (e.g., "MetaQuotes-Demo")
 
 **⚠️ CRITICALLY IMPORTANT**: **Save these credentials immediately!** You'll need them for:
+
 - Logging back into MT5
 - Configuring PyMT5 in `examples/0_common/settings.json`
 
@@ -306,7 +308,7 @@ Follow our main getting started guide to connect PyMT5 to your MT5 account:
 PyMT5 is built in **three levels**, from low-level to high-level. You can choose where to start depending on your needs:
 
 #### Level 1: MT5Account (Low-Level gRPC Foundation)
-👉 **[MT5Account Overview](../API_Reference/MT5Account.md)**
+👉 **[MT5Account Overview](../MT5Account/MT5Account.Master.Overview.md)**
 
 - **Direct gRPC calls** to MT5 terminal
 - **Foundation of everything** - all other levels use this internally
@@ -314,7 +316,7 @@ PyMT5 is built in **three levels**, from low-level to high-level. You can choose
 - Best for: Advanced users who need fine-grained control
 
 #### Level 2: MT5Service (Convenient Wrappers)
-👉 **[MT5Service Overview](../API_Reference/MT5Service.md)**
+👉 **[MT5Service Overview](../MT5Service/MT5Service.Overview.md)**
 
 - **Wrapper methods** over MT5Account gRPC calls
 - Simplified error handling and response parsing
@@ -322,7 +324,7 @@ PyMT5 is built in **three levels**, from low-level to high-level. You can choose
 - Best for: Most common trading scenarios
 
 #### Level 3: MT5Sugar (High-Level Helpers)
-👉 **[MT5Sugar API Overview](../API_Reference/MT5Sugar.md)**
+👉 **[MT5Sugar API Overview](../MT5Sugar/MT5Sugar.Master.Overview.md)**
 
 - **Syntactic sugar** and convenience methods
 - Chainable operations, smart defaults

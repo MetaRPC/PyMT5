@@ -18,24 +18,24 @@ const PROGRESS_STORAGE_KEY = 'pymt5_docs_progress';
 // Documentation structure for PyMT5 - ALL pages tracked
 const DOC_STRUCTURE = {
   'guides': {
-    name: '📘 Guides',
+    name: 'Guides',
     pages: [
+      'All_Guides/ENUMS_USAGE_REFERENCE',
       'All_Guides/GETTING_STARTED',
-      'All_Guides/Your_First_Project',
-      'All_Guides/PROJECT_MAP',
       'All_Guides/GLOSSARY',
-      'All_Guides/MT5_For_Beginners',
       'All_Guides/GRPC_STREAM_MANAGEMENT',
-      'All_Guides/RETURN_CODES_REFERENCE',
+      'All_Guides/MT5_For_Beginners',
+      'All_Guides/PROJECT_MAP',
       'All_Guides/PROTOBUF_INSPECTOR_GUIDE',
+      'All_Guides/RETURN_CODES_REFERENCE',
+      'All_Guides/SYNC_VS_ASYNC',
       'All_Guides/USERCODE_SANDBOX_GUIDE',
-      'All_Guides/ENUMS_USAGE_REFERENCE'
+      'All_Guides/Your_First_Project'
     ]
   },
   'mt5account': {
-    name: '📦 MT5Account',
+    name: 'MT5Account',
     pages: [
-      'MT5Account/MT5Account.Master.Overview',
       'MT5Account/1. Account_Information/Account_Information.Overview',
       'MT5Account/1. Account_Information/account_info_double',
       'MT5Account/1. Account_Information/account_info_integer',
@@ -115,28 +115,32 @@ const DOC_STRUCTURE = {
       'MT5Account/HOW_IT_WORK/6. Streaming_Methods_HOW/on_positions_and_pending_orders_tickets_HOW',
       'MT5Account/HOW_IT_WORK/6. Streaming_Methods_HOW/on_symbol_tick_HOW',
       'MT5Account/HOW_IT_WORK/6. Streaming_Methods_HOW/on_trade_HOW',
-      'MT5Account/HOW_IT_WORK/6. Streaming_Methods_HOW/on_trade_transaction_HOW'
+      'MT5Account/HOW_IT_WORK/6. Streaming_Methods_HOW/on_trade_transaction_HOW',
+      'MT5Account/MT5Account.Master.Overview'
     ]
   },
   'mt5service': {
-    name: '🔧 MT5Service',
+    name: 'MT5Service',
     pages: [
-      'MT5Service/MT5Service.Overview',
       'MT5Service/1. Account_Information',
       'MT5Service/2. Symbol_Information',
       'MT5Service/3. Positions_Orders',
       'MT5Service/4. Market_Depth',
       'MT5Service/5. Trading_Operations',
-      'MT5Service/6. Streaming_Methods'
+      'MT5Service/6. Streaming_Methods',
+      'MT5Service/MT5Service.Overview'
     ]
   },
   'mt5sugar': {
-    name: '🍬 MT5Sugar',
+    name: 'MT5Sugar',
     pages: [
-      'MT5Sugar/MT5Sugar.Master.Overview',
       'MT5Sugar/1. Connection/is_connected',
       'MT5Sugar/1. Connection/ping',
       'MT5Sugar/1. Connection/quick_connect',
+      'MT5Sugar/10. Risk_Management/calculate_position_size',
+      'MT5Sugar/10. Risk_Management/calculate_required_margin',
+      'MT5Sugar/10. Risk_Management/can_open_position',
+      'MT5Sugar/10. Risk_Management/get_max_lot_size',
       'MT5Sugar/2. Account_Properties/balance_property',
       'MT5Sugar/2. Account_Properties/get_account_info',
       'MT5Sugar/2. Account_Properties/get_balance',
@@ -181,18 +185,24 @@ const DOC_STRUCTURE = {
       'MT5Sugar/9. Symbol_Information/get_symbol_digits',
       'MT5Sugar/9. Symbol_Information/get_symbol_info',
       'MT5Sugar/9. Symbol_Information/is_symbol_available',
-      'MT5Sugar/10. Risk_Management/calculate_position_size',
-      'MT5Sugar/10. Risk_Management/calculate_required_margin',
-      'MT5Sugar/10. Risk_Management/can_open_position',
-      'MT5Sugar/10. Risk_Management/get_max_lot_size'
+      'MT5Sugar/MT5Sugar.Master.Overview'
     ]
   },
-  'api_reference': {
-    name: '📚 API Reference',
+  'strategies': {
+    name: 'Strategies',
     pages: [
-      'API_Reference/MT5Account',
-      'API_Reference/MT5Service',
-      'API_Reference/MT5Sugar'
+      'Strategies/Orchestrators_EN/GridTradingOrchestrator',
+      'Strategies/Orchestrators_EN/GridTradingOrchestrator.HOW_IT_WORKS',
+      'Strategies/Orchestrators_EN/NewsStraddleOrchestrator',
+      'Strategies/Orchestrators_EN/NewsStraddleOrchestrator.HOW_IT_WORKS',
+      'Strategies/Orchestrators_EN/PendingBreakoutOrchestrator',
+      'Strategies/Orchestrators_EN/PendingBreakoutOrchestrator.HOW_IT_WORKS',
+      'Strategies/Orchestrators_EN/QuickHedgeOrchestrator',
+      'Strategies/Orchestrators_EN/QuickHedgeOrchestrator.HOW_IT_WORKS',
+      'Strategies/Orchestrators_EN/SimpleScalpingOrchestrator',
+      'Strategies/Orchestrators_EN/SimpleScalpingOrchestrator.HOW_IT_WORKS',
+      'Strategies/Presets/AdaptiveMarketModePreset',
+      'Strategies/Strategies.Master.Overview'
     ]
   }
 };
@@ -382,7 +392,7 @@ function createProgressBar() {
     <!-- Side Panel -->
     <div id="progress-panel" class="progress-panel">
       <div class="progress-panel-header">
-        <h3>📊 Learning Progress</h3>
+        <h3>Learning Progress</h3>
         <button id="progress-panel-close" class="progress-panel-close" title="Close">&times;</button>
       </div>
 
@@ -703,19 +713,6 @@ function createContactPanel() {
             <div class="contact-btn-content">
               <div class="contact-btn-title">WhatsApp</div>
               <div class="contact-btn-desc">Direct messaging & voice calls</div>
-            </div>
-          </a>
-
-          <!-- GitHub Discussions Button -->
-          <a href="https://github.com/Moongoord/MetaRPC-Gateway-Support" target="_blank" class="contact-btn contact-btn-github">
-            <div class="contact-btn-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </div>
-            <div class="contact-btn-content">
-              <div class="contact-btn-title">GitHub Discussions</div>
-              <div class="contact-btn-desc">Community support & Q&A</div>
             </div>
           </a>
 

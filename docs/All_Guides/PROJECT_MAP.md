@@ -59,17 +59,20 @@ MT5 Gateway (mt5term) or MT5 Terminal
 ## 🔍 Layer Breakdown
 
 ### Layer 1: `MT5Account` (Low-Level gRPC)
+
 - Direct gRPC stubs communicating with the terminal.
 - Handles protobuf message serialization/deserialization.
 - Responsible for connection recovery, channel state monitoring, and raw streaming calls.
 - Ideal when you need complete control over protobuf payload fields.
 
 ### Layer 2: `MT5Service` (Wrappers)
+
 - Translates protobuf messages into native Python primitives and data models.
 - Removes boilerplate request/response wrapper instantiation.
 - Simplifies method signatures for common terminal actions (Positions, Orders, and Deals).
 
 ### Layer 3: `MT5Sugar` (Convenience Layer)
+
 - Automates lot size calculation and margin checks based on risk percentages.
 - Automatically normalizes prices and volumes to broker specifications (step size, digits, minimum lot).
 - Provides one-line batch operations: close all profitable positions, cancel pending orders.

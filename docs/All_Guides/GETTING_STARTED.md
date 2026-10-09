@@ -9,6 +9,7 @@
 **PyMT5** is an industrial-grade, type-safe Python client library for interacting with **MetaTrader 5** terminals via high-performance **gRPC**. It eliminates complex C++ DLL wrappers and provides direct, reliable programmatic trading.
 
 ### 🌟 Key Advantages
+
 - 🚀 **High Throughput**: Native gRPC streaming for sub-millisecond price ticks and trade execution.
 - 🛡️ **Three-Layer Architecture**: Low-level gRPC (`MT5Account`), typed wrapper methods (`MT5Service`), and high-level convenience (`MT5Sugar`).
 - 🔄 **Resilient Connection**: Auto-reconnect, exponential backoff, and transparent channel healing.
@@ -42,6 +43,7 @@ Connecting to MetaRPC production endpoints (`mt5.mrpc.pro:443`) requires an API 
 ## 🆔 Automatic Account ID & Authentication
 
 MetaRPC endpoints require authentication and session management:
+
 1. **`APIKey`**: Your personal authentication token from [https://mrpc.pro/my](https://mrpc.pro/my) (obtained by registering at [https://mrpc.pro/signup](https://mrpc.pro/signup)). Sent in the `APIKey` header.
 2. **`id`**: A terminal session GUID returned by `Connect` / `ConnectEx` (`terminalInstanceGuid`).
 

@@ -160,7 +160,7 @@
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
 | **on_symbol_tick** | **[In: 0, Out: 0]**<br>Total: 0 ENUMs | Stream tick data (Bid/Ask updates) | - | - |
-| **on_trade** | **[In: 0, Out: 1]**<br>Total: 11 ENUMs (68 values) | Stream trade events | - | **1 direct + 10 in nested structures:**<br>1. `MT5_SUB_ENUM_EVENT_GROUP_TYPE` (2 values) - OnTradeData.type<br>2-11. **In event_data nested structures:** SUB_ENUM_POSITION_TYPE (2), SUB_ENUM_POSITION_REASON (7), SUB_ENUM_ORDER_TYPE (9), SUB_ENUM_ORDER_STATE (10), SUB_ENUM_DEAL_TYPE (8), SUB_ENUM_ORDER_TYPE_TIME (4), SUB_ENUM_ORDER_TYPE_FILLING (4), SUB_ENUM_ORDER_REASON (7), SUB_ENUM_DEAL_ENTRY (4), SUB_ENUM_DEAL_REASON (11) |
+| **on_trade** | **[In: 0, Out: 1]**<br>Total: 11 ENUMs (75 values) | Stream trade events | - | **1 direct + 10 in nested structures:**<br>1. `MT5_SUB_ENUM_EVENT_GROUP_TYPE` (2 values) - OnTradeData.type<br>2-11. **In event_data nested structures:** SUB_ENUM_POSITION_TYPE (2), SUB_ENUM_POSITION_REASON (4), SUB_ENUM_ORDER_TYPE (9), SUB_ENUM_ORDER_STATE (10), SUB_ENUM_DEAL_TYPE (18), SUB_ENUM_ORDER_TYPE_TIME (4), SUB_ENUM_ORDER_TYPE_FILLING (4), SUB_ENUM_ORDER_REASON (7), SUB_ENUM_DEAL_ENTRY (4), SUB_ENUM_DEAL_REASON (11) |
 | **on_position_profit** | **[In: 0, Out: 1]**<br>Total: 1 ENUM (2 values) | Stream position P&L updates | - | `MT5_SUB_ENUM_EVENT_GROUP_TYPE` (2 values) - Event type in OnPositionProfitData.type field |
 | **on_positions_and_pending_orders_tickets** | **[In: 0, Out: 0]**<br>Total: 0 ENUMs | Stream ticket changes | - | - |
 | **on_trade_transaction** | **[In: 0, Out: 9]**<br>Total: 9 ENUMs (107 values) | Stream trade transaction events | - | **11 ENUM fields from 9 unique types:**<br>1. `MT5_SUB_ENUM_EVENT_GROUP_TYPE` (2 values) - OnTradeTransactionData.type<br>2-6. **In MqlTradeTransaction:** SUB_ENUM_TRADE_TRANSACTION_TYPE (11 values), SUB_ENUM_ORDER_TYPE (9 values), SUB_ENUM_ORDER_STATE (10 values), SUB_ENUM_DEAL_TYPE (18 values), SUB_ENUM_ORDER_TYPE_TIME (4 values)<br>7-10. **In MqlTradeRequest:** SUB_ENUM_TRADE_REQUEST_ACTIONS (7 values), SUB_ENUM_ORDER_TYPE (9 values), SUB_ENUM_ORDER_TYPE_FILLING (4 values), SUB_ENUM_ORDER_TYPE_TIME (4 values)<br>11. **In MqlTradeResult:** MqlErrorTradeCode (42 values) |
@@ -226,17 +226,17 @@ ACCOUNT_BALANCE  # NameError: name 'ACCOUNT_BALANCE' is not defined
 
 
 
-- [Account Information Overview](../API_Reference/MT5Account.md)
+- [Account Information Overview](../MT5Account/MT5Account.Master.Overview.md)
 
-- [Symbol Information Overview](../API_Reference/MT5Account.md)
+- [Symbol Information Overview](../MT5Account/MT5Account.Master.Overview.md)
 
-- [Positions & Orders Overview](../API_Reference/MT5Account.md)
+- [Positions & Orders Overview](../MT5Account/MT5Account.Master.Overview.md)
 
-- [Market Depth Overview](../API_Reference/MT5Account.md)
+- [Market Depth Overview](../MT5Account/MT5Account.Master.Overview.md)
 
-- [Trading Operations Overview](../API_Reference/MT5Account.md)
+- [Trading Operations Overview](../MT5Account/MT5Account.Master.Overview.md)
 
-- [Streaming Methods Overview](../API_Reference/MT5Account.md)
+- [Streaming Methods Overview](../MT5Account/MT5Account.Master.Overview.md)
 
 
 

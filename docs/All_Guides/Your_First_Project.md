@@ -7,6 +7,7 @@
 ## Step 0: Obtain Your API Key
 
 To connect to MetaRPC endpoints (`mt5.mrpc.pro:443`), obtain your API key:
+
 1. Register for free at [https://mrpc.pro/signup](https://mrpc.pro/signup).
 2. Generate your API token in your dashboard at [https://mrpc.pro/my](https://mrpc.pro/my).
 3. Set your token in your environment or connection config.
@@ -60,6 +61,7 @@ Run your application:
 ## 🚀 Next Steps
 
 Congratulations! You have successfully established a direct gRPC connection to MetaTrader 5. Next:
+
 - Explore **[gRPC Streaming](GRPC_STREAM_MANAGEMENT.md)** to listen to live ticks.
-- Check the **[API Reference](../API_Reference/MT5Account.md)** for all 40+ available terminal methods.
-- Learn about high-level risk management and auto-normalization in **[MT5Sugar](../API_Reference/MT5Sugar.md)**.
+- Check the **[API Reference](../MT5Account/MT5Account.Master.Overview.md)** for all 40+ available terminal methods.
+- Learn about high-level risk management and auto-normalization in **[MT5Sugar](../MT5Sugar/MT5Sugar.Master.Overview.md)**.
