@@ -129,8 +129,7 @@ async def create_and_connect_mt5(config: Dict[str, Any]) -> MT5Account:
         user=config['user'],
         password=config['password'],
         grpc_server=config['grpc_server'],
-        id_=terminal_guid,
-        api_key=api_key
+        id_=terminal_guid
     )
 
     print(f"[OK] MT5Account created (UUID: {terminal_guid})")

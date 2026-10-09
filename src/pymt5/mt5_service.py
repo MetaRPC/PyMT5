@@ -863,7 +863,7 @@ class MT5Service:
         Terminal maintains subscription - call unsubscribe_market_depth() when done to free resources.
         """
         data = await self._account.market_book_add(symbol, deadline, cancellation_event)
-        return data.success
+        return data.opened_successfully
 
     async def unsubscribe_market_depth(
         self,
@@ -885,7 +885,7 @@ class MT5Service:
         Always unsubscribe when done - brokers may limit concurrent DOM subscriptions.
         """
         data = await self._account.market_book_release(symbol, deadline, cancellation_event)
-        return data.success
+        return data.closed_successfully
 
     async def get_market_depth(
         self,
@@ -909,7 +909,7 @@ class MT5Service:
         data = await self._account.market_book_get(symbol, deadline, cancellation_event)
 
         books = []
-        for book in data.books:
+        for book in data.mql_book_infos:
             books.append(BookInfo(
                 type=book.type,
                 price=book.price,

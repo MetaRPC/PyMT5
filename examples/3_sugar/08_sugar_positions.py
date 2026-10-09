@@ -131,7 +131,8 @@ async def run_sugar_positions_demo():
     ticket2 = None
 
     try:
-        ticket1 = await sugar.buy_market(test_symbol, min_volume)
+        # Open at 2x min volume so a partial close (of min_volume) stays valid
+        ticket1 = await sugar.buy_market(test_symbol, min_volume * 2)
         print_success(f"Opened BUY position: #{ticket1}")
     except Exception as e:
         print_if_error(e, "BUY error")
@@ -385,7 +386,8 @@ async def run_sugar_positions_demo():
     # ══════════════════════════════════════════════════════════════
     print(f"\n3.1. close_position_partial() - Close 50% of position #{ticket1}")
 
-    partial_volume = min_volume / 2
+    # Close min_volume out of the 2x position (leaves min_volume open) — a valid partial
+    partial_volume = min_volume
     try:
         success = await sugar.close_position_partial(ticket1, partial_volume)
         if success:
