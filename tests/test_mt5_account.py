@@ -11,29 +11,19 @@ from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as helper_pb
 
 class TestMT5Account(unittest.TestCase):
     def test_account_initialization(self):
-        account = MT5Account(user=12345678, password="test_password", grpc_server="custom.server:443", api_key="test_key")
+        account = MT5Account(user=12345678, password="test_password", grpc_server="custom.server:443")
         self.assertEqual(account.user, 12345678)
         self.assertEqual(account.password, "test_password")
         self.assertEqual(account.grpc_server, "custom.server:443")
-        self.assertEqual(account.api_key, "test_key")
 
     def test_default_grpc_server(self):
-        old_env = os.environ.pop("MRPC_API_KEY", None)
-        try:
-            account = MT5Account(user=12345678, password="test_password")
-            self.assertEqual(account.grpc_server, "mt5.mrpc.pro:443")
-            self.assertEqual(account.api_key, "TRIAL")
-            headers = account.get_headers()
-            self.assertIn(("apikey", "TRIAL"), headers)
-        finally:
-            if old_env is not None:
-                os.environ["MRPC_API_KEY"] = old_env
+        account = MT5Account(user=12345678, password="test_password")
+        self.assertEqual(account.grpc_server, "mt5.mrpc.pro:443")
 
     def test_get_headers_with_auth(self):
-        account = MT5Account(user=12345678, password="test_password", id_="test-guid", api_key="my_api_key")
+        account = MT5Account(user=12345678, password="test_password", id_="test-guid")
         headers = account.get_headers()
         self.assertIn(("id", "test-guid"), headers)
-        self.assertIn(("apikey", "my_api_key"), headers)
 
     def test_connect_request_proto(self):
         req = conn_pb.ConnectRequest(
