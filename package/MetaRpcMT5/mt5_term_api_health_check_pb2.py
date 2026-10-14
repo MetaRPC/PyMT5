@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 from . import mt5_term_api_connection_pb2 as mt5__term__api__connection__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fmt5-term-api-health-check.proto\x12\x0cmt5_term_api\x1a\x1dmt5-term-api-connection.proto\"\x16\n\x14StopListeningRequest\"\x14\n\x12StopListeningReply\"\x14\n\x12HealthCheckRequest\"O\n\x10HealthCheckReply\x12\x1e\n\x16is_connected_to_server\x18\x01 \x01(\x08\x12\x1b\n\x13server_time_seconds\x18\x02 \x01(\x03\x32\xaa\x01\n\x06Health\x12I\n\x05\x43heck\x12 .mt5_term_api.HealthCheckRequest\x1a\x1e.mt5_term_api.HealthCheckReply\x12U\n\rStopListening\x12\".mt5_term_api.StopListeningRequest\x1a .mt5_term_api.StopListeningReplyBBZ1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\x0cmt5_term_apib\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fmt5-term-api-health-check.proto\x12\x0cmt5_term_api\x1a\x1dmt5-term-api-connection.proto\"\x16\n\x14StopListeningRequest\"\x14\n\x12StopListeningReply\"\x14\n\x12HealthCheckRequest\"p\n\x10HealthCheckReply\x12\x1e\n\x16is_connected_to_server\x18\x01 \x01(\x08\x12\x1b\n\x13server_time_seconds\x18\x02 \x01(\x03\x12\x1f\n\x17server_time_seconds_utc\x18\x03 \x01(\x03\x32\xaa\x01\n\x06Health\x12I\n\x05\x43heck\x12 .mt5_term_api.HealthCheckRequest\x1a\x1e.mt5_term_api.HealthCheckReply\x12U\n\rStopListening\x12\".mt5_term_api.StopListeningRequest\x1a .mt5_term_api.StopListeningReplyBBZ1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\x0cmt5_term_apib\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'mt5_term_api_health_check_pb2', globals())
@@ -29,7 +29,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _HEALTHCHECKREQUEST._serialized_start=126
   _HEALTHCHECKREQUEST._serialized_end=146
   _HEALTHCHECKREPLY._serialized_start=148
-  _HEALTHCHECKREPLY._serialized_end=227
-  _HEALTH._serialized_start=230
-  _HEALTH._serialized_end=400
+  _HEALTHCHECKREPLY._serialized_end=260
+  _HEALTH._serialized_start=263
+  _HEALTH._serialized_end=433
 # @@protoc_insertion_point(module_scope)

@@ -73,27 +73,6 @@ class MT5Account:
     def get_headers(self):
         return [("id", self.id)]
 
-    # === Utility: disconnect ===
-    async def disconnect(self, delete: bool = False):
-        """
-        Disconnect from the MT5 server and close the gRPC channel.
-
-        Args:
-            delete (bool): If True, also asks the server to delete the terminal
-                session instance (not just drop the connection).
-        """
-        try:
-            if self.id:
-                request = connection_pb2.DisconnectRequest(reason="client disconnect", delete=delete)
-                await self.connection_client.Disconnect(
-                    request, metadata=[("id", str(self.id))], timeout=30.0
-                )
-        except Exception:
-            # Best-effort server notification; always close the channel below.
-            pass
-        finally:
-            await self.channel.close()
-
     # === Utility: reconnect ===
     async def reconnect(self, deadline: Optional[datetime] = None):
         if self.server_name:
@@ -126,7 +105,7 @@ class MT5Account:
                 await self.reconnect(deadline)
                 continue
 
-            if res.HasField("error") and res.error.error_message:
+            if res.HasField("error") and res.error.message:
                 raise ApiExceptionMT5(res.error)
 
             return res
@@ -167,14 +146,14 @@ class MT5Account:
             timeout=30.0 if deadline is None else (deadline - datetime.utcnow()).total_seconds(),
         )
         
-        if res.HasField("error") and res.error.error_message:
+        if res.HasField("error") and res.error.message:
             raise ApiExceptionMT5(res.error)
 
         # Save state
         self.host = host
         self.port = port
         self.connect_timeout_seconds = timeout_seconds
-        self.id = res.data.terminal_instance_guid
+        self.id = res.data.terminalInstanceGuid
 
     async def connect_by_server_name(
         self,
@@ -206,7 +185,7 @@ class MT5Account:
             timeout=30.0 if deadline is None else (deadline - datetime.utcnow()).total_seconds(),
         )
 
-        if res.HasField("error") and res.error.error_message:
+        if res.HasField("error") and res.error.message:
             raise ApiExceptionMT5(res.error)
 
         # Save state
@@ -548,14 +527,14 @@ class MT5Account:
 
         request = account_helper_pb2.PositionsHistoryRequest(
             sort_type=sort_type,
-            page_number=page,
-            items_per_page=size,
+            pageNumber=page,
+            itemsPerPage=size,
         )
 
         if open_from:
-            request.position_open_time_from.FromDatetime(open_from)
+            request.positionOpenTimeFrom.FromDatetime(open_from)
         if open_to:
-            request.position_open_time_to.FromDatetime(open_to)
+            request.positionOpenTimeTo.FromDatetime(open_to)
 
         async def grpc_call(headers):
             timeout = None
@@ -583,7 +562,7 @@ class MT5Account:
 
     async def order_send(
         self,
-        request: Any,  # trading_helper_pb2.OrderSendRequest
+        request: Any,  # account_helper_pb2.OrderSendRequest
         deadline: Optional[datetime] = None,
         cancellation_event: Optional[asyncio.Event] = None,
     ):
@@ -885,8 +864,8 @@ class MT5Account:
             raise ConnectExceptionMT5("Please call connect method first")
 
         request = subscriptions_pb2.OnPositionProfitRequest(
-            timer_period_milliseconds=interval_ms,
-            ignore_empty_data=ignore_empty,
+            timerPeriodMilliseconds=interval_ms,
+            ignoreEmptyData=ignore_empty,
         )
 
         async for data in self.execute_stream_with_reconnect(
@@ -923,7 +902,7 @@ class MT5Account:
             raise ConnectExceptionMT5("Please call connect method first")
 
         request = subscriptions_pb2.OnPositionsAndPendingOrdersTicketsRequest(
-            timer_period_milliseconds=interval_ms,
+            timerPeriodMilliseconds=interval_ms,
         )
 
         async for data in self.execute_stream_with_reconnect(
@@ -1003,50 +982,6 @@ class MT5Account:
                 timeout = (deadline - datetime.utcnow()).total_seconds()
                 timeout = max(timeout, 0)
             return await self.trade_functions_client.OrderCalcMargin(
-                request,
-                metadata=headers,
-                timeout=timeout,
-            )
-
-        res = await self.execute_with_reconnect(
-            grpc_call=grpc_call,
-            error_selector=lambda r: getattr(r, "error", None),
-            deadline=deadline,
-            cancellation_event=cancellation_event,
-        )
-        return res.data
-
-    async def order_calc_profit(
-        self,
-        request: Any,  # OrderCalcProfitRequest
-        deadline: Optional[datetime] = None,
-        cancellation_event: Optional[asyncio.Event] = None,
-    ):
-        """
-        Calculates the potential profit/loss for a planned trade operation.
-
-        Args:
-            request (OrderCalcProfitRequest): The request containing order type, symbol, volume, open and close price.
-            deadline (datetime, optional): Deadline for the gRPC call.
-            cancellation_event (asyncio.Event, optional): Event to cancel the request.
-
-        Returns:
-            OrderCalcProfitData: The calculated profit in account currency.
-
-        Raises:
-            ConnectExceptionMT5: If the client is not connected.
-            ApiExceptionMT5: If the server returns a business error.
-            grpc.aio.AioRpcError: If gRPC fails to connect or respond.
-        """
-        if not self.id:
-            raise ConnectExceptionMT5("Please call connect method first")
-
-        async def grpc_call(headers):
-            timeout = None
-            if deadline:
-                timeout = (deadline - datetime.utcnow()).total_seconds()
-                timeout = max(timeout, 0)
-            return await self.trade_functions_client.OrderCalcProfit(
                 request,
                 metadata=headers,
                 timeout=timeout,
@@ -1173,7 +1108,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolsTotalRequest(mode=selected_only)
+        request = account_helper_pb2.SymbolsTotalRequest(mode=selected_only)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1216,7 +1151,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolExistRequest(name=symbol)
+        request = account_helper_pb2.SymbolExistRequest(name=symbol)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1261,7 +1196,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolNameRequest(index=index, selected=selected)
+        request = account_helper_pb2.SymbolNameRequest(index=index, selected=selected)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1306,7 +1241,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolSelectRequest(symbol=symbol, select=select)
+        request = account_helper_pb2.SymbolSelectRequest(symbol=symbol, select=select)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1349,7 +1284,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolIsSynchronizedRequest(symbol=symbol)
+        request = account_helper_pb2.SymbolIsSynchronizedRequest(symbol=symbol)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1394,7 +1329,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoDoubleRequest(symbol=symbol, type=property)
+        request = account_helper_pb2.SymbolInfoDoubleRequest(symbol=symbol, type=property)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1439,7 +1374,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoIntegerRequest(symbol=symbol, type=property)
+        request = account_helper_pb2.SymbolInfoIntegerRequest(symbol=symbol, type=property)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1484,7 +1419,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoStringRequest(symbol=symbol, type=property)
+        request = account_helper_pb2.SymbolInfoStringRequest(symbol=symbol, type=property)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1529,7 +1464,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoMarginRateRequest(symbol=symbol, order_type=order_type)
+        request = account_helper_pb2.SymbolInfoMarginRateRequest(symbol=symbol, orderType=order_type)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1572,7 +1507,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoTickRequest(symbol=symbol)
+        request = account_helper_pb2.SymbolInfoTickRequest(symbol=symbol)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1614,10 +1549,10 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoSessionQuoteRequest(
+        request = account_helper_pb2.SymbolInfoSessionQuoteRequest(
             symbol=symbol,
-            day_of_week=day_of_week,
-            session_index=session_index,
+            dayOfWeek=day_of_week,
+            sessionIndex=session_index,
         )
 
         async def grpc_call(headers):
@@ -1660,10 +1595,10 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.SymbolInfoSessionTradeRequest(
+        request = account_helper_pb2.SymbolInfoSessionTradeRequest(
             symbol=symbol,
-            day_of_week=day_of_week,
-            session_index=session_index,
+            dayOfWeek=day_of_week,
+            sessionIndex=session_index,
         )
 
         async def grpc_call(headers):
@@ -1702,7 +1637,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.MarketBookAddRequest(symbol=symbol)
+        request = account_helper_pb2.MarketBookAddRequest(symbol=symbol)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1740,7 +1675,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.MarketBookReleaseRequest(symbol=symbol)
+        request = account_helper_pb2.MarketBookReleaseRequest(symbol=symbol)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1778,7 +1713,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = market_info_pb2.MarketBookGetRequest(symbol=symbol)
+        request = account_helper_pb2.MarketBookGetRequest(symbol=symbol)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1824,7 +1759,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = account_information_pb2.AccountInfoDoubleRequest(property_id=property_id)
+        request = account_helper_pb2.AccountInfoDoubleRequest(propertyId=property_id)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1840,7 +1775,7 @@ class MT5Account:
             deadline=deadline,
             cancellation_event=cancellation_event,
         )
-        return res.data.requested_value
+        return res.data.requestedValue
 
     async def account_info_integer(
         self,
@@ -1867,7 +1802,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = account_information_pb2.AccountInfoIntegerRequest(property_id=property_id)
+        request = account_helper_pb2.AccountInfoIntegerRequest(propertyId=property_id)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1883,7 +1818,7 @@ class MT5Account:
             deadline=deadline,
             cancellation_event=cancellation_event,
         )
-        return res.data.requested_value
+        return res.data.requestedValue
 
     async def account_info_string(
         self,
@@ -1910,7 +1845,7 @@ class MT5Account:
         if not self.id:
             raise ConnectExceptionMT5("Please call connect method first")
 
-        request = account_information_pb2.AccountInfoStringRequest(property_id=property_id)
+        request = account_helper_pb2.AccountInfoStringRequest(propertyId=property_id)
 
         async def grpc_call(headers):
             timeout = (deadline - datetime.utcnow()).total_seconds() if deadline else None
@@ -1926,5 +1861,5 @@ class MT5Account:
             deadline=deadline,
             cancellation_event=cancellation_event,
         )
-        return res.data.requested_value
+        return res.data.requestedValue
 

@@ -33,8 +33,6 @@
     <Compile Include="MetaRpcMT5\mt5_term_api_account_helper_pb2_grpc.py" />
     <Compile Include="MetaRpcMT5\mt5_term_api_account_information_pb2.py" />
     <Compile Include="MetaRpcMT5\mt5_term_api_account_information_pb2_grpc.py" />
-    <Compile Include="MetaRpcMT5\mt5_term_api_charts_pb2.py" />
-    <Compile Include="MetaRpcMT5\mt5_term_api_charts_pb2_grpc.py" />
     <Compile Include="MetaRpcMT5\mt5_term_api_connection_pb2.py" />
     <Compile Include="MetaRpcMT5\mt5_term_api_connection_pb2_grpc.py" />
     <Compile Include="MetaRpcMT5\mt5_term_api_health_check_pb2.py" />

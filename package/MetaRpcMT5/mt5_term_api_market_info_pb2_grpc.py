@@ -238,6 +238,7 @@ class MarketInfoServicer(object):
 
         This API had no such call, so a client holding a terminal id could list symbols, read a live
         price and trade, and still not draw a chart. Ticks are not candles.
+        DEPRECATED: use QuoteHistory.Bars (mt5-term-api-quote-history.proto): paged, bounded, oldest first.
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
