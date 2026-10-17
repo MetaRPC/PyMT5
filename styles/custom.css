@@ -1,0 +1,1614 @@
+/* ===========================
+   CSharpMT5 — custom.css (calm ocean aurora)
+   Blue to Cyan gradient: #0078D4 → #00D9C0
+   =========================== */
+
+/* 1) Material Symbols (Rounded) — icon font */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght,FILL,GRAD@400..700,0..1,0..200');
+
+/* Smooth Scroll Behavior - CSS only, no JavaScript */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.material-symbols-rounded{
+  font-family: 'Material Symbols Rounded';
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.25rem;
+  line-height: 1;
+  display: inline-block;
+  font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 48;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+/* 2) Background: Light theme (default) - soft teal gradient */
+[data-md-color-scheme="default"] body {
+  background: linear-gradient(135deg, #f1f8f8 0%, #e8f5f4 50%, #e0f2f1 100%);
+  background-attachment: fixed;
+}
+
+[data-md-color-scheme="default"] body::before{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(50% 50% at 30% 20%, rgba(178,223,219,.05), transparent 50%),
+    radial-gradient(60% 60% at 70% 60%, rgba(77,182,172,.06), transparent 55%),
+    radial-gradient(45% 45% at 50% 80%, rgba(38,166,154,.04), transparent 50%);
+  filter: blur(40px);
+  animation: oceanGlow 60s ease-in-out infinite;
+  opacity:.5;
+}
+
+/* Background: Dark theme (slate) - dark gradient with teal warmth */
+[data-md-color-scheme="slate"] body {
+  background: linear-gradient(135deg, #0a1414 0%, #0d1a1a 50%, #0a1212 100%);
+  background-attachment: fixed;
+}
+
+[data-md-color-scheme="slate"] body::before{
+  content:"";
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(50% 50% at 30% 20%, rgba(77,182,172,.08), transparent 50%),
+    radial-gradient(60% 60% at 70% 60%, rgba(38,166,154,.1), transparent 55%),
+    radial-gradient(45% 45% at 50% 80%, rgba(0,150,136,.06), transparent 50%);
+  filter: blur(40px);
+  animation: oceanGlow 60s ease-in-out infinite;
+  opacity:.6;
+}
+@keyframes oceanGlow{
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(3%,2%,0) scale(1.03); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+.md-container, .md-main, .md-content { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce){
+  body::before{ animation: none !important; }
+}
+
+/* 3) New Grid Layout: Quick Start (top square) + Wide Getting Started + 2-3 pyramid */
+.home-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.75rem;
+  margin: 0.8rem 0 1.5rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* First card (Quick Start) - centered square, spans 4 columns (12) */
+.home-grid .card:nth-child(1) {
+  grid-column: 5 / 9;
+}
+
+/* Second card (Getting Started) - medium rectangle, centered with visible gaps */
+.home-grid .card:nth-child(2) {
+  grid-column: 4 / 10;
+  min-height: 110px; /* Shorter for wide card */
+}
+
+/* Third row - 2 cards (Project Map, Glossary) - each 4 columns */
+.home-grid .card:nth-child(3) {
+  grid-column: 3 / 7;
+}
+.home-grid .card:nth-child(4) {
+  grid-column: 7 / 11;
+}
+
+/* Fourth row - 3 cards (MT5Service, MT5Account, MT5Sugar) - each 4 columns */
+.home-grid .card:nth-child(5) {
+  grid-column: 1 / 5;
+}
+.home-grid .card:nth-child(6) {
+  grid-column: 5 / 9;
+}
+.home-grid .card:nth-child(7) {
+  grid-column: 9 / 13;
+}
+
+/* Responsive: tablet */
+@media (max-width: 960px){
+  .home-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home-grid .card:nth-child(1),
+  .home-grid .card:nth-child(2),
+  .home-grid .card:nth-child(3),
+  .home-grid .card:nth-child(4),
+  .home-grid .card:nth-child(5),
+  .home-grid .card:nth-child(6),
+  .home-grid .card:nth-child(7) {
+    grid-column: span 1;
+  }
+}
+
+/* Responsive: mobile */
+@media (max-width: 620px){
+  .home-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 4) Cards: glass + gradient frame */
+.card{
+  position:relative; display:block;
+  padding:1rem 0.9rem; min-height:140px;
+  border-radius:16px; text-decoration:none; color:inherit;
+  text-align: center;
+  border:2px solid transparent;
+  backdrop-filter: blur(8px);
+  transform-style: preserve-3d;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-width .2s ease;
+}
+
+/* Light theme cards */
+[data-md-color-scheme="default"] .card{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.95), rgba(248,250,252,.92)) padding-box,
+    linear-gradient(135deg, rgb(var(--g1)), rgb(var(--g2))) border-box;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+/* Dark theme cards */
+[data-md-color-scheme="slate"] .card{
+  background:
+    linear-gradient(180deg, rgba(15,20,30,.92), rgba(10,14,23,.88)) padding-box,
+    linear-gradient(135deg, rgb(var(--g1)), rgb(var(--g2))) border-box;
+  box-shadow:0 12px 28px rgba(0,0,0,.3);
+}
+
+.card h3{ margin:.5rem 0 .2rem; font-weight:700; font-size:1rem; letter-spacing:.3px; }
+.card p{ margin:0; font-size:.82rem; line-height:1.2rem; opacity:.88; }
+
+/* 5) Centered icon with gradient fill */
+.card .material-symbols-rounded{
+  display: block;
+  font-size: 2.2rem;
+  margin: 0 auto .4rem;
+  background: linear-gradient(135deg, rgb(var(--g1)), rgb(var(--g2)));
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 18px rgba(var(--g1), .3));
+}
+
+/* 6) Hover Cards: Easy Lift and Inner Shade */
+.card:hover{
+  transform: translateY(-4px);
+  border-width: 3px;
+}
+
+[data-md-color-scheme="default"] .card:hover{
+  box-shadow: 0 12px 32px rgba(0,0,0,.15);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.95)) padding-box,
+    linear-gradient(135deg, rgb(var(--g1)), rgb(var(--g2))) border-box;
+}
+
+[data-md-color-scheme="slate"] .card:hover{
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+  background:
+    linear-gradient(180deg, rgba(20,25,35,.95), rgba(15,20,30,.92)) padding-box,
+    linear-gradient(135deg, rgb(var(--g1)), rgb(var(--g2))) border-box;
+}
+
+/* 7) Side color glow (soft, color = card gradient) */
+.card::after{
+  content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none;
+  background:
+    radial-gradient(60% 90% at -12% 50%, rgba(var(--g1), .18), transparent 60%),
+    radial-gradient(60% 90% at 112% 50%, rgba(var(--g2), .18), transparent 60%);
+  opacity:0; transition: opacity .22s ease;
+}
+.card:hover::after{ opacity:.7; }
+
+/* 8) Unique Gradient Palettes - Each card has its own colors */
+
+/* Card 0: Quick Start - Red-Orange (energetic, "start here!") */
+.card-0{
+  --g1: 239,83,80;    /* #EF5350 - Red */
+  --g2: 255,171,64;   /* #FFAB40 - Orange */
+}
+
+/* Card 1: Getting Started - Yellow-Orange-Pink */
+.card-1{
+  --g1: 255,213,79;   /* #FFD54F - Warm Yellow */
+  --g2: 255,138,128;  /* #FF8A80 - Coral Pink */
+}
+
+/* Card 2: Project Map - Yellow-Blue (Row 4, Col 4) */
+.card-2{
+  --g1: 255,241,118;  /* #FFF176 - Light Yellow */
+  --g2: 100,181,246;  /* #64B5F6 - Sky Blue */
+}
+
+/* Card 3: Glossary - Pink-Purple (harmonized) */
+.card-3{
+  --g1: 240,98,146;   /* #F06292 - Pink */
+  --g2: 171,71,188;   /* #AB47BC - Purple */
+}
+
+/* Card 4: MT5Service - Blue (clean) */
+.card-4{
+  --g1: 66,165,245;   /* #42A5F5 - Blue */
+  --g2: 33,150,243;   /* #2196F3 - Deep Blue */
+}
+
+/* Card 5: MT5Account - Cyan (clean) */
+.card-5{
+  --g1: 38,198,218;   /* #26C6DA - Cyan */
+  --g2: 0,188,212;    /* #00BCD4 - Deep Cyan */
+}
+
+/* Card 6: MT5Sugar - Green (clean emerald) */
+.card-6{
+  --g1: 102,187,106;  /* #66BB6A - Light Green */
+  --g2: 56,142,60;    /* #388E3C - Emerald Green */
+}
+
+/* 9) Accessibility */
+@media (prefers-reduced-motion: reduce){
+  .card{ transition: none !important; }
+}
+
+/* 10) Code blocks enhancement - Light theme */
+[data-md-color-scheme="default"] .md-typeset code {
+  background-color: rgba(0,120,212,.06);
+  border: 1px solid rgba(0,120,212,.15);
+}
+
+[data-md-color-scheme="default"] .md-typeset pre {
+  background-color: rgba(248,250,252,.95);
+  border: 1px solid rgba(0,120,212,.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+/* Code blocks enhancement - Dark theme */
+[data-md-color-scheme="slate"] .md-typeset code {
+  background-color: rgba(0,120,212,.08);
+  border: 1px solid rgba(0,120,212,.12);
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre {
+  background-color: rgba(13,17,23,.92);
+  border: 1px solid rgba(0,120,212,.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
+
+/* 11) Architecture diagram styling - Light theme */
+[data-md-color-scheme="default"] .architecture-diagram {
+  background: linear-gradient(180deg, rgba(248,250,252,.95), rgba(241,245,249,.92));
+  border: 1px solid rgba(0,120,212,.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  line-height: 2;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+[data-md-color-scheme="default"] .architecture-diagram strong {
+  color: #0078D4;
+  font-size: 1.05rem;
+}
+
+/* Architecture diagram styling - Dark theme */
+[data-md-color-scheme="slate"] .architecture-diagram {
+  background: linear-gradient(180deg, rgba(13,17,23,.86), rgba(13,17,23,.82));
+  border: 1px solid rgba(0,217,192,.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  line-height: 2;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
+
+[data-md-color-scheme="slate"] .architecture-diagram strong {
+  color: #00D9C0;
+  font-size: 1.05rem;
+}
+
+/* ===========================
+   12) Progress Tracker - Floating Button & Side Panel
+   =========================== */
+
+/* Floating Button */
+.progress-float-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* ===========================
+   13) Contact/Support Button - Floating Button & Side Panel
+   =========================== */
+
+/* Floating Contact Button */
+.contact-float-btn {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.contact-float-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+[data-md-color-scheme="default"] .contact-float-btn {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .contact-float-btn {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+}
+
+.contact-float-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+.progress-float-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+[data-md-color-scheme="default"] .progress-float-btn {
+  background: linear-gradient(135deg, #0078D4, #00D9C0);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .progress-float-btn {
+  background: linear-gradient(135deg, #0078D4, #00D9C0);
+  color: white;
+}
+
+.progress-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+[data-md-color-scheme="default"] .progress-badge {
+  color: #0078D4;
+}
+
+[data-md-color-scheme="slate"] .progress-badge {
+  color: #00D9C0;
+}
+
+/* Overlay */
+.progress-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.progress-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Side Panel */
+.progress-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  max-width: 90vw;
+  height: 100vh;
+  z-index: 1001;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+.progress-panel.open {
+  right: 0;
+}
+
+[data-md-color-scheme="default"] .progress-panel {
+  background: linear-gradient(180deg, #ffffff, #f8fafb);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+}
+
+[data-md-color-scheme="slate"] .progress-panel {
+  background: linear-gradient(180deg, #1a1f2e, #151a27);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+}
+
+/* Panel Header */
+.progress-panel-header {
+  padding: 1.5rem;
+  border-bottom: 2px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[data-md-color-scheme="default"] .progress-panel-header {
+  border-color: rgba(0,120,212,0.2);
+}
+
+[data-md-color-scheme="slate"] .progress-panel-header {
+  border-color: rgba(0,217,192,0.2);
+}
+
+.progress-panel-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.progress-panel-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.progress-panel-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+[data-md-color-scheme="default"] .progress-panel-close {
+  color: #0078D4;
+}
+
+[data-md-color-scheme="slate"] .progress-panel-close {
+  color: #00D9C0;
+}
+
+/* Panel Content */
+.progress-panel-content {
+  padding: 1.5rem;
+}
+
+/* Overall Section */
+.progress-overall-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid;
+}
+
+[data-md-color-scheme="default"] .progress-overall-section {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(0,120,212,0.2);
+}
+
+[data-md-color-scheme="slate"] .progress-overall-section {
+  background: rgba(10,14,23,0.5);
+  border-color: rgba(0,217,192,0.2);
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.progress-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.progress-percentage {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0078D4, #00D9C0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.progress-subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* Categories Section */
+.progress-categories-section {
+  margin-bottom: 2rem;
+}
+
+.progress-categories-section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.progress-bar-wrapper {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+[data-md-color-scheme="default"] .progress-bar-wrapper {
+  background: rgba(0,120,212,0.15);
+}
+
+[data-md-color-scheme="slate"] .progress-bar-wrapper {
+  background: rgba(0,217,192,0.15);
+}
+
+.progress-bar-wrapper.small {
+  height: 6px;
+  border-radius: 3px;
+  margin-top: 0.25rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0078D4, #00D9C0);
+  transition: width 0.5s ease;
+  border-radius: inherit;
+}
+
+/* Category Item */
+.progress-category {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+[data-md-color-scheme="default"] .progress-category {
+  background: rgba(0,120,212,0.05);
+}
+
+[data-md-color-scheme="default"] .progress-category:hover {
+  background: rgba(0,120,212,0.1);
+}
+
+[data-md-color-scheme="slate"] .progress-category {
+  background: rgba(0,217,192,0.05);
+}
+
+[data-md-color-scheme="slate"] .progress-category:hover {
+  background: rgba(0,217,192,0.1);
+}
+
+.progress-category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progress-category-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.progress-category-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* Reset Button */
+.progress-reset-btn-panel {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+[data-md-color-scheme="default"] .progress-reset-btn-panel {
+  background: white;
+  color: #0078D4;
+  border-color: #0078D4;
+}
+
+[data-md-color-scheme="default"] .progress-reset-btn-panel:hover {
+  background: #0078D4;
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .progress-reset-btn-panel {
+  background: rgba(10,14,23,0.5);
+  color: #00D9C0;
+  border-color: #00D9C0;
+}
+
+[data-md-color-scheme="slate"] .progress-reset-btn-panel:hover {
+  background: #00D9C0;
+  color: #1a1f2e;
+}
+
+/* ============================================================================
+   PROGRESS BAR ENHANCEMENTS - Animations and Visual Improvements
+   ============================================================================ */
+
+/* Header Progress Bar */
+.header-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 9999;
+  pointer-events: none;
+  width: 100%;
+}
+
+.header-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0078D4, #00D9C0);
+  width: 0%;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(0, 120, 212, 0.5);
+}
+
+/* Shimmer Effect on Progress Bars */
+.progress-bar-fill {
+  background: linear-gradient(90deg,
+    #0078D4 0%,
+    #00D9C0 25%,
+    #0078D4 50%,
+    #00D9C0 75%,
+    #0078D4 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Circular Progress Ring */
+.progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.progress-ring-circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.progress-ring-bg {
+  stroke: rgba(0, 120, 212, 0.15);
+}
+
+[data-md-color-scheme="slate"] .progress-ring-bg {
+  stroke: rgba(0, 217, 192, 0.15);
+}
+
+.progress-ring-fill {
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+[data-md-color-scheme="default"] .progress-ring-fill {
+  stroke: url(#progress-gradient-light);
+}
+
+[data-md-color-scheme="slate"] .progress-ring-fill {
+  stroke: url(#progress-gradient-dark);
+}
+
+/* Progress Badge Pulse Animation */
+.progress-badge.pulse {
+  animation: pulse 0.6s ease-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+}
+
+/* Milestone Modal */
+.milestone-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  max-width: 400px;
+}
+
+.milestone-modal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: all;
+}
+
+[data-md-color-scheme="slate"] .milestone-modal {
+  background: linear-gradient(135deg, #1a1f2e, #151a27);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.milestone-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.milestone-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #0078D4, #00D9C0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-md-color-scheme="slate"] .milestone-title {
+  background: linear-gradient(135deg, #00D9C0, #0078D4);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.milestone-message {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.milestone-close {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0078D4, #00D9C0);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.milestone-close:hover {
+  transform: scale(1.05);
+}
+
+/* Confetti Container */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+}
+
+.confetti.active {
+  animation: confetti-fall 3s linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Contact Panel */
+.contact-panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  max-width: 90vw;
+  height: 100vh;
+  z-index: 1001;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+.contact-panel.open {
+  right: 0;
+}
+
+[data-md-color-scheme="default"] .contact-panel {
+  background: linear-gradient(180deg, #ffffff, #f8fafb);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+}
+
+[data-md-color-scheme="slate"] .contact-panel {
+  background: linear-gradient(180deg, #1a1f2e, #151a27);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+}
+
+/* Contact Panel Header */
+.contact-panel-header {
+  padding: 1.5rem;
+  border-bottom: 2px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[data-md-color-scheme="default"] .contact-panel-header {
+  border-color: rgba(37,211,102,0.2);
+}
+
+[data-md-color-scheme="slate"] .contact-panel-header {
+  border-color: rgba(37,211,102,0.2);
+}
+
+.contact-panel-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.contact-panel-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s, transform 0.2s;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.contact-panel-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+[data-md-color-scheme="default"] .contact-panel-close {
+  color: #25D366;
+}
+
+[data-md-color-scheme="slate"] .contact-panel-close {
+  color: #25D366;
+}
+
+/* Contact Panel Content */
+.contact-panel-content {
+  padding: 1.5rem;
+}
+
+.contact-intro {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid;
+  text-align: center;
+}
+
+[data-md-color-scheme="default"] .contact-intro {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(37,211,102,0.2);
+}
+
+[data-md-color-scheme="slate"] .contact-intro {
+  background: rgba(10,14,23,0.5);
+  border-color: rgba(37,211,102,0.2);
+}
+
+.contact-intro h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.contact-intro p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+/* Contact Buttons */
+.contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 2px solid;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.contact-btn-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.contact-btn-content {
+  flex: 1;
+  text-align: left;
+}
+
+.contact-btn-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+
+.contact-btn-desc {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* Telegram Button */
+.contact-btn-telegram {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(0,136,204,0.3);
+  color: #0088cc;
+}
+
+.contact-btn-telegram:hover {
+  transform: translateX(-4px);
+  border-color: #0088cc;
+  box-shadow: 0 4px 12px rgba(0,136,204,0.2);
+}
+
+.contact-btn-telegram .contact-btn-icon {
+  background: linear-gradient(135deg, #0088cc, #039be5);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-telegram {
+  background: rgba(10,14,23,0.5);
+  border-color: rgba(0,136,204,0.3);
+  color: #0088cc;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-telegram:hover {
+  background: rgba(0,136,204,0.1);
+}
+
+/* WhatsApp Button */
+.contact-btn-whatsapp {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(37,211,102,0.3);
+  color: #25D366;
+}
+
+.contact-btn-whatsapp:hover {
+  transform: translateX(-4px);
+  border-color: #25D366;
+  box-shadow: 0 4px 12px rgba(37,211,102,0.2);
+}
+
+.contact-btn-whatsapp .contact-btn-icon {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-whatsapp {
+  background: rgba(10,14,23,0.5);
+  border-color: rgba(37,211,102,0.3);
+  color: #25D366;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-whatsapp:hover {
+  background: rgba(37,211,102,0.1);
+}
+
+/* GitHub Button */
+.contact-btn-github {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(36,41,47,0.3);
+  color: #24292f;
+}
+
+.contact-btn-github:hover {
+  transform: translateX(-4px);
+  border-color: #24292f;
+  box-shadow: 0 4px 12px rgba(36,41,47,0.2);
+}
+
+.contact-btn-github .contact-btn-icon {
+  background: linear-gradient(135deg, #24292f, #57606a);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-github {
+  background: rgba(10,14,23,0.5);
+  border-color: rgba(87,96,106,0.3);
+  color: #c9d1d9;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-github:hover {
+  background: rgba(36,41,47,0.1);
+}
+
+/* Email Button */
+.contact-btn-email {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(234,88,12,0.3);
+  color: #ea580c;
+}
+
+.contact-btn-email:hover {
+  transform: translateX(-4px);
+  border-color: #ea580c;
+  box-shadow: 0 4px 12px rgba(234,88,12,0.2);
+}
+
+.contact-btn-email .contact-btn-icon {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  color: white;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-email {
+  background: rgba(10,14,23,0.5);
+  border-color: rgba(234,88,12,0.3);
+  color: #fb923c;
+}
+
+[data-md-color-scheme="slate"] .contact-btn-email:hover {
+  background: rgba(234,88,12,0.1);
+}
+
+/* Responsive */
+@media (max-width: 620px) {
+  .progress-float-btn {
+    bottom: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .contact-float-btn {
+    bottom: 4.5rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+  }
+
+  .contact-float-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .progress-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
+    min-width: 28px;
+  }
+
+  .progress-panel,
+  .contact-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .progress-percentage {
+    font-size: 1.5rem;
+  }
+
+  .progress-count {
+    font-size: 1.2rem;
+  }
+
+  .contact-btn {
+    padding: 1rem;
+  }
+
+  .contact-btn-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-btn-title {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================================
+
+/* ============================================================
+   HX HOME — EXACT 1:1 port of reference (index.module.css)
+   Docusaurus --ifm-* vars mapped to reference concrete values:
+     emphasis-300=#243044  emphasis-500=#4a6080
+     emphasis-600=#6e8098  emphasis-700=#96a8bc
+     font-color-base=#dde6f0  primary=#0aa8e0
+     mono='Cascadia Code','Consolas','SF Mono',monospace
+   ============================================================ */
+
+.hx-wrap{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2.5rem 0;
+}
+
+/* ── Hero ── */
+.hx-hero{ margin-bottom: 2.5rem; }
+.hx-sub{
+  font-size: 0.93rem;
+  color: #96a8bc;
+  max-width: 540px;
+  line-height: 1.65;
+  margin: 0;
+}
+.hx-stats{
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+.hx-stat{ display: flex; flex-direction: column; gap: 0.2rem; }
+.hx-statV{
+  font-family: 'Cascadia Code','Consolas','SF Mono',monospace;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: #dde6f0;
+}
+.hx-statL{ font-size: 0.7rem; color: #6e8098; }
+
+/* ── Group cards ── */
+.hx-cards{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.hx-cards-4{ grid-template-columns: repeat(4, 1fr); }
+
+.hx-gc{
+  --c: #0aa8e0;
+  border: 1px solid #243044;
+  border-radius: 6px;
+  text-decoration: none !important;
+  color: inherit !important;
+  overflow: hidden;
+  display: block;
+  background: #161d28;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  animation: hxEnter 0.4s ease both;
+}
+.hx-gc:hover{
+  border-color: var(--c);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--c) 30%, transparent);
+}
+.hx-cards > :nth-child(1){ animation-delay: 0.05s; }
+.hx-cards > :nth-child(2){ animation-delay: 0.15s; }
+.hx-cards > :nth-child(3){ animation-delay: 0.25s; }
+.hx-cards > :nth-child(4){ animation-delay: 0.35s; }
+
+@keyframes hxEnter{
+  from{ opacity: 0; transform: translateY(12px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* category accent colors (reference) */
+.hx-orange{ --c:#e8a020; }
+.hx-blue  { --c:#3d8fff; }
+.hx-purple{ --c:#9a6dff; }
+.hx-pink  { --c:#f472b6; }
+.hx-teal  { --c:#2dd4bf; }
+.hx-mint  { --c:#2dd4bf; }
+.hx-green { --c:#4ade80; }
+
+.hx-gcTop{ height: 4px; background: var(--c); }
+.hx-gcBody{ padding: 1.5rem 1.6rem; }
+.hx-gcTag{
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c);
+  margin-bottom: 0.45rem;
+}
+.hx-gcTitle{
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #dde6f0;
+  margin-bottom: 0.5rem;
+}
+.hx-gcDesc{
+  font-size: 0.88rem;
+  color: #96a8bc;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+.hx-gcCount{
+  font-family: 'Cascadia Code','Consolas','SF Mono',monospace;
+  font-size: 0.75rem;
+  color: #4a6080;
+}
+
+/* Responsive (reference) */
+@media (max-width: 768px){
+  .hx-cards, .hx-cards-4{ grid-template-columns: 1fr; }
+  .hx-stats{ gap: 1.25rem; }
+}
+@media (min-width: 769px) and (max-width: 1000px){
+  .hx-cards-4{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Exact reference theme: dark bg + surfaces + fonts ── */
+[data-md-color-scheme="slate"]{
+  --md-default-bg-color: #0c1017;
+  --md-default-fg-color: #dde6f0;
+}
+[data-md-color-scheme="slate"] body,
+[data-md-color-scheme="slate"] .md-container,
+[data-md-color-scheme="slate"] .md-main,
+[data-md-color-scheme="slate"] .md-content,
+[data-md-color-scheme="slate"] .md-main__inner{
+  background-color: #0c1017 !important;
+}
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs{
+  background-color: #0c1017 !important;
+  box-shadow: 0 1px 0 #243044;
+}
+
+/* Text font = system stack (reference default, not Inter) */
+body, .md-typeset, .md-header, .md-nav, .hx-wrap,
+.hx-gcTitle, .hx-gcDesc, .hx-sub, .hx-statL, .hx-gcTag{
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto,
+               'Helvetica Neue', 'Noto Sans', Arial, sans-serif !important;
+}
+code, pre, kbd, .md-typeset code,
+.hx-statV, .hx-gcCount{
+  font-family: 'Cascadia Code','Consolas','SF Mono',monospace !important;
+}
+
+/* ============================================================
+   HX FIX — kill aurora gradient + overlay, flat reference bg
+   (base "calm ocean aurora" used a teal gradient + ::before overlay)
+   ============================================================ */
+[data-md-color-scheme="slate"] body{
+  background: #0c1017 !important;      /* full shorthand clears gradient image */
+  background-attachment: initial !important;
+}
+[data-md-color-scheme="slate"] body::before,
+[data-md-color-scheme="slate"] body::after{
+  display: none !important;            /* remove tinting overlays */
+  content: none !important;
+}
+/* Cards: exact reference surface, no inherited tint */
+.hx-gc{ background: #161d28 !important; }
+.hx-gcBody{ background: transparent !important; }
+
+/* ============================================================
+   HX LAYOUT — bottom row centered under top row (same card width)
+   Flex: every card = 1/4 width → top(4) fills, bottom(3) centers
+   ============================================================ */
+.hx-cards, .hx-cards-4{
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.hx-gc{
+  flex: 0 0 calc((100% - 3rem) / 4);   /* 4 per row, 3 gaps × 1rem */
+  max-width: calc((100% - 3rem) / 4);
+}
+@media (max-width: 1000px){
+  .hx-gc{
+    flex-basis: calc((100% - 1rem) / 2);  /* 2 per row */
+    max-width: calc((100% - 1rem) / 2);
+  }
+}
+@media (max-width: 768px){
+  .hx-gc{ flex-basis: 100%; max-width: 100%; }
+}
+
+/* ============================================================
+   HX SIDEBAR — reference-style left nav (colored sections + active accent)
+   ============================================================ */
+
+/* Section group headers: uppercase, colored, bold */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link{
+  text-transform: uppercase;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  opacity: 1;
+  margin-top: .9rem;
+  margin-bottom: .15rem;
+}
+/* Per-section colors: Home(1) Guides(2) API(3) Strategies(4) */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(1) > .md-nav__link{ color:#6e8098; } /* Home neutral */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(2) > .md-nav__link{ color:#e8a020; } /* Guides */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(3) > .md-nav__link{ color:#3d8fff; } /* API Reference */
+.md-sidebar--primary .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(4) > .md-nav__link{ color:#9a6dff; } /* Strategies */
+
+/* Child links: tidy padding, rounded, hover highlight */
+.md-nav--primary .md-nav__item .md-nav__list .md-nav__link{
+  padding: .34rem .7rem;
+  border-radius: 5px;
+  font-size: .78rem;
+  color: #96a8bc;
+  transition: background .15s, color .15s;
+}
+.md-nav--primary .md-nav__item .md-nav__list .md-nav__link:hover{
+  background: rgba(255,255,255,.05);
+  color: #dde6f0;
+}
+
+/* Active link: accent left border + subtle bg + bright text */
+.md-nav--primary .md-nav__link--active,
+.md-nav--primary .md-nav__item .md-nav__list .md-nav__link--active{
+  color: #dde6f0 !important;
+  background: color-mix(in srgb, var(--md-primary-fg-color, #0aa8e0) 14%, transparent);
+  box-shadow: inset 2px 0 0 var(--md-primary-fg-color, #0aa8e0);
+  border-radius: 0 5px 5px 0;
+  font-weight: 600;
+}
+
+/* Sidebar title spacing */
+.md-sidebar--primary .md-nav__title{
+  font-size: .8rem; font-weight: 700; color:#dde6f0;
+}
+
+/* TOC (right) active + hover polish to match */
+.md-sidebar--secondary .md-nav__link--active{
+  color: var(--md-primary-fg-color, #0aa8e0) !important;
+  font-weight: 600;
+}
+
+/* ============================================================
+   HX TOC — reference-style right sidebar (page contents)
+   On pages with left nav hidden, this is the main navigation.
+   ============================================================ */
+
+/* TOC title */
+.md-sidebar--secondary .md-nav__title{
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: #6e8098;
+  padding-bottom: .5rem;
+}
+
+/* TOC links: tidy, muted, rounded, hover */
+.md-sidebar--secondary .md-nav__link{
+  font-size: .78rem;
+  color: #96a8bc;
+  padding: .32rem .6rem;
+  border-radius: 5px;
+  transition: background .15s, color .15s, box-shadow .15s;
+}
+.md-sidebar--secondary .md-nav__link:hover{
+  background: rgba(255,255,255,.05);
+  color: #dde6f0;
+}
+
+/* Top-level TOC items = bolder "section headers" like reference */
+.md-sidebar--secondary .md-nav--secondary > .md-nav__list > .md-nav__item > .md-nav__link{
+  font-weight: 700;
+  color: #dde6f0;
+  margin-top: .35rem;
+}
+
+/* Active TOC link: accent bar + bg + bright (reference active look) */
+.md-sidebar--secondary .md-nav__link--active{
+  color: #dde6f0 !important;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--md-primary-fg-color,#0aa8e0) 14%, transparent);
+  box-shadow: inset 2px 0 0 var(--md-primary-fg-color,#0aa8e0);
+  border-radius: 0 5px 5px 0;
+}
+
+/* Give the secondary sidebar a touch more room + left divider */
+.md-sidebar--secondary{
+  border-left: 1px solid #243044;
+}
+
+/* On hidden-nav pages, widen content & TOC a bit */
+.md-sidebar--secondary .md-nav__list .md-nav__list{ margin-left: .4rem; border-left: 1px solid #1a2233; }
+
+/* ============================================================
+   HX FIX — theme-aware card color (white in light, dark in slate)
+   (previous `.hx-gc{background:#161d28 !important}` broke light mode)
+   ============================================================ */
+[data-md-color-scheme="slate"] .hx-gc{ background:#161d28 !important; border-color:#243044; }
+[data-md-color-scheme="default"] .hx-gc{ background:#ffffff !important; border-color:#e2e8f0; }
+[data-md-color-scheme="default"] .hx-gcTitle{ color:#1e293b; }
+[data-md-color-scheme="default"] .hx-gcDesc{ color:#475569; }
+[data-md-color-scheme="default"] .hx-statV{ color:#1e293b; }
+[data-md-color-scheme="default"] body{ background:#f3f5f8 !important; }
+[data-md-color-scheme="default"] body::before,
+[data-md-color-scheme="default"] body::after{ display:none !important; content:none !important; }
+
+/* ── Collapse empty right column on hide:toc pages (API refs) ── */
+.md-sidebar--secondary:not([hidden]) .md-nav--secondary > .md-nav__list:empty{ display:none; }
+/* if the secondary TOC has no items, hide the whole sidebar & widen content */
+.md-sidebar--secondary:has(.md-nav__list:empty),
+.md-sidebar--secondary:has(.md-nav--secondary:empty){ display:none !important; }
+
+/* ============================================================
+   HX — remove right "Table of contents" sidebar GLOBALLY
+   (user wants it gone on all pages; content widens to fill)
+   ============================================================ */
+.md-sidebar--secondary{ display: none !important; }
+
+/* Reclaim the space: let content use full width of the main area */
+.md-content{ max-width: none; }
+@media (min-width: 76.25em){
+  .md-main__inner{ }
+  .md-content{ margin-right: 0; }
+}
+
+/* ── New distinct color for center card (MT5Service) ── */
+.hx-rose{ --c:#f43f5e; }
+
+/* ── Contact support button: subtle pulse ── */
+@keyframes hxPulse{
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, #25D366 55%, transparent); }
+  70%  { box-shadow: 0 0 0 12px color-mix(in srgb, #25D366 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, #25D366 0%, transparent); }
+}
+.contact-float-btn{
+  animation: hxPulse 2.4s ease-out infinite;
+}
+.contact-float-btn:hover{
+  animation-play-state: paused;   /* stop pulsing while hovered */
+}
+@media (prefers-reduced-motion: reduce){
+  .contact-float-btn{ animation: none; }
+}
+
+/* ============================================================
+   HX HOME v2 — refined dark palette & text hierarchy (spec)
+   BG #080B12 · CARD #182134 · HOVER #202B42 · BORDER #303D54
+   text: heading #E8EDF5 · body #A7B0C0 · secondary #66738A
+   Colored top strips kept — accent stays a small cue, not a fill.
+   ============================================================ */
+[data-md-color-scheme="slate"]{
+  --md-default-bg-color: #080B12;
+  --md-default-fg-color: #E8EDF5;
+}
+[data-md-color-scheme="slate"] body,
+[data-md-color-scheme="slate"] .md-container,
+[data-md-color-scheme="slate"] .md-main,
+[data-md-color-scheme="slate"] .md-content,
+[data-md-color-scheme="slate"] .md-main__inner{
+  background-color: #080B12 !important;
+}
+[data-md-color-scheme="slate"] body{
+  background: #080B12 !important;
+}
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs{
+  background-color: #080B12 !important;
+  box-shadow: 0 1px 0 #303D54;
+}
+
+/* Cards: dark surface + very thin border (not "lighter blocks") */
+[data-md-color-scheme="slate"] .hx-gc{
+  background: #182134 !important;
+  border-color: #303D54;
+}
+[data-md-color-scheme="slate"] .hx-gc:hover{
+  background: #202B42 !important;
+  border-color: var(--c);
+}
+
+/* Text hierarchy (home) */
+.hx-sub{ color: #A7B0C0; }                 /* hero subtitle — brighter, no longer fades */
+.hx-gcTitle{ color: #E8EDF5; }
+.hx-gcDesc{ color: #A7B0C0; }
+.hx-statV{ color: #E8EDF5; }
+.hx-statL{ color: #66738A; }
+.hx-gcCount{ color: #66738A; }
+
+/* SDK level color language (Low/Mid/High) — reinforce the three accents */
+.hx-teal { --c:#22d3ee; }   /* LOW-LEVEL  · MT5Account · cyan  */
+.hx-rose { --c:#f43f5e; }   /* MID-LEVEL  · MT5Service · pink/red */
+.hx-green{ --c:#4ade80; }   /* HIGH-LEVEL · MT5Sugar   · green */
