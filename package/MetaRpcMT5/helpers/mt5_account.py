@@ -44,6 +44,8 @@ METHOD GROUPS:
    • symbol_info_session_quote  - Get quote session times
    • symbol_info_session_trade  - Get trade session times
    • symbol_params_many         - Get detailed parameters for multiple symbols
+   • symbol_list                - All symbol names in one call
+   • price_history              - OHLCV bars (MQL5 ENUM_TIMEFRAMES)
 
 4. POSITIONS & ORDERS INFORMATION (6 methods)
    • positions_total            - Count open positions
@@ -197,6 +199,7 @@ class MT5Account:
         self.account_information_client = account_information_pb2_grpc.AccountInformationStub(self.channel)
 
         self.id = str(id_) if id_ else None
+        self.terminal_name: Optional[str] = None
 
         # Connection state
         self.host = None
@@ -363,7 +366,7 @@ class MT5Account:
                         reconnect_required = True
                         break
 
-                    if error and getattr(error, "message", None):
+                    if error and (getattr(error, "error_message", None) or getattr(error, "message", None)):
                         raise ApiExceptionMT5(error)
 
                     data = get_data(reply)
@@ -481,6 +484,7 @@ class MT5Account:
         timeout_seconds: int = 30,
         deadline: Optional[datetime] = None,
         base_chart_symbol: Optional[str] = None,
+        name: Optional[str] = None,
         *args,
         **kwargs,
     ):
@@ -500,6 +504,8 @@ class MT5Account:
             timeout_seconds (int, optional): Timeout in seconds for terminal readiness
                 waiting. Defaults to 30 seconds.
             deadline (datetime, optional): Deadline for gRPC call completion.
+            name (str, optional): Human-readable terminal label (shown in the MRPC portal /
+                `Accounts` listing). Remembered on the instance and re-sent on reconnect.
 
         Raises:
             ApiExceptionMT5: If the server returns an error in the response.
@@ -520,6 +526,11 @@ class MT5Account:
             mt_cluster_name=server_name,
             timeout_seconds=timeout_seconds,
         )
+        if name is None:
+            name = getattr(self, "terminal_name", None)
+        if name:
+            request.name = str(name)
+            self.terminal_name = str(name)
 
         timeout_val = float(timeout_seconds) if deadline is None else (deadline - datetime.utcnow()).total_seconds()
         start_time = datetime.utcnow()
@@ -1332,6 +1343,125 @@ class MT5Account:
         return res.data
 
     # endregion
+
+    async def symbol_list(
+        self,
+        deadline: Optional[datetime] = None,
+        cancellation_event: Optional[asyncio.Event] = None,
+    ) -> list[str]:
+        """
+        Returns the names of every symbol the broker offers (Market Watch + hidden), in one call.
+
+        Unlike symbol_params_many() this is cheap (strings only) and is not paged, so it is the
+        right call for "does this server have BTCUSD?" checks.
+
+        Returns:
+            list[str]: Symbol names.
+        """
+        if not self.id:
+            raise ConnectExceptionMT5("Please call connect method first")
+
+        request = market_info_pb2.SymbolListRequest()
+
+        async def grpc_call(headers):
+            timeout = None
+            if deadline:
+                timeout = (deadline - datetime.utcnow()).total_seconds()
+                if timeout < 0:
+                    timeout = 0
+            return await self.market_info_client.SymbolList(
+                request,
+                metadata=headers,
+                timeout=timeout,
+            )
+
+        res = await self.execute_with_reconnect(
+            grpc_call=grpc_call,
+            error_selector=lambda r: getattr(r, "error", None),
+            deadline=deadline,
+            cancellation_event=cancellation_event,
+        )
+        return list(res.data.Symbols)
+
+    # MQL5 ENUM_TIMEFRAMES values accepted by price_history(timeframe=...)
+    PERIOD_M1 = 1
+    PERIOD_M2 = 2
+    PERIOD_M3 = 3
+    PERIOD_M4 = 4
+    PERIOD_M5 = 5
+    PERIOD_M6 = 6
+    PERIOD_M10 = 10
+    PERIOD_M12 = 12
+    PERIOD_M15 = 15
+    PERIOD_M20 = 20
+    PERIOD_M30 = 30
+    PERIOD_H1 = 16385
+    PERIOD_H2 = 16386
+    PERIOD_H3 = 16387
+    PERIOD_H4 = 16388
+    PERIOD_H6 = 16390
+    PERIOD_H8 = 16392
+    PERIOD_H12 = 16396
+    PERIOD_D1 = 16408
+    PERIOD_W1 = 32769
+    PERIOD_MN1 = 49153
+
+    async def price_history(
+        self,
+        symbol: str,
+        timeframe: int = 1,
+        from_time: int = 0,
+        to_time: int = 0,
+        max_bars: int = 100,
+        deadline: Optional[datetime] = None,
+        cancellation_event: Optional[asyncio.Event] = None,
+    ):
+        """
+        Returns OHLCV bars (MarketInfo.PriceHistory) for a symbol.
+
+        Args:
+            symbol (str): Symbol name, e.g. "EURUSD".
+            timeframe (int): MQL5 ENUM_TIMEFRAMES value: PERIOD_M1=1, M5=5, M15=15, M30=30,
+                H1=16385, H4=16388, D1=16408, W1=32769, MN1=49153 (see MT5Account.PERIOD_* constants).
+            from_time (int): Unix seconds (server time). Leave 0 together with to_time to get
+                the newest max_bars bars.
+            to_time (int): Unix seconds (server time).
+            max_bars (int): Upper bound on the number of bars returned.
+
+        Returns:
+            list[PriceBar]: protobuf PriceBar objects with fields time (unix seconds), open, high,
+            low, close, tick_volume, spread, real_volume. Oldest first.
+        """
+        if not self.id:
+            raise ConnectExceptionMT5("Please call connect method first")
+
+        request = market_info_pb2.PriceHistoryRequest(
+            symbol=symbol,
+            timeframe=int(timeframe),
+            from_time=int(from_time or 0),
+            to_time=int(to_time or 0),
+            max_bars=int(max_bars),
+        )
+
+        async def grpc_call(headers):
+            timeout = None
+            if deadline:
+                timeout = (deadline - datetime.utcnow()).total_seconds()
+                if timeout < 0:
+                    timeout = 0
+            return await self.market_info_client.PriceHistory(
+                request,
+                metadata=headers,
+                timeout=timeout,
+            )
+
+        res = await self.execute_with_reconnect(
+            grpc_call=grpc_call,
+            error_selector=lambda r: getattr(r, "error", None),
+            deadline=deadline,
+            cancellation_event=cancellation_event,
+        )
+        return list(res.data.bars)
 
     # ══════════════════════════════════════════════════════════════════════════
     # region POSITIONS & ORDERS INFORMATION
