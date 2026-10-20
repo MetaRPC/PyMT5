@@ -54,6 +54,11 @@ class AccountHelperStub(object):
                 request_serializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersRequest.SerializeToString,
                 response_deserializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersReply.FromString,
                 )
+        self.DealsHistory = channel.unary_unary(
+                '/mt5_term_api.AccountHelper/DealsHistory',
+                request_serializer=mt5__term__api__account__helper__pb2.DealsHistoryRequest.SerializeToString,
+                response_deserializer=mt5__term__api__account__helper__pb2.DealsHistoryReply.FromString,
+                )
 
 
 class AccountHelperServicer(object):
@@ -119,6 +124,21 @@ class AccountHelperServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DealsHistory(self, request, context):
+        """Every deal of the account in a time range: trades and also the deals without an order - deposits, withdrawals, credit,
+        charges, corrections, bonuses, commissions, interest, dividends, taxes - which OrderHistory and PositionsHistory leave out.
+        A balance operation has type BMT5_DEAL_TYPE_BALANCE (CREDIT, BONUS...), order 0 and position_id 0; profit is its amount.
+        [DefaultValues]
+        {
+        "inputFromUtc": "2026-10-01T00:00:00Z",
+        "inputToUtc": "2026-10-31T00:00:00Z",
+        "pageSize": 1000
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AccountHelperServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -161,6 +181,11 @@ def add_AccountHelperServicer_to_server(servicer, server):
                     servicer.AllHistoryOrders,
                     request_deserializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersRequest.FromString,
                     response_serializer=mt5__term__api__account__helper__pb2.AllHistoryOrdersReply.SerializeToString,
+            ),
+            'DealsHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.DealsHistory,
+                    request_deserializer=mt5__term__api__account__helper__pb2.DealsHistoryRequest.FromString,
+                    response_serializer=mt5__term__api__account__helper__pb2.DealsHistoryReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -305,5 +330,22 @@ class AccountHelper(object):
         return grpc.experimental.unary_unary(request, target, '/mt5_term_api.AccountHelper/AllHistoryOrders',
             mt5__term__api__account__helper__pb2.AllHistoryOrdersRequest.SerializeToString,
             mt5__term__api__account__helper__pb2.AllHistoryOrdersReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DealsHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.AccountHelper/DealsHistory',
+            mt5__term__api__account__helper__pb2.DealsHistoryRequest.SerializeToString,
+            mt5__term__api__account__helper__pb2.DealsHistoryReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

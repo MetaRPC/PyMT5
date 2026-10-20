@@ -15,7 +15,7 @@ from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from . import mt5_term_api_gui_pb2 as mt5__term__api__gui__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fmt5-term-api-demo-account.proto\x12\x0cmt5_term_api\x1a\x1cgoogle/api/annotations.proto\x1a\x16mt5-term-api-gui.proto2\x8b\x02\n\x0b\x44\x65moAccount\x12|\n\x0fOpenDemoAccount\x12\'.mt5_term_api.GuiDemoOpenAccountRequest\x1a%.mt5_term_api.GuiDemoOpenAccountReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/DemoAccount/Open\x12~\n\x1a\x44\x65moOpenAccountInteractive\x12-.mt5_term_api.GuiDemoInteractiveClientMessage\x1a-.mt5_term_api.GuiDemoInteractiveServerMessage(\x01\x30\x01\x42\x42Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\x0cmt5_term_apib\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fmt5-term-api-demo-account.proto\x12\x0cmt5_term_api\x1a\x1cgoogle/api/annotations.proto\x1a\x16mt5-term-api-gui.proto2\xbb\x05\n\x0b\x44\x65moAccount\x12\x87\x01\n\rFindCompanies\x12).mt5_term_api.GuiDemoFindCompaniesRequest\x1a\'.mt5_term_api.GuiDemoFindCompaniesReply\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/DemoAccount/FindCompanies\x12\x9d\x01\n\x16ServersAndAccountTypes\x12+.mt5_term_api.GuiDemoServersAndTypesRequest\x1a).mt5_term_api.GuiDemoServersAndTypesReply\"+\x82\xd3\xe4\x93\x02%\x12#/DemoAccount/ServersAndAccountTypes\x12\x83\x01\n\x0c\x45numControls\x12(.mt5_term_api.GuiDemoEnumControlsRequest\x1a&.mt5_term_api.GuiDemoEnumControlsReply\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/DemoAccount/EnumControls\x12|\n\x0fOpenDemoAccount\x12\'.mt5_term_api.GuiDemoOpenAccountRequest\x1a%.mt5_term_api.GuiDemoOpenAccountReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/DemoAccount/Open\x12~\n\x1a\x44\x65moOpenAccountInteractive\x12-.mt5_term_api.GuiDemoInteractiveClientMessage\x1a-.mt5_term_api.GuiDemoInteractiveServerMessage(\x01\x30\x01\x42\x42Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\xaa\x02\x0cmt5_term_apib\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'mt5_term_api_demo_account_pb2', globals())
@@ -23,8 +23,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z1git.mtapi.io/root/mrpc-proto.git/mt5/libraries/go\252\002\014mt5_term_api'
+  _DEMOACCOUNT.methods_by_name['FindCompanies']._options = None
+  _DEMOACCOUNT.methods_by_name['FindCompanies']._serialized_options = b'\202\323\344\223\002\034\022\032/DemoAccount/FindCompanies'
+  _DEMOACCOUNT.methods_by_name['ServersAndAccountTypes']._options = None
+  _DEMOACCOUNT.methods_by_name['ServersAndAccountTypes']._serialized_options = b'\202\323\344\223\002%\022#/DemoAccount/ServersAndAccountTypes'
+  _DEMOACCOUNT.methods_by_name['EnumControls']._options = None
+  _DEMOACCOUNT.methods_by_name['EnumControls']._serialized_options = b'\202\323\344\223\002\033\022\031/DemoAccount/EnumControls'
   _DEMOACCOUNT.methods_by_name['OpenDemoAccount']._options = None
   _DEMOACCOUNT.methods_by_name['OpenDemoAccount']._serialized_options = b'\202\323\344\223\002\023\022\021/DemoAccount/Open'
   _DEMOACCOUNT._serialized_start=104
-  _DEMOACCOUNT._serialized_end=371
+  _DEMOACCOUNT._serialized_end=803
 # @@protoc_insertion_point(module_scope)

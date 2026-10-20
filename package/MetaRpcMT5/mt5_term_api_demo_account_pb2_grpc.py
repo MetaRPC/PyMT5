@@ -17,6 +17,21 @@ class DemoAccountStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.FindCompanies = channel.unary_unary(
+                '/mt5_term_api.DemoAccount/FindCompanies',
+                request_serializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesRequest.SerializeToString,
+                response_deserializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesReply.FromString,
+                )
+        self.ServersAndAccountTypes = channel.unary_unary(
+                '/mt5_term_api.DemoAccount/ServersAndAccountTypes',
+                request_serializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesRequest.SerializeToString,
+                response_deserializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesReply.FromString,
+                )
+        self.EnumControls = channel.unary_unary(
+                '/mt5_term_api.DemoAccount/EnumControls',
+                request_serializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsRequest.SerializeToString,
+                response_deserializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsReply.FromString,
+                )
         self.OpenDemoAccount = channel.unary_unary(
                 '/mt5_term_api.DemoAccount/OpenDemoAccount',
                 request_serializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.SerializeToString,
@@ -35,8 +50,44 @@ class DemoAccountServicer(object):
     Does NOT require 'id' header — auto-picks any available terminal.
     """
 
+    def FindCompanies(self, request, context):
+        """Search for broker companies by name.
+        Returns a list of matching companies from the wizard's ListView.
+        [DefaultValues]
+        {
+        "searchText": "MetaQuotes"
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ServersAndAccountTypes(self, request, context):
+        """Get available servers and account types for a company.
+        Navigates: company selection → demo account → reads dropdown options.
+        [DefaultValues]
+        {
+        "companyName": "MetaQuotes Ltd."
+        }
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def EnumControls(self, request, context):
+        """Debug: enumerate the controls of the wizard dialog currently open in the terminal.
+        controlCount is -1 and the dump empty when no wizard dialog is open.
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def OpenDemoAccount(self, request, context):
-        """Open a demo account. Full wizard flow: search → select → fill form → register.
+        """Open a demo account. The wire protocol is tried first (a direct request to the trade
+        server, about a second); when the trade server does not accept it (TeleTrade answers
+        1001 INVALID_ACCOUNT, for example) the terminal's "Open an Account" wizard is driven
+        instead, bounded by timeoutSeconds (default 90). debugLog says which path produced the
+        account ("Wire protocol" or "Wire protocol failed: ...; GUI wizard used").
         Returns login, password, and investor password for the new demo account.
         [DefaultValues]
         {
@@ -63,6 +114,21 @@ class DemoAccountServicer(object):
 
 def add_DemoAccountServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'FindCompanies': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindCompanies,
+                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesRequest.FromString,
+                    response_serializer=mt5__term__api__gui__pb2.GuiDemoFindCompaniesReply.SerializeToString,
+            ),
+            'ServersAndAccountTypes': grpc.unary_unary_rpc_method_handler(
+                    servicer.ServersAndAccountTypes,
+                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesRequest.FromString,
+                    response_serializer=mt5__term__api__gui__pb2.GuiDemoServersAndTypesReply.SerializeToString,
+            ),
+            'EnumControls': grpc.unary_unary_rpc_method_handler(
+                    servicer.EnumControls,
+                    request_deserializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsRequest.FromString,
+                    response_serializer=mt5__term__api__gui__pb2.GuiDemoEnumControlsReply.SerializeToString,
+            ),
             'OpenDemoAccount': grpc.unary_unary_rpc_method_handler(
                     servicer.OpenDemoAccount,
                     request_deserializer=mt5__term__api__gui__pb2.GuiDemoOpenAccountRequest.FromString,
@@ -85,6 +151,57 @@ class DemoAccount(object):
     Automates the MT5 "Open an Account" wizard via Win32 GUI automation.
     Does NOT require 'id' header — auto-picks any available terminal.
     """
+
+    @staticmethod
+    def FindCompanies(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.DemoAccount/FindCompanies',
+            mt5__term__api__gui__pb2.GuiDemoFindCompaniesRequest.SerializeToString,
+            mt5__term__api__gui__pb2.GuiDemoFindCompaniesReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ServersAndAccountTypes(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.DemoAccount/ServersAndAccountTypes',
+            mt5__term__api__gui__pb2.GuiDemoServersAndTypesRequest.SerializeToString,
+            mt5__term__api__gui__pb2.GuiDemoServersAndTypesReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def EnumControls(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mt5_term_api.DemoAccount/EnumControls',
+            mt5__term__api__gui__pb2.GuiDemoEnumControlsRequest.SerializeToString,
+            mt5__term__api__gui__pb2.GuiDemoEnumControlsReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def OpenDemoAccount(request,
