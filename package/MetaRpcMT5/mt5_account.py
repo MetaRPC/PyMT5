@@ -1,5 +1,4 @@
 import asyncio
-import os
 import grpc
 import uuid
 from datetime import datetime
@@ -42,11 +41,8 @@ class ApiExceptionMT5(Exception):
 
 # === MT5Account Class ===
 class MT5Account:
-    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[str] = None,
-                 api_key: Optional[str] = None):
+    def __init__(self, user: int, password: str, grpc_server: Optional[str] = None, id_: Optional[str] = None):
         self.user = user
-        # MetaRPC API key: terminals created without one land in the TRIAL pool, not under the customer's account
-        self.api_key = api_key or os.environ.get("MRPC_API_KEY") or "TRIAL"
         self.password = password
         self.grpc_server = grpc_server or "mt5.mrpc.pro:443"   # default server
         self.id = id_
@@ -75,11 +71,7 @@ class MT5Account:
 
     # === Utility: headers ===
     def get_headers(self):
-        headers = []
-        if self.id:
-            headers.append(("id", str(self.id)))
-        headers.append(("apikey", str(self.api_key)))
-        return headers
+        return [("id", self.id)]
 
     # === Utility: reconnect ===
     async def reconnect(self, deadline: Optional[datetime] = None):
@@ -144,7 +136,9 @@ class MT5Account:
             timeout_seconds=timeout_seconds,
         )
 
-        headers = self.get_headers()
+        headers = []
+        if self.id:
+            headers.append(("id", str(self.id)))
         
         res = await self.connection_client.Connect(
             request,
@@ -182,7 +176,9 @@ class MT5Account:
             timeout_seconds=timeout_seconds,
         )
 
-        headers = self.get_headers()
+        headers = []
+        if self.id:
+            headers.append(("id", str(self.id)))
         res = await self.connection_client.ConnectEx(
             request,
             metadata=headers,
