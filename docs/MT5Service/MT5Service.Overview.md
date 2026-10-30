@@ -8,27 +8,27 @@
 
 ### Three-Layer Architecture:
 
-```
-┌───────────────────────────────────────────────────────────────
-│  MT5Sugar (HIGH)                                        
-│  Business logic, ready patterns, high-level operations  
-└────────────────────┬──────────────────────────────────────────
-                     │ Uses Service methods
-                     ↓
-┌───────────────────────────────────────────────────────────────
-│  MT5Service (MID) ← YOU ARE HERE                        
-│  Unpacks protobuf + creates dataclasses                 
-│  SOME methods add value, SOME are pass-through          
-└────────────────────┬──────────────────────────────────────────
-                     │ Calls Account methods
-                     ↓
-┌───────────────────────────────────────────────────────────────
-│  MT5Account (LOW)                                      
-│  Direct gRPC calls, returns protobuf Data objects       
-└────────────────────┬──────────────────────────────────────────
-                     │ gRPC stream
-                     ↓
-                  MT5 Terminal
+```text
+┌──────────────────────────────────────────────────────────┐
+│ MT5Sugar  —  HIGH                                        │
+│ Business logic, ready patterns, one-line operations      │
+└────────────────────┬─────────────────────────────────────┘
+                     │  uses Service methods
+                     ▼
+┌──────────────────────────────────────────────────────────┐
+│ MT5Service  —  MID     ← you are here                    │
+│ Unpacks protobuf into dataclasses                        │
+│ (some methods add value, some are pass-through)          │
+└────────────────────┬─────────────────────────────────────┘
+                     │  calls Account methods
+                     ▼
+┌──────────────────────────────────────────────────────────┐
+│ MT5Account  —  LOW                                       │
+│ Direct gRPC calls, returns protobuf Data objects         │
+└────────────────────┬─────────────────────────────────────┘
+                     │  gRPC
+                     ▼
+                     MT5 Terminal
 ```
 
 ### Value Reality Check
@@ -220,7 +220,7 @@ async def main():
     # Direct call: balance = await account.account_info_double(account_info_pb2.ACCOUNT_BALANCE)
 
     # 6. Close connection when done
-    await account.channel.close()
+    await account.disconnect()
 
 asyncio.run(main())
 ```
