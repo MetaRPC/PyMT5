@@ -14,9 +14,9 @@ This document covers:
 
 ## Table of Contents
 
-1. [Quick Start - Simple Subscription](#quick-start---simple-subscription)
+1. [Quick Start - Simple Subscription](#quick-start-simple-subscription)
 2. [Available Streaming Methods](#available-streaming-methods)
-3. [Complete Patterns (Simple → Advanced)](#complete-patterns-simple--advanced)
+3. [Complete Patterns (Simple → Advanced)](#complete-patterns-simple-advanced)
 4. [Problem: Why Streams Need Management](#problem-why-streams-need-management)
 5. [Solutions and Best Practices](#solutions-and-best-practices)
 6. [Advanced Examples with Enums](#advanced-examples-with-enums)
@@ -65,7 +65,7 @@ async def main():
 
     finally:
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -114,7 +114,7 @@ async def main():
     await asyncio.sleep(0.5)  # Give stream time to cleanup
 
     try:
-        await account.channel.close()
+        await account.disconnect()
     except Exception as e:
         print(f"⚠️  Disconnect warning: {e}")
 
@@ -190,7 +190,7 @@ async def quick_stream_example():
 
     finally:
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -235,7 +235,7 @@ async def event_limited_streaming():
     finally:
         await asyncio.sleep(0.5)  # Wait for graceful cleanup
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -278,7 +278,7 @@ async def condition_based_stop():
     finally:
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -342,7 +342,7 @@ async def main():
 
     await monitor.stop()
     try:
-        await account.channel.close()
+        await account.disconnect()
     except Exception as e:
         print(f"⚠️  Disconnect warning: {e}")
 
@@ -423,7 +423,7 @@ async def proper_cancellation():
         # ✅ CRITICAL: Give stream time to cleanup
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -457,7 +457,7 @@ async def timeout_pattern():
     finally:
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -468,7 +468,7 @@ asyncio.run(timeout_pattern())
 
 ## Solution 2: Always Cleanup in finally Block ✅
 
-**CRITICAL:** Always close channel and wait for stream cleanup
+**CRITICAL:** Always disconnect and wait for stream cleanup
 
 ### ✅ CORRECT - Proper Cleanup
 
@@ -497,7 +497,7 @@ async def proper_cleanup():
 
         # Step 3: Close gRPC channel
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -576,14 +576,14 @@ async def good():
     finally:
         await asyncio.sleep(0.5)  # ✅ Cleanup time
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 ```
 
 ---
 
-### ❌ Mistake 3: No Channel Close
+### ❌ Mistake 3: No Disconnect
 
 ```python
 # ❌ WRONG: Channel never closed
@@ -600,12 +600,12 @@ async def bad():
         # Process...
         pass
 
-    # ❌ Forgot to close channel - connection leak!
+    # ❌ Forgot to disconnect - connection leak!
 ```
 
 **Fix:**
 ```python
-# ✅ CORRECT: Always close in finally
+# ✅ CORRECT: Always disconnect in finally
 async def good():
     account = MT5Account(user=12345, password="password", grpc_server="mt5.mrpc.pro:443")
     await account.connect_by_server_name(server_name="YourBroker-Demo", base_chart_symbol="EURUSD")
@@ -623,7 +623,7 @@ async def good():
     finally:
         cancel_event.set()
         await asyncio.sleep(0.5)
-        await account.channel.close()  # ✅ CRITICAL: Always close
+        await account.disconnect()  # ✅ CRITICAL: closes the gRPC channel
 ```
 
 ---
@@ -675,7 +675,7 @@ async def filter_trade_events():
         cancel_event.set()
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -746,7 +746,7 @@ async def sort_positions_by_profit():
         cancel_event.set()
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -812,7 +812,7 @@ async def filter_orders_by_state():
         cancel_event.set()
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -892,7 +892,7 @@ async def aggregate_and_sort_ticks():
         cancel_event.set()
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -978,9 +978,9 @@ async def multiple_concurrent_streams():
         # ✅ Wait for all streams to cleanup
         await asyncio.sleep(0.5)
 
-        # ✅ Close channel
+        # ✅ Disconnect (closes the channel)
         try:
-            await account.channel.close()
+            await account.disconnect()
             print("[DONE] All streams stopped gracefully")
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
@@ -1117,7 +1117,7 @@ async for tick in account.on_symbol_tick(["EURUSD"], cancellation_event=cancel_e
 - 🔴 **Without cancellation_event** → while condition is always True → loop runs forever → **LEAK**
 - 🔴 **With cancellation_event but no .set()** → while condition stays True → loop runs forever → **LEAK**
 - ✅ **With cancellation_event.set()** → while condition becomes False → loop stops → **CLEAN**
-- ✅ **You MUST close channel** to free gRPC connection
+- ✅ **You MUST call `disconnect()`** to free the gRPC connection (it closes the channel)
 
 ---
 
@@ -1129,7 +1129,7 @@ async for tick in account.on_symbol_tick(["EURUSD"], cancellation_event=cancel_e
 2. **Always call `cancel_event.set()`** before exiting
 3. **Always use `try/finally` blocks** for cleanup
 4. **Always wait 0.5-1.0 seconds** after setting cancellation_event
-5. **Always close channel** in finally block: `await account.channel.close()`
+5. **Always disconnect** in finally block: `await account.disconnect()`
 6. **Use `asyncio.wait_for()`** for automatic timeouts
 7. **Use `asyncio.gather()`** to run multiple streams concurrently
 
@@ -1176,7 +1176,7 @@ async def check_task_leaks():
         cancel_event.set()
         await asyncio.sleep(0.5)
         try:
-            await account.channel.close()
+            await account.disconnect()
         except Exception as e:
             print(f"⚠️  Disconnect warning: {e}")
 
@@ -1235,7 +1235,7 @@ async def debug_pending_tasks():
    # ❌ Leak: connection stays open
    cancel_event.set()
    await asyncio.sleep(0.5)
-   # Forgot await account.channel.close()
+   # Forgot await account.disconnect()
    ```
 
 ---

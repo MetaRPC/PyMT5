@@ -178,7 +178,8 @@ Now that you have an MT5 demo account, you need to configure PyMT5 to connect to
   "grpc_server": "mt5.mrpc.pro:443",
   "mt_cluster": "MetaQuotes-Demo",
   "test_symbol": "EURUSD",
-  "test_volume": 0.01
+  "test_volume": 0.01,
+  "api_key": "TRIAL"
 }
 ```
 
@@ -188,6 +189,7 @@ Now that you have an MT5 demo account, you need to configure PyMT5 to connect to
 - **password**: Replace with your password
 - **mt_cluster**: Use the exact server name from MT5 (e.g., "MetaQuotes-Demo")
 - **host, port, grpc_server**: Provided by MetaRPC team (leave as is)
+- **api_key**: Your MetaRPC key; `"TRIAL"` works for trying it out (or set `MRPC_API_KEY` instead)
 
 ---
 
@@ -287,9 +289,6 @@ While you can use the MetaQuotes demo server for practice, you may want to choos
 - ✅ **Good Spreads** - Lower spreads = lower trading costs.
 
 - ✅ **Customer Support** - Responsive support in your language.
-
----
-
 
 ---
 

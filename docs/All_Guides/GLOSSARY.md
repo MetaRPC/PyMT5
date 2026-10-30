@@ -28,14 +28,14 @@ Base layer providing direct access to MT5 terminal via gRPC protocol.
 - Built-in connection resilience with automatic reconnection
 - Works with protobuf Request/Response objects
 - Full control, maximum complexity
-- **42 async methods**, covering all MT5 operations
+- **43 async methods**, covering all MT5 operations
 - Returns protobuf Data objects
 - Automatic reconnection with exponential backoff
 - Session management with UUID tracking
 
 **When to use:** Advanced users who need granular control, custom integrations, building custom wrappers.
 
-**Location:** `package/MetaRpcMT5/helpers/mt5_account.py` (2100+ lines)
+**Location:** `package/MetaRpcMT5/mt5_account.py` (~1900 lines) — the class exported by `MetaRpcMT5`
 
 **Documentation:** [MT5Account.Master.Overview.md](../MT5Account/MT5Account.Master.Overview.md)
 
@@ -55,7 +55,7 @@ Middle layer providing simplified method signatures without proto complexity.
 - Type conversion (proto to Python primitives/dataclasses)
 - Simplified method names
 - No auto-normalization (you control precision)
-- **36 methods** for common scenarios
+- **37 methods** for common scenarios
 - Primary purpose: Architectural middleware layer for MT5Sugar
 
 **Value distribution:**
@@ -120,8 +120,8 @@ from MetaRpcMT5 import mt5_term_api_account_information_pb2 as account_info_pb2
 
 async def main():
     # Create and connect
-    account = MT5Account.create()
-    await account.connect_by_server_name(...)
+    account = MT5Account(user=591129415, password="password", grpc_server="mt5.mrpc.pro:443")
+    await account.connect_by_server_name(server_name="FxPro-MT5 Demo", base_chart_symbol="EURUSD")
 
     # Must use 'await' for all async operations
     balance = await account.account_info_double(
@@ -129,7 +129,7 @@ async def main():
     )
     positions = await account.positions_total()
 
-    await account.channel.close()
+    await account.disconnect()
 
 # Run async function
 asyncio.run(main())
@@ -261,7 +261,7 @@ Python's pattern for automatic resource cleanup.
 **MT5Sugar supports async with:**
 ```python
 # Create full stack
-account = MT5Account.create(
+account = MT5Account(
     user=591129415,
     password="password",
     grpc_server="mt5.mrpc.pro:443"
@@ -279,8 +279,8 @@ async with MT5Sugar(service) as sugar:
     balance = await sugar.balance
     ticket = await sugar.buy_market("EURUSD", 0.01)
 
-# Manual cleanup still needed
-await account.channel.close()
+# Clean up when done
+await account.disconnect()
 ```
 
 **Why context managers?**
@@ -289,21 +289,21 @@ await account.channel.close()
 - Standard Python pattern
 - Scoped resource usage
 
-**Important: Manual channel cleanup required**
+**Important: Manual cleanup required**
 
-`account.channel` is the gRPC connection to MT5 terminal. You MUST call `await account.channel.close()` to:
+Call `await account.disconnect()` when you're done. It closes the persistent gRPC connection (`account.channel`) and releases resources:
 
 - Close the persistent gRPC connection
 - Release network resources
 - Prevent connection leaks
 - Avoid DEADLINE_EXCEEDED errors on exit
 
-Without `channel.close()`, the connection stays open and may cause resource leaks or errors on program shutdown.
+Without `disconnect()`, the connection stays open and may cause resource leaks or errors on program shutdown.
 
 **Recommended pattern with proper cleanup:**
 
 ```python
-account = MT5Account.create(
+account = MT5Account(
     user=591129415,
     password="password",
     grpc_server="mt5.mrpc.pro:443"
@@ -323,7 +323,7 @@ try:
     ticket = await sugar.buy_market("EURUSD", 0.01)
 
 finally:
-    await account.channel.close()  # Always cleanup
+    await account.disconnect()  # Always cleanup
 ```
 
 ---
@@ -586,7 +586,7 @@ High-performance RPC (Remote Procedure Call) framework using HTTP/2.
 
 **Connection setup:**
 ```python
-account = MT5Account.create(
+account = MT5Account(
     user=591129415,
     password="password",
     grpc_server="mt5.mrpc.pro:443"
@@ -968,78 +968,40 @@ async def validate_volume(service, symbol, volume):
 
 ## 🔑 Configuration Terms
 
-### Environment Variables
-Configuration via environment variables or .env file.
+### settings.json
 
-**Variables:**
+The examples read their configuration from **`examples/0_common/settings.json`** — plain JSON loaded by `load_settings()` in `examples/0_common/demo_helpers.py`. There is no `.env` / environment-variable layer in this project.
 
-```bash
-# Required
-MT5_USER=591129415
-MT5_PASSWORD="YourPassword"
-MT5_SERVER="FxPro-MT5 Demo"
-MT5_GRPC_HOST="mt5.mrpc.pro:443"
-
-# Optional (have defaults)
-MT5_SYMBOL="EURUSD"
-MT5_VOLUME=0.01
+**Fields:**
+```json
+{
+  "user": 591129415,
+  "password": "YourPassword",
+  "grpc_server": "mt5.mrpc.pro:443",
+  "mt_cluster": "FxPro-MT5 Demo",
+  "test_symbol": "EURUSD",
+  "api_key": "TRIAL",
+  "host": "mt5.mrpc.pro",
+  "port": 443,
+  "test_volume": 0.01
+}
 ```
 
-**Set (Windows PowerShell):**
-```powershell
-$env:MT5_USER="591129415"
-$env:MT5_PASSWORD="YourPassword"
-```
+- **Required** (validated by `load_settings()`): `user`, `password`, `grpc_server`, `mt_cluster`, `test_symbol`.
+- **Optional:** `api_key` — falls back to the `MRPC_API_KEY` environment variable, then to `"TRIAL"`.
+- `host`, `port` and `test_volume` are kept for reference but are **not** read by `load_settings()` / `create_and_connect_mt5()`.
 
-**Set (Linux/Mac):**
-```bash
-export MT5_USER=591129415
-export MT5_PASSWORD="YourPassword"
-```
-
-**Load in Python:**
-```python
-import os
-from dotenv import load_dotenv
-
-load_dotenv()  # Load from .env file
-
-user = int(os.getenv("MT5_USER"))
-password = os.getenv("MT5_PASSWORD")
-server = os.getenv("MT5_SERVER")
-grpc_host = os.getenv("MT5_GRPC_HOST")
-```
-
----
-
-### .env File
-Configuration file for environment variables.
-
-**Location:** Project root (`.env`)
-
-**Format:**
-```env
-MT5_USER=591129415
-MT5_PASSWORD=YourPassword
-MT5_SERVER=FxPro-MT5 Demo
-MT5_GRPC_HOST=mt5.mrpc.pro:443
-MT5_SYMBOL=EURUSD
-MT5_VOLUME=0.01
-```
+`grpc_server` is the MetaRPC gateway address; `mt_cluster` is the MT5 server name passed to `connect_by_server_name()`.
 
 **Usage:**
 ```python
-from dotenv import load_dotenv
-import os
+from demo_helpers import load_settings, create_and_connect_mt5
 
-load_dotenv()  # Loads .env into environment
-
-# Access via os.getenv()
-user = int(os.getenv("MT5_USER"))
-password = os.getenv("MT5_PASSWORD")
+config = load_settings()                        # reads settings.json
+account = await create_and_connect_mt5(config)  # builds MT5Account, then connect_by_server_name(server_name=config["mt_cluster"])
 ```
 
-**WARNING:** Never commit .env to git (add to .gitignore)
+**WARNING:** `settings.json` holds real credentials — keep it out of git (add it to `.gitignore`).
 
 ---
 

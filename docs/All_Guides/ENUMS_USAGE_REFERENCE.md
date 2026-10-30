@@ -1,18 +1,10 @@
 # ENUMs Usage Reference - MT5Account (Python)
 
-
-
 > ENUM presence lookup table for all MT5Account low-level methods
-
-
 
 ---
 
-
-
 ## ✅ Summary Statistics
-
-
 
 | Method Group | With ENUMs | Total | Percentage |
 |--------------|------------|-------|------------|
@@ -24,21 +16,11 @@
 | **Streaming Methods** | 3 | 5 | 60% |
 | **TOTAL** | **24** | **37** | **65%** |
 
-
-
 ---
-
-
-
-
 
 ## 👤 1. Account Information (4 methods)
 
-
-
 ### 4/4 methods use ENUMs (100%)
-
-
 
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
@@ -47,19 +29,11 @@
 | **account_info_integer** | **[In: 1, Out: 0]**<br>Total: 1 ENUM (11 values) | Get integer properties (Login, Leverage, etc.) | `AccountInfoIntegerPropertyType` (11 values): ACCOUNT_LOGIN, ACCOUNT_TRADE_MODE, ACCOUNT_LEVERAGE, ACCOUNT_LIMIT_ORDERS, ACCOUNT_MARGIN_SO_MODE, ACCOUNT_TRADE_ALLOWED, ACCOUNT_TRADE_EXPERT, ACCOUNT_MARGIN_MODE, ACCOUNT_CURRENCY_DIGITS, ACCOUNT_FIFO_CLOSE, ACCOUNT_HEDGE_ALLOWED | - |
 | **account_info_string** | **[In: 1, Out: 0]**<br>Total: 1 ENUM (4 values) | Get string properties (Currency, Company, etc.) | `AccountInfoStringPropertyType` (4 values): ACCOUNT_NAME, ACCOUNT_SERVER, ACCOUNT_CURRENCY, ACCOUNT_COMPANY | - |
 
-
-
 ---
-
-
 
 ## 📊 2. Symbol Information (13 methods)
 
-
-
 ### 7/13 methods use ENUMs (54%)
-
-
 
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
@@ -77,19 +51,11 @@
 | **symbol_info_session_trade** | **[In: 1, Out: 0]**<br>Total: 1 ENUM (7 values) | Get trade session times | `BMT5_ENUM_DAY_OF_WEEK` (7 values) - Day of week | - |
 | **symbol_params_many** | **[In: 1, Out: 13]**<br>Total: 14 ENUMs | Get detailed parameters for multiple symbols | `AH_SYMBOL_PARAMS_MANY_SORT_TYPE` (4 values) - Sort mode | **13 ENUMs in SymbolParameters:** BMT5_ENUM_SYMBOL_SECTOR, BMT5_ENUM_SYMBOL_INDUSTRY, BMT5_ENUM_SYMBOL_CHART_MODE, BMT5_ENUM_SYMBOL_CALC_MODE, BMT5_ENUM_SYMBOL_TRADE_MODE, BMT5_ENUM_SYMBOL_TRADE_EXECUTION, BMT5_ENUM_SYMBOL_SWAP_MODE, BMT5_ENUM_DAY_OF_WEEK, BMT5_ENUM_ORDER_TYPE_FILLING, BMT5_ENUM_ORDER_TYPE, BMT5_ENUM_SYMBOL_ORDER_GTC_MODE, BMT5_ENUM_SYMBOL_OPTION_MODE, BMT5_ENUM_SYMBOL_OPTION_RIGHT |
 
-
-
 ---
-
-
 
 ## 📋 3. Positions & Orders Information (6 methods)
 
-
-
 ### 3/6 methods use ENUMs (50%)
-
-
 
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
@@ -100,19 +66,11 @@
 | **positions_history** | **[In: 1, Out: 1]**<br>Total: 2 ENUMs | Get historical positions with P&L | `AH_ENUM_POSITIONS_HISTORY_SORT_TYPE` (4 values) - Sort mode | `AH_ENUM_POSITIONS_HISTORY_ORDER_TYPE` (9 values) - Order type |
 | **tick_value_with_size** | **[In: 0, Out: 0]**<br>Total: 0 ENUMs | Get tick value and size for symbols | - | - |
 
-
-
 ---
-
-
 
 ## 📚 4. Market Depth / DOM (3 methods)
 
-
-
 ### 1/3 methods use ENUMs (33%)
-
-
 
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
@@ -120,19 +78,11 @@
 | **market_book_release** | **[In: 0, Out: 0]**<br>Total: 0 ENUMs | Unsubscribe from DOM | - | - |
 | **market_book_get** | **[In: 0, Out: 1]**<br>Total: 1 ENUM (4 values) | Get current market depth snapshot | - | `BookType` (4 values) - Order type in book: BOOK_TYPE_SELL, BOOK_TYPE_BUY, BOOK_TYPE_SELL_MARKET, BOOK_TYPE_BUY_MARKET |
 
-
-
 ---
-
-
 
 ## 💰 5. Trading Operations (6 methods)
 
-
-
 ### 6/6 methods use ENUMs (100%)
-
-
 
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
@@ -143,19 +93,11 @@
 | **order_calc_margin** | **[In: 1, Out: 0]**<br>Total: 1 ENUM (9 values) | Calculate required margin | `ENUM_ORDER_TYPE_TF` (9 values) - Order type | - |
 | **order_calc_profit** | **[In: 1, Out: 0]**<br>Total: 1 ENUM (9 values) | Calculate potential profit/loss | `ENUM_ORDER_TYPE_TF` (9 values) - Order type | - |
 
-
-
 ---
-
-
 
 ## 📡 6. Streaming Methods (5 methods)
 
-
-
 ### 3/5 methods use ENUMs (60%)
-
-
 
 | Method | ENUMs Count | Description | Input ENUMs | Output ENUMs |
 |--------|-------------|-------------|-------------|--------------|
@@ -165,15 +107,9 @@
 | **on_positions_and_pending_orders_tickets** | **[In: 0, Out: 0]**<br>Total: 0 ENUMs | Stream ticket changes | - | - |
 | **on_trade_transaction** | **[In: 0, Out: 9]**<br>Total: 9 ENUMs (107 values) | Stream trade transaction events | - | **11 ENUM fields from 9 unique types:**<br>1. `MT5_SUB_ENUM_EVENT_GROUP_TYPE` (2 values) - OnTradeTransactionData.type<br>2-6. **In MqlTradeTransaction:** SUB_ENUM_TRADE_TRANSACTION_TYPE (11 values), SUB_ENUM_ORDER_TYPE (9 values), SUB_ENUM_ORDER_STATE (10 values), SUB_ENUM_DEAL_TYPE (18 values), SUB_ENUM_ORDER_TYPE_TIME (4 values)<br>7-10. **In MqlTradeRequest:** SUB_ENUM_TRADE_REQUEST_ACTIONS (7 values), SUB_ENUM_ORDER_TYPE (9 values), SUB_ENUM_ORDER_TYPE_FILLING (4 values), SUB_ENUM_ORDER_TYPE_TIME (4 values)<br>11. **In MqlTradeResult:** MqlErrorTradeCode (42 values) |
 
-
-
 ---
 
-
-
 ## Important Notes
-
-
 
 ### Python ENUM Access
 
@@ -192,11 +128,7 @@ property_id = account_info_pb2.AccountInfoDoublePropertyType.ACCOUNT_BALANCE
 ACCOUNT_BALANCE  # NameError: name 'ACCOUNT_BALANCE' is not defined
 ```
 
-
-
 ### Special Cases
-
-
 
 **1. AccountInfoInteger and SymbolInfoInteger:**
 
@@ -204,41 +136,16 @@ ACCOUNT_BALANCE  # NameError: name 'ACCOUNT_BALANCE' is not defined
 
 - These are **NOT typed ENUMs**, just numbers!
 
-
-
 **2. ReturnedCode:**
 
 - ReturnedCode field in trading operations is **NOT an ENUM**
 
 - It's a plain uint32 operation return code
 
-
-
 ---
-
-
 
 ## See Also
 
-
-
-### Documentation by Group:
-
-
-
-- [Account Information Overview](../MT5Account/MT5Account.Master.Overview.md)
-
-- [Symbol Information Overview](../MT5Account/MT5Account.Master.Overview.md)
-
-- [Positions & Orders Overview](../MT5Account/MT5Account.Master.Overview.md)
-
-- [Market Depth Overview](../MT5Account/MT5Account.Master.Overview.md)
-
-- [Trading Operations Overview](../MT5Account/MT5Account.Master.Overview.md)
-
-- [Streaming Methods Overview](../MT5Account/MT5Account.Master.Overview.md)
-
-
-
-
-
+- [MT5Account — Master Overview](../MT5Account/MT5Account.Master.Overview.md) — all low-level methods, grouped (Account, Symbol, Positions & Orders, Market Depth, Trading, Streaming).
+- [Return Codes Reference](RETURN_CODES_REFERENCE.md) — the trade return codes (not enums).
+- [Glossary → Enums](GLOSSARY.md) — how enums are accessed from protobuf modules.

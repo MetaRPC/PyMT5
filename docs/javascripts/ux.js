@@ -191,18 +191,12 @@ const DOC_STRUCTURE = {
   'strategies': {
     name: 'Strategies',
     pages: [
-      'Strategies/Orchestrators_EN/GridTradingOrchestrator',
-      'Strategies/Orchestrators_EN/GridTradingOrchestrator.HOW_IT_WORKS',
-      'Strategies/Orchestrators_EN/NewsStraddleOrchestrator',
-      'Strategies/Orchestrators_EN/NewsStraddleOrchestrator.HOW_IT_WORKS',
-      'Strategies/Orchestrators_EN/PendingBreakoutOrchestrator',
-      'Strategies/Orchestrators_EN/PendingBreakoutOrchestrator.HOW_IT_WORKS',
-      'Strategies/Orchestrators_EN/QuickHedgeOrchestrator',
-      'Strategies/Orchestrators_EN/QuickHedgeOrchestrator.HOW_IT_WORKS',
-      'Strategies/Orchestrators_EN/SimpleScalpingOrchestrator',
-      'Strategies/Orchestrators_EN/SimpleScalpingOrchestrator.HOW_IT_WORKS',
-      'Strategies/Presets/AdaptiveMarketModePreset',
-      'Strategies/Strategies.Master.Overview'
+      'Strategies/Strategies.Master.Overview',
+      'Strategies/Orchestrators/TrailingStop',
+      'Strategies/Orchestrators/PositionScaler',
+      'Strategies/Orchestrators/GridTrader',
+      'Strategies/Orchestrators/RiskManager',
+      'Strategies/Orchestrators/PortfolioRebalancer'
     ]
   }
 };

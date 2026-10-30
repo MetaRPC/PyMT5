@@ -8,9 +8,9 @@ This is **your sandbox** for writing custom MT5 trading code in Python. Connecti
 
 1. **Case already active in main.py**
    - Open `examples/main.py`
-   - Case "18" for user code sandbox is ready to use
+   - Case "17" for user code sandbox is ready to use
 
-2. **Open `examples/6_usercode/18_usercode.py`**
+2. **Open `examples/5_usercode/17_usercode.py`**
    - Write your code or uncomment examples
 
 3. **Run:**
@@ -56,7 +56,7 @@ Run your code with:
 ```bash
 # From examples directory
 python main.py usercode
-python main.py 18
+python main.py 17
 python main.py user
 python main.py sandbox
 ```
@@ -294,16 +294,14 @@ except Exception as e:
 
 ## 📝 Documentation
 
-- [MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md) - Complete API reference (40 methods)
-- [MT5Service Overview](../MT5Service/MT5Service.Overview.md) - Mid-level wrapper (36 methods)
-- [MT5Sugar Master Overview](../MT5Sugar/MT5Sugar.Master.Overview.md) - High-level Sugar API (62+ methods)
+- [MT5Account Master Overview](../MT5Account/MT5Account.Master.Overview.md) - Complete API reference (43 methods)
+- [MT5Service Overview](../MT5Service/MT5Service.Overview.md) - Mid-level wrapper (37 methods)
+- [MT5Sugar Master Overview](../MT5Sugar/MT5Sugar.Master.Overview.md) - High-level Sugar API (62 methods + 7 properties)
 - [ENUMS Usage Reference](ENUMS_USAGE_REFERENCE.md) - All ENUMs in one place
 
 ## 🔑 Configuration
 
-### Method 1: settings.json (Recommended)
-
-Create `examples/0_common/settings.json`:
+Configuration is read from `examples/0_common/settings.json` by `load_settings()` — that is the only config the examples use (there is no `.env` layer).
 
 ```json
 {
@@ -312,26 +310,14 @@ Create `examples/0_common/settings.json`:
   "grpc_server": "mt5.mrpc.pro:443",
   "mt_cluster": "MetaQuotes-Demo",
   "test_symbol": "EURUSD",
-  "test_volume": 0.01
+  "test_volume": 0.01,
+  "api_key": "TRIAL"
 }
 ```
 
-### Method 2: Environment variables
+Required: `user`, `password`, `grpc_server`, `mt_cluster`, `test_symbol`. `api_key` is optional — it falls back to the `MRPC_API_KEY` environment variable, then to `"TRIAL"`.
 
-```bash
-# Linux/Mac
-export MT5_USER=591129415
-export MT5_PASSWORD="YourPassword"
-export MT5_GRPC_SERVER="mt5.mrpc.pro:443"
-export MT5_CLUSTER="MetaQuotes-Demo"
-
-# Windows PowerShell
-$env:MT5_USER="591129415"
-$env:MT5_PASSWORD="YourPassword"
-$env:MT5_GRPC_SERVER="mt5.mrpc.pro:443"
-```
-
-See [demo_helpers.py](#) for details.
+See [`demo_helpers.py`](https://github.com/MetaRPC/PyMT5/blob/main/examples/0_common/demo_helpers.py) for the loader.
 
 ## Tips
 
