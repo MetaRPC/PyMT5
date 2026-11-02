@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.order_check(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.order_check(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradeFunctions`
 * **Proto definition:** `OrderCheck` (defined in `mt5-term-api-trade-functions.proto`)
 * **Enums in this method:** 4 enums with 23 constants (4 input)
@@ -83,6 +83,7 @@ message MrpcMqlTradeRequest {
   string comment = 15;                         // Comment
   uint64 position = 16;                        // Position ticket
   uint64 position_by = 17;                     // Opposite position ticket
+  google.protobuf.Timestamp expiration_utc = 18;  // Expiration time (UTC)
 }
 ```
 
@@ -292,6 +293,7 @@ asyncio.run(check_order())
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
 async def check_and_send():
     account = MT5Account(
@@ -325,17 +327,24 @@ async def check_and_send():
             print(f"[CHECK PASSED] Order is valid")
             print(f"  Margin: ${check_result.mql_trade_check_result.margin:.2f}")
 
-            # Now send the order (use same trade request)
-            send_request = trade_pb2.OrderSendRequest()
-            send_request.mql_trade_request.CopyFrom(check_request.mql_trade_request)
+            # Now send the order as a market order.
+            # OrderSendRequest is flat (no mql_trade_request) and lives in trading_helper.
+            send_request = trading_pb2.OrderSendRequest(
+                symbol="EURUSD",
+                operation=trading_pb2.TMT5_ORDER_TYPE_BUY,
+                volume=0.05,
+                price=0.0,
+                slippage=20,
+                comment="Checked order",
+            )
             send_result = await account.order_send(send_request)
 
-            if send_result.mql_trade_result.returned_code == 10009:
+            if send_result.returned_code == 10009:
                 print(f"[SUCCESS] Order executed!")
-                print(f"  Deal: #{send_result.mql_trade_result.deal}")
-                print(f"  Price: {send_result.mql_trade_result.price}")
+                print(f"  Deal: #{send_result.deal}")
+                print(f"  Price: {send_result.price}")
             else:
-                print(f"[FAILED] {send_result.mql_trade_result.comment}")
+                print(f"[FAILED] {send_result.returned_code_description}")
         else:
             print(f"[CHECK FAILED] Cannot send order")
             print(f"  Reason: {check_result.mql_trade_check_result.comment}")
@@ -516,6 +525,7 @@ asyncio.run(calculate_risk_percent(0.10))
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
 class OrderValidator:
     def __init__(self, account):
@@ -547,22 +557,32 @@ class OrderValidator:
                 'error': 'Insufficient free margin (< 30%)'
             }
 
-        # Execute order
-        send_request = trade_pb2.OrderSendRequest()
-        send_request.mql_trade_request.CopyFrom(trade_request)
+        # Execute order. OrderSendRequest is flat (no mql_trade_request) and lives
+        # in trading_helper; map the validated fields across (TF and TMT5 order
+        # types share the same numeric values, so order_type -> operation is safe).
+        send_request = trading_pb2.OrderSendRequest(
+            symbol=trade_request.symbol,
+            operation=trade_request.order_type,
+            volume=trade_request.volume,
+            price=trade_request.price,
+            slippage=trade_request.deviation,
+            stop_loss=trade_request.stop_loss,
+            take_profit=trade_request.take_profit,
+            comment=trade_request.comment,
+        )
         send_result = await self.account.order_send(send_request)
 
-        if send_result.mql_trade_result.returned_code == 10009:
+        if send_result.returned_code == 10009:
             return {
                 'success': True,
-                'deal': send_result.mql_trade_result.deal,
-                'price': send_result.mql_trade_result.price
+                'deal': send_result.deal,
+                'price': send_result.price
             }
         else:
             return {
                 'success': False,
                 'stage': 'execution',
-                'error': send_result.mql_trade_result.comment
+                'error': send_result.returned_code_description
             }
 
 async def main():

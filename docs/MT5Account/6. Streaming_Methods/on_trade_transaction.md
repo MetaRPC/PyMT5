@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.on_trade_transaction(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.on_trade_transaction(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.SubscriptionService`
 * **Proto definition:** `OnTradeTransaction` (defined in `mt5-term-api-subscriptions.proto`)
 
@@ -298,16 +298,19 @@ subscriptions_pb2.SUB_POSITION_REASON_CLIENT   # = 0
 
 **MqlTradeResult fields:**
 
-| Field         | Type     | Description                              |
-| ------------- | -------- | ---------------------------------------- |
-| `retcode`     | `uint32` | Operation return code                    |
-| `deal`        | `uint64` | Deal ticket                              |
-| `order`       | `uint64` | Order ticket                             |
-| `volume`      | `double` | Deal volume                              |
-| `price`       | `double` | Deal price                               |
-| `bid`         | `double` | Current Bid price                        |
-| `ask`         | `double` | Current Ask price                        |
-| `comment`     | `string` | Broker comment                           |
+| Field                          | Type     | Description                              |
+| ------------------------------ | -------- | ---------------------------------------- |
+| `trade_return_int_code`        | `int32`  | Internal return code                     |
+| `trade_return_code`            | `uint32` | Operation return code                    |
+| `deal_ticket`                  | `uint64` | Deal ticket                              |
+| `order_ticket`                 | `uint64` | Order ticket                             |
+| `deal_volume`                  | `double` | Deal volume                              |
+| `deal_price`                   | `double` | Deal price                               |
+| `current_bid`                  | `double` | Current Bid price                        |
+| `current_ask`                  | `double` | Current Ask price                        |
+| `broker_comment_to_operation`  | `string` | Broker comment                           |
+| `terminal_dispatch_request_id` | `uint32` | Terminal request ID                      |
+| `return_code_external`         | `int32`  | External (broker) return code            |
 
 ---
 
@@ -374,11 +377,11 @@ async def monitor_transactions():
                 print(f"     Price: {req.price}")
 
             # Show result if available
-            if tx_data.trade_result and tx_data.trade_result.retcode != 0:
+            if tx_data.trade_result and tx_data.trade_result.trade_return_code != 0:
                 res = tx_data.trade_result
                 print(f"\n   Result:")
-                print(f"     Return code: {res.retcode}")
-                print(f"     Comment: {res.comment}")
+                print(f"     Return code: {res.trade_return_code}")
+                print(f"     Comment: {res.broker_comment_to_operation}")
 
     except KeyboardInterrupt:
         print("\nStopping transaction monitor...")
@@ -514,14 +517,14 @@ async def monitor_failed_transactions():
     try:
         async for tx_data in account.on_trade_transaction():
             # Check for failed transactions
-            if tx_data.trade_result and tx_data.trade_result.retcode != 10009:  # Not DONE
+            if tx_data.trade_result and tx_data.trade_result.trade_return_code != 10009:  # Not DONE
                 failed_count += 1
                 res = tx_data.trade_result
                 tx = tx_data.trade_transaction
 
                 print(f"\n[FAILED TRANSACTION #{failed_count}]")
-                print(f"   Return code: {res.retcode}")
-                print(f"   Comment: {res.comment}")
+                print(f"   Return code: {res.trade_return_code}")
+                print(f"   Comment: {res.broker_comment_to_operation}")
                 print(f"   Symbol: {tx.symbol}")
                 print(f"   Order: #{tx.order_ticket}")
                 print(f"   Requested volume: {tx.volume}")
@@ -592,7 +595,7 @@ async def collect_transaction_stats(duration_seconds=300):
 
             # Check success/failure
             if tx_data.trade_result:
-                if tx_data.trade_result.retcode == 10009:  # DONE
+                if tx_data.trade_result.trade_return_code == 10009:  # DONE
                     stats['successful'] += 1
                 else:
                     stats['failed'] += 1
@@ -670,8 +673,8 @@ async def trade_journal():
 
             # Add result info if available
             if tx_data.trade_result:
-                entry['retcode'] = tx_data.trade_result.retcode
-                entry['comment'] = tx_data.trade_result.comment
+                entry['retcode'] = tx_data.trade_result.trade_return_code
+                entry['comment'] = tx_data.trade_result.broker_comment_to_operation
 
             # Add account balance
             if tx_data.account_info:

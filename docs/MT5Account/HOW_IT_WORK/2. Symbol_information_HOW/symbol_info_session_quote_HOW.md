@@ -60,8 +60,8 @@ for day_enum, day_name in days.items():
             session_index=0
         )
 
-        from_hours = session.from.seconds // 3600
-        from_mins = (session.from.seconds % 3600) // 60
+        from_hours = getattr(session, "from").seconds // 3600
+        from_mins = (getattr(session, "from").seconds % 3600) // 60
         to_hours = session.to.seconds // 3600
         to_mins = (session.to.seconds % 3600) // 60
 
@@ -123,8 +123,8 @@ If there is no session:
 ### 3️⃣ Session Time Format
 
 ```python
-from_hours = session.from.seconds // 3600
-from_mins = (session.from.seconds % 3600) // 60
+from_hours = getattr(session, "from").seconds // 3600
+from_mins = (getattr(session, "from").seconds % 3600) // 60
 ```
 
 Session start and end time is returned as **number of seconds from the beginning of the day**.

@@ -60,7 +60,7 @@ async def calc_risk_reward():
 
         # Calculate potential loss (hitting SL)
         loss_req = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_BUY,
+            order_type=trade_pb2.ORDER_TYPE_TF_BUY,
             symbol="EURUSD",
             volume=0.10,
             open_price=entry,
@@ -72,7 +72,7 @@ async def calc_risk_reward():
 
         # Calculate potential profit (hitting TP)
         profit_req = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_BUY,
+            order_type=trade_pb2.ORDER_TYPE_TF_BUY,
             symbol="EURUSD",
             volume=0.10,
             open_price=entry,
@@ -149,7 +149,7 @@ These are **hypothetical values** for planning purposes. No trade is opened yet.
 
 ```python
 loss_req = trade_pb2.OrderCalcProfitRequest(
-    order_type=trade_pb2.ORDER_TYPE_BUY,
+    order_type=trade_pb2.ORDER_TYPE_TF_BUY,
     symbol="EURUSD",
     volume=0.10,
     open_price=entry,
@@ -175,7 +175,7 @@ The request describes a *planned*, not a real operation.
 
 ```python
 profit_req = trade_pb2.OrderCalcProfitRequest(
-    order_type=trade_pb2.ORDER_TYPE_BUY,
+    order_type=trade_pb2.ORDER_TYPE_TF_BUY,
     symbol="EURUSD",
     volume=0.10,
     open_price=entry,

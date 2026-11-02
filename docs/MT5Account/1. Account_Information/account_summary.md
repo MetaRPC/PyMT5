@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.account_summary(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.account_summary(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountHelper`
 * **Proto definition:** `AccountSummary` (defined in `mt5-term-api-account-helper.proto`)
 
@@ -83,6 +83,16 @@ message AccountSummaryData {
   google.protobuf.Timestamp server_time = 9;
   int64 utc_timezone_server_time_shift_minutes = 10;
   double account_credit = 11;
+  double account_margin = 12;
+  int32 server_utc_offset_seconds = 13;
+  google.protobuf.Timestamp server_time_utc = 14;
+  double account_margin_free = 15;
+  double account_margin_level = 16;
+  MrpcEnumAccountMarginMode account_margin_mode = 17;
+  bool account_trade_allowed = 18;
+  bool account_trade_expert = 19;
+  bool terminal_connected = 20;
+  bool terminal_trade_allowed = 21;
 }
 ```
 
@@ -131,6 +141,16 @@ summary = await account.account_summary()
 | `server_time`                          | `google.protobuf.Timestamp` | `Timestamp` | Current server time                                  |
 | `utc_timezone_server_time_shift_minutes` | `int64`                   | `int`       | Server timezone offset from UTC (in minutes)         |
 | `account_credit`                       | `double`                    | `float`     | Account credit in deposit currency                   |
+| `account_margin`                       | `double`                    | `float`     | Margin currently used (deposit currency)             |
+| `server_utc_offset_seconds`            | `int32`                     | `int`       | Server timezone offset from UTC (in seconds)         |
+| `server_time_utc`                      | `google.protobuf.Timestamp` | `Timestamp` | Current server time in UTC                            |
+| `account_margin_free`                  | `double`                    | `float`     | Free margin available (deposit currency)             |
+| `account_margin_level`                 | `double`                    | `float`     | Margin level in percent                              |
+| `account_margin_mode`                  | `MrpcEnumAccountMarginMode` | `int`       | Margin calculation mode                              |
+| `account_trade_allowed`                | `bool`                      | `bool`      | Whether trading is allowed on the account            |
+| `account_trade_expert`                 | `bool`                      | `bool`      | Whether Expert Advisor trading is allowed            |
+| `terminal_connected`                   | `bool`                      | `bool`      | Whether the terminal is connected to the server      |
+| `terminal_trade_allowed`               | `bool`                      | `bool`      | Whether trading is allowed in the terminal           |
 
 **Return value:** The method returns `AccountSummaryData` object with all fields accessible as attributes.
 
@@ -170,7 +190,7 @@ if summary.account_trade_mode == account_helper_pb2.MRPC_ACCOUNT_TRADE_MODE_REAL
 * **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
 * **Default timeout:** If `deadline` is `None`, the method will wait indefinitely (or until server timeout).
 * **Connection required:** You must call `connect_by_host_port()` or `connect_by_server_name()` before using this method.
-* **No margin info:** This method doesn't include margin/margin level - use `account_info_double()` for those.
+* **Margin info included:** This method already returns `account_margin`, `account_margin_free` and `account_margin_level` (plus `account_margin_mode`) — no separate `account_info_double()` calls needed for those.
 * **Server time:** The `server_time` field is a protobuf Timestamp - convert with `.ToDatetime()` or `.seconds`.
 
 ---
@@ -194,7 +214,7 @@ async def main():
     )
 
     # Connect first
-    await account.connect_by_host_port()
+    await account.connect_by_server_name("MetaQuotes-Demo")
 
     try:
         # Set deadline
@@ -555,7 +575,7 @@ async def compare_accounts(accounts: list[MT5Account]) -> list[AccountSummary]:
 async def initialize_account(account: MT5Account):
     """Initialize and validate account connection"""
     # Connect
-    await account.connect_by_host_port()
+    await account.connect_by_server_name("MetaQuotes-Demo")
 
     # Get summary to verify connection
     summary = await account.account_summary()

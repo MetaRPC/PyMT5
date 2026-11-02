@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.symbols_total(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.symbols_total(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.MarketInfo`
 * **Proto definition:** `SymbolsTotal` (defined in `mt5-term-api-market-info.proto`)
 
@@ -145,7 +145,7 @@ async def main():
         host="your-server.com:443"
     )
 
-    await account.connect_by_host_port()
+    await account.connect_by_server_name("MetaQuotes-Demo")
 
     try:
         # Count all symbols

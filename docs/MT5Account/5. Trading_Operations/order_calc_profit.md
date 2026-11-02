@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.order_calc_profit(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.order_calc_profit(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.TradeFunctions`
 * **Proto definition:** `OrderCalcProfit` (defined in `mt5-term-api-trade-functions.proto`)
 * **Enums in this method:** 1 enum with 9 constants (1 input)
@@ -119,25 +119,25 @@ Used in `OrderCalcProfitRequest` to specify order type.
 
 | Constant Name            | Value | Description                          |
 | ------------------------ | ----- | ------------------------------------ |
-| `ORDER_TYPE_BUY`         | 0     | Market buy order                     |
-| `ORDER_TYPE_SELL`        | 1     | Market sell order                    |
-| `ORDER_TYPE_BUY_LIMIT`   | 2     | Buy limit pending order              |
-| `ORDER_TYPE_SELL_LIMIT`  | 3     | Sell limit pending order             |
-| `ORDER_TYPE_BUY_STOP`    | 4     | Buy stop pending order               |
-| `ORDER_TYPE_SELL_STOP`   | 5     | Sell stop pending order              |
-| `ORDER_TYPE_BUY_STOP_LIMIT`  | 6 | Buy stop limit pending order         |
-| `ORDER_TYPE_SELL_STOP_LIMIT` | 7 | Sell stop limit pending order        |
-| `ORDER_TYPE_CLOSE_BY`    | 8     | Close by opposite position           |
+| `ORDER_TYPE_TF_BUY`         | 0     | Market buy order                     |
+| `ORDER_TYPE_TF_SELL`        | 1     | Market sell order                    |
+| `ORDER_TYPE_TF_BUY_LIMIT`   | 2     | Buy limit pending order              |
+| `ORDER_TYPE_TF_SELL_LIMIT`  | 3     | Sell limit pending order             |
+| `ORDER_TYPE_TF_BUY_STOP`    | 4     | Buy stop pending order               |
+| `ORDER_TYPE_TF_SELL_STOP`   | 5     | Sell stop pending order              |
+| `ORDER_TYPE_TF_BUY_STOP_LIMIT`  | 6 | Buy stop limit pending order         |
+| `ORDER_TYPE_TF_SELL_STOP_LIMIT` | 7 | Sell stop limit pending order        |
+| `ORDER_TYPE_TF_CLOSE_BY`    | 8     | Close by opposite position           |
 
 **Usage:**
 ```python
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
 # Access enum values
-trade_pb2.ORDER_TYPE_BUY          # = 0
-trade_pb2.ORDER_TYPE_SELL         # = 1
-trade_pb2.ORDER_TYPE_BUY_LIMIT    # = 2
-trade_pb2.ORDER_TYPE_SELL_LIMIT   # = 3
+trade_pb2.ORDER_TYPE_TF_BUY          # = 0
+trade_pb2.ORDER_TYPE_TF_SELL         # = 1
+trade_pb2.ORDER_TYPE_TF_BUY_LIMIT    # = 2
+trade_pb2.ORDER_TYPE_TF_SELL_LIMIT   # = 3
 ```
 
 ---
@@ -180,7 +180,7 @@ async def calc_buy_profit():
         # Calculate profit for BUY 0.10 lots EURUSD
         # Entry: 1.10000, Exit: 1.10100 (100 pips profit)
         request = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_BUY,
+            order_type=trade_pb2.ORDER_TYPE_TF_BUY,
             symbol="EURUSD",
             volume=0.10,
             open_price=1.10000,
@@ -224,7 +224,7 @@ async def calc_sell_loss():
         # Calculate loss for SELL 0.01 lots EURUSD
         # Entry: 1.10000, Exit: 1.10050 (50 pips loss)
         request = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_SELL,
+            order_type=trade_pb2.ORDER_TYPE_TF_SELL,
             symbol="EURUSD",
             volume=0.01,
             open_price=1.10000,
@@ -271,7 +271,7 @@ async def calc_risk_reward():
 
         # Calculate potential loss (hitting SL)
         loss_req = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_BUY,
+            order_type=trade_pb2.ORDER_TYPE_TF_BUY,
             symbol="EURUSD",
             volume=0.10,
             open_price=entry,
@@ -283,7 +283,7 @@ async def calc_risk_reward():
 
         # Calculate potential profit (hitting TP)
         profit_req = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_BUY,
+            order_type=trade_pb2.ORDER_TYPE_TF_BUY,
             symbol="EURUSD",
             volume=0.10,
             open_price=entry,
@@ -331,7 +331,7 @@ async def calc_pip_value():
         pip_size = 0.0001
 
         request = trade_pb2.OrderCalcProfitRequest(
-            order_type=trade_pb2.ORDER_TYPE_BUY,
+            order_type=trade_pb2.ORDER_TYPE_TF_BUY,
             symbol="EURUSD",
             volume=0.10,
             open_price=1.10000,
@@ -383,7 +383,7 @@ async def compare_symbols():
 
         for symbol, entry, exit in symbols:
             request = trade_pb2.OrderCalcProfitRequest(
-                order_type=trade_pb2.ORDER_TYPE_BUY,
+                order_type=trade_pb2.ORDER_TYPE_TF_BUY,
                 symbol=symbol,
                 volume=0.10,
                 open_price=entry,
@@ -427,7 +427,7 @@ async def calc_position_size():
         # Test different lot sizes to find appropriate size
         for volume in [0.01, 0.05, 0.10, 0.20]:
             request = trade_pb2.OrderCalcProfitRequest(
-                order_type=trade_pb2.ORDER_TYPE_BUY,
+                order_type=trade_pb2.ORDER_TYPE_TF_BUY,
                 symbol="EURUSD",
                 volume=volume,
                 open_price=entry,

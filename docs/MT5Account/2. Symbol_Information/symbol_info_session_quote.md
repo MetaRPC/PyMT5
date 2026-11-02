@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.symbol_info_session_quote(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.symbol_info_session_quote(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.MarketInfo`
 * **Proto definition:** `SymbolInfoSessionQuote` (defined in `mt5-term-api-market-info.proto`)
 
@@ -134,7 +134,7 @@ session = await account.symbol_info_session_quote(
     day_of_week=market_info_pb2.MONDAY,
     session_index=0
 )
-print(f"From: {session.from.seconds}s, To: {session.to.seconds}s")
+print(f"From: {getattr(session, "from").seconds}s, To: {session.to.seconds}s")
 ```
 
 ---
@@ -167,7 +167,7 @@ session = await account.symbol_info_session_quote(
 )
 
 print(f"Monday Quote Session:")
-print(f"  From: {session.from.seconds}s ({session.from.seconds // 3600}h:{(session.from.seconds % 3600) // 60}m)")
+print(f"  From: {getattr(session, "from").seconds}s ({getattr(session, "from").seconds // 3600}h:{(getattr(session, "from").seconds % 3600) // 60}m)")
 print(f"  To: {session.to.seconds}s ({session.to.seconds // 3600}h:{(session.to.seconds % 3600) // 60}m)")
 ```
 
@@ -195,8 +195,8 @@ for day_enum, day_name in days.items():
             session_index=0
         )
 
-        from_hours = session.from.seconds // 3600
-        from_mins = (session.from.seconds % 3600) // 60
+        from_hours = getattr(session, "from").seconds // 3600
+        from_mins = (getattr(session, "from").seconds % 3600) // 60
         to_hours = session.to.seconds // 3600
         to_mins = (session.to.seconds % 3600) // 60
 
@@ -227,7 +227,7 @@ session = await account.symbol_info_session_quote(
 )
 
 # Convert to time objects
-from_time = timestamp_to_time(session.from)
+from_time = timestamp_to_time(getattr(session, "from"))
 to_time = timestamp_to_time(session.to)
 
 print(f"Quote session: {from_time} - {to_time}")
@@ -249,7 +249,7 @@ async def has_quote_session(account, symbol: str, day_of_week: int) -> bool:
         )
 
         # Check if session has valid times (not zero)
-        if session.from.seconds > 0 or session.to.seconds > 0:
+        if getattr(session, "from").seconds > 0 or session.to.seconds > 0:
             return True
         return False
     except Exception:
@@ -301,12 +301,12 @@ async def get_all_sessions(account, symbol: str, day_of_week: int):
             )
 
             # Check if session is valid
-            if session.from.seconds == 0 and session.to.seconds == 0:
+            if getattr(session, "from").seconds == 0 and session.to.seconds == 0:
                 break
 
             sessions.append({
                 'index': session_index,
-                'from': session.from.seconds,
+                'from': getattr(session, "from").seconds,
                 'to': session.to.seconds
             })
             session_index += 1

@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.positions_history(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.positions_history(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountHelper`
 * **Proto definition:** `PositionsHistory` (defined in `mt5-term-api-account-helper.proto`)
 * **Enums in this method:** 2 enums with 13 total constants (1 input, 1 output)
@@ -82,6 +82,8 @@ message PositionsHistoryReply {
 
 message PositionsHistoryData {
   repeated PositionHistoryInfo history_positions = 1;
+  int32 total_count = 2;
+  string next_page_token = 3;
 }
 ```
 
@@ -125,6 +127,8 @@ data = await account.positions_history(
 | Field               | Type                           | Python Type                  | Description                              |
 | ------------------- | ------------------------------ | ---------------------------- | ---------------------------------------- |
 | `history_positions` | `repeated PositionHistoryInfo` | `list[PositionHistoryInfo]`  | List of historical position records      |
+| `total_count`       | `int32`                        | `int`                        | Total matching positions across all pages |
+| `next_page_token`   | `string`                       | `str`                        | Cursor for the next page (empty if last) |
 
 **Each PositionHistoryInfo contains:**
 
@@ -133,8 +137,10 @@ data = await account.positions_history(
 | `index`            | `int32`            | Index in the result set                              |
 | `position_ticket`  | `uint64`           | Position ticket ID                                   |
 | `order_type`       | `AH_ENUM_POSITIONS_HISTORY_ORDER_TYPE` | Order type (BUY, SELL, etc.)          |
-| `open_time`        | `Timestamp`        | Position open time                                   |
-| `close_time`       | `Timestamp`        | Position close time                                  |
+| `open_time`        | `Timestamp`        | Position open time (server time)                     |
+| `open_time_utc`    | `Timestamp`        | Position open time (UTC)                             |
+| `close_time`       | `Timestamp`        | Position close time (server time)                    |
+| `close_time_utc`   | `Timestamp`        | Position close time (UTC)                            |
 | `volume`           | `double`           | Position volume in lots                              |
 | `open_price`       | `double`           | Open price                                           |
 | `close_price`      | `double`           | Close price                                          |

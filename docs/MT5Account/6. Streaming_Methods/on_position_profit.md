@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Python API:** `MT5Account.on_position_profit(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Python API:** `MT5Account.on_position_profit(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.SubscriptionService`
 * **Proto definition:** `OnPositionProfit` (defined in `mt5-term-api-subscriptions.proto`)
 
@@ -259,7 +259,7 @@ async def realtime_pnl_dashboard():
                 print(f"Balance:  ${acc.balance:,.2f}")
                 print(f"Equity:   ${acc.equity:,.2f}")
                 print(f"Margin:   ${acc.margin:,.2f}")
-                print(f"Free:     ${acc.margin_free:,.2f}")
+                print(f"Free:     ${acc.free_margin:,.2f}")
                 print(f"Profit:   ${acc.profit:,.2f}")
                 print("-" * 60)
 

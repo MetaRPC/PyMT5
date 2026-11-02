@@ -55,7 +55,7 @@ async def is_trading_allowed(account, symbol: str) -> bool:
 
         current_seconds = now.hour * 3600 + now.minute * 60 + now.second
 
-        if session.from.seconds <= current_seconds <= session.to.seconds:
+        if getattr(session, "from").seconds <= current_seconds <= session.to.seconds:
             return True
         return False
     except Exception:
@@ -134,7 +134,7 @@ To correctly compare current time with session boundaries, it is converted to th
 ### 4️⃣ Checking Time Interval Match
 
 ```python
-if session.from.seconds <= current_seconds <= session.to.seconds:
+if getattr(session, "from").seconds <= current_seconds <= session.to.seconds:
     return True
 ```
 

@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.symbol_info_tick(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.symbol_info_tick(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.MarketInfo`
 * **Proto definition:** `SymbolInfoTick` (defined in `mt5-term-api-market-info.proto`)
 
@@ -100,11 +100,13 @@ message MrpcMqlTick {
 | Field         | Type     | Python Type | Description                                      |
 | ------------- | -------- | ----------- | ------------------------------------------------ |
 | `time`        | `int64`  | `int`       | Tick time in seconds since epoch (UTC)           |
+| `time_utc`    | `int64`  | `int`       | Tick time in seconds since epoch (broker UTC)    |
 | `bid`         | `double` | `float`     | Current best bid price                           |
 | `ask`         | `double` | `float`     | Current best ask price                           |
 | `last`        | `double` | `float`     | Last deal price (if applicable)                  |
 | `volume`      | `uint64` | `int`       | Tick volume (number of ticks)                    |
 | `time_msc`    | `int64`  | `int`       | Tick time in milliseconds since epoch (UTC)      |
+| `time_msc_utc`| `int64`  | `int`       | Tick time in milliseconds since epoch (broker UTC)|
 | `flags`       | `uint32` | `int`       | Tick flags bitmask (MT5 tick flags)              |
 | `volume_real` | `double` | `float`     | Real volume (if provided by broker)              |
 

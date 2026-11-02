@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.symbol_exist(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.symbol_exist(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.MarketInfo`
 * **Proto definition:** `SymbolExist` (defined in `mt5-term-api-market-info.proto`)
 
@@ -111,7 +111,7 @@ message SymbolExistData {
 ```python
 async def main():
     account = MT5Account(...)
-    await account.connect_by_host_port()
+    await account.connect_by_server_name("MetaQuotes-Demo")
 
     data = await account.symbol_exist(symbol="EURUSD")
 

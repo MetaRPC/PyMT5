@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.order_history(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.order_history(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountHelper`
 * **Proto definition:** `OrderHistory` (defined in `mt5-term-api-account-helper.proto`)
 * **Enums in this method:** 8 enums with 66 total constants (1 input, 7 output)
@@ -131,6 +131,7 @@ data = await account.order_history(
 | `pageNumber`    | `int32`                 | `int`                 | Current page number                      |
 | `itemsPerPage`  | `int32`                 | `int`                 | Items per page                           |
 | `history_data`  | `repeated HistoryData`  | `list[HistoryData]`   | List of historical order/deal records    |
+| `next_page_token` | `string`              | `str`                 | Cursor for the next page (empty if last) |
 
 **Each HistoryData contains:**
 
@@ -163,6 +164,9 @@ data = await account.order_history(
 - `external_id` (string) - External ID
 - `comment` (string) - Order comment
 - `account_login` (int64) - Account login
+- `setup_time_utc` (Timestamp) - Order setup time (UTC)
+- `done_time_utc` (Timestamp) - Order execution time (UTC)
+- `time_expiration_utc` (Timestamp) - Order expiration time (UTC)
 
 **DealHistoryData fields:**
 
@@ -184,6 +188,9 @@ data = await account.order_history(
 - `symbol` (string) - Symbol name
 - `external_id` (string) - External ID
 - `account_login` (int64) - Account login
+- `time_utc` (Timestamp) - Deal time (UTC)
+- `order` (uint64) - Order ticket that generated the deal
+- `magic` (int64) - Expert Advisor magic number
 
 ---
 

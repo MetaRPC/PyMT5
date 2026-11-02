@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Low-level API:** `MT5Account.opened_orders(...)` (defined in `package/MetaRpcMT5/helpers/mt5_account.py`)
+* **Low-level API:** `MT5Account.opened_orders(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
 * **gRPC service:** `mt5_term_api.AccountHelper`
 * **Proto definition:** `OpenedOrders` (defined in `mt5-term-api-account-helper.proto`)
 
@@ -114,6 +114,65 @@ data = await account.opened_orders()
 | `position_infos`  | `repeated PositionInfo`     | `list[PositionInfo]`      | List of open positions                   |
 
 **Return value:** The method returns `OpenedOrdersData` object with both lists accessible as attributes.
+
+### `OpenedOrderInfo` (item of `opened_orders`) — pending order
+
+| Field                  | Type                          | Description                                            |
+| ---------------------- | ----------------------------- | ------------------------------------------------------ |
+| `index`                | `uint32`                      | Zero-based index in the result list                    |
+| `ticket`               | `uint64`                      | Order ticket (unique id)                               |
+| `price_current`        | `double`                      | Current market price                                   |
+| `price_open`           | `double`                      | Requested/open price of the order                      |
+| `stop_limit`           | `double`                      | Stop-limit trigger price                               |
+| `stop_loss`            | `double`                      | Stop Loss price                                        |
+| `take_profit`          | `double`                      | Take Profit price                                      |
+| `volume_current`       | `double`                      | Remaining (unfilled) volume in lots                    |
+| `volume_initial`       | `double`                      | Initial volume in lots                                 |
+| `magic_number`         | `int64`                       | Expert Advisor magic number                            |
+| `reason`               | `int32`                       | Order creation reason code                             |
+| `type`                 | `BMT5_ENUM_ORDER_TYPE`        | Order type (buy/sell/limit/stop/…)                     |
+| `state`                | `BMT5_ENUM_ORDER_STATE`       | Order state (placed/filled/…)                          |
+| `time_expiration`      | `Timestamp`                   | Expiration time (server time)                          |
+| `time_setup`           | `Timestamp`                   | Placement time (server time)                           |
+| `time_done`            | `Timestamp`                   | Execution/cancellation time (server time)              |
+| `type_filling`         | `BMT5_ENUM_ORDER_TYPE_FILLING`| Filling policy                                         |
+| `type_time`            | `BMT5_ENUM_ORDER_TYPE_TIME`   | Expiration policy                                      |
+| `position_id`          | `int64`                       | Position id this order belongs to                      |
+| `position_by_id`       | `int64`                       | Opposite position id (for close-by)                    |
+| `symbol`               | `string`                      | Trading symbol                                         |
+| `external_id`          | `string`                      | Broker-side external id                                |
+| `comment`              | `string`                      | Order comment                                          |
+| `account_login`        | `int64`                       | Account login (owner)                                  |
+| `time_expiration_utc`  | `Timestamp`                   | Expiration time (UTC)                                  |
+| `time_setup_utc`       | `Timestamp`                   | Placement time (UTC)                                   |
+| `time_done_utc`        | `Timestamp`                   | Execution/cancellation time (UTC)                      |
+
+### `PositionInfo` (item of `position_infos`) — open position
+
+| Field                   | Type                        | Description                                 |
+| ----------------------- | --------------------------- | ------------------------------------------- |
+| `index`                 | `uint32`                    | Zero-based index in the result list         |
+| `ticket`                | `uint64`                    | Position ticket (unique id)                 |
+| `open_time`             | `Timestamp`                 | Position open time (server time)            |
+| `volume`                | `double`                    | Position volume in lots                     |
+| `price_open`            | `double`                    | Open price                                  |
+| `stop_loss`             | `double`                    | Stop Loss price                             |
+| `take_profit`           | `double`                    | Take Profit price                           |
+| `price_current`         | `double`                    | Current market price                        |
+| `swap`                  | `double`                    | Accumulated swap                            |
+| `profit`                | `double`                    | Current floating profit/loss                |
+| `last_update_time`      | `Timestamp`                 | Last update time (server time)              |
+| `type`                  | `BMT5_ENUM_POSITION_TYPE`   | Position type (buy/sell)                    |
+| `magic_number`          | `int64`                     | Expert Advisor magic number                 |
+| `identifier`            | `int64`                     | Position identifier                         |
+| `reason`                | `BMT5_ENUM_POSITION_REASON` | Reason the position was opened              |
+| `symbol`                | `string`                    | Trading symbol                              |
+| `comment`               | `string`                    | Position comment                            |
+| `external_id`           | `string`                    | Broker-side external id                     |
+| `position_commission`   | `double`                    | Commission for the position                 |
+| `account_login`         | `int64`                     | Account login (owner)                       |
+| `open_time_utc`         | `Timestamp`                 | Position open time (UTC)                     |
+| `last_update_time_utc`  | `Timestamp`                 | Last update time (UTC)                      |
 
 ---
 
