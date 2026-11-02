@@ -132,17 +132,18 @@ TradingHelperService.OrderSend()
 ### Example 1: Buy Dip with Pips Protection
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def buy_dip_protected():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Current ASK: 1.0850
     # Place BUY LIMIT at 1.0840 with SL/TP
@@ -162,14 +163,15 @@ async def buy_dip_protected():
 
 ```python
 async def buy_at_support():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Support at 1.0820
     support = 1.0820
@@ -190,14 +192,15 @@ async def buy_at_support():
 
 ```python
 async def protected_grid():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Current ASK: 1.0850
     # Place grid of BUY LIMIT orders below

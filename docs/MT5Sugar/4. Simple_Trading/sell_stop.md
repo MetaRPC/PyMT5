@@ -122,17 +122,18 @@ TradingHelperService.OrderSend()
 ### Example 1: Basic Breakdown Entry
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def breakdown_sell():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Current BID: 1.0850
     # Support at 1.0830
@@ -153,14 +154,15 @@ async def breakdown_sell():
 
 ```python
 async def tiered_breakdown():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Current price: 1.0850
     # Key support levels
@@ -186,14 +188,15 @@ async def tiered_breakdown():
 
 ```python
 async def downtrend_following():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Get current low
     bid = await sugar.get_bid()

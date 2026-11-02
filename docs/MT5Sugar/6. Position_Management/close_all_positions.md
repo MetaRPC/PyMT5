@@ -107,17 +107,18 @@ TradingHelperService.OrderClose()
 ### Example 1: Close All Positions (No Filter)
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def close_everything():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open several positions
     ticket1 = await sugar.buy_market("EURUSD", volume=0.1)
@@ -140,13 +141,15 @@ async def close_everything():
 
 ```python
 async def close_symbol_positions():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
-        grpc_server="mt5.mrpc.pro:443"
+        grpc_server="mt5.mrpc.pro:443",
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service)
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open positions on different symbols
     await sugar.buy_market("EURUSD", volume=0.1)
@@ -171,14 +174,15 @@ import asyncio
 from datetime import datetime, time
 
 async def end_of_day_close():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Trading logic during the day...
     # (open positions, monitor, etc.)
@@ -245,8 +249,8 @@ closed = await sugar.close_all_positions()  # Only closes position
 # Close positions
 await sugar.close_all_positions()
 
-# Cancel pending orders (if method exists)
-# await sugar.cancel_all_orders()
+# Note: close_all_positions() closes open positions only; pending orders
+# are not affected and must be cancelled through the service/account layer.
 ```
 
 **Pitfall 3: Not handling partial failures**

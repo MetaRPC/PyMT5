@@ -132,17 +132,18 @@ TradingHelperService.OrderSend()
 ### Example 1: Using Pips (Recommended)
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def buy_with_pips():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open BUY with 50 pips SL and 100 pips TP
     ticket = await sugar.buy_market_with_sltp(
@@ -164,14 +165,15 @@ async def buy_with_pips():
 
 ```python
 async def buy_with_prices():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Get current price
     ask = await sugar.get_ask()  # 1.0850
@@ -192,14 +194,15 @@ async def buy_with_prices():
 
 ```python
 async def fixed_risk_trade():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Fixed risk: 1% account balance
     balance = await sugar.get_balance()

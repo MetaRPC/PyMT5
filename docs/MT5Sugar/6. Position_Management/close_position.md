@@ -105,17 +105,18 @@ TradingHelperService.OrderClose()
 ### Example 1: Basic Position Close
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def simple_close():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open position
     ticket = await sugar.buy_market(volume=0.1)
@@ -134,14 +135,15 @@ async def simple_close():
 
 ```python
 async def close_with_profit_check():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open position
     ticket = await sugar.buy_market(volume=0.1)
@@ -168,14 +170,15 @@ async def close_with_profit_check():
 
 ```python
 async def close_multiple():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open multiple positions
     tickets = []
@@ -288,7 +291,7 @@ positions_data = await sugar._service.get_opened_orders()
 magic_to_close = 12345
 
 for pos in positions_data.position_infos:
-    if pos.expert_id == magic_to_close:
+    if pos.magic_number == magic_to_close:
         success = await sugar.close_position(pos.ticket)
         print(f"Closed magic {magic_to_close}: #{pos.ticket}")
 ```

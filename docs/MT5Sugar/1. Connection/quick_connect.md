@@ -4,7 +4,7 @@
 
 **API Information:**
 
-* **Method:** `sugar.quick_connect(cluster_name, base_symbol)`
+* **Method:** `sugar.quick_connect(cluster_name, timeout_seconds=30)`
 * **Returns:** None (raises exception on failure)
 * **Layer:** HIGH (MT5Sugar)
 
@@ -16,7 +16,8 @@
 async def quick_connect(
     self,
     cluster_name: str,
-    base_symbol: str = "EURUSD"
+    timeout_seconds: int = 30,
+    **kwargs
 ) -> None
 ```
 
@@ -27,7 +28,8 @@ async def quick_connect(
 | Parameter | Type | Required | Default | Description |
 |-----------|------|----------|---------|-------------|
 | `cluster_name` | `str` | Yes | - | MT5 cluster identifier (e.g., "FxPro-MT5 Demo") |
-| `base_symbol` | `str` | No | `"EURUSD"` | Base chart symbol for connection |
+| `timeout_seconds` | `int` | No | `30` | Seconds to wait for the terminal to become ready |
+| `**kwargs` | - | No | - | Reserved for forward-compatible connection options |
 
 ---
 
@@ -140,10 +142,10 @@ async def connect_simple():
         print(f"Balance: ${balance}")
 ```
 
-### Example 2: Connect with Custom Symbol
+### Example 2: Connect with a Custom Timeout
 
 ```python
-async def connect_custom_symbol():
+async def connect_custom_timeout():
     account = MT5Account.create(
         user=591129415,
         password="your_password",
@@ -152,13 +154,13 @@ async def connect_custom_symbol():
     service = MT5Service(account)
     sugar = MT5Sugar(service)
 
-    # Connect with GBPUSD as base symbol
+    # Allow up to 60 seconds for the terminal to become ready
     await sugar.quick_connect(
         cluster_name="ICMarkets-Demo",
-        base_symbol="GBPUSD"
+        timeout_seconds=60
     )
 
-    print("Connected with GBPUSD chart")
+    print("Connected")
 ```
 
 ### Example 3: Auto-Reconnect on Failure
@@ -270,12 +272,12 @@ except Exception as e:
 ```python
 # config.py
 CLUSTER_NAME = "FxPro-MT5 Demo"
-BASE_SYMBOL = "EURUSD"
+CONNECT_TIMEOUT = 30
 
 # main.py
-from config import CLUSTER_NAME, BASE_SYMBOL
+from config import CLUSTER_NAME, CONNECT_TIMEOUT
 
-await sugar.quick_connect(CLUSTER_NAME, BASE_SYMBOL)
+await sugar.quick_connect(CLUSTER_NAME, CONNECT_TIMEOUT)
 ```
 
 **Tip 2: Verify connection after connect**

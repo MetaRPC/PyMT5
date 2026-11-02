@@ -123,17 +123,18 @@ TradingHelperService.OrderSend()
 ### Example 1: Basic BUY Position
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def simple_buy():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open BUY position with default volume (0.01 lot)
     ticket = await sugar.buy_market()
@@ -147,13 +148,15 @@ async def simple_buy():
 
 ```python
 async def buy_with_params():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
-        grpc_server="mt5.mrpc.pro:443"
+        grpc_server="mt5.mrpc.pro:443",
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service)
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open 0.1 lot BUY position on GBPUSD
     ticket = await sugar.buy_market(
@@ -170,14 +173,15 @@ async def buy_with_params():
 
 ```python
 async def safe_buy():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     try:
         ticket = await sugar.buy_market(volume=0.1)
@@ -199,8 +203,15 @@ async def safe_buy():
 **Pitfall 1: No symbol specified**
 ```python
 # ERROR: No default symbol set
-sugar = MT5Sugar(user=123, password="pass", grpc_server="server")
-await sugar.connect()
+account = MT5Account.create(
+    user=123,
+    password="pass",
+    grpc_server="server",
+)
+service = MT5Service(account)
+sugar = MT5Sugar(service)
+
+await sugar.quick_connect("YourBroker-Demo")
 ticket = await sugar.buy_market()  # Raises ValueError
 ```
 

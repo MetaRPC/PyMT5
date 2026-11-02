@@ -2,7 +2,7 @@
 
 > High-level convenience methods for MetaTrader 5 trading automation in Python
 
-**MT5Sugar** extends `MT5Service` with convenient methods for:
+**MT5Sugar** wraps an `MT5Service` instance (composition, not inheritance) and adds convenient methods for:
 
 - Risk-based position sizing (percentage risk, pip-based SL/TP)
 - Automatic volume and price normalization
@@ -483,7 +483,7 @@ await sugar.buy_market_with_sltp("EURUSD", 0.1, sl_pips=50, tp_pips=100)  # Good
 
 ```python
 # Check connection before trading
-if not await sugar.is_connected():
+if not sugar.is_connected():  # is_connected() is synchronous (no await)
     await sugar.quick_connect("FxPro-MT5 Demo")
 
 # Verify with ping

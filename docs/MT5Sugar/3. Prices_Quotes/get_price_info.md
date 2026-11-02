@@ -108,17 +108,18 @@ MarketInfoService.SymbolInfoTick()
 ### Example 1: Basic Price Information
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def check_current_price():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Get complete price info
     price = await sugar.get_price_info()
@@ -143,13 +144,15 @@ async def check_current_price():
 
 ```python
 async def compare_symbols():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
-        grpc_server="mt5.mrpc.pro:443"
+        grpc_server="mt5.mrpc.pro:443",
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service)
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Get prices for multiple symbols
     eurusd = await sugar.get_price_info("EURUSD")
@@ -168,14 +171,15 @@ import asyncio
 from datetime import datetime
 
 async def log_prices():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Log prices every 5 seconds
     for _ in range(10):
@@ -201,8 +205,15 @@ async def log_prices():
 **Pitfall 1: No default symbol set**
 ```python
 # ERROR: No symbol specified
-sugar = MT5Sugar(user=123, password="pass", grpc_server="server")
-await sugar.connect()
+account = MT5Account.create(
+    user=123,
+    password="pass",
+    grpc_server="server",
+)
+service = MT5Service(account)
+sugar = MT5Sugar(service)
+
+await sugar.quick_connect("YourBroker-Demo")
 price = await sugar.get_price_info()  # Raises ValueError
 ```
 

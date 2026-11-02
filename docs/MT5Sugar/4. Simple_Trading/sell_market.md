@@ -123,17 +123,18 @@ TradingHelperService.OrderSend()
 ### Example 1: Basic SELL Position
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def simple_sell():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open SELL position with default volume (0.01 lot)
     ticket = await sugar.sell_market()
@@ -147,13 +148,15 @@ async def simple_sell():
 
 ```python
 async def sell_with_params():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
-        grpc_server="mt5.mrpc.pro:443"
+        grpc_server="mt5.mrpc.pro:443",
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service)
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     # Open 0.1 lot SELL position on GBPUSD
     ticket = await sugar.sell_market(
@@ -170,14 +173,15 @@ async def sell_with_params():
 
 ```python
 async def hedging_positions():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     try:
         # Open opposite positions to hedge
@@ -263,17 +267,24 @@ if current_price < moving_average:
 
 **Tip 2: Combine with position monitoring**
 ```python
+import asyncio
+
 # Open SELL and monitor profit
 ticket = await sugar.sell_market(volume=0.1)
 
-# Subscribe to position profit updates
-async for profit in sugar.stream_position_profit(ticket):
-    print(f"Current profit: ${profit}")
+# Poll the position's profit until the target is reached
+while True:
+    pos = await sugar.get_position_by_ticket(ticket)
+    if pos is None:
+        break  # position no longer open
+    print(f"Current profit: ${pos.profit:.2f}")
 
     # Close if profit target reached
-    if profit >= 50.0:
+    if pos.profit >= 50.0:
         await sugar.close_position(ticket)
         break
+
+    await asyncio.sleep(1)
 ```
 
 **Tip 3: Use spread check before SELL**

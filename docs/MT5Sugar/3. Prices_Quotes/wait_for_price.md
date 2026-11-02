@@ -112,17 +112,18 @@ MarketInfoService.SymbolInfoTick()
 ### Example 1: Safe Connection Startup
 
 ```python
-from pymt5 import MT5Sugar
+from pymt5 import MT5Account, MT5Service, MT5Sugar
 
 async def connect_and_validate():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     try:
         # Wait up to 10 seconds for valid price
@@ -142,13 +143,15 @@ async def connect_and_validate():
 
 ```python
 async def validate_symbols():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
-        grpc_server="mt5.mrpc.pro:443"
+        grpc_server="mt5.mrpc.pro:443",
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service)
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
@@ -169,14 +172,15 @@ async def validate_symbols():
 import asyncio
 
 async def get_price_with_retry():
-    sugar = MT5Sugar(
+    account = MT5Account.create(
         user=591129415,
         password="your_password",
         grpc_server="mt5.mrpc.pro:443",
-        default_symbol="EURUSD"
     )
+    service = MT5Service(account)
+    sugar = MT5Sugar(service, default_symbol="EURUSD")
 
-    await sugar.connect()
+    await sugar.quick_connect("YourBroker-Demo")
 
     max_attempts = 3
     timeout = 5.0
@@ -257,7 +261,7 @@ except TimeoutError as e:
 
 **Tip 1: Validate connection after connect**
 ```python
-await sugar.connect()
+await sugar.quick_connect("YourBroker-Demo")
 
 # Ensure connection is fully operational
 try:
