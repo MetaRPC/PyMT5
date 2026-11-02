@@ -82,8 +82,8 @@ asyncio.run(main())
 
 ## API methods used
 
-- **MT5Service:** `stream_position_profits()`, `get_symbol_tick()`.
-- **MT5Sugar:** `get_account_info()`, `get_open_positions()`, `get_symbol_info()`, `buy_market()` / `sell_market()`, `close_position()`.
+- **MT5Service:** `stream_position_profits()`, `get_symbol_tick()`, `close_order()` (closing positions via `OrderCloseRequest`).
+- **MT5Sugar:** `get_account_info()`, `get_open_positions()`, `buy_market()` / `sell_market()`.
 
 ## Notes
 

@@ -99,7 +99,7 @@ asyncio.run(main())
 ## API methods used
 
 - **MT5Service:** `stream_opened_tickets()` (core, polling), `place_order()`, `close_order()`, `get_symbol_tick()`.
-- **MT5Sugar:** `get_symbol_info()`.
+- **MT5Sugar:** `get_symbol_info()`, `get_balance()`, `get_price_info()`.
 
 ## Notes
 

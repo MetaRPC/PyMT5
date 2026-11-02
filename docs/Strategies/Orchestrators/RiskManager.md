@@ -89,8 +89,8 @@ asyncio.run(main())
 
 ## API methods used
 
-- **MT5Service:** `stream_position_profits()` (core), `get_opened_orders()`, `get_account_summary()`.
-- **MT5Sugar:** `close_position()` (bulk close on breach), `get_account_info()`.
+- **MT5Service:** `stream_position_profits()` (core), `get_opened_orders()`, `get_account_summary()`, `close_order()` (bulk close on breach, via `OrderCloseRequest`).
+- **MT5Sugar:** `buy_market()` / `sell_market()` — used only by the demo helper that opens the test positions (the orchestrator itself takes `service` only).
 
 ## Notes
 
