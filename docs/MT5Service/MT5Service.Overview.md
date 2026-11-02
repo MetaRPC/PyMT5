@@ -106,7 +106,7 @@
 
 **VERY HIGH Value** (1 method):
 
-- `check_order()` - Extracts deeply nested `mrpc_mql_trade_check_result` → OrderCheckResult
+- `check_order()` - Extracts deeply nested `mql_trade_check_result` → OrderCheckResult
 
 **HIGH Value** (7 methods):
 
@@ -124,8 +124,8 @@
 
 - `get_symbol_margin_rate()` - Unpacks protobuf + creates dataclass
 - `get_opened_tickets()` - Converts protobuf repeated → Python lists
-- `subscribe_market_depth()` - Unpacks `data.success` from protobuf
-- `unsubscribe_market_depth()` - Unpacks `data.success` from protobuf
+- `subscribe_market_depth()` - Unpacks `data.opened_successfully` from protobuf
+- `unsubscribe_market_depth()` - Unpacks `data.closed_successfully` from protobuf
 
 ### ⚪ Methods with Minimal/No Value
 
@@ -285,8 +285,8 @@ asyncio.run(main())
 | Method | Value | What It Does |
 |--------|-------|--------------|
 | `get_market_depth()` | ✅ HIGH | Converts protobuf repeated → List[BookInfo] dataclass |
-| `subscribe_market_depth()` | ⚪ MEDIUM | Unpacks `data.success` from protobuf |
-| `unsubscribe_market_depth()` | ⚪ MEDIUM | Unpacks `data.success` from protobuf |
+| `subscribe_market_depth()` | ⚪ MEDIUM | Unpacks `data.opened_successfully` from protobuf |
+| `unsubscribe_market_depth()` | ⚪ MEDIUM | Unpacks `data.closed_successfully` from protobuf |
 
 ---
 
@@ -296,7 +296,7 @@ asyncio.run(main())
 
 | Method | Value | What It Does |
 |--------|-------|--------------|
-| `check_order()` | ✅ VERY HIGH | Extracts deeply nested `mrpc_mql_trade_check_result` → OrderCheckResult (8 fields) |
+| `check_order()` | ✅ VERY HIGH | Extracts deeply nested `mql_trade_check_result` → OrderCheckResult (8 fields) |
 | `place_order()` | ✅ HIGH | Flattens 10 protobuf fields → OrderResult dataclass |
 | `modify_order()` | ✅ HIGH | Flattens 10 protobuf fields → OrderResult dataclass |
 | `close_order()` | ⚪ LOW | Unpacks `data.returned_code` from protobuf → int |
