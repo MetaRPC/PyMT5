@@ -754,7 +754,7 @@ class MT5Service:
         Returns:
             OpenedOrdersData with separate lists for positions and orders
 
-        Technical: Returns protobuf OpenedOrdersData with data.position_infos and data.order_infos.
+        Technical: Returns protobuf OpenedOrdersData with data.position_infos and data.opened_orders.
         Each contains full position/order details (ticket, symbol, volume, profit, SL/TP, etc.).
         For tickets only (faster), use get_opened_tickets() which skips detailed field parsing.
         """
@@ -801,7 +801,7 @@ class MT5Service:
         Returns:
             OrdersHistoryData with orders and deals
 
-        Technical: Returns protobuf OrdersHistoryData with data.order_history_infos (repeated field).
+        Technical: Returns protobuf OrdersHistoryData with data.history_data (repeated field).
         Includes both orders and their related deals. Supports pagination for large result sets.
         For closed positions with P&L, use get_positions_history() instead (more detailed profit tracking).
         """
@@ -858,7 +858,7 @@ class MT5Service:
         Returns:
             Success status
 
-        Technical: Low-level returns MarketBookAddData with data.success wrapper.
+        Technical: Low-level returns MarketBookAddData with data.opened_successfully wrapper.
         This auto-extracts bool. Required before calling get_market_depth() to receive DOM snapshots.
         Terminal maintains subscription - call unsubscribe_market_depth() when done to free resources.
         """
@@ -880,7 +880,7 @@ class MT5Service:
         Returns:
             Success status
 
-        Technical: Low-level returns MarketBookReleaseData with data.success wrapper.
+        Technical: Low-level returns MarketBookReleaseData with data.closed_successfully wrapper.
         This auto-extracts bool. Releases DOM subscription to free terminal resources.
         Always unsubscribe when done - brokers may limit concurrent DOM subscriptions.
         """
@@ -902,8 +902,8 @@ class MT5Service:
         Returns:
             List of BookInfo entries
 
-        Technical: Low-level returns MarketBookGetData with data.books (repeated BookRecord protobuf).
-        This wrapper unpacks each BookRecord into BookInfo dataclass (type, price, volume, volume_real).
+        Technical: Low-level returns MarketBookGetData with data.mql_book_infos (repeated MrpcMqlBookInfo protobuf).
+        This wrapper unpacks each MrpcMqlBookInfo into BookInfo dataclass (type, price, volume, volume_real).
         Requires prior market_book_add subscription. BookRecord.type: 1=BUY (bid), 2=SELL (ask) levels.
         """
         data = await self._account.market_book_get(symbol, deadline, cancellation_event)
@@ -1030,14 +1030,14 @@ class MT5Service:
         Returns:
             OrderCheckResult with validation details
 
-        Technical: Low-level returns OrderCheckResponse with deeply nested mrpc_mql_trade_check_result.
+        Technical: Low-level returns OrderCheckResponse with deeply nested mql_trade_check_result.
         This wrapper extracts 8 validation fields (returned_code=0 means valid, balance_after_deal, margin, etc.).
         Use this before place_order() to pre-validate margin requirements without sending to broker.
         """
         data = await self._account.order_check(request, deadline, cancellation_event)
 
         # Extract nested result structure
-        result = data.mrpc_mql_trade_check_result
+        result = data.mql_trade_check_result
 
         return OrderCheckResult(
             returned_code=result.returned_code,
@@ -1171,7 +1171,8 @@ class MT5Service:
 
         Technical: Server polls positions every interval_ms and pushes updates when profit changes.
         ignore_empty=True filters out frames where no position P&L changed, reducing bandwidth.
-        Each OnPositionProfitData contains position_profits repeated field with ticket→profit mapping.
+        Each OnPositionProfitData groups changes into new_positions / updated_positions / deleted_positions
+        (each a repeated OnPositionProfitPositionInfo with ticket, profit, position_symbol).
         """
         async for data in self._account.on_position_profit(interval_ms, ignore_empty, cancellation_event):
             yield data
@@ -1192,7 +1193,7 @@ class MT5Service:
             OnPositionsAndPendingOrdersTicketsData with ticket IDs
 
         Technical: Server polls every interval_ms and pushes OnPositionsAndPendingOrdersTicketsData.
-        Contains opened_position_tickets and opened_orders_tickets repeated int64 fields.
+        Contains position_tickets and pending_order_tickets repeated int64 fields.
         10-20x less bandwidth than stream_trade_updates() - use when you only need to track ticket changes.
         """
         async for data in self._account.on_positions_and_pending_orders_tickets(interval_ms, cancellation_event):
