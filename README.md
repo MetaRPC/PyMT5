@@ -79,7 +79,7 @@ async def main():
     print(f"Free Margin: ${summary.account_margin_free:,.2f}")
 
     # 4. Fetch live quotes
-    quote = await account.get_quote("EURUSD")
+    quote = await account.symbol_info_tick("EURUSD")
     print(f"EURUSD Bid: {quote.bid} | Ask: {quote.ask}")
 
 if __name__ == "__main__":
