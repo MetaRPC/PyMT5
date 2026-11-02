@@ -18,5 +18,5 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["MetaRpcMT5"]
+packages = ["MetaRpcMT5", "MetaRpcMT5.helpers"]
 include-package-data = true
