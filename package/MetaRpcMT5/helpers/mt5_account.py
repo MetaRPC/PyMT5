@@ -466,7 +466,7 @@ class MT5Account:
                     continue
                 raise
 
-        if res.HasField("error") and (getattr(res.error, "error_message", None) or getattr(res.error, "message", None)):
+        if res.HasField("error") and (getattr(res.error, "error_code", None) or getattr(res.error, "error_message", None) or getattr(res.error, "message", None)):
             raise ApiExceptionMT5(res.error)
 
         # Save state
@@ -553,7 +553,7 @@ class MT5Account:
                     continue
                 raise
 
-        if res.HasField("error") and (getattr(res.error, "error_message", None) or getattr(res.error, "message", None)):
+        if res.HasField("error") and (getattr(res.error, "error_code", None) or getattr(res.error, "error_message", None) or getattr(res.error, "message", None)):
             raise ApiExceptionMT5(res.error)
 
         # Save state
