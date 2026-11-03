@@ -232,7 +232,7 @@ class MT5Account:
         metadata = [("apikey", str(self.api_key or "TRIAL"))]
         try:
             reply = await self.connection_client.GetId(request, metadata=metadata, timeout=5.0)
-            if reply.HasField("error") and reply.error.message:
+            if reply.HasField("error") and (reply.error.error_code or reply.error.error_message):
                 raise ApiExceptionMT5(reply.error)
             if reply.HasField("data") and reply.data.id:
                 self.id = reply.data.id
@@ -314,7 +314,7 @@ class MT5Account:
                 await self.reconnect(deadline)
                 continue
 
-            if res.HasField("error") and res.error.error_message:
+            if res.HasField("error") and (res.error.error_code or res.error.error_message):
                 raise ApiExceptionMT5(res.error)
 
             return res
