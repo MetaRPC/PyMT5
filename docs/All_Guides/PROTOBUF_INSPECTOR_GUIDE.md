@@ -790,7 +790,6 @@ The Protobuf Inspector uses Python reflection to:
 - `mt5_term_api_trade_functions_pb2`
 - `mt5_term_api_trading_helper_pb2`
 - `mt5_term_api_subscriptions_pb2` (streaming events, SUB_ENUM_* enums)
-- `mt5_term_api_charts_pb2` (chart operations)
 - `mt5_term_api_connection_pb2` (connection management)
 
 ---
