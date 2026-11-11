@@ -617,6 +617,42 @@ class GridTradingOrchestrator:
             for detail in failed_details:
                 print(detail)
 
+        # Safety sweep: the per-level loop above can miss pendings — levels that
+        # were (sometimes wrongly) marked triggered are skipped, and re-placed
+        # orders change tickets. Authoritatively cancel ANY pending still live on
+        # the server for this symbol so the demo never leaves orders behind.
+        try:
+            symbol = self.grid_state.symbol
+            account = self.service.get_account()
+            swept = 0
+            for _ in range(10):  # a few passes in case new fills appear mid-sweep
+                opened = await account.opened_orders()
+                pendings = [
+                    o for o in opened.opened_orders
+                    if getattr(o, "symbol", None) == symbol
+                ]
+                if not pendings:
+                    break
+                for o in pendings:
+                    ticket = getattr(o, "ticket", None) or getattr(o, "order", None)
+                    if ticket is None:
+                        continue
+                    try:
+                        rc = await self.service.close_order(
+                            trading_helper_pb2.OrderCloseRequest(ticket=int(ticket))
+                        )
+                        if rc in (TRADE_RETCODE_DONE,
+                                  TRADE_RETCODE_POSITION_CLOSED,
+                                  TRADE_RETCODE_NO_CHANGES):
+                            swept += 1
+                    except Exception:
+                        pass
+                    await asyncio.sleep(0.05)
+            if swept > 0:
+                print_success(f"Safety sweep cancelled {swept} extra pending order(s)")
+        except Exception as e:
+            print_warning(f"Safety sweep skipped: {e}")
+
 
 async def main():
     """Main demonstration function."""
@@ -695,10 +731,11 @@ async def main():
             dry_run=False              # Set True for testing
         )
 
-        # Run orchestrator for 3 minutes
+        # Run orchestrator for 1 minute (demo-sized: long enough to show the
+        # grid working, short enough not to pile up pending orders)
         await orchestrator.start(
             symbol=config['test_symbol'],
-            duration_minutes=3.0,
+            duration_minutes=1.0,
             cancellation_event=cancellation_event
         )
 

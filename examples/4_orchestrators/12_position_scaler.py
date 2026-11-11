@@ -208,6 +208,7 @@ class PositionScalerOrchestrator:
         self.total_scales = 0
         self.update_count = 0
         self.last_status_time = 0.0
+        self.scale_tickets: List[int] = []  # tickets of scale-added volume (for cleanup)
 
     async def start(
         self,
@@ -624,6 +625,7 @@ class PositionScalerOrchestrator:
             if ticket > 0:
                 level.triggered = True
                 level.ticket = ticket
+                self.scale_tickets.append(ticket)  # track for cleanup
                 self.scaler_state.current_total_volume += scale_volume
                 self.total_scales += 1
 
@@ -702,6 +704,7 @@ async def main():
     # Initialize test positions list (needed for finally block)
     test_positions = []
     base_ticket = None
+    orchestrator = None  # defined in try; referenced in finally for scale-in cleanup
 
     try:
         # Auto-detect scale type based on account balance and risk tolerance
@@ -805,6 +808,13 @@ async def main():
         await asyncio.sleep(0.5)
 
     finally:
+        # Include any scale-in volume the orchestrator added, so it is closed
+        # too (not just the base test positions) and nothing is left behind.
+        if orchestrator is not None:
+            for t in getattr(orchestrator, "scale_tickets", []):
+                if t and t not in test_positions:
+                    test_positions.append(t)
+
         # Close ONLY test positions that we opened
         print("\nClosing test positions...")
         try:
