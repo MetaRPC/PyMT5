@@ -6,117 +6,54 @@
 [![Cloud](https://img.shields.io/badge/VPS-Not_Required-success.svg)](https://mrpc.pro)
 [![Platform](https://img.shields.io/badge/OS-Linux%20|%20macOS%20|%20Windows%20|%20Docker-brightgreen.svg)](https://mrpc.pro)
 
-> **Official Python SDK for MetaTrader 5 Cloud API via gRPC & REST.**  
-> Connect, stream live ticks, and execute trades on any MT5 broker or prop firm from Linux, macOS, Docker, or AWS Lambda — **without running a Windows VPS or desktop terminal.**
+Python client for managed MetaTrader 5 terminals. Run your Python application on Linux, macOS or Windows; the remote MetaTrader terminal still runs on Windows. Broker access, account permissions and API service availability apply.
 
----
+## Start with a read-only demo
 
-## ⚡ Why MetaRPC PyMT5?
-
-- **Zero Windows VPS**: Stop paying $20–$80/month for buggy Windows servers. Run trading bots in lightweight Linux containers or serverless workers.
-- **Ultra-Low Latency**: High-speed gRPC streaming and execution co-located with London (LD4) and New York (NY4) broker data centers (<20ms execution).
-- **Universal Broker & Prop Firm Support**: Connects to 500+ brokers and prop firms including **FTMO, IC Markets, Pepperstone, Exness, FundedNext, Tickmill, XM, FXCM**.
-- **Automatic Session Management**: Session GUID (`id`) is generated automatically by the server upon connection and attached to all subsequent requests.
-- **Asyncio Native**: Modern asynchronous Python design with automatic reconnection, heartbeat monitoring, and resilience.
-
----
-
-## 📦 Installation
-
-```bash
-pip install MetaRpcMT5
-```
-
----
-
-## 🏃 How to Run Examples
-
-Clone the repository and run the examples out-of-the-box:
+The smallest example connects, reads the account summary and attempts to disconnect in `finally`. It does not submit orders. Hosted connection usage is billed: see [current pricing](https://mrpc.pro/#pricing) and the [cost calculator](https://mrpc.pro/tools/terminal-cost?lang=en).
 
 ```bash
 git clone https://github.com/MetaRPC/PyMT5.git
-cd PyMT5/examples
-pip install MetaRpcMT5
-
-# 1. Run with default TRIAL key:
-python main.py
-
-# 2. Or pass your MetaRPC API key directly:
-python main.py your_api_key_here
-
-# 3. Or use the MRPC_API_KEY environment variable:
-export MRPC_API_KEY="your_api_key_here"        # Windows CMD: set MRPC_API_KEY=your_api_key_here
-python main.py                                # Windows PowerShell: $env:MRPC_API_KEY="your_api_key_here"
+cd PyMT5
+python -m pip install ./package
+# Set MRPC_API_KEY, MT5_LOGIN, MT5_PASSWORD and MT5_SERVER
+# in your private process environment, using a disposable demo account.
+python examples/read_account.py
 ```
 
----
+Get your API key from [the portal](https://mrpc.pro/my). Do not paste passwords or API keys into issues, screenshots, source files or command-line arguments. The SDK supplies authentication metadata and uses the connection identifier returned by the server. Keep that identifier private too.
 
-## 🚀 30-Second Quick Start
+The example displays amounts in the account currency, not necessarily USD. A network failure can leave connection status uncertain; check the portal and stop an unused terminal. The SDK's disconnect method suppresses server errors, so returning from cleanup alone is not proof of remote shutdown.
 
-```python
-import asyncio
-from pymt5 import MT5Account
+## Choose your next example
 
-async def main():
-    # 1. Initialize account with your credentials
-    # Sign up at https://mrpc.pro/signup to get your free API key
-    account = MT5Account(
-        user=12345678,                      # Your MT5 Login
-        password="your_mt5_password",        # Your MT5 Password
-        grpc_server="mt5.mrpc.pro:443",      # Cloud gRPC Endpoint
-        api_key="your_mrpc_api_key"          # From https://mrpc.pro/my
-    )
+- [Read-only account example](examples/read_account.py): the starting point above.
+- [Interactive examples](examples/main.py): configure `examples/0_common/settings.json` locally and run `python examples/main.py`. A positional argument selects an example; it is **not** an API key. Some examples place trades. Review each before running and use disposable demo accounts.
+- [Python walkthrough](https://mrpc.pro/tutorials/console/python?lang=en): the existing recorded workflow.
+- [Quote streaming](https://mrpc.pro/tutorials/console/websocket?lang=en): subscriptions, events and cleanup.
+- [Local Python versus a hosted API](https://mrpc.pro/guides/local-python-vs-cloud-api?lang=en): deployment and operational tradeoffs.
+- [Copier sizing calculator](https://mrpc.pro/tools/copier-sizing?lang=en): inspect requested volume before broker rounding. Copy trading uses the separate [PyCopier SDK](https://metarpc.github.io/PyCopier/).
 
-    # 2. Connect by broker server name
-    print("Connecting to MetaTrader 5 Cloud...")
-    await account.connect_by_server_name("MetaQuotes-Demo", timeout_seconds=30)
-    print("Connected successfully!")
+The example menu includes trading and strategy demonstrations. They are examples, not investment recommendations or production reliability guarantees. Check actual order/history state before retrying a timed-out trade request.
 
-    # 3. Get real-time account summary
-    summary = await account.account_summary()
-    print(f"Balance: ${summary.account_balance:,.2f}")
-    print(f"Equity:  ${summary.account_equity:,.2f}")
-    print(f"Free Margin: ${summary.account_margin_free:,.2f}")
+## Endpoints and deployment
 
-    # 4. Fetch live quotes
-    quote = await account.symbol_info_tick("EURUSD")
-    print(f"EURUSD Bid: {quote.bid} | Ask: {quote.ask}")
+| Service | Address |
+| --- | --- |
+| MT5 gRPC over TLS | `mt5.mrpc.pro:443` |
+| MT5 REST/API console | [mt5.mrpc.pro/apiui](https://mt5.mrpc.pro/apiui) |
+| Terminals and API key | [mrpc.pro/my](https://mrpc.pro/my) |
+| Product and pricing | [mrpc.pro](https://mrpc.pro/) |
 
-if __name__ == "__main__":
-    asyncio.run(main())
+This package's low-level client is gRPC; the REST console is a separate interface. Do not mix REST header examples with gRPC method signatures. Broker support must be checked against the actual server and demo account. No universal broker coverage, execution-latency guarantee or free hosted usage is implied.
+
+## Development checks
+
+```bash
+python -m unittest discover -s tests -p test_read_account_example.py
 ```
 
----
-
-## 🔑 Getting Your API Key & Free Trial
-
-1. **Sign Up**: Create your free account at [https://mrpc.pro/signup](https://mrpc.pro/signup).
-2. **Copy API Key**: Open your portal dashboard at [https://mrpc.pro/my](https://mrpc.pro/my) and grab your personal API token.
-3. **Connect**: Pass your key in code or set the `MRPC_API_KEY` environment variable:
-   ```bash
-   export MRPC_API_KEY="your_api_token_here"
-   ```
-
----
-
-## 🌐 Production Endpoints
-
-| Environment | Host / URL | Port | Protocol | Purpose |
-| :--- | :--- | :--- | :--- | :--- |
-| **MT5 Production gRPC** | `mt5.mrpc.pro` | `443` | TLS / gRPC | High-throughput trading & streaming |
-| **Interactive API UI (Swagger)** | [https://mt5.mrpc.pro/apiui](https://mt5.mrpc.pro/apiui) | `443` | HTTPS / REST | Interactive REST endpoints & testing |
-| **Portal Dashboard** | [https://mrpc.pro/my](https://mrpc.pro/my) | `443` | HTTPS | Manage terminals, copiers & keys |
-| **Account Registration** | [https://mrpc.pro/signup](https://mrpc.pro/signup) | `443` | HTTPS | Instant free trial registration |
-
----
-
-## 🏢 Compatible Brokers & Prop Firms
-
-Tested and verified with over 500+ MetaTrader server environments:
-- **Prop Firms**: FTMO, FundedNext, The Funded Trader, E8 Funding, Alpha Capital, SurgeTrader.
-- **Brokers**: IC Markets, Pepperstone, Exness, Tickmill, XM, FXCM, FP Markets, Eightcap, AvaTrade.
-
----
+These offline tests verify the example's lifecycle, failure cleanup and credential handling. They do not prove broker connectivity or order execution.
 
 ## 📚 Complete Documentation & Code Examples
 

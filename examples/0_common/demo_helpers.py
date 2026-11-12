@@ -134,7 +134,7 @@ async def create_and_connect_mt5(config: Dict[str, Any]) -> MT5Account:
     )
 
     print(f"[OK] MT5Account created (UUID: {terminal_guid})")
-    print(f"  APIKey:        {api_key}")
+    print("  APIKey:        configured (hidden)")
     print()
     print("Connecting to MT5 server...")
     print(f"  User:          {config['user']}")
