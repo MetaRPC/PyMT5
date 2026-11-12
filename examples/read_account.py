@@ -8,7 +8,7 @@ import asyncio
 import os
 
 
-async def read_account(account_factory=None):
+def create_account(account_factory=None):
     required = ("MRPC_API_KEY", "MT5_LOGIN", "MT5_PASSWORD", "MT5_SERVER")
     missing = [key for key in required if not os.environ.get(key, "").strip()]
     if missing:
@@ -19,8 +19,12 @@ async def read_account(account_factory=None):
     if account_factory is None:
         from MetaRpcMT5 import MT5Account
         account_factory = MT5Account
-    account = account_factory(user=login, password=os.environ["MT5_PASSWORD"],
-                              grpc_server="mt5.mrpc.pro:443", api_key=os.environ["MRPC_API_KEY"])
+    return account_factory(user=login, password=os.environ["MT5_PASSWORD"],
+                           grpc_server="mt5.mrpc.pro:443", api_key=os.environ["MRPC_API_KEY"])
+
+
+async def read_account(account_factory=None):
+    account = create_account(account_factory)
     try:
         await account.connect_by_server_name(os.environ["MT5_SERVER"], timeout_seconds=30)
         summary = await account.account_summary()

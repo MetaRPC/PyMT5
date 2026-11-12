@@ -6,14 +6,14 @@
 
 ## 🎯 What is PyMT5?
 
-**PyMT5** is an industrial-grade, type-safe Python client library for interacting with **MetaTrader 5** terminals via high-performance **gRPC**. It eliminates complex C++ DLL wrappers and provides direct, reliable programmatic trading.
+**PyMT5** is a Python client for managed **MetaTrader 5** terminals via **gRPC**. Start with [the bounded read-only examples](READ_ONLY_EXAMPLES.md) to check authentication, account reads and cleanup before submitting demo trades.
 
 ### 🌟 Key Advantages
 
--  **High Throughput**: Native gRPC streaming for sub-millisecond price ticks and trade execution.
+-  **Streaming**: gRPC subscriptions deliver available price and trade events. Network conditions and broker execution determine timing; no latency guarantee is implied.
 -  **Three-Layer Architecture**: Low-level gRPC (`MT5Account`), typed wrapper methods (`MT5Service`), and high-level convenience (`MT5Sugar`).
--  **Resilient Connection**: Auto-reconnect, exponential backoff, and transparent channel healing.
--  **Full Coverage**: The complete MT5 terminal API — account, market data, trading, and real-time streaming — across three layers.
+-  **Connection recovery**: Selected terminal-not-found and unavailable errors trigger reconnect attempts. Applications still need deadlines, reconciliation and cleanup.
+-  **Documented operations**: Account, market data, trading and streaming methods across three layers. Check the reference for the operation and transport you need.
 
 ---
 

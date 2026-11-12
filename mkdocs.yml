@@ -78,6 +78,7 @@ nav:
 
   - Guides:
     - Getting Started: All_Guides/GETTING_STARTED.md
+    - Read-only examples: All_Guides/READ_ONLY_EXAMPLES.md
     - Your First Project: All_Guides/Your_First_Project.md
     - Project Map: All_Guides/PROJECT_MAP.md
     - Glossary: All_Guides/GLOSSARY.md

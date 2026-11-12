@@ -6,15 +6,17 @@ hide:
 
 # PyMT5 SDK Documentation
 
+Start with [three bounded read-only examples](All_Guides/READ_ONLY_EXAMPLES.md): an account snapshot, a terminal dashboard and a quote stream that stops even when no ticks arrive.
+
 > ℹ️ **Account ID / Session ID**: When connecting via `Connect` / `ConnectEx`, MetaRPC automatically generates a terminal session GUID and returns it in `terminalInstanceGuid`. There is no need to call `GetId` or supply an `id` header prior to connecting. Subsequent calls (such as subscriptions or order requests) use this session ID automatically.
 
 <div class="hx-wrap" markdown="0">
 
 <div class="hx-hero">
-  <p class="hx-sub">Complete Python SDK for MetaTrader 5 trading automation via gRPC &amp; REST — connect, stream live ticks, and execute trades from any Python application.</p>
+  <p class="hx-sub">Python SDK for managed MetaTrader 5 terminals via gRPC — connect, read accounts, stream ticks and submit supported trading requests. REST is a separate service interface.</p>
   <div class="hx-stats">
     <div class="hx-stat"><span class="hx-statV">3</span><span class="hx-statL">API Layers</span></div>
-    <div class="hx-stat"><span class="hx-statV">gRPC</span><span class="hx-statL">+ REST Protocol</span></div>
+    <div class="hx-stat"><span class="hx-statV">gRPC</span><span class="hx-statL">SDK Transport</span></div>
     <div class="hx-stat"><span class="hx-statV">MT5</span><span class="hx-statL">Cloud Terminal</span></div>
     <div class="hx-stat"><span class="hx-statV">Python 3.8+</span><span class="hx-statL">Runtime</span></div>
   </div>

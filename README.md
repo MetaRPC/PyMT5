@@ -28,6 +28,8 @@ The example displays amounts in the account currency, not necessarily USD. A net
 ## Choose your next example
 
 - [Read-only account example](examples/read_account.py): the starting point above.
+- [Account dashboard](examples/account_dashboard.py): `python examples/account_dashboard.py --samples 6 --interval 5` prints a bounded balance/equity/free-margin view. No web server or trades.
+- [Bounded gRPC quotes](examples/stream_quotes.py): `python examples/stream_quotes.py --symbol EURUSD --seconds 30 --events 20` stops at the first limit, including when no ticks arrive. Use the broker's exact symbol. This SDK stream is gRPC; the WebSocket tutorial below uses the REST service's streaming interface.
 - [Interactive examples](examples/main.py): configure `examples/0_common/settings.json` locally and run `python examples/main.py`. A positional argument selects an example; it is **not** an API key. Some examples place trades. Review each before running and use disposable demo accounts.
 - [Python walkthrough](https://mrpc.pro/tutorials/console/python?lang=en): the existing recorded workflow.
 - [Quote streaming](https://mrpc.pro/tutorials/console/websocket?lang=en): subscriptions, events and cleanup.
@@ -50,7 +52,7 @@ This package's low-level client is gRPC; the REST console is a separate interfac
 ## Development checks
 
 ```bash
-python -m unittest discover -s tests -p test_read_account_example.py
+python -m unittest discover -s tests -p 'test_*example*.py'
 ```
 
 These offline tests verify the example's lifecycle, failure cleanup and credential handling. They do not prove broker connectivity or order execution.

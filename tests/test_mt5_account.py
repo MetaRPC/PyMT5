@@ -9,19 +9,22 @@ from MetaRpcMT5 import mt5_term_api_connection_pb2 as conn_pb
 from MetaRpcMT5 import mt5_term_api_account_helper_pb2 as helper_pb
 
 
-class TestMT5Account(unittest.TestCase):
-    def test_account_initialization(self):
+class TestMT5Account(unittest.IsolatedAsyncioTestCase):
+    async def test_account_initialization(self):
         account = MT5Account(user=12345678, password="test_password", grpc_server="custom.server:443")
+        self.addAsyncCleanup(account.channel.close)
         self.assertEqual(account.user, 12345678)
         self.assertEqual(account.password, "test_password")
         self.assertEqual(account.grpc_server, "custom.server:443")
 
-    def test_default_grpc_server(self):
+    async def test_default_grpc_server(self):
         account = MT5Account(user=12345678, password="test_password")
+        self.addAsyncCleanup(account.channel.close)
         self.assertEqual(account.grpc_server, "mt5.mrpc.pro:443")
 
-    def test_get_headers_with_auth(self):
+    async def test_get_headers_with_auth(self):
         account = MT5Account(user=12345678, password="test_password", id_="test-guid")
+        self.addAsyncCleanup(account.channel.close)
         headers = account.get_headers()
         self.assertIn(("id", "test-guid"), headers)
 
