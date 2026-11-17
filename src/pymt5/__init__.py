@@ -38,6 +38,7 @@ from MetaRpcMT5.helpers.errors import (
     # Exception classes
     ApiError,
     NotConnectedError,
+    TradeOutcomeUnknownError,
 
     # RetCode constants
     TRADE_RETCODE_SUCCESS,
@@ -102,6 +103,7 @@ __all__ = [
     # Error classes
     'ApiError',
     'NotConnectedError',
+    'TradeOutcomeUnknownError',
     'ConnectExceptionMT5',
     'ApiExceptionMT5',
 

@@ -118,7 +118,17 @@ import MetaRpcMT5.mt5_term_api_account_information_pb2_grpc as account_info_pb2_
 from .errors import (
     ApiError as ApiExceptionMT5,
     NotConnectedError as ConnectExceptionMT5,
+    TradeOutcomeUnknownError,
+    TRADE_OUTCOME_UNKNOWN_STATUS_CODES,
 )
+
+# A refused API key never succeeds on retry: fail fast instead of reconnecting.
+_API_KEY_REFUSAL_CODES = ("API_KEY_INVALID", "API_KEY_REQUIRED")
+
+
+def _is_api_key_refusal(ex: grpc.RpcError) -> bool:
+    details = ex.details() if callable(getattr(ex, "details", None)) else None
+    return bool(details) and any(c in details for c in _API_KEY_REFUSAL_CODES)
 
 
 # === MT5Account Class ===
@@ -296,12 +306,27 @@ class MT5Account:
         error_selector: Callable[[Any], Optional[Any]],
         deadline: Optional[datetime] = None,
         cancellation_event: Optional[asyncio.Event] = None,
+        trade_operation: Optional[str] = None,
     ):
+        """
+        Runs a unary call; on gRPC UNAVAILABLE (or an in-band TERMINAL_INSTANCE_NOT_FOUND /
+        TERMINAL_REGISTRY_TERMINAL_NOT_FOUND) reconnects and re-sends it.
+
+        trade_operation: set by trade calls (e.g. "OrderSend"). A trade that fails with gRPC
+        UNAVAILABLE, DEADLINE_EXCEEDED, UNKNOWN or INTERNAL may already have been executed, so
+        it is NOT re-sent: TradeOutcomeUnknownError is raised instead. An in-band
+        TERMINAL_INSTANCE_NOT_FOUND (answered before any terminal was reached) still reconnects
+        and re-sends. A refused API key (API_KEY_INVALID / API_KEY_REQUIRED) never reconnects.
+        """
         while cancellation_event is None or not cancellation_event.is_set():
             headers = self.get_headers()
             try:
                 res = await grpc_call(headers)
             except grpc.aio.AioRpcError as ex:
+                if _is_api_key_refusal(ex):
+                    raise
+                if trade_operation and ex.code() in TRADE_OUTCOME_UNKNOWN_STATUS_CODES:
+                    raise TradeOutcomeUnknownError(trade_operation, ex) from ex
                 if ex.code() == grpc.StatusCode.UNAVAILABLE:
                     await asyncio.sleep(0.5)
                     await self.reconnect(deadline)
@@ -461,7 +486,7 @@ class MT5Account:
                 )
                 break
             except grpc.aio.AioRpcError as ex:
-                if ex.code() == grpc.StatusCode.UNAVAILABLE and (datetime.utcnow() - start_time).total_seconds() + 2.0 < timeout_val:
+                if ex.code() == grpc.StatusCode.UNAVAILABLE and not _is_api_key_refusal(ex) and (datetime.utcnow() - start_time).total_seconds() + 2.0 < timeout_val:
                     await asyncio.sleep(2.0)
                     continue
                 raise
@@ -548,7 +573,7 @@ class MT5Account:
                 )
                 break
             except grpc.aio.AioRpcError as ex:
-                if ex.code() == grpc.StatusCode.UNAVAILABLE and (datetime.utcnow() - start_time).total_seconds() + 2.0 < timeout_val:
+                if ex.code() == grpc.StatusCode.UNAVAILABLE and not _is_api_key_refusal(ex) and (datetime.utcnow() - start_time).total_seconds() + 2.0 < timeout_val:
                     await asyncio.sleep(2.0)
                     continue
                 raise
@@ -1950,6 +1975,7 @@ class MT5Account:
             error_selector=lambda r: getattr(r, "error", None),
             deadline=deadline,
             cancellation_event=cancellation_event,
+            trade_operation="OrderSend",
         )
         return res.data
 
@@ -1995,6 +2021,7 @@ class MT5Account:
             error_selector=lambda r: getattr(r, "error", None),
             deadline=deadline,
             cancellation_event=cancellation_event,
+            trade_operation="OrderModify",
         )
         return res.data
 
@@ -2040,6 +2067,7 @@ class MT5Account:
             error_selector=lambda r: getattr(r, "error", None),
             deadline=deadline,
             cancellation_event=cancellation_event,
+            trade_operation="OrderClose",
         )
         return res.data
 

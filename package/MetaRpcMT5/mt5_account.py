@@ -6,5 +6,6 @@
 # modules/field names, missing api_key, missing methods), so it is now a thin
 # re-export of the helpers implementation to avoid any divergence.
 from .helpers.mt5_account import MT5Account, ConnectExceptionMT5, ApiExceptionMT5
+from .helpers.errors import TradeOutcomeUnknownError
 
-__all__ = ["MT5Account", "ConnectExceptionMT5", "ApiExceptionMT5"]
+__all__ = ["MT5Account", "ConnectExceptionMT5", "ApiExceptionMT5", "TradeOutcomeUnknownError"]

@@ -53,6 +53,9 @@ USAGE EXAMPLES:
 
 from typing import Optional
 
+import grpc
+import grpc.aio
+
 # Import protobuf error types from MetaRpcMT5 package
 from MetaRpcMT5 import mrpc_mt5_error_pb2 as error_pb2
 
@@ -336,6 +339,91 @@ ApiExceptionMT5 = ApiError
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# TRADE OUTCOME UNKNOWN - trade call failed in transport, NOT re-sent
+# ══════════════════════════════════════════════════════════════════════════════
+
+TRADE_OUTCOME_UNKNOWN = "TRADE_OUTCOME_UNKNOWN"
+
+# Transport statuses after which a trade request may already have reached the terminal.
+TRADE_OUTCOME_UNKNOWN_STATUS_CODES = frozenset({
+    grpc.StatusCode.UNAVAILABLE,
+    grpc.StatusCode.DEADLINE_EXCEEDED,
+    grpc.StatusCode.UNKNOWN,
+    grpc.StatusCode.INTERNAL,
+})
+
+
+class _ErrorCodeStr(str):
+    """A str that can also be called, so both ``e.error_code == "..."`` and the
+    ApiError-style ``e.error_code()`` work on TradeOutcomeUnknownError."""
+    __slots__ = ()
+
+    def __call__(self) -> str:
+        return str(self)
+
+
+class TradeOutcomeUnknownError(ApiError, grpc.aio.AioRpcError):
+    """
+    A trade call (OrderSend / OrderModify / OrderClose) failed at the transport level
+    (gRPC UNAVAILABLE, DEADLINE_EXCEEDED, UNKNOWN or INTERNAL) after the request may
+    already have reached the terminal. The trade may or may not have been executed.
+
+    The SDK does NOT re-send such a request automatically: check open positions/orders
+    before retrying.
+
+    It is both an ApiError (error_code "TRADE_OUTCOME_UNKNOWN") and a grpc.aio.AioRpcError /
+    grpc.RpcError whose code()/details() are the original transport status, so existing
+    ``except ApiError`` and ``except grpc.RpcError`` handlers still catch it.
+
+    Attributes:
+        error_code: "TRADE_OUTCOME_UNKNOWN" (also callable, like ApiError.error_code()).
+        operation: gRPC method name, e.g. "OrderSend".
+        transport_error: the original grpc.RpcError (also set as __cause__).
+    """
+
+    def __init__(self, operation: str, transport_error: grpc.RpcError):
+        code = _call_or_none(transport_error, "code") or grpc.StatusCode.UNKNOWN
+        grpc.aio.AioRpcError.__init__(
+            self,
+            code,
+            _call_or_none(transport_error, "initial_metadata"),
+            _call_or_none(transport_error, "trailing_metadata"),
+            _call_or_none(transport_error, "details"),
+            _call_or_none(transport_error, "debug_error_string"),
+        )
+        status_name = getattr(code, "name", str(code))
+        message = (
+            f"{TRADE_OUTCOME_UNKNOWN}: {operation} failed with gRPC {status_name} after the request "
+            f"may have reached the terminal; the trade may or may not have been executed. It was NOT "
+            f"re-sent automatically: check open positions/orders before retrying."
+        )
+        self._error = error_pb2.Error(error_code=TRADE_OUTCOME_UNKNOWN, error_message=message)
+        self.error = self._error
+        self.error_code = _ErrorCodeStr(TRADE_OUTCOME_UNKNOWN)
+        self.operation = operation
+        self.transport_error = transport_error
+        self.message = message
+        self.args = (message,)
+        self.__cause__ = transport_error
+
+    def __str__(self) -> str:
+        return self.message
+
+    def __repr__(self) -> str:
+        return f"TradeOutcomeUnknownError({self.message!r})"
+
+
+def _call_or_none(obj, name: str):
+    fn = getattr(obj, name, None)
+    if not callable(fn):
+        return None
+    try:
+        return fn()
+    except Exception:
+        return None
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # TRADE RETURN CODE CONSTANTS - Complete MQL5 Set
 # ══════════════════════════════════════════════════════════════════════════════
 #
@@ -519,6 +607,11 @@ def is_retcode_retryable(retcode: int) -> bool:
     These errors might succeed if you retry with exponential backoff.
     Does NOT include requotes - use is_retcode_requote() for those.
 
+    Does NOT include the unknown-outcome codes 10012 (TRADE_RETCODE_TIMEOUT),
+    10028 (TRADE_RETCODE_LOCKED) and 10031 (TRADE_RETCODE_NO_CONNECTION): after
+    those the trade may already have been executed, so check open positions/orders
+    before sending it again.
+
     Parameters:
         retcode: Trade operation return code
 
@@ -531,10 +624,7 @@ def is_retcode_retryable(retcode: int) -> bool:
             result = await account.order_send(order_req)  # Retry
     """
     return retcode in (
-        TRADE_RETCODE_TIMEOUT,
-        TRADE_RETCODE_NO_CONNECTION,
         TRADE_RETCODE_FROZEN,
-        TRADE_RETCODE_LOCKED,
         TRADE_RETCODE_TOO_MANY_REQUESTS,
         TRADE_RETCODE_NO_QUOTES,
     )
@@ -772,12 +862,10 @@ def check_retcode(retcode: int, operation: str) -> bool:
         print("     💡 Hint: Market is closed - check trading hours")
     elif retcode in (TRADE_RETCODE_REQUOTE, TRADE_RETCODE_PRICE_CHANGED):
         print("     💡 Hint: Price changed - retry with updated price")
-    elif retcode == TRADE_RETCODE_TIMEOUT:
-        print("     💡 Hint: Request timed out - retry with exponential backoff")
+    elif retcode in (TRADE_RETCODE_TIMEOUT, TRADE_RETCODE_LOCKED, TRADE_RETCODE_NO_CONNECTION):
+        print("     💡 Hint: Outcome unknown - the trade may have been executed; check open positions/orders before retrying")
     elif retcode == TRADE_RETCODE_TOO_MANY_REQUESTS:
         print("     💡 Hint: Too many requests - add rate limiting/delays")
-    elif retcode == TRADE_RETCODE_NO_CONNECTION:
-        print("     💡 Hint: Connection lost - check network and reconnect")
 
     return False
 

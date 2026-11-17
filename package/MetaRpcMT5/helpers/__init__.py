@@ -22,6 +22,8 @@ from .errors import (
     # Exception classes
     NotConnectedError,
     ApiError,
+    TradeOutcomeUnknownError,
+    TRADE_OUTCOME_UNKNOWN,
 
     # Backward compatibility aliases
     ConnectExceptionMT5,
@@ -102,6 +104,8 @@ __all__ = [
     # Exception classes
     'NotConnectedError',
     'ApiError',
+    'TradeOutcomeUnknownError',
+    'TRADE_OUTCOME_UNKNOWN',
     'ConnectExceptionMT5',
     'ApiExceptionMT5',
 
