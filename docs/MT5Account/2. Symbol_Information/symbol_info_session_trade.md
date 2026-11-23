@@ -134,7 +134,7 @@ session = await account.symbol_info_session_trade(
     day_of_week=market_info_pb2.MONDAY,
     session_index=0
 )
-print(f"Trading hours: {getattr(session, "from").seconds}s - {session.to.seconds}s")
+print(f"Trading hours: {getattr(session, 'from').seconds}s - {session.to.seconds}s")
 ```
 
 ---
@@ -168,7 +168,7 @@ session = await account.symbol_info_session_trade(
 )
 
 print(f"Monday Trade Session:")
-print(f"  From: {getattr(session, "from").seconds}s ({getattr(session, "from").seconds // 3600}h:{(getattr(session, "from").seconds % 3600) // 60}m)")
+print(f"  From: {getattr(session, 'from').seconds}s ({getattr(session, 'from').seconds // 3600}h:{(getattr(session, 'from').seconds % 3600) // 60}m)")
 print(f"  To: {session.to.seconds}s ({session.to.seconds // 3600}h:{(session.to.seconds % 3600) // 60}m)")
 ```
 
@@ -196,8 +196,8 @@ for day_enum, day_name in days.items():
             session_index=0
         )
 
-        from_hours = getattr(session, "from").seconds // 3600
-        from_mins = (getattr(session, "from").seconds % 3600) // 60
+        from_hours = getattr(session, 'from').seconds // 3600
+        from_mins = (getattr(session, 'from').seconds % 3600) // 60
         to_hours = session.to.seconds // 3600
         to_mins = (session.to.seconds % 3600) // 60
 
@@ -237,11 +237,11 @@ if getattr(trade_session, "from").seconds != getattr(quote_session, "from").seco
 
 ```python
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
-from datetime import datetime
+from datetime import datetime, timezone
 
 async def is_trading_allowed(account, symbol: str) -> bool:
     """Check if trading is allowed at current time"""
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     day_of_week = now.weekday() + 1  # Monday=1 in datetime, Monday=1 in enum
     if day_of_week == 7:  # Sunday
         day_of_week = 0
@@ -257,7 +257,7 @@ async def is_trading_allowed(account, symbol: str) -> bool:
         current_seconds = now.hour * 3600 + now.minute * 60 + now.second
 
         # Check if within trading session
-        if getattr(session, "from").seconds <= current_seconds <= session.to.seconds:
+        if getattr(session, 'from').seconds <= current_seconds <= session.to.seconds:
             return True
         return False
     except Exception:
@@ -289,12 +289,12 @@ async def get_all_trade_sessions(account, symbol: str, day_of_week: int):
             )
 
             # Check if session is valid
-            if getattr(session, "from").seconds == 0 and session.to.seconds == 0:
+            if getattr(session, 'from').seconds == 0 and session.to.seconds == 0:
                 break
 
             sessions.append({
                 'index': session_index,
-                'from': getattr(session, "from").seconds,
+                'from': getattr(session, 'from').seconds,
                 'to': session.to.seconds
             })
             session_index += 1
@@ -318,9 +318,9 @@ for s in sessions:
 
 ```python
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
 try:
     session = await account.symbol_info_session_trade(

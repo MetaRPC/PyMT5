@@ -28,6 +28,7 @@ const DOC_STRUCTURE = {
       'All_Guides/PROJECT_MAP',
       'All_Guides/PROTOBUF_INSPECTOR_GUIDE',
       'All_Guides/RETURN_CODES_REFERENCE',
+      'All_Guides/SDK_Ecosystem',
       'All_Guides/SYNC_VS_ASYNC',
       'All_Guides/USERCODE_SANDBOX_GUIDE',
       'All_Guides/Your_First_Project'

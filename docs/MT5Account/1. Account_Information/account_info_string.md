@@ -89,11 +89,11 @@ message AccountInfoStringData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
 
 # 1. With deadline (recommended)
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 value = await account.account_info_string(
     property_id=account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_CURRENCY,
     deadline=deadline
@@ -171,7 +171,7 @@ property_id = account_info_pb2.ACCOUNT_CURRENCY  # = 2
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5.mt5_account import MT5Account
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
 
@@ -188,7 +188,7 @@ async def main():
 
     try:
         # Set deadline
-        deadline = datetime.utcnow() + timedelta(seconds=3)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
         # Get currency
         currency = await account.account_info_string(
@@ -209,7 +209,7 @@ asyncio.run(main())
 ```python
 async def get_account_name(account: MT5Account) -> str:
     """Get account owner name"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     name = await account.account_info_string(
         property_id=account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_NAME,
@@ -228,7 +228,7 @@ print(f"Account Name: {name}")
 ```python
 async def get_server_name(account: MT5Account) -> str:
     """Get trading server name"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     server = await account.account_info_string(
         property_id=account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_SERVER,
@@ -247,7 +247,7 @@ print(f"Trading Server: {server}")
 ```python
 async def get_broker_name(account: MT5Account) -> str:
     """Get broker/company name"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     company = await account.account_info_string(
         property_id=account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_COMPANY,
@@ -266,7 +266,7 @@ print(f"Broker: {broker}")
 ```python
 async def log_account_details(account: MT5Account):
     """Log all string account properties"""
-    deadline = datetime.utcnow() + timedelta(seconds=10)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=10)
 
     # Get all string properties
     name = await account.account_info_string(
@@ -316,7 +316,7 @@ async def verify_server_connection(account: MT5Account, expected_server: str) ->
     Returns:
         True if connected to correct server
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     server = await account.account_info_string(
         property_id=account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_SERVER,
@@ -349,7 +349,7 @@ async def format_balance(account: MT5Account, balance: float) -> str:
     Returns:
         Formatted balance string
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     currency = await account.account_info_string(
         account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_CURRENCY,
@@ -386,7 +386,7 @@ print(f"Balance: {formatted}")  # Output: Balance: $10000.50
 
 ```python
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 
 @dataclass
 class SessionInfo:
@@ -398,7 +398,7 @@ class SessionInfo:
 
 async def get_session_info(account: MT5Account) -> SessionInfo:
     """Get comprehensive session information for logging"""
-    deadline = datetime.utcnow() + timedelta(seconds=10)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=10)
 
     # Get all string properties
     name = await account.account_info_string(
@@ -451,7 +451,7 @@ async def get_account_identifier(account: MT5Account) -> str:
     Returns:
         Identifier string: "name@server (broker)"
     """
-    deadline = datetime.utcnow() + timedelta(seconds=5)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
     name = await account.account_info_string(
         account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_NAME,

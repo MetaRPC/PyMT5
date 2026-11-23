@@ -90,11 +90,11 @@ message AccountInfoIntegerData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
 
 # 1. With deadline (recommended)
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 value = await account.account_info_integer(
     property_id=account_info_pb2.ACCOUNT_LEVERAGE,
     deadline=deadline
@@ -184,7 +184,7 @@ property_id = account_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_LEVERAGE  
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5.mt5_account import MT5Account
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
 
@@ -201,7 +201,7 @@ async def main():
 
     try:
         # Set deadline
-        deadline = datetime.utcnow() + timedelta(seconds=3)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
         # Get leverage
         leverage = await account.account_info_integer(
@@ -222,7 +222,7 @@ asyncio.run(main())
 ```python
 async def get_account_login(account: MT5Account) -> int:
     """Get account login number"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     login = await account.account_info_integer(
         property_id=account_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_LOGIN,
@@ -246,7 +246,7 @@ async def is_trading_allowed(account: MT5Account) -> bool:
     Returns:
         True if trading is allowed, False otherwise
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     trade_allowed = await account.account_info_integer(
         property_id=account_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_TRADE_ALLOWED,
@@ -276,7 +276,7 @@ else:
 ```python
 async def is_ea_allowed(account: MT5Account) -> bool:
     """Check if Expert Advisors are allowed to trade"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     ea_allowed = await account.account_info_integer(
         property_id=account_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_TRADE_EXPERT,
@@ -297,7 +297,7 @@ else:
 ```python
 async def get_max_pending_orders(account: MT5Account) -> int:
     """Get maximum allowed number of pending orders"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     limit = await account.account_info_integer(
         property_id=account_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_LIMIT_ORDERS,
@@ -324,7 +324,7 @@ async def get_account_type(account: MT5Account) -> str:
     Returns:
         "DEMO", "CONTEST", or "REAL"
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     trade_mode = await account.account_info_integer(
         property_id=account_info_pb2.AccountInfoIntegerPropertyType.ACCOUNT_TRADE_MODE,
@@ -357,7 +357,7 @@ elif account_type == "REAL":
 ```python
 async def check_hedging_settings(account: MT5Account):
     """Check if hedging and FIFO close are enabled"""
-    deadline = datetime.utcnow() + timedelta(seconds=5)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
     # Check if hedging is allowed
     hedge_allowed = await account.account_info_integer(
@@ -403,7 +403,7 @@ async def validate_account_for_trading(account: MT5Account) -> bool:
     Returns:
         True if account is ready to trade
     """
-    deadline = datetime.utcnow() + timedelta(seconds=5)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
     # Check trading is allowed
     trade_allowed = await account.account_info_integer(

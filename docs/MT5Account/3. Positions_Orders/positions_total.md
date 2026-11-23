@@ -89,10 +89,10 @@ message PositionsTotalData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # 1. With deadline (recommended)
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 result = await account.positions_total(deadline=deadline)
 
 # 2. With cancellation event
@@ -141,7 +141,7 @@ print(f"Open positions: {count}")
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
 
 async def main():
@@ -160,7 +160,7 @@ async def main():
 
     try:
         # Set deadline
-        deadline = datetime.utcnow() + timedelta(seconds=3)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
         # Get total positions
         data = await account.positions_total(deadline=deadline)
@@ -183,7 +183,7 @@ async def has_open_positions(account: MT5Account) -> bool:
     Returns:
         True if there are open positions
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     data = await account.positions_total(deadline=deadline)
 
@@ -252,7 +252,7 @@ async def monitor_positions(account: MT5Account, interval: float = 5.0):
 
     while True:
         try:
-            deadline = datetime.utcnow() + timedelta(seconds=3)
+            deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
             data = await account.positions_total(deadline=deadline)
 
             count = data.total_positions

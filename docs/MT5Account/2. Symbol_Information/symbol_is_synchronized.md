@@ -116,7 +116,6 @@ message SymbolIsSynchronizedData {
 ### 1) Check if symbol is synchronized
 
 ```python
-import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
 
 # Check synchronization status
 result = await account.symbol_is_synchronized(symbol="EURUSD")
@@ -130,7 +129,6 @@ else:
 ### 2) Ensure symbol is synchronized before getting tick
 
 ```python
-import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
 
 async def get_synchronized_tick(account, symbol: str):
     """Get tick data only if symbol is synchronized"""
@@ -166,7 +164,6 @@ print(f"Bid: {tick.bid}, Ask: {tick.ask}")
 ### 3) Wait for synchronization with timeout
 
 ```python
-import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
 import asyncio
 
 async def wait_for_synchronization(
@@ -206,7 +203,6 @@ else:
 ### 4) Batch check multiple symbols
 
 ```python
-import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
 
 async def check_symbols_sync(account, symbols: list[str]):
     """Check synchronization status for multiple symbols"""
@@ -238,7 +234,6 @@ sync_results = await check_symbols_sync(account, symbols)
 ### 5) Select and wait for synchronization
 
 ```python
-import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
 import asyncio
 
 async def ensure_symbol_synchronized(
@@ -281,11 +276,10 @@ if await ensure_symbol_synchronized(account, "EURUSD"):
 ### 6) Check synchronization with timeout parameter
 
 ```python
-import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Set deadline for the call
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
 try:
     result = await account.symbol_is_synchronized(

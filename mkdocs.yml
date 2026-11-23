@@ -68,6 +68,22 @@ markdown_extensions:
 
 plugins:
   - search
+  - i18n:
+      docs_structure: folder
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        # Only languages that actually have translations are built. Add a locale
+        # here the moment you START translating it (content goes in docs/<code>/...).
+        # Untranslated pages fall back to English automatically.
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - { locale: ru, name: Русский, build: true }
+        - { locale: es, name: Español, build: true }
+        # ── Remaining target markets (enable as each is started; see LANGUAGES.md) ──
+        # zh ja ko vi th id zh-TW hi ar ms tl tr fa ur bn ta my km lo he pt-BR fr de it pl
 
 copyright: >
   Copyright © 2024–2025 MetaRPC. MT5 is a trademark of MetaQuotes Software Corp.
@@ -88,6 +104,7 @@ nav:
     - Protobuf Inspector: All_Guides/PROTOBUF_INSPECTOR_GUIDE.md
     - UserCode Sandbox: All_Guides/USERCODE_SANDBOX_GUIDE.md
     - Sync vs Async: All_Guides/SYNC_VS_ASYNC.md
+    - SDK Ecosystem: All_Guides/SDK_Ecosystem.md
 
   - API Reference:
     - MT5Account: MT5Account/MT5Account.Master.Overview.md

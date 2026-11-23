@@ -69,7 +69,7 @@ Want detailed explanations with line-by-line code breakdown? Check these guides:
 ```python
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import asyncio
 
 # Get count of open positions
@@ -99,7 +99,7 @@ print(f"Position tickets: {data.opened_position_tickets}")
 
 ```python
 # Get last 7 days order history
-to_dt = datetime.utcnow()
+to_dt = datetime.now(timezone.utc)
 from_dt = to_dt - timedelta(days=7)
 
 data = await account.order_history(
@@ -117,7 +117,7 @@ for item in data.history_data:
 
 ```python
 # Get closed positions from last 30 days
-to_dt = datetime.utcnow()
+to_dt = datetime.now(timezone.utc)
 from_dt = to_dt - timedelta(days=30)
 
 data = await account.positions_history(
@@ -191,7 +191,7 @@ async def monitor_positions(interval: float = 5.0):
 # Analyze trading performance
 async def analyze_performance(days: int = 30):
     """Analyze trading performance for last N days"""
-    to_dt = datetime.utcnow()
+    to_dt = datetime.now(timezone.utc)
     from_dt = to_dt - timedelta(days=days)
 
     data = await account.positions_history(

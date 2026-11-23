@@ -105,11 +105,11 @@ message OrdersHistoryData {
 **Usage:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
 # Get last 7 days history
-to_dt = datetime.utcnow()
+to_dt = datetime.now(timezone.utc)
 from_dt = to_dt - timedelta(days=7)
 
 data = await account.order_history(
@@ -432,7 +432,7 @@ for item in data.history_data:
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
@@ -450,7 +450,7 @@ async def main():
 
     try:
         # Last 7 days
-        to_dt = datetime.utcnow()
+        to_dt = datetime.now(timezone.utc)
         from_dt = to_dt - timedelta(days=7)
 
         data = await account.order_history(
@@ -510,8 +510,8 @@ async def get_all_history_paginated(
     return all_records
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 history = await get_all_history_paginated(account, from_dt, to_dt)
 ```
 
@@ -549,7 +549,7 @@ profit = await calculate_period_profit(account, from_dt, to_dt)
 ```python
 async def get_today_history(account: MT5Account):
     """Get all trades from today"""
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
 
     data = await account.order_history(
@@ -618,8 +618,8 @@ async def export_history_to_csv(
     print(f"[OK] Exported {data.arrayTotal} records to {filename}")
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 await export_history_to_csv(account, from_dt, to_dt)
 ```
 
@@ -677,8 +677,8 @@ async def analyze_win_loss(
     return result
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 stats = await analyze_win_loss(account, from_dt, to_dt)
 ```
 

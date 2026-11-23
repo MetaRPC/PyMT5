@@ -228,19 +228,21 @@ async def cleanup_market_watch(account: MT5Account, keep_symbols: list[str]):
     """Remove all symbols except specified ones"""
 
     # Get all symbols currently in Market Watch
-    import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
 
     # Get total symbols
     total_data = await account.symbols_total(selected_only=True)
     total = total_data.total
 
     removed = []
+    # First collect all names: indices shift when symbols are removed,
+    # so don't remove while iterating the list by index.
+    symbols = []
     for i in range(total):
-        # Get symbol name by index
         name_data = await account.symbol_name(index=i, selected=True)
-        symbol = name_data.name
+        symbols.append(name_data.name)
 
-        # Remove if not in keep list
+    # Then remove, in a separate loop, the ones not in the keep list
+    for symbol in symbols:
         if symbol not in keep_symbols:
             data = await account.symbol_select(symbol=symbol, select=False)
             if data.success:
@@ -258,7 +260,7 @@ await cleanup_market_watch(account, keep)
 ### 6) Verify symbol selection with timeout
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 async def select_symbol_with_timeout(
     account: MT5Account,
@@ -269,7 +271,7 @@ async def select_symbol_with_timeout(
     """Select symbol with timeout"""
 
     # Calculate deadline
-    deadline = datetime.utcnow() + timedelta(seconds=timeout_seconds)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=timeout_seconds)
 
     try:
         data = await account.symbol_select(
@@ -279,10 +281,11 @@ async def select_symbol_with_timeout(
         )
 
         action = "added to" if select else "removed from"
+        verb = "add" if select else "remove"
         if data.success:
             print(f"{symbol} {action} Market Watch")
         else:
-            print(f"Failed to {action.split()[0]} {symbol}")
+            print(f"Failed to {verb} {symbol}")
 
         return data.success
 
@@ -322,9 +325,11 @@ async def prepare_symbols_for_strategy(
         )
 
         if data.success:
-            status = "success_count += 1
+            status = "[OK]"
+            success_count += 1
         else:
-            status = "fail_count += 1
+            status = "[FAIL]"
+            fail_count += 1
 
         action_word = "to" if should_select else "from"
         print(f"{status} {action} {symbol} {action_word} Market Watch")

@@ -42,7 +42,7 @@ async def account_info_double(
 
 ```python
 async def check_margin_level(account: MT5Account, min_level: float = 200.0) -> bool:
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     margin_level = await account.account_info_double(
         property_id=account_info_pb2.AccountInfoDoublePropertyType.ACCOUNT_MARGIN_LEVEL,

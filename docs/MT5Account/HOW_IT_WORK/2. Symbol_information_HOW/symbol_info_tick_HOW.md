@@ -45,9 +45,9 @@ async def validate_tick(account, symbol: str) -> bool:
             print(f"Invalid spread: {spread}")
             return False
 
-        if tick.time > 0:
+        if tick.time_utc > 0:
             current_time = datetime.now(timezone.utc).timestamp()
-            age = current_time - tick.time
+            age = current_time - tick.time_utc
 
             if age > 10:
                 print(f"Tick too old: {age} seconds")
@@ -115,14 +115,14 @@ Here, the logical correctness of prices is checked:
 ### 4️⃣ Checking Tick Freshness
 
 ```python
-if tick.time > 0:
+if tick.time_utc > 0:
     current_time = datetime.now(timezone.utc).timestamp()
-    age = current_time - tick.time
+    age = current_time - tick.time_utc
 ```
 
 Tick time is compared with current time:
 
-* `tick.time` — Unix timestamp
+* `tick.time_utc` — Unix timestamp
 * tick age is calculated in seconds
 
 ---

@@ -52,13 +52,13 @@ hide:
     </div>
   </a>
 
-  <a href="All_Guides/GLOSSARY/" class="hx-gc hx-pink">
+  <a href="All_Guides/SDK_Ecosystem/" class="hx-gc hx-pink">
     <div class="hx-gcTop"></div>
     <div class="hx-gcBody">
-      <div class="hx-gcTag">Reference</div>
-      <div class="hx-gcTitle">Glossary</div>
-      <p class="hx-gcDesc">MT5 terms, return codes, enums and concepts — a reference while you build.</p>
-      <div class="hx-gcCount">terms · concepts</div>
+      <div class="hx-gcTag">Ecosystem</div>
+      <div class="hx-gcTitle">Trade Copier</div>
+      <p class="hx-gcDesc">Mirror a strategy across accounts — how PyMT5 pairs with PyCopier (master → followers).</p>
+      <div class="hx-gcCount">copier · master → followers</div>
     </div>
   </a>
 

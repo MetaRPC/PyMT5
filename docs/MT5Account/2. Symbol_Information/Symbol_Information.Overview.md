@@ -210,8 +210,8 @@ session = await account.symbol_info_session_trade(
     session_index=0
 )
 
-from_hours = session.from.seconds // 3600
-from_mins = (session.from.seconds % 3600) // 60
+from_hours = getattr(session, 'from').seconds // 3600
+from_mins = (getattr(session, 'from').seconds % 3600) // 60
 to_hours = session.to.seconds // 3600
 to_mins = (session.to.seconds % 3600) // 60
 
