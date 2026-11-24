@@ -1,90 +1,92 @@
-# MT5Account - Trading Operations - Overview
+Готово. Полный перевод документа на испанский. Названия методов, классов, переменных, API-идентификаторы и технические значения сохранены без изменений.
 
-> Execute, modify, and manage trades: send orders, close positions, validate requests, calculate margin.
+# MT5Account - Operaciones de trading - Descripción general
 
-## 📁 What lives here
+> Ejecutar, modificar y gestionar operaciones: enviar órdenes, cerrar posiciones, validar solicitudes y calcular el margen.
 
-### Order Execution
+## 📁 Contenido de esta sección
 
-* **[order_send](./order_send.md)** - send market or pending orders.
-* **[order_close](./order_close.md)** - close positions or delete pending orders.
-* **[order_modify](./order_modify.md)** - modify SL/TP, price, or expiration.
+### Ejecución de órdenes
 
-### Order Validation & Calculation
+- **order_send** - enviar órdenes de mercado o pendientes.
+- **order_close** - cerrar posiciones o eliminar órdenes pendientes.
+- **order_modify** - modificar SL/TP, el precio o la fecha de expiración.
 
-* **[order_check](./order_check.md)** - validate orders before execution.
-* **[order_calc_margin](./order_calc_margin.md)** - calculate required margin.
-* **[order_calc_profit](./order_calc_profit.md)** - calculate potential profit/loss.
+### Validación y cálculo de órdenes
 
----
-
-## 📚 Step-by-step tutorials
-
-**Note:** All trading operations are async methods. Check individual method pages for detailed examples.
-
-* **[order_send](../HOW_IT_WORK/5. Trading_Operations_HOW/order_send_HOW.md)** - Order execution examples
-* **[order_close](../HOW_IT_WORK/5. Trading_Operations_HOW/order_close_HOW.md)** - Position closing patterns
-* **[order_modify](../HOW_IT_WORK/5. Trading_Operations_HOW/order_modify_HOW.md)** - SL/TP modification examples
-* **[order_check](../HOW_IT_WORK/5. Trading_Operations_HOW/order_check_HOW.md)** - Order validation patterns
-* **[order_calc_margin](../HOW_IT_WORK/5. Trading_Operations_HOW/order_calc_margin_HOW.md)** - Margin calculation examples
-* **[order_calc_profit](../HOW_IT_WORK/5. Trading_Operations_HOW/order_calc_profit_HOW.md)** - Profit/loss calculation examples
+- **order_check** - validar órdenes antes de ejecutarlas.
+- **order_calc_margin** - calcular el margen requerido.
+- **order_calc_profit** - calcular el beneficio o la pérdida potenciales.
 
 ---
 
-## 🧭 Plain English
+## 📚 Tutoriales paso a paso
 
-* **order_send** -> **open positions** or place pending orders (BUY, SELL, LIMIT, STOP).
-* **order_close** -> **close positions** completely or partially, or delete pending orders.
-* **order_modify** -> **change SL/TP** or modify pending order parameters.
-* **order_check** -> **validate orders** before sending (check margin, parameters).
-* **order_calc_margin** -> **calculate margin** required for planned trades.
-* **order_calc_profit** -> **calculate profit/loss** for planned trades (risk/reward analysis).
+**Nota:** Todas las operaciones de trading son métodos asíncronos. Consulta las páginas de cada método para ver ejemplos detallados.
 
-> Rule of thumb: **open** -> `order_send`; **close** -> `order_close`; **adjust** -> `order_modify`; **validate** -> `order_check`; **plan margin** -> `order_calc_margin`; **plan profit** -> `order_calc_profit`.
-
----
-
-## Quick choose
-
-| If you need...                                   | Use                 | Returns                    | Key inputs                          |
-| ------------------------------------------------ | ------------------- | -------------------------- | ----------------------------------- |
-| Open market position (BUY/SELL)                  | `order_send`        | OrderSendData              | symbol, operation, volume, price    |
-| Place pending order (LIMIT/STOP)                 | `order_send`        | OrderSendData              | symbol, operation, volume, price    |
-| Close position completely                        | `order_close`       | OrderCloseData             | ticket, volume=0, slippage          |
-| Close position partially                         | `order_close`       | OrderCloseData             | ticket, volume, slippage            |
-| Delete pending order                             | `order_close`       | OrderCloseData             | ticket, volume=0                    |
-| Add/modify Stop Loss or Take Profit              | `order_modify`      | OrderModifyData            | ticket, stop_loss, take_profit      |
-| Change pending order price                       | `order_modify`      | OrderModifyData            | ticket, price                       |
-| Validate order before sending                    | `order_check`       | OrderCheckData             | OrderSendRequest                    |
-| Calculate margin for planned trade               | `order_calc_margin` | OrderCalcMarginData        | symbol, operation, volume           |
-| Calculate profit/loss for planned trade          | `order_calc_profit` | OrderCalcProfitData        | symbol, operation, volume, open/close price |
+- **[order_send]\(../HOW_IT_WORK/5. Trading_Operations_HOW/order_send_HOW\.md)** - ejemplos de ejecución de órdenes.
+- **[order_close]\(../HOW_IT_WORK/5. Trading_Operations_HOW/order_close_HOW\.md)** - patrones para cerrar posiciones.
+- **[order_modify]\(../HOW_IT_WORK/5. Trading_Operations_HOW/order_modify_HOW\.md)** - ejemplos de modificación de SL/TP.
+- **[order_check]\(../HOW_IT_WORK/5. Trading_Operations_HOW/order_check_HOW\.md)** - patrones de validación de órdenes.
+- **[order_calc_margin]\(../HOW_IT_WORK/5. Trading_Operations_HOW/order_calc_margin_HOW\.md)** - ejemplos de cálculo del margen.
+- **[order_calc_profit]\(../HOW_IT_WORK/5. Trading_Operations_HOW/order_calc_profit_HOW\.md)** - ejemplos de cálculo de beneficios y pérdidas.
 
 ---
 
-## ℹ️ Cross-refs & gotchas
+## 🧭 En términos sencillos
 
-* **Return codes:** Always check `returned_code == 10009` for success (order_send/close), `== 0` for validation methods.
-* **Async methods:** All trading operations are async - use `await`.
-* **Automatic reconnection:** All methods have built-in reconnection via `execute_with_reconnect`.
-* **Volume = 0:** In `order_close`, volume=0 means close entire position.
-* **Slippage:** Set appropriate slippage for market orders (e.g., 20 points).
-* **SL/TP = 0:** In `order_modify`, use 0 to remove SL or TP.
-* **Check before send:** Always use `order_check` before `order_send` for large orders.
-* **Margin calculation:** `order_check` includes margin, `order_calc_margin` only calculates margin.
-* **Profit calculation:** `order_calc_profit` calculates potential profit/loss for risk/reward analysis.
-* **Freeze level:** Cannot modify orders too close to market price (broker setting).
-* **Min distance:** Broker enforces minimum distance from current price for SL/TP.
+- **order_send** -> **abrir posiciones** o colocar órdenes pendientes (BUY, SELL, LIMIT, STOP).
+- **order_close** -> **cerrar posiciones** total o parcialmente, o eliminar órdenes pendientes.
+- **order_modify** -> **modificar SL/TP** o cambiar los parámetros de las órdenes pendientes.
+- **order_check** -> **validar órdenes** antes de enviarlas (comprobar el margen y los parámetros).
+- **order_calc_margin** -> **calcular el margen** necesario para las operaciones previstas.
+- **order_calc_profit** -> **calcular el beneficio o la pérdida** de las operaciones previstas (análisis de riesgo/recompensa).
+
+> Regla práctica: **abrir** -> `order_send`; **cerrar** -> `order_close`; **ajustar** -> `order_modify`; **validar** -> `order_check`; **planificar el margen** -> `order_calc_margin`; **calcular el beneficio previsto** -> `order_calc_profit`.
 
 ---
 
-## 🟢 Minimal snippets
+## Selección rápida
 
-```python
+| Si necesitas...                                              | Utiliza             | Devuelve            | Parámetros principales                      |
+| ------------------------------------------------------------ | ------------------- | ------------------- | ------------------------------------------- |
+| Abrir una posición de mercado (BUY/SELL)                     | `order_send`        | OrderSendData       | symbol, operation, volume, price            |
+| Colocar una orden pendiente (LIMIT/STOP)                     | `order_send`        | OrderSendData       | symbol, operation, volume, price            |
+| Cerrar una posición por completo                             | `order_close`       | OrderCloseData      | ticket, volume=0, slippage                  |
+| Cerrar una posición parcialmente                             | `order_close`       | OrderCloseData      | ticket, volume, slippage                    |
+| Eliminar una orden pendiente                                 | `order_close`       | OrderCloseData      | ticket, volume=0                            |
+| Añadir o modificar Stop Loss o Take Profit                   | `order_modify`      | OrderModifyData     | ticket, stop_loss, take_profit              |
+| Cambiar el precio de una orden pendiente                     | `order_modify`      | OrderModifyData     | ticket, price                               |
+| Validar una orden antes de enviarla                          | `order_check`       | OrderCheckData      | OrderSendRequest                            |
+| Calcular el margen de una operación prevista                 | `order_calc_margin` | OrderCalcMarginData | symbol, operation, volume                   |
+| Calcular el beneficio o la pérdida de una operación prevista | `order_calc_profit` | OrderCalcProfitData | symbol, operation, volume, open/close price |
+
+---
+
+## ℹ️ Referencias cruzadas y aspectos importantes
+
+- **Códigos de retorno:** comprueba siempre `returned_code == 10009` para confirmar el éxito de las operaciones (order_send/close) y `== 0` para los métodos de validación.
+- **Métodos asíncronos:** todas las operaciones de trading son asíncronas; utiliza `await`.
+- **Reconexión automática:** todos los métodos incorporan reconexión automática mediante `execute_with_reconnect`.
+- **Volume = 0:** en `order_close`, volume=0 significa cerrar toda la posición.
+- **Slippage:** establece un deslizamiento adecuado para las órdenes de mercado (por ejemplo, 20 puntos).
+- **SL/TP = 0:** en `order_modify`, utiliza 0 para eliminar el SL o el TP.
+- **Comprobar antes de enviar:** utiliza siempre `order_check` antes de `order_send` para las órdenes grandes.
+- **Cálculo del margen:** `order_check` incluye el margen, mientras que `order_calc_margin` solo calcula el margen.
+- **Cálculo del beneficio:** `order_calc_profit` calcula el beneficio o la pérdida potenciales para el análisis de riesgo/recompensa.
+- **Freeze level:** no es posible modificar órdenes demasiado cerca del precio de mercado (configuración del bróker).
+- **Distancia mínima:** el bróker aplica una distancia mínima respecto al precio actual para SL/TP.
+
+---
+
+## 🟢 Ejemplos mínimos
+
+```
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
-# Send market BUY order
+# Enviar una orden de mercado BUY
 async def market_buy():
     account = MT5Account(
         user=12345,
@@ -110,18 +112,19 @@ async def market_buy():
         result = await account.order_send(request)
 
         if result.returned_code == 10009:
-            print(f"[SUCCESS] Deal: #{result.deal}, Price: {result.price}")
+            print(f"[ÉXITO] Deal: #{result.deal}, Precio: {result.price}")
         else:
-            print(f"[FAILED] {result.returned_code_description}")
+            print(f"[ERROR] {result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(market_buy())
 ```
 
-```python
-# Close position
+```
+# Cerrar una posición
 async def close_position(ticket):
     account = MT5Account(
         user=12345,
@@ -137,25 +140,26 @@ async def close_position(ticket):
     try:
         request = trading_pb2.OrderCloseRequest(
             ticket=ticket,
-            volume=0,  # Close all
+            volume=0,  # Cerrar todo
             slippage=20
         )
 
         result = await account.order_close(request)
 
         if result.returned_code == 10009:
-            print(f"[SUCCESS] Position closed")
+            print(f"[ÉXITO] Posición cerrada")
         else:
-            print(f"[FAILED] {result.returned_code_description}")
+            print(f"[ERROR] {result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(close_position(123456))
 ```
 
-```python
-# Modify Stop Loss
+```
+# Modificar Stop Loss
 async def modify_sl(ticket, new_sl):
     account = MT5Account(
         user=12345,
@@ -172,21 +176,22 @@ async def modify_sl(ticket, new_sl):
         request = trading_pb2.OrderModifyRequest(
             ticket=ticket,
             stop_loss=new_sl,
-            take_profit=0,  # Keep existing
+            take_profit=0,  # Mantener el valor existente
             price=0
         )
 
         result = await account.order_modify(request)
-        print(f"[SUCCESS] SL modified to {new_sl}")
+        print(f"[ÉXITO] SL modificado a {new_sl}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(modify_sl(123456, 1.08500))
 ```
 
-```python
-# Check order before sending
+```
+# Comprobar una orden antes de enviarla
 async def check_and_send():
     account = MT5Account(
         user=12345,
@@ -202,7 +207,7 @@ async def check_and_send():
     try:
         import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
-        # Create trade request
+        # Crear una solicitud de operación
         trade_request = trade_pb2.MrpcMqlTradeRequest(
             action=0,  # TRADE_ACTION_DEAL
             symbol="EURUSD",
@@ -214,13 +219,13 @@ async def check_and_send():
 
         check_req = trade_pb2.OrderCheckRequest(mql_trade_request=trade_request)
 
-        # Check first
+        # Comprobar primero
         check_result = await account.order_check(check_req)
 
         if check_result.returned_code == 0:
-            print(f"[VALID] Margin: ${check_result.margin:.2f}")
+            print(f"[VÁLIDO] Margen: ${check_result.margin:.2f}")
 
-            # Send order
+            # Enviar la orden
             send_request = trading_pb2.OrderSendRequest(
                 symbol="EURUSD",
                 operation=0,
@@ -232,18 +237,19 @@ async def check_and_send():
             send_result = await account.order_send(send_request)
 
             if send_result.returned_code == 10009:
-                print(f"[SUCCESS] Deal: #{send_result.deal}")
+                print(f"[ÉXITO] Deal: #{send_result.deal}")
         else:
-            print(f"[INVALID] {check_result.returned_code_description}")
+            print(f"[NO VÁLIDO] {check_result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(check_and_send())
 ```
 
-```python
-# Calculate margin
+```
+# Calcular el margen
 async def calc_margin():
     account = MT5Account(
         user=12345,
@@ -269,18 +275,19 @@ async def calc_margin():
         result = await account.order_calc_margin(request)
 
         if result.returned_code == 0:
-            print(f"Required margin: ${result.margin:,.2f}")
+            print(f"Margen requerido: ${result.margin:,.2f}")
         else:
-            print(f"[FAILED] {result.returned_code_description}")
+            print(f"[ERROR] {result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(calc_margin())
 ```
 
-```python
-# Complete trading workflow
+```
+# Flujo completo de trading
 async def trading_workflow():
     account = MT5Account(
         user=12345,
@@ -296,7 +303,7 @@ async def trading_workflow():
     try:
         import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
-        # 1. Calculate margin
+        # 1. Calcular el margen
         margin_req = trade_pb2.OrderCalcMarginRequest(
             symbol="EURUSD",
             order_type=0,
@@ -305,9 +312,9 @@ async def trading_workflow():
         )
 
         margin_result = await account.order_calc_margin(margin_req)
-        print(f"[1] Margin: ${margin_result.margin:.2f}")
+        print(f"[1] Margen: ${margin_result.margin:.2f}")
 
-        # 2. Check order
+        # 2. Comprobar la orden
         trade_request = trade_pb2.MrpcMqlTradeRequest(
             action=0,
             symbol="EURUSD",
@@ -320,12 +327,12 @@ async def trading_workflow():
         check_req = trade_pb2.OrderCheckRequest(mql_trade_request=trade_request)
         check_result = await account.order_check(check_req)
         if check_result.returned_code != 0:
-            print(f"[2] Check failed: {check_result.returned_code_description}")
+            print(f"[2] Error en la comprobación: {check_result.returned_code_description}")
             return
 
-        print(f"[2] Order valid, free margin after: ${check_result.margin_free:.2f}")
+        print(f"[2] Orden válida, margen libre después de la operación: ${check_result.margin_free:.2f}")
 
-        # 3. Send order
+        # 3. Enviar la orden
         send_req = trading_pb2.OrderSendRequest(
             symbol="EURUSD",
             operation=0,
@@ -336,14 +343,14 @@ async def trading_workflow():
 
         send_result = await account.order_send(send_req)
         if send_result.returned_code != 10009:
-            print(f"[3] Send failed: {send_result.returned_code_description}")
+            print(f"[3] Error al enviar la orden: {send_result.returned_code_description}")
             return
 
-        print(f"[3] Order sent! Deal: #{send_result.deal}")
+        print(f"[3] ¡Orden enviada! Deal: #{send_result.deal}")
         ticket = send_result.deal
 
-        # 4. Modify to add SL/TP
-        await asyncio.sleep(1)  # Wait a moment
+        # 4. Modificar para añadir SL/TP
+        await asyncio.sleep(1)  # Esperar un momento
 
         import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
 
@@ -362,9 +369,9 @@ async def trading_workflow():
         )
 
         await account.order_modify(modify_req)
-        print(f"[4] SL/TP added: SL={sl:.5f}, TP={tp:.5f}")
+        print(f"[4] SL/TP añadidos: SL={sl:.5f}, TP={tp:.5f}")
 
-        # 5. Later... close position
+        # 5. Más tarde... cerrar la posición
         await asyncio.sleep(5)
 
         close_req = trading_pb2.OrderCloseRequest(
@@ -375,16 +382,17 @@ async def trading_workflow():
 
         close_result = await account.order_close(close_req)
         if close_result.returned_code == 10009:
-            print(f"[5] Position closed")
+            print(f"[5] Posición cerrada")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(trading_workflow())
 ```
 
-```python
-# Batch operations
+```
+# Operaciones por lotes
 async def batch_operations():
     account = MT5Account(
         user=12345,
@@ -400,7 +408,7 @@ async def batch_operations():
     symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
     try:
-        # Open multiple positions
+        # Abrir varias posiciones
         deals = []
 
         for symbol in symbols:
@@ -410,19 +418,19 @@ async def batch_operations():
                 volume=0.01,
                 price=0,
                 slippage=20,
-                comment=f"{symbol} position"
+                comment=f"Posición {symbol}"
             )
 
             result = await account.order_send(request)
 
             if result.returned_code == 10009:
                 deals.append(result.deal)
-                print(f"[OPENED] {symbol}: #{result.deal}")
+                print(f"[ABIERTA] {symbol}: #{result.deal}")
 
-        # Wait...
+        # Esperar...
         await asyncio.sleep(10)
 
-        # Close all positions
+        # Cerrar todas las posiciones
         for deal in deals:
             close_req = trading_pb2.OrderCloseRequest(
                 ticket=deal,
@@ -433,19 +441,22 @@ async def batch_operations():
             result = await account.order_close(close_req)
 
             if result.returned_code == 10009:
-                print(f"[CLOSED] #{deal}")
+                print(f"[CERRADA] #{deal}")
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(batch_operations())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* **Positions:** [opened_orders](../3.%20Positions_Orders/opened_orders.md) - get current positions
-* **History:** [order_history](../3.%20Positions_Orders/order_history.md) - get order history
-* **Account:** [account_summary](../1.%20Account_Information/account_summary.md) - get account state
-* **Prices:** [symbol_info_tick](../2.%20Symbol_Information/symbol_info_tick.md) - get current prices
+- **Posiciones:** opened_orders - obtener las posiciones actuales.
+- **Historial:** order_history - obtener el historial de órdenes.
+- **Cuenta:** account_summary - obtener el estado de la cuenta.
+- **Precios:** symbol_info_tick - obtener los precios actuales.
+
+Corrige la semántica de \`order_modify\`Aclara tickets de posiciones y órdenes

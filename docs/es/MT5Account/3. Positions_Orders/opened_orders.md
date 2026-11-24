@@ -1,6 +1,6 @@
-# Obtener las órdenes y posiciones abiertas actualmente
+# Obtener las órdenes pendientes y las posiciones abiertas
 
-> **Solicitud:** obtener una instantánea completa de todas las órdenes y posiciones abiertas actualmente, con todos sus detalles.
+> **Solicitud:** obtener una instantánea completa de todas las órdenes pendientes y posiciones abiertas actualmente, con todos sus detalles.
 
 **Información de la API:**
 
@@ -17,20 +17,20 @@
 ## 💬 Lo esencial
 
 - **Qué es.** Obtiene información detallada de todas las órdenes pendientes y posiciones abiertas.
-- **Por qué lo necesitas.** Proporciona una visión completa del estado actual de las operaciones, con todos los detalles de las órdenes y posiciones.
+- **Por qué lo necesitas.** Proporciona una visión completa del estado actual de las operaciones, con todos los detalles de las órdenes pendientes y posiciones abiertas.
 - **Cuándo utilizarlo.** Utiliza este método para obtener información completa. Usa `positions_total()` si solo necesitas los recuentos y `opened_orders_tickets()` si solo necesitas los identificadores de ticket.
 
 ---
 
 ## 🎯 Propósito
 
-Utiliza este método para obtener información detallada sobre las órdenes y posiciones actuales:
+Utiliza este método para obtener información detallada sobre las órdenes pendientes y posiciones abiertas:
 
 - Obtener todas las órdenes pendientes (Buy Limit, Sell Stop, etc.).
 - Obtener todas las posiciones abiertas (Buy/Sell con P/L).
 - Supervisar el estado actual de las operaciones.
 - Implementar la lógica de gestión de posiciones.
-- Mostrar las órdenes y posiciones actuales en la interfaz de usuario.
+- Mostrar las órdenes pendientes y posiciones abiertas en la interfaz de usuario.
 - Calcular la exposición total.
 
 ---
@@ -354,7 +354,7 @@ for pos in data.position_infos:
 - **Tiempo de espera predeterminado:** si `deadline` es `None`, el método esperará indefinidamente (o hasta que se agote el tiempo de espera del servidor).
 - **Dos listas independientes:** las órdenes y las posiciones se devuelven en listas separadas. Comprueba ambas.
 - **Conexión necesaria:** debes llamar a `connect_by_host_port()` o `connect_by_server_name()` antes de utilizar este método.
-- **Información completa:** este método devuelve información completa sobre las órdenes y posiciones. Utiliza `opened_orders_tickets()` si necesitas una carga de datos más ligera.
+- **Información completa:** este método devuelve información completa sobre las órdenes pendientes y posiciones abiertas. Utiliza `opened_orders_tickets()` si necesitas una carga de datos más ligera.
 - **Seguridad de los hilos:** todos los métodos asíncronos se pueden ejecutar de forma segura y simultánea desde varias tareas de asyncio.
 - **Gestión de UUID:** el UUID de la instancia del terminal se genera automáticamente en el servidor si no se proporciona. Para controlarlo explícitamente (por ejemplo, en escenarios de streaming), pasa `id_=uuid4()` al constructor.
 
@@ -362,7 +362,7 @@ for pos in data.position_infos:
 
 ## 🔗 Ejemplos de uso
 
-### 1) Obtener todas las órdenes y posiciones abiertas
+### 1) Obtener todas las órdenes pendientes y posiciones abiertas
 
 ```python
 import asyncio
@@ -415,7 +415,7 @@ asyncio.run(main())
 
 ```python
 async def get_opened_summary(account: MT5Account) -> dict:
-    """Obtener un resumen de las órdenes y posiciones abiertas"""
+    """Obtener un resumen de las órdenes pendientes y posiciones abiertas"""
     data = await account.opened_orders()
 
     summary = {
@@ -511,11 +511,11 @@ async def display_positions(account: MT5Account):
 await display_positions(account)
 ```
 
-### 6) Supervisar las nuevas órdenes y posiciones
+### 6) Supervisar las nuevas órdenes pendientes y posiciones abiertas
 
 ```python
 async def monitor_opened(account: MT5Account, interval: float = 5.0):
-    """Supervisar los cambios en las órdenes y posiciones"""
+    """Supervisar los cambios en las órdenes pendientes y posiciones abiertas"""
     previous_tickets = set()
 
     while True:

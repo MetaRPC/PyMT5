@@ -1,22 +1,23 @@
-# Subscribe to Market Depth (DOM)
+# Suscribirse a la profundidad de mercado (DOM)
 
-> **Request:** Subscribe to Depth of Market (order book) updates for a symbol.
+> **Solicitud:** suscribirse a las actualizaciones de la profundidad de mercado (libro de órdenes) de un símbolo.
 
-**API Information:**
+**Información de la API:**
 
-* **Python API:** `MT5Account.market_book_add(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.MarketInfo`
-* **Proto definition:** `MarketBookAdd` (defined in `mt5-term-api-market-info.proto`)
-* **Enums in this method:** 0 enums (simple boolean result)
+- **API de Python:** `MT5Account.market_book_add(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.MarketInfo`
+- **Definición Proto:** `MarketBookAdd` (definido en `mt5-term-api-market-info.proto`)
+- **Enums de este método:** 0 enums (resultado booleano simple)
 
 ### RPC
 
-* **Service:** `mt5_term_api.MarketInfo`
-* **Method:** `MarketBookAdd(MarketBookAddRequest) -> MarketBookAddReply`
-* **Low-level client (generated):** `MarketInfoStub.MarketBookAdd(request, metadata)`
+- **Servicio:** `mt5_term_api.MarketInfo`
+- **Método:** `MarketBookAdd(MarketBookAddRequest) -> MarketBookAddReply`
+- **Cliente de bajo nivel (generado):** `MarketInfoStub.MarketBookAdd(request, metadata)`
 
 ```python
 from MetaRpcMT5 import MT5Account
+
 
 class MT5Account:
     # ...
@@ -28,91 +29,93 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ) -> market_info_pb2.MarketBookAddData:
         """
-        Opens the Depth of Market (DOM) for a symbol and subscribes to updates.
+        Abre la profundidad de mercado (DOM) de un símbolo y se suscribe a sus actualizaciones.
 
         Returns:
-            MarketBookAddData: Subscription result.
+            MarketBookAddData: resultado de la suscripción.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 MarketBookAddRequest {
-  string symbol = 1;  // Symbol name
+    string symbol = 1;  // Nombre del símbolo
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `symbol`             | `str`                          | Symbol name (e.g., "EURUSD")                  |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
-
----
-
-## ⬆️ Output
-
-Returns `MarketBookAddData` object.
-
-**MarketBookAddData fields:**
-
-| Field                  | Type   | Description                          |
-| ---------------------- | ------ | ------------------------------------ |
-| `opened_successfully`  | `bool` | True if subscription was successful  |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `symbol` | `str` | Nombre del símbolo (por ejemplo, "EURUSD") |
+| `deadline` | `Optional[datetime]` | Fecha límite de la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
 ---
 
-## 💬 Just the essentials
+## ⬆️ Salida
 
-* **What it is.** Subscribes to Level 2 market data (order book) for a symbol.
-* **Why you need it.** Required before you can call `market_book_get` to retrieve DOM data.
-* **One-time subscription.** Call once per symbol, then use `market_book_get` to fetch data.
+Devuelve un objeto `MarketBookAddData`.
+
+**Campos de `MarketBookAddData`:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `opened_successfully` | `bool` | True si la suscripción se ha realizado correctamente |
 
 ---
 
-## 🎯 Purpose
+## 💬 Lo esencial
 
-Use it to:
+- **Qué es.** Se suscribe a los datos de mercado de nivel 2 (libro de órdenes) de un símbolo.
+- **Por qué lo necesitas.** Es necesario antes de poder llamar a `market_book_get` para obtener los datos del DOM.
+- **Suscripción única.** Llama al método una vez por símbolo y, después, utiliza `market_book_get` para obtener los datos.
 
-* Subscribe to market depth (DOM) updates
-* Enable Level 2 data access for a symbol
-* Prepare for order book analysis
-* Monitor bid/ask liquidity levels
-* Analyze market microstructure
+---
+
+## 🎯 Propósito
+
+Utiliza este método para:
+
+- Suscribirte a las actualizaciones de la profundidad de mercado (DOM).
+- Habilitar el acceso a los datos de nivel 2 de un símbolo.
+- Prepararte para analizar el libro de órdenes.
+- Supervisar los niveles de liquidez de compra y venta (bid/ask).
+- Analizar la microestructura del mercado.
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[market_book_add - How it works](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_add_HOW.md)**
+Para obtener una explicación detallada línea por línea con ejemplos, consulta:
+
+**[market_book_add - Cómo funciona](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_add_HOW.md)**
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **Subscription required:** Must call this before `market_book_get`.
-* **Symbol must be selected:** Ensure symbol is in Market Watch before subscribing.
-* **Broker support:** Not all brokers provide DOM data.
-* **Resource cleanup:** Call `market_book_release` when done to unsubscribe.
-* **One subscription:** You only need to subscribe once per symbol.
-* **Check success:** Always verify `opened_successfully == True`.
+- **Reconexión automática:** todos los métodos de `MT5Account` cuentan con protección integrada contra errores gRPC transitorios, con reconexión automática mediante `execute_with_reconnect`.
+- **Suscripción obligatoria:** debes llamar a este método antes de utilizar `market_book_get`.
+- **El símbolo debe estar seleccionado:** asegúrate de que el símbolo esté en Market Watch antes de suscribirte.
+- **Compatibilidad del bróker:** no todos los brókeres proporcionan datos DOM.
+- **Liberación de recursos:** cuando termines, llama a `market_book_release` para cancelar la suscripción.
+- **Una suscripción:** solo necesitas suscribirte una vez por símbolo.
+- **Comprobar el resultado:** verifica siempre que `opened_successfully == True`.
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Subscribe to DOM for EURUSD
+### 1) Suscribirse al DOM de EURUSD
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def subscribe_dom():
     account = MT5Account(
@@ -127,25 +130,27 @@ async def subscribe_dom():
     )
 
     try:
-        # Subscribe to DOM
+        # Suscribirse al DOM
         result = await account.market_book_add("EURUSD")
 
         if result.opened_successfully:
-            print(f"[SUCCESS] Subscribed to EURUSD DOM")
+            print(f"[SUCCESS] Suscripción al DOM de EURUSD realizada")
         else:
-            print(f"[FAILED] Could not subscribe to DOM")
+            print(f"[FAILED] No se pudo suscribir al DOM")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(subscribe_dom())
 ```
 
-### 2) Subscribe and verify
+### 2) Suscribirse y verificar
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def subscribe_and_verify():
     account = MT5Account(
@@ -162,33 +167,35 @@ async def subscribe_and_verify():
     try:
         symbol = "EURUSD"
 
-        # First, ensure symbol is selected in Market Watch
+        # Primero, asegúrate de que el símbolo esté seleccionado en Market Watch
         await account.symbol_select(symbol=symbol, select=True)
-        print(f"[1] Symbol {symbol} selected in Market Watch")
+        print(f"[1] Símbolo {symbol} seleccionado en Market Watch")
 
-        # Now subscribe to DOM
+        # Ahora, suscribirse al DOM
         result = await account.market_book_add(symbol)
 
         if result.opened_successfully:
-            print(f"[2] Successfully subscribed to {symbol} DOM")
+            print(f"[2] Suscripción al DOM de {symbol} realizada correctamente")
 
-            # Verify by getting DOM data
+            # Verificar obteniendo los datos del DOM
             dom_data = await account.market_book_get(symbol)
-            print(f"[3] DOM has {len(dom_data.mql_book_infos)} levels")
+            print(f"[3] El DOM contiene {len(dom_data.mql_book_infos)} niveles")
         else:
-            print(f"[2] Failed to subscribe to DOM")
+            print(f"[2] No se pudo realizar la suscripción al DOM")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(subscribe_and_verify())
 ```
 
-### 3) Subscribe to multiple symbols
+### 3) Suscribirse a varios símbolos
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def subscribe_multiple():
     account = MT5Account(
@@ -209,21 +216,23 @@ async def subscribe_multiple():
             result = await account.market_book_add(symbol)
 
             if result.opened_successfully:
-                print(f"[OK] {symbol} - DOM subscribed")
+                print(f"[OK] {symbol} - Suscripción al DOM realizada")
             else:
-                print(f"[FAIL] {symbol} - Could not subscribe")
+                print(f"[FAIL] {symbol} - No se pudo realizar la suscripción")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(subscribe_multiple())
 ```
 
-### 4) Subscribe with error handling
+### 4) Suscribirse con gestión de errores
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account, ApiExceptionMT5
+
 
 async def subscribe_with_error_handling():
     account = MT5Account(
@@ -240,14 +249,14 @@ async def subscribe_with_error_handling():
     symbol = "EURUSD"
 
     try:
-        # Subscribe to DOM
+        # Suscribirse al DOM
         result = await account.market_book_add(symbol)
 
         if result.opened_successfully:
-            print(f"[SUCCESS] Subscribed to {symbol} DOM")
+            print(f"[SUCCESS] Suscripción al DOM de {symbol} realizada")
             return True
         else:
-            print(f"[WARNING] Subscription returned false")
+            print(f"[WARNING] La suscripción devolvió False")
             return False
 
     except ApiExceptionMT5 as e:
@@ -255,20 +264,22 @@ async def subscribe_with_error_handling():
         return False
 
     except Exception as e:
-        print(f"[ERROR] Unexpected error: {e}")
+        print(f"[ERROR] Error inesperado: {e}")
         return False
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(subscribe_with_error_handling())
 ```
 
-### 5) Check broker DOM support
+### 5) Comprobar la compatibilidad del DOM del bróker
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def check_dom_support():
     account = MT5Account(
@@ -285,8 +296,8 @@ async def check_dom_support():
     test_symbols = ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"]
 
     try:
-        print("Checking DOM support for symbols:\n")
-        print(f"{'Symbol':<10} {'DOM Support':<15}")
+        print("Comprobando la compatibilidad del DOM para los símbolos:\n")
+        print(f"{'Símbolo':<10} {'Compatibilidad DOM':<15}")
         print("-" * 30)
 
         for symbol in test_symbols:
@@ -294,18 +305,18 @@ async def check_dom_support():
                 result = await account.market_book_add(symbol)
 
                 if result.opened_successfully:
-                    # Try to get DOM data
+                    # Intentar obtener los datos del DOM
                     dom_data = await account.market_book_get(symbol)
 
                     if len(dom_data.mql_book_infos) > 0:
-                        print(f"{symbol:<10} {'YES ('+str(len(dom_data.mql_book_infos))+' levels)':<15}")
+                        print(f"{symbol:<10} {'SÍ ('+str(len(dom_data.mql_book_infos))+' niveles)':<15}")
                     else:
-                        print(f"{symbol:<10} {'NO DATA':<15}")
+                        print(f"{symbol:<10} {'SIN DATOS':<15}")
 
-                    # Clean up
+                    # Liberar los recursos
                     await account.market_book_release(symbol)
                 else:
-                    print(f"{symbol:<10} {'NOT SUPPORTED':<15}")
+                    print(f"{symbol:<10} {'NO COMPATIBLE':<15}")
 
             except Exception as e:
                 print(f"{symbol:<10} {'ERROR':<15}")
@@ -313,17 +324,19 @@ async def check_dom_support():
     finally:
         await account.channel.close()
 
+
 asyncio.run(check_dom_support())
 ```
 
-### 6) Subscribe and monitor DOM
+### 6) Suscribirse y supervisar el DOM
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 
+
 async def monitor_dom(symbol: str, duration: int = 10):
-    """Subscribe and monitor DOM for specified duration"""
+    """Se suscribe y supervisa el DOM durante el tiempo especificado"""
     account = MT5Account(
         user=12345,
         password="password",
@@ -336,50 +349,51 @@ async def monitor_dom(symbol: str, duration: int = 10):
     )
 
     try:
-        # Subscribe to DOM
+        # Suscribirse al DOM
         result = await account.market_book_add(symbol)
 
         if not result.opened_successfully:
-            print(f"[FAILED] Could not subscribe to {symbol} DOM")
+            print(f"[FAILED] No se pudo suscribir al DOM de {symbol}")
             return
 
-        print(f"[SUBSCRIBED] Monitoring {symbol} DOM for {duration} seconds\n")
+        print(f"[SUBSCRIBED] Supervisando el DOM de {symbol} durante {duration} segundos\n")
 
         start_time = asyncio.get_event_loop().time()
 
         while (asyncio.get_event_loop().time() - start_time) < duration:
-            # Get current DOM state
+            # Obtener el estado actual del DOM
             dom_data = await account.market_book_get(symbol)
 
-            # Clear screen
+            # Limpiar la pantalla
             print("\033[2J\033[H")
 
-            print(f"=== {symbol} Market Depth ===")
-            print(f"Total levels: {len(dom_data.mql_book_infos)}\n")
+            print(f"=== Profundidad de mercado de {symbol} ===")
+            print(f"Número total de niveles: {len(dom_data.mql_book_infos)}\n")
 
-            print(f"{'Type':<10} {'Price':<15} {'Volume':<15}")
+            print(f"{'Tipo':<10} {'Precio':<15} {'Volumen':<15}")
             print("-" * 45)
 
-            for book_entry in dom_data.mql_book_infos[:10]:  # Show first 10 levels
+            for book_entry in dom_data.mql_book_infos[:10]:  # Mostrar los primeros 10 niveles
                 entry_type = "BUY" if book_entry.type in [1, 3] else "SELL"
                 print(f"{entry_type:<10} {book_entry.price:<15.5f} {book_entry.volume_real:<15.2f}")
 
-            await asyncio.sleep(1)  # Update every second
+            await asyncio.sleep(1)  # Actualizar cada segundo
 
-        # Unsubscribe when done
+        # Cancelar la suscripción al terminar
         await account.market_book_release(symbol)
-        print(f"\n[UNSUBSCRIBED] Stopped monitoring {symbol} DOM")
+        print(f"\n[UNSUBSCRIBED] Se ha detenido la supervisión del DOM de {symbol}")
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(monitor_dom("EURUSD", duration=10))
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [MarketBookGet](./market_book_get.md) - Get current DOM data
-* [MarketBookRelease](./market_book_release.md) - Unsubscribe from DOM
-* [SymbolSelect](../2.%20Symbol_Information/symbol_select.md) - Add symbol to Market Watch
+- [MarketBookGet](./market_book_get.md) - Obtener los datos actuales del DOM
+- [MarketBookRelease](./market_book_release.md) - Cancelar la suscripción al DOM
+- [SymbolSelect](../2.%20Symbol_Information/symbol_select.md) - Añadir un símbolo a Market Watch

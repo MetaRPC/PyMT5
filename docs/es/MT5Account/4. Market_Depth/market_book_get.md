@@ -1,22 +1,23 @@
-# Get Market Depth Data
+# Obtener datos de profundidad de mercado
 
-> **Request:** Retrieve current Depth of Market (order book) data for a subscribed symbol.
+> **Solicitud:** Obtener los datos actuales de profundidad de mercado (libro de órdenes) de un símbolo suscrito.
 
-**API Information:**
+**Información de la API:**
 
-* **Python API:** `MT5Account.market_book_get(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.MarketInfo`
-* **Proto definition:** `MarketBookGet` (defined in `mt5-term-api-market-info.proto`)
-* **Enums in this method:** 1 enum with 4 constants (1 output)
+- **API de Python:** `MT5Account.market_book_get(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.MarketInfo`
+- **Definición Proto:** `MarketBookGet` (definido en `mt5-term-api-market-info.proto`)
+- **Enums en este método:** 1 enum con 4 constantes (1 de salida)
 
 ### RPC
 
-* **Service:** `mt5_term_api.MarketInfo`
-* **Method:** `MarketBookGet(MarketBookGetRequest) -> MarketBookGetReply`
-* **Low-level client (generated):** `MarketInfoStub.MarketBookGet(request, metadata)`
+- **Servicio:** `mt5_term_api.MarketInfo`
+- **Método:** `MarketBookGet(MarketBookGetRequest) -> MarketBookGetReply`
+- **Cliente de bajo nivel (generado):** `MarketInfoStub.MarketBookGet(request, metadata)`
 
 ```python
 from MetaRpcMT5 import MT5Account
+
 
 class MT5Account:
     # ...
@@ -28,126 +29,131 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ) -> market_info_pb2.MarketBookGetData:
         """
-        Gets the current Depth of Market (DOM) data for a symbol.
+        Obtiene los datos actuales de profundidad de mercado (DOM) de un símbolo.
 
         Returns:
-            MarketBookGetData: A list of book entries for the symbol's DOM.
+            MarketBookGetData: Una lista de entradas del libro de órdenes del DOM del símbolo.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 MarketBookGetRequest {
-  string symbol = 1;  // Symbol name
+  string symbol = 1;  // Nombre del símbolo
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `symbol`             | `str`                          | Symbol name (e.g., "EURUSD")                  |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
-
----
-
-## ⬆️ Output
-
-Returns `MarketBookGetData` object.
-
-**MarketBookGetData fields:**
-
-| Field                  | Type                     | Description                          |
-| ---------------------- | ------------------------ | ------------------------------------ |
-| `mql_book_infos`       | `list[MrpcMqlBookInfo]`  | List of order book entries           |
-
-**MrpcMqlBookInfo fields:**
-
-| Field                  | Type      | Description                          |
-| ---------------------- | --------- | ------------------------------------ |
-| `type`                 | `BookType` | Order type (enum)                   |
-| `price`                | `double`  | Price level                          |
-| `volume`               | `int64`   | Volume in lots (legacy)              |
-| `volume_real`          | `double`  | Real volume in lots                  |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `symbol` | `str` | Nombre del símbolo (por ejemplo, "EURUSD") |
+| `deadline` | `Optional[datetime]` | Plazo límite de la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
 ---
 
-## 🧱 Related enums (from proto)
+## ⬆️ Salida
+
+Devuelve un objeto `MarketBookGetData`.
+
+**Campos de `MarketBookGetData`:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `mql_book_infos` | `list[MrpcMqlBookInfo]` | Lista de entradas del libro de órdenes |
+
+**Campos de `MrpcMqlBookInfo`:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `type` | `BookType` | Tipo de orden (enum) |
+| `price` | `double` | Nivel de precio |
+| `volume` | `int64` | Volumen en lotes (legado) |
+| `volume_real` | `double` | Volumen real en lotes |
+
+---
+
+## 🧱 Enums relacionados (del proto)
 
 ### `BookType`
 
-Used in `MrpcMqlBookInfo` to indicate order book entry type.
+Se utiliza en `MrpcMqlBookInfo` para indicar el tipo de entrada del libro de órdenes.
 
-| Constant Name           | Value | Description                          |
-| ----------------------- | ----- | ------------------------------------ |
-| `BOOK_TYPE_SELL`        | 0     | Sell order                           |
-| `BOOK_TYPE_BUY`         | 1     | Buy order                            |
-| `BOOK_TYPE_SELL_MARKET` | 2     | Sell order at market price           |
-| `BOOK_TYPE_BUY_MARKET`  | 3     | Buy order at market price            |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `BOOK_TYPE_SELL` | 0 | Orden de venta |
+| `BOOK_TYPE_BUY` | 1 | Orden de compra |
+| `BOOK_TYPE_SELL_MARKET` | 2 | Orden de venta al precio de mercado |
+| `BOOK_TYPE_BUY_MARKET` | 3 | Orden de compra al precio de mercado |
 
-**Usage:**
+**Uso:**
+
 ```python
 from MetaRpcMT5 import mt5_term_api_market_info_pb2 as market_pb2
 
-# Access enum values
+
+# Acceder a los valores del enum
+
 market_pb2.BOOK_TYPE_SELL        # = 0
 market_pb2.BOOK_TYPE_BUY         # = 1
 ```
 
 ---
 
-## 💬 Just the essentials
+## 💬 Lo esencial
 
-* **What it is.** Retrieves current Level 2 market data (order book) for a symbol.
-* **Why you need it.** Analyze market depth, bid/ask liquidity, and order flow.
-* **Subscription required.** Must call `market_book_add` first.
+- **Qué es.** Obtiene los datos actuales del mercado de Nivel 2 (libro de órdenes) de un símbolo.
+- **Para qué sirve.** Analizar la profundidad del mercado, la liquidez de compra/venta y el flujo de órdenes.
+- **Se requiere una suscripción.** Primero se debe llamar a `market_book_add`.
 
 ---
 
-## 🎯 Purpose
+## 🎯 Finalidad
 
-Use it to:
+Utilízalo para:
 
-* Get current DOM snapshot
-* Analyze bid/ask liquidity levels
-* Monitor order book depth
-* Identify support/resistance zones
-* Calculate volume at price levels
-* Detect large orders (iceberg detection)
-* Market microstructure analysis
+- Obtener una instantánea actual del DOM.
+- Analizar los niveles de liquidez de compra y venta.
+- Supervisar la profundidad del libro de órdenes.
+- Identificar zonas de soporte y resistencia.
+- Calcular el volumen en los distintos niveles de precio.
+- Detectar órdenes grandes (detección de órdenes iceberg).
+- Analizar la microestructura del mercado.
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[MarketBookGet - How it works](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_get_HOW.md)**
+Para obtener una explicación detallada, línea por línea y con ejemplos, consulta:
+
+**[MarketBookGet - Cómo funciona](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_get_HOW.md)**
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **Subscription required:** Must call `market_book_add` before this method.
-* **Empty data:** Returns empty list if no DOM data available.
-* **Broker support:** Not all brokers provide DOM data.
-* **Real-time snapshot:** Returns current state at the time of request.
-* **Volume fields:** Use `volume_real` (double) instead of `volume` (int64).
-* **Price levels:** Sorted by price (best bid/ask first).
+- **Reconexión automática:** Todos los métodos de `MT5Account` incorporan protección contra errores gRPC transitorios, con reconexión automática mediante `execute_with_reconnect`.
+- **Se requiere una suscripción:** Es necesario llamar a `market_book_add` antes de utilizar este método.
+- **Datos vacíos:** Devuelve una lista vacía si no hay datos DOM disponibles.
+- **Compatibilidad del bróker:** No todos los brókeres proporcionan datos DOM.
+- **Instantánea en tiempo real:** Devuelve el estado actual en el momento de la solicitud.
+- **Campos de volumen:** Utiliza `volume_real` (`double`) en lugar de `volume` (`int64`).
+- **Niveles de precio:** Están ordenados por precio (mejor oferta de compra/venta primero).
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Get current DOM data
+### 1) Obtener los datos actuales del DOM
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def get_dom():
     account = MT5Account(
@@ -162,33 +168,35 @@ async def get_dom():
     )
 
     try:
-        # First, subscribe to DOM
+        # Primero, suscribirse al DOM
         await account.market_book_add("EURUSD")
 
-        # Get DOM data
+        # Obtener los datos DOM
         dom_data = await account.market_book_get("EURUSD")
 
-        print(f"[DOM] EURUSD Market Depth:")
-        print(f"Total levels: {len(dom_data.mql_book_infos)}\n")
+        print(f"[DOM] Profundidad de mercado de EURUSD:")
+        print(f"Niveles totales: {len(dom_data.mql_book_infos)}\n")
 
-        print(f"{'Type':<10} {'Price':<15} {'Volume':<15}")
+        print(f"{'Tipo':<10} {'Precio':<15} {'Volumen':<15}")
         print("-" * 45)
 
-        for entry in dom_data.mql_book_infos[:10]:  # Show first 10 levels
-            entry_type = "SELL" if entry.type in [0, 2] else "BUY"
+        for entry in dom_data.mql_book_infos[:10]:  # Mostrar los primeros 10 niveles
+            entry_type = "VENTA" if entry.type in [0, 2] else "COMPRA"
             print(f"{entry_type:<10} {entry.price:<15.5f} {entry.volume_real:<15.2f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(get_dom())
 ```
 
-### 2) Analyze bid/ask spread
+### 2) Analizar el diferencial entre compra y venta (spread)
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def analyze_spread():
     account = MT5Account(
@@ -205,15 +213,15 @@ async def analyze_spread():
     try:
         symbol = "EURUSD"
 
-        # Subscribe and get DOM
+        # Suscribirse y obtener el DOM
         await account.market_book_add(symbol)
         dom_data = await account.market_book_get(symbol)
 
         if not dom_data.mql_book_infos:
-            print(f"[WARNING] No DOM data available for {symbol}")
+            print(f"[ADVERTENCIA] No hay datos DOM disponibles para {symbol}")
             return
 
-        # Separate buy and sell orders
+        # Separar las órdenes de compra y venta
         sell_orders = [e for e in dom_data.mql_book_infos if e.type in [0, 2]]
         buy_orders = [e for e in dom_data.mql_book_infos if e.type in [1, 3]]
 
@@ -224,22 +232,24 @@ async def analyze_spread():
             spread = best_ask.price - best_bid.price
             spread_pips = spread / 0.0001
 
-            print(f"[SPREAD ANALYSIS] {symbol}")
-            print(f"  Best Bid: {best_bid.price:.5f} (Volume: {best_bid.volume_real:.2f})")
-            print(f"  Best Ask: {best_ask.price:.5f} (Volume: {best_ask.volume_real:.2f})")
+            print(f"[ANÁLISIS DEL SPREAD] {symbol}")
+            print(f"  Mejor Bid: {best_bid.price:.5f} (Volumen: {best_bid.volume_real:.2f})")
+            print(f"  Mejor Ask: {best_ask.price:.5f} (Volumen: {best_ask.volume_real:.2f})")
             print(f"  Spread: {spread:.5f} ({spread_pips:.1f} pips)")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(analyze_spread())
 ```
 
-### 3) Calculate total liquidity
+### 3) Calcular la liquidez total
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def calculate_liquidity():
     account = MT5Account(
@@ -259,40 +269,42 @@ async def calculate_liquidity():
         await account.market_book_add(symbol)
         dom_data = await account.market_book_get(symbol)
 
-        # Calculate total volume by side
+        # Calcular el volumen total por lado
         sell_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [0, 2])
         buy_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [1, 3])
         total_volume = sell_volume + buy_volume
 
-        print(f"[LIQUIDITY] {symbol}")
-        print(f"  Total DOM levels: {len(dom_data.mql_book_infos)}")
-        print(f"  BUY side volume: {buy_volume:.2f} lots")
-        print(f"  SELL side volume: {sell_volume:.2f} lots")
-        print(f"  Total volume: {total_volume:.2f} lots")
+        print(f"[LIQUIDEZ] {symbol}")
+        print(f"  Niveles DOM totales: {len(dom_data.mql_book_infos)}")
+        print(f"  Volumen del lado COMPRA: {buy_volume:.2f} lotes")
+        print(f"  Volumen del lado VENTA: {sell_volume:.2f} lotes")
+        print(f"  Volumen total: {total_volume:.2f} lotes")
 
         if total_volume > 0:
             buy_percent = (buy_volume / total_volume) * 100
             sell_percent = (sell_volume / total_volume) * 100
-            print(f"\n  BUY: {buy_percent:.1f}% | SELL: {sell_percent:.1f}%")
+            print(f"\n  COMPRA: {buy_percent:.1f}% | VENTA: {sell_percent:.1f}%")
 
             if buy_percent > 60:
-                print("  [SIGNAL] Strong BUY side liquidity")
+                print("  [SEÑAL] Fuerte liquidez del lado de COMPRA")
             elif sell_percent > 60:
-                print("  [SIGNAL] Strong SELL side liquidity")
+                print("  [SEÑAL] Fuerte liquidez del lado de VENTA")
             else:
-                print("  [SIGNAL] Balanced liquidity")
+                print("  [SEÑAL] Liquidez equilibrada")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(calculate_liquidity())
 ```
 
-### 4) Find support/resistance levels
+### 4) Encontrar niveles de soporte y resistencia
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def find_key_levels():
     account = MT5Account(
@@ -312,33 +324,35 @@ async def find_key_levels():
         await account.market_book_add(symbol)
         dom_data = await account.market_book_get(symbol)
 
-        # Find top 5 volume levels
+        # Encontrar los 5 niveles con mayor volumen
         sorted_levels = sorted(dom_data.mql_book_infos, key=lambda x: x.volume_real, reverse=True)
 
-        print(f"[KEY LEVELS] {symbol} - Highest Volume Levels:\n")
-        print(f"{'Rank':<6} {'Type':<10} {'Price':<15} {'Volume':<15}")
+        print(f"[NIVELES CLAVE] {symbol} - Niveles con mayor volumen:\n")
+        print(f"{'Posición':<6} {'Tipo':<10} {'Precio':<15} {'Volumen':<15}")
         print("-" * 50)
 
         for i, entry in enumerate(sorted_levels[:5], 1):
-            entry_type = "SELL" if entry.type in [0, 2] else "BUY"
+            entry_type = "VENTA" if entry.type in [0, 2] else "COMPRA"
             print(f"{i:<6} {entry_type:<10} {entry.price:<15.5f} {entry.volume_real:<15.2f}")
 
-        print("\n[NOTE] Large volume clusters may act as support/resistance")
+        print("\n[NOTA] Las concentraciones de gran volumen pueden actuar como niveles de soporte o resistencia")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(find_key_levels())
 ```
 
-### 5) Monitor DOM imbalance
+### 5) Supervisar el desequilibrio del DOM
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 
+
 async def monitor_imbalance(duration: int = 30):
-    """Monitor DOM imbalance for specified duration"""
+    """Supervisa el desequilibrio del DOM durante el período especificado"""
     account = MT5Account(
         user=12345,
         password="password",
@@ -354,52 +368,54 @@ async def monitor_imbalance(duration: int = 30):
         symbol = "EURUSD"
 
         await account.market_book_add(symbol)
-        print(f"[MONITORING] {symbol} DOM imbalance for {duration} seconds\n")
+        print(f"[SUPERVISIÓN] Desequilibrio del DOM de {symbol} durante {duration} segundos\n")
 
         start_time = asyncio.get_event_loop().time()
 
         while (asyncio.get_event_loop().time() - start_time) < duration:
             dom_data = await account.market_book_get(symbol)
 
-            # Calculate imbalance
+            # Calcular el desequilibrio
             sell_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [0, 2])
             buy_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [1, 3])
 
             if sell_volume + buy_volume > 0:
                 imbalance = ((buy_volume - sell_volume) / (buy_volume + sell_volume)) * 100
 
-                # Clear screen
+                # Limpiar la pantalla
                 print("\033[2J\033[H")
 
-                print(f"=== {symbol} DOM Imbalance ===\n")
-                print(f"BUY:  {buy_volume:>8.2f} lots")
-                print(f"SELL: {sell_volume:>8.2f} lots")
-                print(f"\nImbalance: {imbalance:+.2f}%")
+                print(f"=== Desequilibrio del DOM de {symbol} ===\n")
+                print(f"COMPRA: {buy_volume:>8.2f} lotes")
+                print(f"VENTA:  {sell_volume:>8.2f} lotes")
+                print(f"\nDesequilibrio: {imbalance:+.2f}%")
 
                 if imbalance > 20:
-                    print("\n[SIGNAL] Strong BUY pressure")
+                    print("\n[SEÑAL] Fuerte presión compradora")
                 elif imbalance < -20:
-                    print("\n[SIGNAL] Strong SELL pressure")
+                    print("\n[SEÑAL] Fuerte presión vendedora")
                 else:
-                    print("\n[SIGNAL] Balanced market")
+                    print("\n[SEÑAL] Mercado equilibrado")
 
             await asyncio.sleep(1)
 
         await account.market_book_release(symbol)
-        print(f"\n[STOPPED] Monitoring ended")
+        print(f"\n[DETENIDO] La supervisión ha finalizado")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(monitor_imbalance(duration=30))
 ```
 
-### 6) Volume at Price (VAP) analysis
+### 6) Análisis del volumen por precio (VAP)
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 from collections import defaultdict
+
 
 async def volume_at_price():
     account = MT5Account(
@@ -419,7 +435,7 @@ async def volume_at_price():
         await account.market_book_add(symbol)
         dom_data = await account.market_book_get(symbol)
 
-        # Group volume by price bins (e.g., 5 pip ranges)
+        # Agrupar el volumen por intervalos de precio (por ejemplo, rangos de 5 pips)
         pip_range = 5
         pip_size = 0.0001
         bin_size = pip_range * pip_size
@@ -427,34 +443,35 @@ async def volume_at_price():
         volume_bins = defaultdict(float)
 
         for entry in dom_data.mql_book_infos:
-            # Round price to nearest bin
+            # Redondear el precio al intervalo más cercano
             bin_price = round(entry.price / bin_size) * bin_size
             volume_bins[bin_price] += entry.volume_real
 
-        # Sort by price
+        # Ordenar por precio
         sorted_bins = sorted(volume_bins.items(), key=lambda x: x[0])
 
-        print(f"[VOLUME AT PRICE] {symbol} ({pip_range} pip bins)\n")
-        print(f"{'Price Range':<20} {'Volume':<15} {'Bar':<30}")
+        print(f"[VOLUMEN POR PRECIO] {symbol} (intervalos de {pip_range} pips)\n")
+        print(f"{'Rango de precios':<20} {'Volumen':<15} {'Barra':<30}")
         print("-" * 70)
 
         max_volume = max(volume_bins.values()) if volume_bins else 1
 
-        for price, volume in sorted_bins[:15]:  # Show top 15 bins
+        for price, volume in sorted_bins[:15]:  # Mostrar los 15 primeros intervalos
             bar_length = int((volume / max_volume) * 30)
             bar = "#" * bar_length
-            print(f"{price:.5f}-{price+bin_size:.5f}  {volume:>8.2f} lots  {bar}")
+            print(f"{price:.5f}-{price+bin_size:.5f}  {volume:>8.2f} lotes  {bar}")
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(volume_at_price())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [MarketBookAdd](./market_book_add.md) - Subscribe to DOM updates
-* [MarketBookRelease](./market_book_release.md) - Unsubscribe from DOM
-* [SymbolInfoTick](../2.%20Symbol_Information/symbol_info_tick.md) - Get current tick prices
+- [MarketBookAdd](./market_book_add.md) - Suscribirse a las actualizaciones del DOM.
+- [MarketBookRelease](./market_book_release.md) - Cancelar la suscripción al DOM.
+- [SymbolInfoTick](../2.%20Symbol_Information/symbol_info_tick.md) - Obtener los precios actuales de los ticks.

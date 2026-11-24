@@ -1,44 +1,43 @@
-# Modify Order or Position
+# Modificar una orden o posición
 
-> **Request:** Modify Stop Loss, Take Profit, price, or expiration of an order/position.
+> **Solicitud:** Modificar el Stop Loss, Take Profit, precio o vencimiento de una orden/posición.
 
-**API Information:**
+**Información de la API:**
 
-* **Python API:** `MT5Account.order_modify(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.TradingHelper`
-* **Proto definition:** `OrderModify` (defined in `mt5-term-api-trading-helper.proto`)
-* **Enums in this method:** 1 enum with 4 constants (1 input)
+- **API de Python:** `MT5Account.order_modify(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.TradingHelper`
+- **Definición Proto:** `OrderModify` (definido en `mt5-term-api-trading-helper.proto`)
+- **Enums de este método:** 1 enum con 4 constantes (1 entrada)
 
 ### RPC
 
-* **Service:** `mt5_term_api.TradingHelper`
-* **Method:** `OrderModify(OrderModifyRequest) -> OrderModifyReply`
-* **Low-level client (generated):** `TradingHelperStub.OrderModify(request, metadata)`
+- **Servicio:** `mt5_term_api.TradingHelper`
+- **Método:** `OrderModify(OrderModifyRequest) -> OrderModifyReply`
+- **Cliente de bajo nivel (generado):** `TradingHelperStub.OrderModify(request, metadata)`
 
+## 💬 Lo esencial
 
-## 💬 Just the essentials
-
-* **What it is.** Modifies SL/TP, price, or expiration of existing orders/positions.
-* **Why you need it.** Adjust risk management levels or pending order parameters.
-* **Set to zero.** Use 0 to remove SL or TP.
+- **Qué es:** Modifica el SL/TP, el precio o el vencimiento de órdenes/posiciones existentes.
+- **Para qué sirve:** Ajustar los niveles de gestión del riesgo o los parámetros de las órdenes pendientes.
+- **Establecer en cero:** Utiliza 0 para eliminar el SL o el TP.
 
 ---
 
-## 🎯 Purpose
+## 🎯 Propósito
 
-Use it to:
+Utiliza este método para:
 
-* Add or modify Stop Loss levels
-* Add or modify Take Profit levels
-* Change pending order prices
-* Update order expiration times
-* Adjust trailing stops
-* Remove SL/TP (set to 0)
-
+- Añadir o modificar niveles de Stop Loss.
+- Añadir o modificar niveles de Take Profit.
+- Cambiar los precios de las órdenes pendientes.
+- Actualizar los tiempos de vencimiento de las órdenes.
+- Ajustar los trailing stops.
+- Eliminar el SL/TP (establecerlo en 0).
 
 ```python
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 class MT5Account:
     # ...
@@ -50,80 +49,81 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ):
         """
-        Modifies an existing order or position asynchronously.
+        Modifica una orden o posición existente de forma asíncrona.
 
         Returns:
-            OrderModifyData: Response containing updated order/deal info.
+            OrderModifyData: Respuesta que contiene información actualizada de la orden/operación.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 OrderModifyRequest {
-  uint64 ticket = 1;                             // Order/position ticket to modify
-  double stop_loss = 2;                          // New Stop Loss price (0 = remove)
-  double take_profit = 3;                        // New Take Profit price (0 = remove)
-  double price = 4;                              // New price (for pending orders)
-  TMT5_ENUM_ORDER_TYPE_TIME expiration_time_type = 5;  // New expiration type
-  google.protobuf.Timestamp expiration_time = 6;       // New expiration time
-  double stop_limit = 8;                         // New stop limit price
+  uint64 ticket = 1;                              // Ticket de la orden/posición que se va a modificar
+  double stop_loss = 2;                           // Nuevo precio de Stop Loss (0 = eliminar)
+  double take_profit = 3;                         // Nuevo precio de Take Profit (0 = eliminar)
+  double price = 4;                               // Nuevo precio (para órdenes pendientes)
+  TMT5_ENUM_ORDER_TYPE_TIME expiration_time_type = 5;  // Nuevo tipo de vencimiento
+  google.protobuf.Timestamp expiration_time = 6;       // Nueva fecha y hora de vencimiento
+  double stop_limit = 8;                          // Nuevo precio Stop Limit
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `request`            | `OrderModifyRequest`           | Modification request (see fields above)       |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
-
----
-
-## ⬆️ Output
-
-Returns `OrderModifyData` object.
-
-**OrderModifyData fields:**
-
-| Field                         | Type      | Description                          |
-| ----------------------------- | --------- | ------------------------------------ |
-| `returned_code`               | `int32`   | Return code (10009 = success)        |
-| `returned_string_code`        | `string`  | String return code                   |
-| `returned_code_description`   | `string`  | Description of return code           |
-| `deal`                        | `uint64`  | Deal ticket (if executed)            |
-| `order`                       | `uint64`  | Order ticket                         |
-| `volume`                      | `double`  | Volume                               |
-| `price`                       | `double`  | Execution price                      |
-| `bid`                         | `double`  | Current bid price                    |
-| `ask`                         | `double`  | Current ask price                    |
-| `comment`                     | `string`  | Broker comment                       |
-| `request_id`                  | `uint64`  | Request ID                           |
-| `ret_code_external`           | `uint32`  | External return code                 |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `request` | `OrderModifyRequest` | Solicitud de modificación (véanse los campos anteriores) |
+| `deadline` | `Optional[datetime]` | Límite de tiempo para la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
 ---
 
-## 🧱 Related enums (from proto)
+## ⬆️ Salida
+
+Devuelve un objeto `OrderModifyData`.
+
+**Campos de OrderModifyData:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `returned_code` | `int32` | Código de retorno (10009 = éxito) |
+| `returned_string_code` | `string` | Código de retorno en formato de cadena |
+| `returned_code_description` | `string` | Descripción del código de retorno |
+| `deal` | `uint64` | Ticket de la operación (si se ejecutó) |
+| `order` | `uint64` | Ticket de la orden |
+| `volume` | `double` | Volumen |
+| `price` | `double` | Precio de ejecución |
+| `bid` | `double` | Precio Bid actual |
+| `ask` | `double` | Precio Ask actual |
+| `comment` | `string` | Comentario del bróker |
+| `request_id` | `uint64` | ID de la solicitud |
+| `ret_code_external` | `uint32` | Código de retorno externo |
+
+---
+
+## 🧱 Enums relacionados (de proto)
 
 ### `TMT5_ENUM_ORDER_TYPE_TIME`
 
-Used in `OrderModifyRequest` to specify expiration time type.
+Se utiliza en `OrderModifyRequest` para especificar el tipo de vencimiento.
 
-| Constant Name                   | Value | Description                          |
-| ------------------------------- | ----- | ------------------------------------ |
-| `TMT5_ORDER_TIME_GTC`           | 0     | Good till cancelled                  |
-| `TMT5_ORDER_TIME_DAY`           | 1     | Good till current trading day        |
-| `TMT5_ORDER_TIME_SPECIFIED`     | 2     | Good till specified date             |
-| `TMT5_ORDER_TIME_SPECIFIED_DAY` | 3     | Good till specified day              |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `TMT5_ORDER_TIME_GTC` | 0 | Válida hasta su cancelación |
+| `TMT5_ORDER_TIME_DAY` | 1 | Válida hasta el final del día de negociación actual |
+| `TMT5_ORDER_TIME_SPECIFIED` | 2 | Válida hasta la fecha especificada |
+| `TMT5_ORDER_TIME_SPECIFIED_DAY` | 3 | Válida hasta el día especificado |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
-# Access enum values
+# Acceder a los valores del enum
 trading_pb2.TMT5_ORDER_TIME_GTC            # = 0
 trading_pb2.TMT5_ORDER_TIME_DAY            # = 1
 trading_pb2.TMT5_ORDER_TIME_SPECIFIED      # = 2
@@ -132,34 +132,35 @@ trading_pb2.TMT5_ORDER_TIME_SPECIFIED_DAY  # = 3
 
 ---
 
-
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[OrderModify - How it works](../HOW_IT_WORK/5. Trading_Operations_HOW/order_modify_HOW.md)**
+Para obtener una explicación detallada línea por línea con ejemplos, consulta:
+
+**[OrderModify - Cómo funciona](../HOW_IT_WORK/5. Trading_Operations_HOW/order_modify_HOW.md)**
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **Zero to remove:** Set `stop_loss=0` or `take_profit=0` to remove them.
-* **Pending orders:** Can modify price and expiration of pending orders.
-* **Market positions:** Can only modify SL/TP for market positions.
-* **Min distance:** Broker enforces minimum distance from current price for SL/TP.
-* **Freeze level:** Cannot modify orders too close to market price (broker setting).
+- **Reconexión automática:** Todos los métodos de `MT5Account` incluyen protección integrada contra errores gRPC transitorios, con reconexión automática mediante `execute_with_reconnect`.
+- **Cero para eliminar:** Establece `stop_loss=0` o `take_profit=0` para eliminarlos.
+- **Órdenes pendientes:** Se pueden modificar el precio y el vencimiento de las órdenes pendientes.
+- **Posiciones de mercado:** En las posiciones de mercado solo se pueden modificar el SL/TP.
+- **Distancia mínima:** El bróker impone una distancia mínima respecto al precio actual para el SL/TP.
+- **Nivel de congelación (Freeze Level):** No se pueden modificar órdenes que estén demasiado cerca del precio de mercado (configuración del bróker).
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Add Stop Loss to position
+### 1) Añadir Stop Loss a una posición
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
+
 
 async def add_stop_loss():
     account = MT5Account(
@@ -174,39 +175,41 @@ async def add_stop_loss():
     )
 
     try:
-        # Get current price
+        # Obtener el precio actual
         tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
         tick_data = await account.symbol_info_tick(tick_req)
         current_bid = tick_data.tick.bid
 
-        # Set SL 50 pips below current price
+        # Establecer el SL 50 pips por debajo del precio actual
         pip_size = 0.0001
         sl_price = current_bid - (50 * pip_size)
 
-        # Modify position to add SL
+        # Modificar la posición para añadir el SL
         request = trading_pb2.OrderModifyRequest(
             ticket=123456,
             stop_loss=sl_price,
-            take_profit=0,  # Keep existing TP or no TP
-            price=0         # Not used for market positions
+            take_profit=0,  # Mantener el TP existente o no establecer TP
+            price=0         # No se utiliza para posiciones de mercado
         )
 
         result = await account.order_modify(request)
-        print(f"[SUCCESS] Stop Loss added at {sl_price:.5f}")
+        print(f"[ÉXITO] Stop Loss añadido en {sl_price:.5f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(add_stop_loss())
 ```
 
-### 2) Modify both SL and TP
+### 2) Modificar tanto el SL como el TP
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
+
 
 async def modify_sl_tp():
     account = MT5Account(
@@ -221,14 +224,14 @@ async def modify_sl_tp():
     )
 
     try:
-        # Get current price
+        # Obtener el precio actual
         tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
         tick_data = await account.symbol_info_tick(tick_req)
         current_bid = tick_data.tick.bid
 
         pip_size = 0.0001
-        new_sl = current_bid - (30 * pip_size)  # 30 pips SL
-        new_tp = current_bid + (60 * pip_size)  # 60 pips TP (2:1 R:R)
+        new_sl = current_bid - (30 * pip_size)  # SL de 30 pips
+        new_tp = current_bid + (60 * pip_size)  # TP de 60 pips (R:R de 2:1)
 
         request = trading_pb2.OrderModifyRequest(
             ticket=123456,
@@ -238,22 +241,24 @@ async def modify_sl_tp():
         )
 
         result = await account.order_modify(request)
-        print(f"[SUCCESS] Modified SL/TP!")
-        print(f"  New SL: {new_sl:.5f}")
-        print(f"  New TP: {new_tp:.5f}")
+        print(f"[ÉXITO] ¡SL/TP modificados!")
+        print(f"  Nuevo SL: {new_sl:.5f}")
+        print(f"  Nuevo TP: {new_tp:.5f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(modify_sl_tp())
 ```
 
-### 3) Remove Stop Loss
+### 3) Eliminar Stop Loss
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 async def remove_stop_loss():
     account = MT5Account(
@@ -268,30 +273,32 @@ async def remove_stop_loss():
     )
 
     try:
-        # Set SL to 0 to remove it
+        # Establecer el SL en 0 para eliminarlo
         request = trading_pb2.OrderModifyRequest(
             ticket=123456,
-            stop_loss=0,     # Remove SL
-            take_profit=0,   # Keep existing TP
+            stop_loss=0,     # Eliminar SL
+            take_profit=0,   # Mantener el TP existente
             price=0
         )
 
         result = await account.order_modify(request)
-        print(f"[SUCCESS] Stop Loss removed!")
+        print(f"[ÉXITO] ¡Stop Loss eliminado!")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(remove_stop_loss())
 ```
 
-### 4) Modify pending order price
+### 4) Modificar el precio de una orden pendiente
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
+
 
 async def modify_pending_order_price():
     account = MT5Account(
@@ -306,38 +313,40 @@ async def modify_pending_order_price():
     )
 
     try:
-        # Get current price
+        # Obtener el precio actual
         tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
         tick_data = await account.symbol_info_tick(tick_req)
         current_bid = tick_data.tick.bid
 
-        # New BUY LIMIT price (15 pips below current)
+        # Nuevo precio BUY LIMIT (15 pips por debajo del precio actual)
         pip_size = 0.0001
         new_price = current_bid - (15 * pip_size)
 
         request = trading_pb2.OrderModifyRequest(
-            ticket=789012,  # Pending order ticket
+            ticket=789012,  # Ticket de la orden pendiente
             stop_loss=0,
             take_profit=0,
-            price=new_price  # New entry price
+            price=new_price  # Nuevo precio de entrada
         )
 
         result = await account.order_modify(request)
-        print(f"[SUCCESS] Pending order price updated to {new_price:.5f}")
+        print(f"[ÉXITO] Precio de la orden pendiente actualizado a {new_price:.5f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(modify_pending_order_price())
 ```
 
-### 5) Trailing stop implementation
+### 5) Implementación de trailing stop
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
+
 
 async def trailing_stop(ticket: int, trail_distance_pips: int):
     account = MT5Account(
@@ -356,15 +365,15 @@ async def trailing_stop(ticket: int, trail_distance_pips: int):
 
     try:
         while True:
-            # Get current price
+            # Obtener el precio actual
             tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
             tick_data = await account.symbol_info_tick(tick_req)
             current_bid = tick_data.tick.bid
 
-            # Calculate new SL
+            # Calcular el nuevo SL
             new_sl = current_bid - (trail_distance_pips * pip_size)
 
-            # Only update if new SL is higher (for BUY)
+            # Actualizar solo si el nuevo SL es más alto (para BUY)
             if last_sl is None or new_sl > last_sl:
                 request = trading_pb2.OrderModifyRequest(
                     ticket=ticket,
@@ -374,28 +383,30 @@ async def trailing_stop(ticket: int, trail_distance_pips: int):
                 )
 
                 result = await account.order_modify(request)
-                print(f"[TRAIL] SL updated to {new_sl:.5f}")
+                print(f"[TRAIL] SL actualizado a {new_sl:.5f}")
                 last_sl = new_sl
 
-            await asyncio.sleep(1)  # Check every second
+            await asyncio.sleep(1)  # Comprobar cada segundo
 
     except KeyboardInterrupt:
-        print("\nTrailing stop stopped")
+        print("\nTrailing stop detenido")
 
     finally:
         await account.channel.close()
 
-# Trail stop 30 pips behind price
+
+# Mantener el trailing stop a 30 pips del precio
 asyncio.run(trailing_stop(123456, 30))
 ```
 
-### 6) Break-even stop loss
+### 6) Stop Loss en el punto de equilibrio (Break-even)
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_pb2
+
 
 async def move_to_breakeven(ticket: int, breakeven_trigger_pips: int):
     account = MT5Account(
@@ -410,48 +421,49 @@ async def move_to_breakeven(ticket: int, breakeven_trigger_pips: int):
     )
 
     try:
-        # Get position details
+        # Obtener los detalles de la posición
         positions_req = account_pb2.OpenedOrdersRequest()
         positions_data = await account.opened_orders(positions_req)
 
         position = next((p for p in positions_data.positions if p.ticket == ticket), None)
 
         if not position:
-            print(f"[ERROR] Position #{ticket} not found")
+            print(f"[ERROR] Posición #{ticket} no encontrada")
             return
 
         entry_price = position.price_open
         pip_size = 0.0001
 
-        # Check if profit reached trigger level
+        # Comprobar si el beneficio ha alcanzado el nivel de activación
         profit_pips = (position.price_current - entry_price) / pip_size
 
         if profit_pips >= breakeven_trigger_pips:
-            # Move SL to breakeven
+            # Mover el SL al punto de equilibrio
             request = trading_pb2.OrderModifyRequest(
                 ticket=ticket,
-                stop_loss=entry_price,  # Set SL to entry price
+                stop_loss=entry_price,  # Establecer el SL en el precio de entrada
                 take_profit=0,
                 price=0
             )
 
             result = await account.order_modify(request)
-            print(f"[BREAKEVEN] SL moved to entry price {entry_price:.5f}")
-            print(f"  Current profit: {profit_pips:.1f} pips")
+            print(f"[BREAKEVEN] SL movido al precio de entrada {entry_price:.5f}")
+            print(f"  Beneficio actual: {profit_pips:.1f} pips")
         else:
-            print(f"[WAITING] Profit {profit_pips:.1f} pips < trigger {breakeven_trigger_pips} pips")
+            print(f"[ESPERANDO] Beneficio {profit_pips:.1f} pips < nivel de activación {breakeven_trigger_pips} pips")
 
     finally:
         await account.channel.close()
 
-# Move to breakeven when profit reaches 20 pips
+
+# Mover al punto de equilibrio cuando el beneficio alcance 20 pips
 asyncio.run(move_to_breakeven(123456, 20))
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [OrderSend](./order_send.md) - Open positions
-* [OrderClose](./order_close.md) - Close positions
-* [OpenedOrders](../3.%20Positions_Orders/opened_orders.md) - Get position details
+- [OrderSend](./order_send.md) - Abrir posiciones.
+- [OrderClose](./order_close.md) - Cerrar posiciones.
+- [OpenedOrders](../3.%20Positions_Orders/opened_orders.md) - Obtener detalles de las posiciones.

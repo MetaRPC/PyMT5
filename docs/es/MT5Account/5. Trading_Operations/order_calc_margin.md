@@ -1,52 +1,55 @@
-# Calculate Required Margin
 
-> **Request:** Calculate the margin required for a planned trade operation.
 
-**API Information:**
+# Calcular el margen requerido
 
-* **Python API:** `MT5Account.order_calc_margin(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.TradeFunctions`
-* **Proto definition:** `OrderCalcMargin` (defined in `mt5-term-api-trade-functions.proto`)
-* **Enums in this method:** 1 enum with 9 constants (1 input)
+> **Solicitud:** Calcular el margen necesario para una operación de trading planificada.
+
+**Información de la API:**
+
+- **API de Python:** `MT5Account.order_calc_margin(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.TradeFunctions`
+- **Definición Proto:** `OrderCalcMargin` (definido en `mt5-term-api-trade-functions.proto`)
+- **Enums de este método:** 1 enum con 9 constantes (1 entrada)
 
 ### RPC
 
-* **Service:** `mt5_term_api.TradeFunctions`
-* **Method:** `OrderCalcMargin(OrderCalcMarginRequest) -> OrderCalcMarginReply`
-* **Low-level client (generated):** `TradeFunctionsStub.OrderCalcMargin(request, metadata)`
+- **Servicio:** `mt5_term_api.TradeFunctions`
+- **Método:** `OrderCalcMargin(OrderCalcMarginRequest) -> OrderCalcMarginReply`
+- **Cliente de bajo nivel (generado):** `TradeFunctionsStub.OrderCalcMargin(request, metadata)`
 
 ---
 
-## 💬 Just the essentials
+## 💬 Lo esencial
 
-* **What it is.** Calculates required margin for a trade without executing it.
-* **Why you need it.** Plan position sizing and risk management.
-* **Account currency.** Returns margin in your account currency (USD, EUR, etc.).
+- **Qué es.** Calcula el margen requerido para una operación sin ejecutarla.
+- **Para qué sirve.** Planificar el tamaño de las posiciones y gestionar el riesgo.
+- **Moneda de la cuenta.** Devuelve el margen en la moneda de la cuenta (USD, EUR, etc.).
 
 ---
 
-## 🎯 Purpose
+## 🎯 Propósito
 
-Use it to:
+Utilízalo para:
 
-* Calculate margin requirements before trading
-* Determine maximum position size for available margin
-* Plan multiple positions
-* Risk management calculations
-* Portfolio margin analysis
-* Compare margin requirements across symbols
+- Calcular los requisitos de margen antes de operar.
+- Determinar el tamaño máximo de posición según el margen disponible.
+- Planificar varias posiciones.
+- Realizar cálculos de gestión de riesgos.
+- Analizar el margen de la cartera.
+- Comparar los requisitos de margen entre distintos símbolos.
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[OrderCalcMargin - How it works](../HOW_IT_WORK/5. Trading_Operations_HOW/order_calc_margin_HOW.md)**
+Para obtener una explicación detallada línea por línea con ejemplos, consulta:
 
+**[OrderCalcMargin - Cómo funciona](../HOW_IT_WORK/5. Trading_Operations_HOW/order_calc_margin_HOW.md)**
 
 ```python
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 class MT5Account:
     # ...
@@ -58,105 +61,107 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ) -> trade_pb2.OrderCalcMarginData:
         """
-        Calculates the margin required for a planned trade operation.
+        Calcula el margen necesario para una operación de trading planificada.
 
         Returns:
-            OrderCalcMarginData: The required margin in account currency.
+            OrderCalcMarginData: El margen requerido en la moneda de la cuenta.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 message OrderCalcMarginRequest {
-  string symbol = 1;            // Symbol name
-  ENUM_ORDER_TYPE_TF order_type = 2;  // Order type
-  double volume = 3;            // Trade volume in lots
-  double open_price = 4;        // Order open price
+  string symbol = 1;            // Nombre del símbolo
+  ENUM_ORDER_TYPE_TF order_type = 2;  // Tipo de orden
+  double volume = 3;             // Volumen de la operación en lotes
+  double open_price = 4;         // Precio de apertura de la orden
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `request`            | `OrderCalcMarginRequest`       | Margin calculation request                    |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `request` | `OrderCalcMarginRequest` | Solicitud de cálculo del margen |
+| `deadline` | `Optional[datetime]` | Límite de tiempo para la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
-**OrderCalcMarginRequest fields:**
+**Campos de OrderCalcMarginRequest:**
 
-| Field        | Type                    | Description                          |
-| ------------ | ----------------------- | ------------------------------------ |
-| `symbol`     | `string`                | Symbol name (e.g., "EURUSD")         |
-| `order_type` | `ENUM_ORDER_TYPE_TF`    | Order type (enum)                    |
-| `volume`     | `double`                | Trade volume in lots                 |
-| `open_price` | `double`                | Order open price                     |
-
----
-
-## ⬆️ Output
-
-Returns `OrderCalcMarginData` object with margin calculation.
-
-**OrderCalcMarginData fields:**
-
-| Field    | Type     | Description                          |
-| -------- | -------- | ------------------------------------ |
-| `margin` | `double` | Required margin in account currency  |
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `symbol` | `string` | Nombre del símbolo (por ejemplo, "EURUSD") |
+| `order_type` | `ENUM_ORDER_TYPE_TF` | Tipo de orden (enum) |
+| `volume` | `double` | Volumen de la operación en lotes |
+| `open_price` | `double` | Precio de apertura de la orden |
 
 ---
 
-## 🧱 Related enums (from proto)
+## ⬆️ Salida
+
+Devuelve un objeto `OrderCalcMarginData` con el resultado del cálculo del margen.
+
+**Campos de OrderCalcMarginData:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `margin` | `double` | Margen requerido en la moneda de la cuenta |
+
+---
+
+## 🧱 Enums relacionados (del proto)
 
 ### `ENUM_ORDER_TYPE_TF`
 
-Used in `OrderCalcMarginRequest` to specify order type for margin calculation.
+Se utiliza en `OrderCalcMarginRequest` para especificar el tipo de orden para el cálculo del margen.
 
-| Constant Name                 | Value | Description                          |
-| ----------------------------- | ----- | ------------------------------------ |
-| `ORDER_TYPE_TF_BUY`           | 0     | Market buy order                     |
-| `ORDER_TYPE_TF_SELL`          | 1     | Market sell order                    |
-| `ORDER_TYPE_TF_BUY_LIMIT`     | 2     | Buy limit pending order              |
-| `ORDER_TYPE_TF_SELL_LIMIT`    | 3     | Sell limit pending order             |
-| `ORDER_TYPE_TF_BUY_STOP`      | 4     | Buy stop pending order               |
-| `ORDER_TYPE_TF_SELL_STOP`     | 5     | Sell stop pending order              |
-| `ORDER_TYPE_TF_BUY_STOP_LIMIT`| 6     | Buy stop limit pending order         |
-| `ORDER_TYPE_TF_SELL_STOP_LIMIT`|7    | Sell stop limit pending order        |
-| `ORDER_TYPE_TF_CLOSE_BY`      | 8     | Close by opposite position           |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `ORDER_TYPE_TF_BUY` | 0 | Orden de compra a mercado |
+| `ORDER_TYPE_TF_SELL` | 1 | Orden de venta a mercado |
+| `ORDER_TYPE_TF_BUY_LIMIT` | 2 | Orden pendiente Buy Limit |
+| `ORDER_TYPE_TF_SELL_LIMIT` | 3 | Orden pendiente Sell Limit |
+| `ORDER_TYPE_TF_BUY_STOP` | 4 | Orden pendiente Buy Stop |
+| `ORDER_TYPE_TF_SELL_STOP` | 5 | Orden pendiente Sell Stop |
+| `ORDER_TYPE_TF_BUY_STOP_LIMIT` | 6 | Orden pendiente Buy Stop Limit |
+| `ORDER_TYPE_TF_SELL_STOP_LIMIT` | 7 | Orden pendiente Sell Stop Limit |
+| `ORDER_TYPE_TF_CLOSE_BY` | 8 | Cierre mediante una posición opuesta |
 
-**Usage:**
+**Uso:**
+
 ```python
 from MetaRpcMT5 import mt5_term_api_trade_functions_pb2 as trade_pb2
 
-# Access enum values
+# Acceder a los valores del enum
 trade_pb2.ORDER_TYPE_TF_BUY         # = 0
 trade_pb2.ORDER_TYPE_TF_SELL        # = 1
 ```
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **No execution:** This method only calculates margin, does NOT execute orders.
-* **Same request:** Uses identical request structure as `order_send`.
-* **Leverage impact:** Result depends on symbol leverage and account settings.
-* **Real-time calculation:** Uses current market prices for calculation.
-* **Different from order_check:** This only returns margin, `order_check` validates full order.
+- **Reconexión automática:** todos los métodos de `MT5Account` tienen protección integrada contra errores gRPC transitorios mediante reconexión automática a través de `execute_with_reconnect`.
+- **Sin ejecución:** este método solo calcula el margen, NO ejecuta órdenes.
+- **Misma solicitud:** utiliza la misma estructura de solicitud que `order_send`.
+- **Impacto del apalancamiento:** el resultado depende del apalancamiento del símbolo y de la configuración de la cuenta.
+- **Cálculo en tiempo real:** utiliza los precios actuales del mercado para realizar el cálculo.
+- **Diferencia respecto a order_check:** este método solo devuelve el margen; `order_check` valida la orden completa.
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Calculate margin for single trade
+### 1) Calcular el margen para una operación individual
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 async def calc_margin():
     account = MT5Account(
@@ -171,7 +176,7 @@ async def calc_margin():
     )
 
     try:
-        # Calculate margin for 0.10 lots EURUSD
+        # Calcular el margen para 0.10 lotes de EURUSD
         request = trade_pb2.OrderCalcMarginRequest(
             symbol="EURUSD",
             order_type=trade_pb2.ORDER_TYPE_TF_BUY,
@@ -181,23 +186,25 @@ async def calc_margin():
 
         result = await account.order_calc_margin(request)
 
-        print(f"[SUCCESS] Margin calculation:")
-        print(f"  Symbol: EURUSD")
-        print(f"  Volume: 0.10 lots")
-        print(f"  Required margin: ${result.margin:,.2f}")
+        print(f"[ÉXITO] Cálculo del margen:")
+        print(f"  Símbolo: EURUSD")
+        print(f"  Volumen: 0.10 lotes")
+        print(f"  Margen requerido: ${result.margin:,.2f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(calc_margin())
 ```
 
-### 2) Compare margin across symbols
+### 2) Comparar el margen entre distintos símbolos
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 async def compare_margin():
     account = MT5Account(
@@ -215,8 +222,8 @@ async def compare_margin():
     volume = 0.10
 
     try:
-        print(f"Margin requirements for {volume} lots:\n")
-        print(f"{'Symbol':<10} {'Margin':<15}")
+        print(f"Requisitos de margen para {volume} lotes:\n")
+        print(f"{'Símbolo':<10} {'Margen':<15}")
         print("-" * 30)
 
         for symbol in symbols:
@@ -233,10 +240,11 @@ async def compare_margin():
     finally:
         await account.channel.close()
 
+
 asyncio.run(compare_margin())
 ```
 
-### 3) Calculate maximum position size
+### 3) Calcular el tamaño máximo de posición
 
 ```python
 import asyncio
@@ -244,8 +252,9 @@ from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_pb2
 
+
 async def calc_max_position(symbol: str, margin_percent: float = 50.0):
-    """Calculate max position size using X% of free margin"""
+    """Calcula el tamaño máximo de posición utilizando el X% del margen libre"""
     account = MT5Account(
         user=12345,
         password="password",
@@ -258,16 +267,16 @@ async def calc_max_position(symbol: str, margin_percent: float = 50.0):
     )
 
     try:
-        # Get available margin
+        # Obtener el margen disponible
         summary_req = account_pb2.AccountSummaryRequest()
         summary = await account.account_summary(summary_req)
         available_margin = summary.margin_free * (margin_percent / 100.0)
 
-        print(f"Calculating max position for {symbol}:")
-        print(f"  Free margin: ${summary.margin_free:,.2f}")
-        print(f"  Using {margin_percent}% = ${available_margin:,.2f}\n")
+        print(f"Calculando la posición máxima para {symbol}:")
+        print(f"  Margen libre: ${summary.margin_free:,.2f}")
+        print(f"  Utilizando {margin_percent}% = ${available_margin:,.2f}\n")
 
-        # Binary search for max volume
+        # Búsqueda binaria del volumen máximo
         min_vol = 0.01
         max_vol = 100.0
         best_volume = 0.01
@@ -290,9 +299,9 @@ async def calc_max_position(symbol: str, margin_percent: float = 50.0):
             else:
                 max_vol = test_volume
 
-        print(f"[RESULT] Maximum position size: {best_volume:.2f} lots")
+        print(f"[RESULTADO] Tamaño máximo de posición: {best_volume:.2f} lotes")
 
-        # Verify final calculation
+        # Verificar el cálculo final
         final_req = trade_pb2.OrderCalcMarginRequest(
             symbol=symbol,
             order_type=trade_pb2.ORDER_TYPE_TF_BUY,
@@ -301,22 +310,24 @@ async def calc_max_position(symbol: str, margin_percent: float = 50.0):
         )
         final_result = await account.order_calc_margin(final_req)
 
-        print(f"  Required margin: ${final_result.margin:,.2f}")
-        print(f"  Margin usage: {(final_result.margin / available_margin * 100):.1f}%")
+        print(f"  Margen requerido: ${final_result.margin:,.2f}")
+        print(f"  Uso del margen: {(final_result.margin / available_margin * 100):.1f}%")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(calc_max_position("EURUSD", margin_percent=50.0))
 ```
 
-### 4) Portfolio margin calculation
+### 4) Cálculo del margen de la cartera
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_pb2
+
 
 async def portfolio_margin():
     account = MT5Account(
@@ -330,7 +341,7 @@ async def portfolio_margin():
         base_chart_symbol="EURUSD"
     )
 
-    # Planned portfolio
+    # Cartera planificada
     trades = [
         ("EURUSD", 0.10),
         ("GBPUSD", 0.05),
@@ -339,17 +350,17 @@ async def portfolio_margin():
     ]
 
     try:
-        # Get current account state
+        # Obtener el estado actual de la cuenta
         summary_req = account_pb2.AccountSummaryRequest()
         summary = await account.account_summary(summary_req)
 
-        print(f"Portfolio Margin Analysis\n")
-        print(f"Current state:")
+        print(f"Análisis del margen de la cartera\n")
+        print(f"Estado actual:")
         print(f"  Balance: ${summary.balance:,.2f}")
-        print(f"  Free margin: ${summary.margin_free:,.2f}\n")
+        print(f"  Margen libre: ${summary.margin_free:,.2f}\n")
 
-        print(f"Planned trades:")
-        print(f"{'Symbol':<10} {'Volume':<10} {'Margin':<15}")
+        print(f"Operaciones planificadas:")
+        print(f"{'Símbolo':<10} {'Volumen':<10} {'Margen':<15}")
         print("-" * 40)
 
         total_margin = 0.0
@@ -370,27 +381,28 @@ async def portfolio_margin():
         print("-" * 40)
         print(f"{'TOTAL':<10} {'':<10} ${total_margin:>12,.2f}\n")
 
-        # Check if portfolio fits
+        # Comprobar si la cartera cabe en el margen disponible
         if total_margin <= summary.margin_free:
             remaining = summary.margin_free - total_margin
             usage_percent = (total_margin / summary.margin_free) * 100
-            print(f"[OK] Portfolio fits!")
-            print(f"  Margin usage: {usage_percent:.1f}%")
-            print(f"  Remaining free margin: ${remaining:,.2f}")
+            print(f"[OK] ¡La cartera cabe en el margen disponible!")
+            print(f"  Uso del margen: {usage_percent:.1f}%")
+            print(f"  Margen libre restante: ${remaining:,.2f}")
         else:
             shortage = total_margin - summary.margin_free
-            print(f"[WARNING] Insufficient margin!")
-            print(f"  Required: ${total_margin:,.2f}")
-            print(f"  Available: ${summary.margin_free:,.2f}")
-            print(f"  Shortage: ${shortage:,.2f}")
+            print(f"[ADVERTENCIA] ¡Margen insuficiente!")
+            print(f"  Requerido: ${total_margin:,.2f}")
+            print(f"  Disponible: ${summary.margin_free:,.2f}")
+            print(f"  Déficit: ${shortage:,.2f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(portfolio_margin())
 ```
 
-### 5) Risk-based position sizing
+### 5) Dimensionamiento de posiciones basado en el riesgo
 
 ```python
 import asyncio
@@ -398,8 +410,9 @@ from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_pb2
 
+
 async def risk_based_sizing(symbol: str, risk_percent: float = 2.0):
-    """Calculate position size based on risk percentage"""
+    """Calcula el tamaño de la posición en función del porcentaje de riesgo"""
     account = MT5Account(
         user=12345,
         password="password",
@@ -412,20 +425,20 @@ async def risk_based_sizing(symbol: str, risk_percent: float = 2.0):
     )
 
     try:
-        # Get account balance
+        # Obtener el balance de la cuenta
         summary_req = account_pb2.AccountSummaryRequest()
         summary = await account.account_summary(summary_req)
 
         max_risk_amount = summary.balance * (risk_percent / 100.0)
 
-        print(f"Risk-based position sizing for {symbol}:")
-        print(f"  Account balance: ${summary.balance:,.2f}")
-        print(f"  Risk: {risk_percent}% = ${max_risk_amount:,.2f}\n")
+        print(f"Dimensionamiento de posiciones basado en el riesgo para {symbol}:")
+        print(f"  Balance de la cuenta: ${summary.balance:,.2f}")
+        print(f"  Riesgo: {risk_percent}% = ${max_risk_amount:,.2f}\n")
 
-        # Test different volumes
+        # Probar distintos volúmenes
         volumes = [0.01, 0.05, 0.10, 0.20, 0.50, 1.00]
 
-        print(f"{'Volume':<10} {'Margin':<15} {'% of Balance':<15}")
+        print(f"{'Volumen':<10} {'Margen':<15} {'% del balance':<15}")
         print("-" * 45)
 
         for volume in volumes:
@@ -440,30 +453,32 @@ async def risk_based_sizing(symbol: str, risk_percent: float = 2.0):
 
             margin_percent = (result.margin / summary.balance) * 100
 
-            status = "[OK]" if margin_percent <= risk_percent else "[OVER]"
+            status = "[OK]" if margin_percent <= risk_percent else "[EXCESO]"
 
             print(f"{volume:<10.2f} ${result.margin:>12,.2f} {margin_percent:>13.2f}% {status}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(risk_based_sizing("EURUSD", risk_percent=2.0))
 ```
 
-### 6) Margin calculator helper class
+### 6) Clase auxiliar para calcular el margen
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
+
 class MarginCalculator:
     def __init__(self, account):
         self.account = account
-        self.cache = {}  # Cache calculations
+        self.cache = {}  # Caché de cálculos
 
     async def get_margin(self, symbol: str, volume: float, order_type: int = 0):
-        """Get margin with caching"""
+        """Obtiene el margen utilizando la caché"""
         cache_key = f"{symbol}_{volume}_{order_type}"
 
         if cache_key in self.cache:
@@ -482,22 +497,23 @@ class MarginCalculator:
         return result.margin
 
     async def get_leverage_ratio(self, symbol: str, volume: float = 1.0):
-        """Calculate effective leverage for symbol"""
+        """Calcula el apalancamiento efectivo del símbolo"""
         import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
 
-        # Get contract size
+        # Obtener el tamaño del contrato
         tick_req = market_pb2.SymbolInfoTickRequest(symbol=symbol)
         tick_data = await self.account.symbol_info_tick(tick_req)
 
-        # Calculate margin for 1 lot
+        # Calcular el margen para 1 lote
         margin = await self.get_margin(symbol, volume)
 
-        # Contract value = price * contract_size
-        contract_value = tick_data.tick.ask * 100000  # Assuming 100k contract
+        # Valor del contrato = precio * tamaño del contrato
+        contract_value = tick_data.tick.ask * 100000  # Suponiendo un contrato de 100k
 
         leverage = contract_value / margin if margin > 0 else 0
 
         return leverage
+
 
 async def main():
     account = MT5Account(
@@ -514,25 +530,27 @@ async def main():
     calc = MarginCalculator(account)
 
     try:
-        # Calculate margin
+        # Calcular el margen
         margin = await calc.get_margin("EURUSD", 0.10)
-        print(f"Margin for 0.10 lots EURUSD: ${margin:,.2f}")
+        print(f"Margen para 0.10 lotes de EURUSD: ${margin:,.2f}")
 
-        # Calculate leverage
+        # Calcular el apalancamiento
         leverage = await calc.get_leverage_ratio("EURUSD", 1.0)
-        print(f"Effective leverage: 1:{leverage:.0f}")
+        print(f"Apalancamiento efectivo: 1:{leverage:.0f}")
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(main())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [OrderCheck](./order_check.md) - Full order validation (includes margin)
-* [OrderCalcProfit](./order_calc_profit.md) - Calculate potential profit/loss
-* [OrderSend](./order_send.md) - Execute orders
-* [AccountSummary](../1.%20Account_Information/account_summary.md) - Get account margin info
+- [OrderCheck](./order_check.md) - validación completa de órdenes (incluye el margen).
+- [OrderCalcProfit](./order_calc_profit.md) - calcular el beneficio o la pérdida potencial.
+- [OrderSend](./order_send.md) - ejecutar órdenes.
+- [AccountSummary](../1.%20Account_Information/account_summary.md) - obtener información sobre el margen de la cuenta.
+

@@ -6,7 +6,7 @@ Gestiona posiciones abiertas, órdenes pendientes y datos históricos de trading
 
 - **[positions_total](./positions_total.md)** - únicamente el **recuento** de posiciones abiertas (consulta ligera).
 - **[opened_orders](./opened_orders.md)** - **detalles completos** de todas las órdenes pendientes y posiciones abiertas.
-- **[opened_orders_tickets](./opened_orders_tickets.md)** - únicamente los **ID de los tickets** de las órdenes y posiciones abiertas (más ligero que obtener todos los detalles).
+- **[opened_orders_tickets](./opened_orders_tickets.md)** - únicamente los **identificadores de ticket** de las órdenes pendientes y posiciones abiertas (más ligero que obtener todos los detalles).
 - **[order_history](./order_history.md)** - **órdenes y operaciones históricas** dentro de un intervalo de tiempo, con paginación.
 - **[positions_history](./positions_history.md)** - **posiciones históricas cerradas**, filtradas por hora de apertura.
 - **[tick_value_with_size](./tick_value_with_size.md)** - **valores de tick y tamaños de contrato** para varios símbolos (para calcular P/L).
@@ -30,12 +30,12 @@ Gestiona posiciones abiertas, órdenes pendientes y datos históricos de trading
 
 - **`positions_total`** - consulta rápidamente **cuántas posiciones** están abiertas (sin detalles).
 - **`opened_orders`** - obtiene una **instantánea completa** de todas las órdenes pendientes y posiciones abiertas.
-- **`opened_orders_tickets`** - obtiene **únicamente los ID de los tickets** (más eficiente que solicitar todos los detalles).
+- **`opened_orders_tickets`** - obtiene **únicamente los identificadores de ticket** (más eficiente que solicitar todos los detalles).
 - **`order_history`** - obtiene **órdenes y operaciones anteriores** dentro de un intervalo de fechas.
 - **`positions_history`** - obtiene **posiciones cerradas** con datos de ganancias y pérdidas.
 - **`tick_value_with_size`** - obtiene **valores de tick** para calcular las ganancias por pip.
 
-> Regla general: si necesitas **solo el recuento**, utiliza `positions_total()`; si necesitas **los ID de los tickets**, utiliza `opened_orders_tickets()`; si necesitas **todos los detalles**, utiliza `opened_orders()`; si necesitas **el historial**, utiliza `order_history()` o `positions_history()`.
+> Regla general: si necesitas **solo el recuento**, utiliza `positions_total()`; si necesitas **los identificadores de ticket**, utiliza `opened_orders_tickets()`; si necesitas **todos los detalles**, utiliza `opened_orders()`; si necesitas **el historial**, utiliza `order_history()` o `positions_history()`.
 
 ---
 
@@ -44,8 +44,8 @@ Gestiona posiciones abiertas, órdenes pendientes y datos históricos de trading
 | Si necesitas | Utiliza | Devuelve | Parámetros principales |
 |---|---|---|---|
 | Número de posiciones abiertas | `positions_total` | PositionsTotalData (recuento) | **Ninguno** |
-| Detalles completos de órdenes/posiciones abiertas | `opened_orders` | OpenedOrdersData (listas) | Modo de ordenación (opcional) |
-| Únicamente los ID de los tickets de los elementos abiertos | `opened_orders_tickets` | Listas de ID de tickets | **Ninguno** |
+| Detalles completos de órdenes pendientes y posiciones abiertas | `opened_orders` | OpenedOrdersData (listas) | Modo de ordenación (opcional) |
+| Únicamente los identificadores de ticket de los elementos abiertos | `opened_orders_tickets` | Listas de identificadores de ticket | **Ninguno** |
 | Órdenes históricas dentro de un intervalo de tiempo | `order_history` | OrdersHistoryData | from_dt, to_dt, modo de ordenación, página |
 | Posiciones históricas cerradas | `positions_history` | PositionsHistoryData | sort_type, intervalo de tiempo de apertura, página |
 | Valores de tick y tamaños de contrato | `tick_value_with_size` | TickValueWithSizeData | Lista de nombres de símbolos |
@@ -78,7 +78,7 @@ print(f"Posiciones abiertas: {data.total_positions}")
 ```
 
 ```python
-# Obtener todas las órdenes y posiciones abiertas
+# Obtener todas las órdenes pendientes y posiciones abiertas
 data = await account.opened_orders()
 
 print(f"Órdenes pendientes: {len(data.opened_orders)}")
@@ -90,7 +90,7 @@ for pos in data.position_infos:
 ```
 
 ```python
-# Obtener únicamente los ID de los tickets (consulta ligera)
+# Obtener únicamente los identificadores de ticket (consulta ligera)
 data = await account.opened_orders_tickets()
 
 print(f"Tickets de órdenes: {data.opened_orders_tickets}")
@@ -153,7 +153,7 @@ else:
 ```
 
 ```python
-# Calcular el P/L flotante total
+# Calcular el beneficio/pérdida flotante (P/L) total
 data = await account.opened_orders()
 
 total_profit = sum(pos.profit for pos in data.position_infos)
@@ -232,7 +232,7 @@ async def calculate_position_size(
     info = data.symbol_tick_size_infos[0]
 
     # Suponiendo 1 lote
-    profit_per_pip = info.TradeTickValue * 10  # 10 ticks por pip
+    profit_per_pip = info.TradeTickValue * 10  # 10 ticks por pip (asume un símbolo de 5 decimales)
 
     # Calcular el tamaño del lote
     lots = risk_amount / (sl_pips * profit_per_pip)

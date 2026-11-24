@@ -1,21 +1,24 @@
-# Stream Trade Events
 
-> **Request:** subscribe to all trade-related events: orders, deals, positions.
 
-**API Information:**
+# Transmisión de eventos de trading
 
-* **Python API:** `MT5Account.on_trade(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.SubscriptionService`
-* **Proto definition:** `OnTrade` (defined in `mt5-term-api-subscriptions.proto`)
+> **Solicitud:** suscribirse a todos los eventos relacionados con el trading: órdenes, operaciones y posiciones.
+
+## Información de la API
+
+- **API de Python:** `MT5Account.on_trade(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.SubscriptionService`
+- **Definición Proto:** `OnTrade` (definido en `mt5-term-api-subscriptions.proto`)
 
 ### RPC
 
-* **Service:** `mt5_term_api.SubscriptionService`
-* **Method:** `OnTrade(OnTradeRequest) -> stream OnTradeReply`
-* **Low-level client (generated):** `SubscriptionServiceStub.OnTrade(request, metadata)`
+- **Servicio:** `mt5_term_api.SubscriptionService`
+- **Método:** `OnTrade(OnTradeRequest) -> stream OnTradeReply`
+- **Cliente de bajo nivel (generado):** `SubscriptionServiceStub.OnTrade(request, metadata)`
 
 ```python
 from MetaRpcMT5 import MT5Account
+
 
 class MT5Account:
     # ...
@@ -25,350 +28,372 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ):
         """
-        Subscribes to all trade-related events: orders, deals, positions.
+        Se suscribe a todos los eventos relacionados con el trading: órdenes, operaciones y posiciones.
 
         Yields:
-            OnTradeData: Trade event data.
+            OnTradeData: Datos de eventos de trading.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 message OnTradeRequest {
-  // No parameters - subscribes to all trade events
+  // Sin parámetros: se suscribe a todos los eventos de trading
 }
 ```
 
-## 💬 Just the essentials
+## 💬 Lo esencial
 
-* **What it is.** Real-time stream of all trading activity on the account.
-* **Why you need it.** Monitor trades, detect position changes, track order execution.
-* **Event-driven.** Updates triggered immediately when trading events occur.
-
----
-
-## 🎯 Purpose
-
-Use it to:
-
-* Monitor all trading activity in real-time
-* Detect when positions are opened or closed
-* Track pending order lifecycle
-* Build trade event logging systems
-* Implement trade notifications
-* Synchronize local state with MT5
-
+- **Qué es:** flujo en tiempo real de toda la actividad de trading de la cuenta.
+- **Por qué lo necesitas:** supervisar operaciones, detectar cambios en las posiciones y seguir la ejecución de órdenes.
+- **Basado en eventos:** las actualizaciones se activan inmediatamente cuando se producen eventos de trading.
 
 ---
 
-## 🔽 Input
+## 🎯 Propósito
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel streaming (optional)          |
+Utilízalo para:
+
+- Supervisar toda la actividad de trading en tiempo real.
+- Detectar cuándo se abren o cierran posiciones.
+- Seguir el ciclo de vida de las órdenes pendientes.
+- Crear sistemas de registro de eventos de trading.
+- Implementar notificaciones de trading.
+- Sincronizar el estado local con MT5.
 
 ---
 
-## ⬆️ Output - Async Generator
+## 🔽 Entrada
 
-Returns an async generator that yields `OnTradeData` objects.
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la transmisión (opcional) |
 
-**OnTradeData fields:**
+---
 
-| Field                         | Type                      | Description                          |
-| ----------------------------- | ------------------------- | ------------------------------------ |
-| `type`                        | `int`                     | Event type                           |
-| `event_data`                  | `OnTradeEventData`        | Detailed event information           |
-| `account_info`                | `OnEventAccountInfo`      | Current account state                |
-| `terminal_instance_guid_id`   | `str`                     | Terminal instance identifier         |
+## ⬆️ Salida: generador asíncrono
 
-**OnTradeEventData fields (all are repeated/lists):**
+Devuelve un generador asíncrono que produce objetos `OnTradeData`.
 
-| Field                         | Type                              | Description                          |
-| ----------------------------- | --------------------------------- | ------------------------------------ |
-| `new_orders`                  | `repeated OnTradeOrderInfo`       | New pending orders created           |
-| `disappeared_orders`          | `repeated OnTradeOrderInfo`       | Pending orders removed               |
-| `state_changed_orders`        | `repeated OnTradeOrderStateChange`| Orders with state changes            |
-| `new_positions`               | `repeated OnTradePositionInfo`    | New positions opened                 |
-| `disappeared_positions`       | `repeated OnTradePositionInfo`    | Positions closed                     |
-| `updated_positions`           | `repeated OnTradePositionUpdate`  | Positions modified                   |
-| `new_history_orders`          | `repeated OnTradeHistoryOrderInfo`| New historical orders                |
-| `disappeared_history_orders`  | `repeated OnTradeHistoryOrderInfo`| Historical orders removed            |
-| `updated_history_orders`      | `repeated OnTradeHistoryOrderUpdate`| Historical orders updated          |
-| `new_history_deals`           | `repeated OnTradeHistoryDealInfo` | New deals in history                 |
-| `disappeared_history_deals`   | `repeated OnTradeHistoryDealInfo` | Deals removed from history           |
-| `updated_history_deals`       | `repeated OnTradeHistoryDealUpdate`| Deals updated in history            |
+**Campos de `OnTradeData`:**
 
-**Structure and ENUMs usage:**
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `type` | `int` | Tipo de evento |
+| `event_data` | `OnTradeEventData` | Información detallada del evento |
+| `account_info` | `OnEventAccountInfo` | Estado actual de la cuenta |
+| `terminal_instance_guid_id` | `str` | Identificador de la instancia del terminal |
 
-```
+**Campos de `OnTradeEventData` (todos son listas/repeated):**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `new_orders` | `repeated OnTradeOrderInfo` | Nuevas órdenes pendientes creadas |
+| `disappeared_orders` | `repeated OnTradeOrderInfo` | Órdenes pendientes eliminadas |
+| `state_changed_orders` | `repeated OnTradeOrderStateChange` | Órdenes cuyo estado ha cambiado |
+| `new_positions` | `repeated OnTradePositionInfo` | Nuevas posiciones abiertas |
+| `disappeared_positions` | `repeated OnTradePositionInfo` | Posiciones cerradas |
+| `updated_positions` | `repeated OnTradePositionUpdate` | Posiciones modificadas |
+| `new_history_orders` | `repeated OnTradeHistoryOrderInfo` | Nuevas órdenes en el historial |
+| `disappeared_history_orders` | `repeated OnTradeHistoryOrderInfo` | Órdenes eliminadas del historial |
+| `updated_history_orders` | `repeated OnTradeHistoryOrderUpdate` | Órdenes del historial actualizadas |
+| `new_history_deals` | `repeated OnTradeHistoryDealInfo` | Nuevas operaciones en el historial |
+| `disappeared_history_deals` | `repeated OnTradeHistoryDealInfo` | Operaciones eliminadas del historial |
+| `updated_history_deals` | `repeated OnTradeHistoryDealUpdate` | Operaciones del historial actualizadas |
+
+**Estructura y uso de ENUMs:**
+
+```text
 OnTradeData
-├── type (MT5_SUB_ENUM_EVENT_GROUP_TYPE) - Event group type
+├── type (MT5_SUB_ENUM_EVENT_GROUP_TYPE) - Tipo de grupo de eventos
 ├── event_data (OnTradeEventData)
 │   ├── new_positions (list[OnTradePositionInfo])
-│   │   └── Uses: SUB_ENUM_POSITION_TYPE, SUB_ENUM_POSITION_REASON
+│   │   └── Utiliza: SUB_ENUM_POSITION_TYPE, SUB_ENUM_POSITION_REASON
 │   ├── disappeared_positions (list[OnTradePositionInfo])
-│   │   └── Uses: SUB_ENUM_POSITION_TYPE, SUB_ENUM_POSITION_REASON
+│   │   └── Utiliza: SUB_ENUM_POSITION_TYPE, SUB_ENUM_POSITION_REASON
 │   ├── new_orders (list[OnTradeOrderInfo])
-│   │   └── Uses: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
-│   │              SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
-│   │              SUB_ENUM_ORDER_REASON
+│   │   └── Utiliza: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
+│   │                SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
+│   │                SUB_ENUM_ORDER_REASON
 │   ├── disappeared_orders (list[OnTradeOrderInfo])
-│   │   └── Uses: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
-│   │              SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
-│   │              SUB_ENUM_ORDER_REASON
+│   │   └── Utiliza: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
+│   │                SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
+│   │                SUB_ENUM_ORDER_REASON
 │   ├── new_history_orders (list[OnTradeHistoryOrderInfo])
-│   │   └── Uses: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
-│   │              SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
-│   │              SUB_ENUM_DEAL_REASON
+│   │   └── Utiliza: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
+│   │                SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
+│   │                SUB_ENUM_DEAL_REASON
 │   ├── disappeared_history_orders (list[OnTradeHistoryOrderInfo])
-│   │   └── Uses: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
-│   │              SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
-│   │              SUB_ENUM_DEAL_REASON
+│   │   └── Utiliza: SUB_ENUM_ORDER_TYPE, SUB_ENUM_ORDER_STATE,
+│   │                SUB_ENUM_ORDER_TYPE_TIME, SUB_ENUM_ORDER_TYPE_FILLING,
+│   │                SUB_ENUM_DEAL_REASON
 │   ├── new_history_deals (list[OnTradeHistoryDealInfo])
-│   │   └── Uses: SUB_ENUM_DEAL_TYPE, SUB_ENUM_DEAL_ENTRY, SUB_ENUM_DEAL_REASON
+│   │   └── Utiliza: SUB_ENUM_DEAL_TYPE, SUB_ENUM_DEAL_ENTRY, SUB_ENUM_DEAL_REASON
 │   └── disappeared_history_deals (list[OnTradeHistoryDealInfo])
-│       └── Uses: SUB_ENUM_DEAL_TYPE, SUB_ENUM_DEAL_ENTRY, SUB_ENUM_DEAL_REASON
+│       └── Utiliza: SUB_ENUM_DEAL_TYPE, SUB_ENUM_DEAL_ENTRY, SUB_ENUM_DEAL_REASON
 ├── account_info (OnEventAccountInfo)
 └── terminal_instance_guid_id (str)
 ```
 
 ---
 
-**Event group type enum (MT5_SUB_ENUM_EVENT_GROUP_TYPE):**
+**Enum del tipo de grupo de eventos (`MT5_SUB_ENUM_EVENT_GROUP_TYPE`):**
 
-Used in `OnTradeData.type` field:
+Se utiliza en el campo `OnTradeData.type`:
 
-| Name           | Value | Description                          |
-| -------------- | ----- | ------------------------------------ |
-| `OrderProfit`  | 0     | Order profit event                   |
-| `OrderUpdate`  | 1     | Order update event                   |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `OrderProfit` | 0 | Evento de beneficio de una orden |
+| `OrderUpdate` | 1 | Evento de actualización de una orden |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.OrderProfit   # = 0
 ```
 
 ---
 
-**Enums used in nested structures:**
+**Enums utilizados en las estructuras anidadas:**
 
-The following enums are used by the nested message types inside `OnTradeEventData`:
+Los siguientes enums se utilizan en los tipos de mensajes anidados dentro de `OnTradeEventData`:
 
-| Nested Structure              | Used in Fields                                    | Enums Used                                                                                                      |
-| ----------------------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `OnTradePositionInfo`         | `new_positions`, `disappeared_positions`          | `SUB_ENUM_POSITION_TYPE`, `SUB_ENUM_POSITION_REASON`                                                           |
-| `OnTradeOrderInfo`            | `new_orders`, `disappeared_orders`                | `SUB_ENUM_ORDER_TYPE`, `SUB_ENUM_ORDER_STATE`, `SUB_ENUM_ORDER_TYPE_TIME`, `SUB_ENUM_ORDER_TYPE_FILLING`, `SUB_ENUM_ORDER_REASON` |
-| `OnTradeHistoryOrderInfo`     | `new_history_orders`, `disappeared_history_orders`| `SUB_ENUM_ORDER_TYPE`, `SUB_ENUM_ORDER_STATE`, `SUB_ENUM_ORDER_TYPE_TIME`, `SUB_ENUM_ORDER_TYPE_FILLING`, `SUB_ENUM_DEAL_REASON`  |
-| `OnTradeHistoryDealInfo`      | `new_history_deals`, `disappeared_history_deals`  | `SUB_ENUM_DEAL_TYPE`, `SUB_ENUM_DEAL_ENTRY`, `SUB_ENUM_DEAL_REASON`                                            |
+| Estructura anidada | Campos donde se utiliza | Enums utilizados |
+|---|---|---|
+| `OnTradePositionInfo` | `new_positions`, `disappeared_positions` | `SUB_ENUM_POSITION_TYPE`, `SUB_ENUM_POSITION_REASON` |
+| `OnTradeOrderInfo` | `new_orders`, `disappeared_orders` | `SUB_ENUM_ORDER_TYPE`, `SUB_ENUM_ORDER_STATE`, `SUB_ENUM_ORDER_TYPE_TIME`, `SUB_ENUM_ORDER_TYPE_FILLING`, `SUB_ENUM_ORDER_REASON` |
+| `OnTradeHistoryOrderInfo` | `new_history_orders`, `disappeared_history_orders` | `SUB_ENUM_ORDER_TYPE`, `SUB_ENUM_ORDER_STATE`, `SUB_ENUM_ORDER_TYPE_TIME`, `SUB_ENUM_ORDER_TYPE_FILLING`, `SUB_ENUM_DEAL_REASON` |
+| `OnTradeHistoryDealInfo` | `new_history_deals`, `disappeared_history_deals` | `SUB_ENUM_DEAL_TYPE`, `SUB_ENUM_DEAL_ENTRY`, `SUB_ENUM_DEAL_REASON` |
 
-**Position type enum (SUB_ENUM_POSITION_TYPE):**
+**Enum del tipo de posición (`SUB_ENUM_POSITION_TYPE`):**
 
-| Name                       | Value | Description                          |
-| -------------------------- | ----- | ------------------------------------ |
-| `SUB_POSITION_TYPE_BUY`    | 0     | Buy position                         |
-| `SUB_POSITION_TYPE_SELL`   | 1     | Sell position                        |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_POSITION_TYPE_BUY` | 0 | Posición de compra |
+| `SUB_POSITION_TYPE_SELL` | 1 | Posición de venta |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_POSITION_TYPE_BUY   # = 0
 ```
 
-**Position reason enum (SUB_ENUM_POSITION_REASON):**
+**Enum del motivo de la posición (`SUB_ENUM_POSITION_REASON`):**
 
-| Name                           | Value | Description                          |
-| ------------------------------ | ----- | ------------------------------------ |
-| `SUB_POSITION_REASON_CLIENT`   | 0     | Position opened from desktop terminal|
-| `SUB_POSITION_REASON_MOBILE`   | 1     | Position opened from mobile app      |
-| `SUB_POSITION_REASON_WEB`      | 2     | Position opened from web terminal    |
-| `SUB_POSITION_REASON_EXPERT`   | 3     | Position opened by Expert Advisor    |
-| `SUB_POSITION_REASON_SL`       | 4     | Position closed by Stop Loss         |
-| `SUB_POSITION_REASON_TP`       | 5     | Position closed by Take Profit       |
-| `SUB_POSITION_REASON_SO`       | 6     | Position closed by Stop Out          |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_POSITION_REASON_CLIENT` | 0 | Posición abierta desde el terminal de escritorio |
+| `SUB_POSITION_REASON_MOBILE` | 1 | Posición abierta desde la aplicación móvil |
+| `SUB_POSITION_REASON_WEB` | 2 | Posición abierta desde el terminal web |
+| `SUB_POSITION_REASON_EXPERT` | 3 | Posición abierta por un Asesor Experto |
+| `SUB_POSITION_REASON_SL` | 4 | Posición cerrada por Stop Loss |
+| `SUB_POSITION_REASON_TP` | 5 | Posición cerrada por Take Profit |
+| `SUB_POSITION_REASON_SO` | 6 | Posición cerrada por Stop Out |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_POSITION_REASON_CLIENT  # = 0
 ```
 
-**Order type enum (SUB_ENUM_ORDER_TYPE):**
+**Enum del tipo de orden (`SUB_ENUM_ORDER_TYPE`):**
 
-| Name                              | Value | Description                          |
-| --------------------------------- | ----- | ------------------------------------ |
-| `SUB_ORDER_TYPE_BUY`              | 0     | Market buy order                     |
-| `SUB_ORDER_TYPE_SELL`             | 1     | Market sell order                    |
-| `SUB_ORDER_TYPE_BUY_LIMIT`        | 2     | Buy limit pending order              |
-| `SUB_ORDER_TYPE_SELL_LIMIT`       | 3     | Sell limit pending order             |
-| `SUB_ORDER_TYPE_BUY_STOP`         | 4     | Buy stop pending order               |
-| `SUB_ORDER_TYPE_SELL_STOP`        | 5     | Sell stop pending order              |
-| `SUB_ORDER_TYPE_BUY_STOP_LIMIT`   | 6     | Buy stop limit pending order         |
-| `SUB_ORDER_TYPE_SELL_STOP_LIMIT`  | 7     | Sell stop limit pending order        |
-| `SUB_ORDER_TYPE_CLOSE_BY`         | 8     | Close by opposite position           |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_ORDER_TYPE_BUY` | 0 | Orden de compra a mercado |
+| `SUB_ORDER_TYPE_SELL` | 1 | Orden de venta a mercado |
+| `SUB_ORDER_TYPE_BUY_LIMIT` | 2 | Orden pendiente Buy Limit |
+| `SUB_ORDER_TYPE_SELL_LIMIT` | 3 | Orden pendiente Sell Limit |
+| `SUB_ORDER_TYPE_BUY_STOP` | 4 | Orden pendiente Buy Stop |
+| `SUB_ORDER_TYPE_SELL_STOP` | 5 | Orden pendiente Sell Stop |
+| `SUB_ORDER_TYPE_BUY_STOP_LIMIT` | 6 | Orden pendiente Buy Stop Limit |
+| `SUB_ORDER_TYPE_SELL_STOP_LIMIT` | 7 | Orden pendiente Sell Stop Limit |
+| `SUB_ORDER_TYPE_CLOSE_BY` | 8 | Cierre mediante una posición opuesta |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_ORDER_TYPE_BUY   # = 0
 ```
 
-**Order state enum (SUB_ENUM_ORDER_STATE):**
+**Enum del estado de la orden (`SUB_ENUM_ORDER_STATE`):**
 
-| Name                              | Value | Description                          |
-| --------------------------------- | ----- | ------------------------------------ |
-| `SUB_ORDER_STATE_STARTED`         | 0     | Order checked, but not yet accepted  |
-| `SUB_ORDER_STATE_PLACED`          | 1     | Order accepted                       |
-| `SUB_ORDER_STATE_CANCELED`        | 2     | Order canceled by client             |
-| `SUB_ORDER_STATE_PARTIAL`         | 3     | Order partially executed             |
-| `SUB_ORDER_STATE_FILLED`          | 4     | Order fully executed                 |
-| `SUB_ORDER_STATE_REJECTED`        | 5     | Order rejected                       |
-| `SUB_ORDER_STATE_EXPIRED`         | 6     | Order expired                        |
-| `SUB_ORDER_STATE_REQUEST_ADD`     | 7     | Order being registered               |
-| `SUB_ORDER_STATE_REQUEST_MODIFY`  | 8     | Order being modified                 |
-| `SUB_ORDER_STATE_REQUEST_CANCEL`  | 9     | Order being deleted                  |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_ORDER_STATE_STARTED` | 0 | Orden comprobada, pero todavía no aceptada |
+| `SUB_ORDER_STATE_PLACED` | 1 | Orden aceptada |
+| `SUB_ORDER_STATE_CANCELED` | 2 | Orden cancelada por el cliente |
+| `SUB_ORDER_STATE_PARTIAL` | 3 | Orden ejecutada parcialmente |
+| `SUB_ORDER_STATE_FILLED` | 4 | Orden ejecutada por completo |
+| `SUB_ORDER_STATE_REJECTED` | 5 | Orden rechazada |
+| `SUB_ORDER_STATE_EXPIRED` | 6 | Orden caducada |
+| `SUB_ORDER_STATE_REQUEST_ADD` | 7 | Orden en proceso de registro |
+| `SUB_ORDER_STATE_REQUEST_MODIFY` | 8 | Orden en proceso de modificación |
+| `SUB_ORDER_STATE_REQUEST_CANCEL` | 9 | Orden en proceso de eliminación |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_ORDER_STATE_STARTED   # = 0
 ```
 
-**Deal type enum (SUB_ENUM_DEAL_TYPE):**
+**Enum del tipo de operación (`SUB_ENUM_DEAL_TYPE`):**
 
-| Name                                  | Value | Description                          |
-| ------------------------------------- | ----- | ------------------------------------ |
-| `SUB_DEAL_TYPE_BUY`                   | 0     | Buy deal                             |
-| `SUB_DEAL_TYPE_SELL`                  | 1     | Sell deal                            |
-| `SUB_DEAL_TYPE_BALANCE`               | 2     | Balance operation                    |
-| `SUB_DEAL_TYPE_CREDIT`                | 3     | Credit operation                     |
-| `SUB_DEAL_TYPE_CHARGE`                | 4     | Additional charge                    |
-| `SUB_DEAL_TYPE_CORRECTION`            | 5     | Correction                           |
-| `SUB_DEAL_TYPE_BONUS`                 | 6     | Bonus                                |
-| `SUB_DEAL_TYPE_COMMISSION`            | 7     | Commission                           |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_DEAL_TYPE_BUY` | 0 | Operación de compra |
+| `SUB_DEAL_TYPE_SELL` | 1 | Operación de venta |
+| `SUB_DEAL_TYPE_BALANCE` | 2 | Operación de saldo |
+| `SUB_DEAL_TYPE_CREDIT` | 3 | Operación de crédito |
+| `SUB_DEAL_TYPE_CHARGE` | 4 | Cargo adicional |
+| `SUB_DEAL_TYPE_CORRECTION` | 5 | Corrección |
+| `SUB_DEAL_TYPE_BONUS` | 6 | Bono |
+| `SUB_DEAL_TYPE_COMMISSION` | 7 | Comisión |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_DEAL_TYPE_BUY   # = 0
 ```
 
-**Order time type enum (SUB_ENUM_ORDER_TYPE_TIME):**
+**Enum del tipo de tiempo de la orden (`SUB_ENUM_ORDER_TYPE_TIME`):**
 
-| Name                           | Value | Description                          |
-| ------------------------------ | ----- | ------------------------------------ |
-| `SUB_ORDER_TIME_GTC`           | 0     | Good till cancel                     |
-| `SUB_ORDER_TIME_DAY`           | 1     | Good till current trading day        |
-| `SUB_ORDER_TIME_SPECIFIED`     | 2     | Good till specified date             |
-| `SUB_ORDER_TIME_SPECIFIED_DAY` | 3     | Good till specified day              |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_ORDER_TIME_GTC` | 0 | Válida hasta su cancelación |
+| `SUB_ORDER_TIME_DAY` | 1 | Válida hasta el final del día de trading actual |
+| `SUB_ORDER_TIME_SPECIFIED` | 2 | Válida hasta la fecha especificada |
+| `SUB_ORDER_TIME_SPECIFIED_DAY` | 3 | Válida hasta el día especificado |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_ORDER_TIME_GTC   # = 0
 ```
 
-**Order filling type enum (SUB_ENUM_ORDER_TYPE_FILLING):**
+**Enum del tipo de ejecución de la orden (`SUB_ENUM_ORDER_TYPE_FILLING`):**
 
-| Name                         | Value | Description                          |
-| ---------------------------- | ----- | ------------------------------------ |
-| `SUB_ORDER_FILLING_FOK`      | 0     | Fill or Kill                         |
-| `SUB_ORDER_FILLING_IOC`      | 1     | Immediate or Cancel                  |
-| `SUB_ORDER_FILLING_BOC`      | 2     | Book or Cancel                       |
-| `SUB_ORDER_FILLING_RETURN`   | 3     | Return                               |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_ORDER_FILLING_FOK` | 0 | Ejecutar o cancelar (Fill or Kill) |
+| `SUB_ORDER_FILLING_IOC` | 1 | Ejecución inmediata o cancelación (Immediate or Cancel) |
+| `SUB_ORDER_FILLING_BOC` | 2 | Registrar en el libro o cancelar (Book or Cancel) |
+| `SUB_ORDER_FILLING_RETURN` | 3 | Devolver |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_ORDER_FILLING_FOK   # = 0
 ```
 
-**Order reason enum (SUB_ENUM_ORDER_REASON):**
+**Enum del motivo de la orden (`SUB_ENUM_ORDER_REASON`):**
 
-| Name                         | Value | Description                          |
-| ---------------------------- | ----- | ------------------------------------ |
-| `SUB_ORDER_REASON_CLIENT`    | 0     | Order placed from desktop terminal   |
-| `SUB_ORDER_REASON_MOBILE`    | 2     | Order placed from mobile app         |
-| `SUB_ORDER_REASON_WEB`       | 3     | Order placed from web terminal       |
-| `SUB_ORDER_REASON_EXPERT`    | 4     | Order placed by Expert Advisor       |
-| `SUB_ORDER_REASON_SL`        | 5     | Order triggered by Stop Loss         |
-| `SUB_ORDER_REASON_TP`        | 6     | Order triggered by Take Profit       |
-| `SUB_ORDER_REASON_SO`        | 7     | Order triggered by Stop Out          |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_ORDER_REASON_CLIENT` | 0 | Orden realizada desde el terminal de escritorio |
+| `SUB_ORDER_REASON_MOBILE` | 2 | Orden realizada desde la aplicación móvil |
+| `SUB_ORDER_REASON_WEB` | 3 | Orden realizada desde el terminal web |
+| `SUB_ORDER_REASON_EXPERT` | 4 | Orden realizada por un Asesor Experto |
+| `SUB_ORDER_REASON_SL` | 5 | Orden activada por Stop Loss |
+| `SUB_ORDER_REASON_TP` | 6 | Orden activada por Take Profit |
+| `SUB_ORDER_REASON_SO` | 7 | Orden activada por Stop Out |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_ORDER_REASON_CLIENT   # = 0
 ```
 
-**Deal entry type enum (SUB_ENUM_DEAL_ENTRY):**
+**Enum del tipo de entrada de la operación (`SUB_ENUM_DEAL_ENTRY`):**
 
-| Name                       | Value | Description                          |
-| -------------------------- | ----- | ------------------------------------ |
-| `SUB_DEAL_ENTRY_IN`        | 0     | Entry into market                    |
-| `SUB_DEAL_ENTRY_OUT`       | 1     | Exit from market                     |
-| `SUB_DEAL_ENTRY_INOUT`     | 2     | Reverse                              |
-| `SUB_DEAL_ENTRY_OUT_BY`    | 3     | Close by opposite position           |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_DEAL_ENTRY_IN` | 0 | Entrada al mercado |
+| `SUB_DEAL_ENTRY_OUT` | 1 | Salida del mercado |
+| `SUB_DEAL_ENTRY_INOUT` | 2 | Reversión de posición |
+| `SUB_DEAL_ENTRY_OUT_BY` | 3 | Cierre mediante una posición opuesta |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_DEAL_ENTRY_IN   # = 0
 ```
 
-**Deal reason enum (SUB_ENUM_DEAL_REASON):**
+**Enum del motivo de la operación (`SUB_ENUM_DEAL_REASON`):**
 
-| Name                                 | Value | Description                          |
-| ------------------------------------ | ----- | ------------------------------------ |
-| `SUB_DEAL_REASON_CLIENT`             | 0     | Deal from desktop terminal           |
-| `SUB_DEAL_REASON_MOBILE`             | 1     | Deal from mobile app                 |
-| `SUB_DEAL_REASON_WEB`                | 2     | Deal from web terminal               |
-| `SUB_DEAL_REASON_EXPERT`             | 3     | Deal by Expert Advisor               |
-| `SUB_DEAL_REASON_SL`                 | 4     | Deal by Stop Loss                    |
-| `SUB_DEAL_REASON_TP`                 | 5     | Deal by Take Profit                  |
-| `SUB_DEAL_REASON_SO`                 | 6     | Deal by Stop Out                     |
-| `SUB_DEAL_REASON_ROLLOVER`           | 7     | Deal by rollover                     |
-| `SUB_DEAL_REASON_VMARGIN`            | 8     | Deal by variation margin             |
-| `SUB_DEAL_REASON_SPLIT`              | 9     | Deal by split                        |
-| `SUB_DEAL_REASON_CORPORATE_ACTION`   | 10    | Deal by corporate action             |
+| Nombre | Valor | Descripción |
+|---|---:|---|
+| `SUB_DEAL_REASON_CLIENT` | 0 | Operación realizada desde el terminal de escritorio |
+| `SUB_DEAL_REASON_MOBILE` | 1 | Operación realizada desde la aplicación móvil |
+| `SUB_DEAL_REASON_WEB` | 2 | Operación realizada desde el terminal web |
+| `SUB_DEAL_REASON_EXPERT` | 3 | Operación realizada por un Asesor Experto |
+| `SUB_DEAL_REASON_SL` | 4 | Operación causada por Stop Loss |
+| `SUB_DEAL_REASON_TP` | 5 | Operación causada por Take Profit |
+| `SUB_DEAL_REASON_SO` | 6 | Operación causada por Stop Out |
+| `SUB_DEAL_REASON_ROLLOVER` | 7 | Operación causada por rollover |
+| `SUB_DEAL_REASON_VMARGIN` | 8 | Operación causada por el margen de variación |
+| `SUB_DEAL_REASON_SPLIT` | 9 | Operación causada por un desdoblamiento |
+| `SUB_DEAL_REASON_CORPORATE_ACTION` | 10 | Operación causada por una acción corporativa |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_subscriptions_pb2 as subscriptions_pb2
+
 subscriptions_pb2.SUB_DEAL_REASON_CLIENT   # = 0
 ```
 
 ---
 
-
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[OnTrade - How it works](../HOW_IT_WORK/6. Streaming_Methods_HOW/on_trade_HOW.md)**
+Para obtener una explicación detallada línea por línea con ejemplos, consulta:
+
+**[OnTrade - Cómo funciona](../HOW_IT_WORK/6. Streaming_Methods_HOW/on_trade_HOW.md)**
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` streaming methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_stream_with_reconnect`.
-* **Async generator:** The method returns an async generator - use `async for` to consume data.
-* **No parameters:** This stream subscribes to ALL trade events automatically.
-* **Comprehensive:** Tracks orders, positions, and deals (both active and historical).
-* **Event-driven:** Updates arrive immediately when events occur (not periodic).
-* **Multiple lists:** Each update may contain multiple types of events simultaneously.
-* **Resource management:** Always cancel streams when done to free resources.
+- **Reconexión automática:** todos los métodos de transmisión de `MT5Account` incorporan protección contra errores gRPC transitorios, con reconexión automática mediante `execute_stream_with_reconnect`.
+- **Generador asíncrono:** el método devuelve un generador asíncrono; utiliza `async for` para consumir los datos.
+- **Sin parámetros:** este flujo se suscribe automáticamente a TODOS los eventos de trading.
+- **Cobertura completa:** realiza un seguimiento de órdenes, posiciones y operaciones, tanto activas como históricas.
+- **Basado en eventos:** las actualizaciones llegan inmediatamente cuando se producen eventos, no de forma periódica.
+- **Múltiples listas:** cada actualización puede contener varios tipos de eventos simultáneamente.
+- **Gestión de recursos:** cancela siempre las transmisiones cuando hayas terminado para liberar recursos.
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Monitor all trade events
+### 1) Monitorizar todos los eventos de trading
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def monitor_trades():
     account = MT5Account(
@@ -385,52 +410,54 @@ async def monitor_trades():
         async for trade_data in account.on_trade():
             event = trade_data.event_data
 
-            # New positions
+            # Nuevas posiciones
             if event.new_positions:
                 for pos in event.new_positions:
-                    print(f"[NEW POSITION] #{pos.index}")
+                    print(f"[NUEVA POSICIÓN] #{pos.index}")
 
-            # Closed positions
+            # Posiciones cerradas
             if event.disappeared_positions:
                 for pos in event.disappeared_positions:
-                    print(f"[CLOSED POSITION] #{pos.index}")
+                    print(f"[POSICIÓN CERRADA] #{pos.index}")
 
-            # Updated positions
+            # Posiciones actualizadas
             if event.updated_positions:
                 for pos in event.updated_positions:
-                    print(f"[UPDATED POSITION] #{pos.index}")
+                    print(f"[POSICIÓN ACTUALIZADA] #{pos.index}")
 
-            # New pending orders
+            # Nuevas órdenes pendientes
             if event.new_orders:
                 for order in event.new_orders:
-                    print(f"[NEW ORDER] #{order.index}")
+                    print(f"[NUEVA ORDEN] #{order.index}")
 
-            # Removed pending orders
+            # Órdenes pendientes eliminadas
             if event.disappeared_orders:
                 for order in event.disappeared_orders:
-                    print(f"[REMOVED ORDER] #{order.index}")
+                    print(f"[ORDEN ELIMINADA] #{order.index}")
 
-            # Account info
+            # Información de la cuenta
             if trade_data.account_info:
                 acc = trade_data.account_info
-                print(f"[ACCOUNT] Balance: ${acc.balance:.2f}, "
+                print(f"[CUENTA] Saldo: ${acc.balance:.2f}, "
                       f"Equity: ${acc.equity:.2f}\n")
 
     except KeyboardInterrupt:
-        print("Stopping trade monitor...")
+        print("Deteniendo el monitor de trading...")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(monitor_trades())
 ```
 
-### 2) Trade event logger
+### 2) Registro de eventos de trading
 
 ```python
 import asyncio
 from datetime import datetime
 from MetaRpcMT5 import MT5Account
+
 
 async def log_trade_events():
     account = MT5Account(
@@ -450,53 +477,55 @@ async def log_trade_events():
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             event = trade_data.event_data
 
-            # Log new positions
+            # Registrar nuevas posiciones
             for pos in event.new_positions:
                 event_count += 1
-                print(f"[{timestamp}] NEW_POSITION | Index: {pos.index}")
+                print(f"[{timestamp}] NUEVA_POSICIÓN | Índice: {pos.index}")
 
-            # Log closed positions
+            # Registrar posiciones cerradas
             for pos in event.disappeared_positions:
                 event_count += 1
-                print(f"[{timestamp}] CLOSED_POSITION | Index: {pos.index}")
+                print(f"[{timestamp}] POSICIÓN_CERRADA | Índice: {pos.index}")
 
-            # Log updated positions
+            # Registrar posiciones actualizadas
             for pos in event.updated_positions:
                 event_count += 1
-                print(f"[{timestamp}] UPDATED_POSITION | Index: {pos.index}")
+                print(f"[{timestamp}] POSICIÓN_ACTUALIZADA | Índice: {pos.index}")
 
-            # Log new pending orders
+            # Registrar nuevas órdenes pendientes
             for order in event.new_orders:
                 event_count += 1
-                print(f"[{timestamp}] NEW_ORDER | Index: {order.index}")
+                print(f"[{timestamp}] NUEVA_ORDEN | Índice: {order.index}")
 
-            # Log order state changes
+            # Registrar cambios en el estado de las órdenes
             for order in event.state_changed_orders:
                 event_count += 1
-                print(f"[{timestamp}] ORDER_STATE_CHANGE | Index: {order.index}")
+                print(f"[{timestamp}] CAMBIO_ESTADO_ORDEN | Índice: {order.index}")
 
-            # Log new deals
+            # Registrar nuevas operaciones
             for deal in event.new_history_deals:
                 event_count += 1
-                print(f"[{timestamp}] NEW_DEAL | Index: {deal.index}")
+                print(f"[{timestamp}] NUEVA_OPERACIÓN | Índice: {deal.index}")
 
             if event_count % 10 == 0:
-                print(f"\n--- Total events logged: {event_count} ---\n")
+                print(f"\n--- Total de eventos registrados: {event_count} ---\n")
 
     except KeyboardInterrupt:
-        print(f"\nStopping logger. Total events: {event_count}")
+        print(f"\nDeteniendo el registrador. Total de eventos: {event_count}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(log_trade_events())
 ```
 
-### 3) Position opened/closed tracker
+### 3) Seguimiento de apertura y cierre de posiciones
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def track_position_lifecycle():
     account = MT5Account(
@@ -517,46 +546,48 @@ async def track_position_lifecycle():
         async for trade_data in account.on_trade():
             event = trade_data.event_data
 
-            # Track new positions
+            # Seguir las nuevas posiciones
             for pos in event.new_positions:
                 active_positions.add(pos.index)
                 total_opened += 1
-                print(f"[OPENED] Position #{pos.index}")
-                print(f"   Active: {len(active_positions)}, "
-                      f"Total opened: {total_opened}")
+                print(f"[ABIERTA] Posición #{pos.index}")
+                print(f"   Activas: {len(active_positions)}, "
+                      f"Total abiertas: {total_opened}")
 
-            # Track closed positions
+            # Seguir las posiciones cerradas
             for pos in event.disappeared_positions:
                 if pos.index in active_positions:
                     active_positions.remove(pos.index)
                 total_closed += 1
-                print(f"[CLOSED] Position #{pos.index}")
-                print(f"   Active: {len(active_positions)}, "
-                      f"Total closed: {total_closed}")
+                print(f"[CERRADA] Posición #{pos.index}")
+                print(f"   Activas: {len(active_positions)}, "
+                      f"Total cerradas: {total_closed}")
 
-            # Show current state
+            # Mostrar el estado actual
             if event.new_positions or event.disappeared_positions:
-                print(f"\n[STATS] Current state:")
-                print(f"   Active positions: {len(active_positions)}")
-                print(f"   Total opened: {total_opened}")
-                print(f"   Total closed: {total_closed}")
-                print(f"   Win rate: "
+                print(f"\n[ESTADÍSTICAS] Estado actual:")
+                print(f"   Posiciones activas: {len(active_positions)}")
+                print(f"   Total abiertas: {total_opened}")
+                print(f"   Total cerradas: {total_closed}")
+                print(f"   Tasa de operaciones cerradas: "
                       f"{(total_closed / total_opened * 100) if total_opened > 0 else 0:.1f}%\n")
 
     except KeyboardInterrupt:
-        print("\nStopping tracker...")
+        print("\nDeteniendo el seguimiento...")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(track_position_lifecycle())
 ```
 
-### 4) Real-time trade notifications
+### 4) Notificaciones de trading en tiempo real
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def trade_notifications():
     account = MT5Account(
@@ -573,48 +604,50 @@ async def trade_notifications():
         async for trade_data in account.on_trade():
             event = trade_data.event_data
 
-            # Notify on new positions
+            # Notificar nuevas posiciones
             if event.new_positions:
                 count = len(event.new_positions)
-                print(f"\n[NOTIFICATION] {count} new position(s) opened")
+                print(f"\n[NOTIFICACIÓN] Se han abierto {count} nueva(s) posición(es)")
 
                 if trade_data.account_info:
-                    print(f"   Current balance: ${trade_data.account_info.balance:.2f}")
-                    print(f"   Current equity: ${trade_data.account_info.equity:.2f}")
+                    print(f"   Saldo actual: ${trade_data.account_info.balance:.2f}")
+                    print(f"   Equity actual: ${trade_data.account_info.equity:.2f}")
 
-            # Notify on closed positions
+            # Notificar posiciones cerradas
             if event.disappeared_positions:
                 count = len(event.disappeared_positions)
-                print(f"\n[NOTIFICATION] {count} position(s) closed")
+                print(f"\n[NOTIFICACIÓN] Se han cerrado {count} posición(es)")
 
                 if trade_data.account_info:
-                    print(f"   Current balance: ${trade_data.account_info.balance:.2f}")
-                    print(f"   Total profit: ${trade_data.account_info.profit:.2f}")
+                    print(f"   Saldo actual: ${trade_data.account_info.balance:.2f}")
+                    print(f"   Beneficio total: ${trade_data.account_info.profit:.2f}")
 
-            # Notify on pending orders
+            # Notificar órdenes pendientes
             if event.new_orders:
                 count = len(event.new_orders)
-                print(f"\n[NOTIFICATION] {count} pending order(s) created")
+                print(f"\n[NOTIFICACIÓN] Se han creado {count} orden(es) pendiente(s)")
 
-            # Notify on order execution
+            # Notificar la ejecución de órdenes
             if event.disappeared_orders:
                 count = len(event.disappeared_orders)
-                print(f"\n[NOTIFICATION] {count} pending order(s) executed/cancelled")
+                print(f"\n[NOTIFICACIÓN] Se han ejecutado/cancelado {count} orden(es) pendiente(s)")
 
     except KeyboardInterrupt:
-        print("\nStopping notifications...")
+        print("\nDeteniendo las notificaciones...")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(trade_notifications())
 ```
 
-### 5) Trade statistics collector
+### 5) Recopilador de estadísticas de trading
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def collect_trade_statistics(duration_seconds=300):
     account = MT5Account(
@@ -659,69 +692,72 @@ async def collect_trade_statistics(duration_seconds=300):
 
         await stop_task
 
-        # Print final statistics
+        # Mostrar las estadísticas finales
         print("\n" + "=" * 60)
-        print("TRADE STATISTICS REPORT")
+        print("INFORME DE ESTADÍSTICAS DE TRADING")
         print("=" * 60)
-        print(f"Positions opened:     {stats['positions_opened']:>6,}")
-        print(f"Positions closed:     {stats['positions_closed']:>6,}")
-        print(f"Positions modified:   {stats['positions_modified']:>6,}")
-        print(f"Orders created:       {stats['orders_created']:>6,}")
-        print(f"Orders removed:       {stats['orders_removed']:>6,}")
-        print(f"Deals executed:       {stats['deals_executed']:>6,}")
+        print(f"Posiciones abiertas:    {stats['positions_opened']:>6,}")
+        print(f"Posiciones cerradas:    {stats['positions_closed']:>6,}")
+        print(f"Posiciones modificadas: {stats['positions_modified']:>6,}")
+        print(f"Órdenes creadas:        {stats['orders_created']:>6,}")
+        print(f"Órdenes eliminadas:     {stats['orders_removed']:>6,}")
+        print(f"Operaciones ejecutadas: {stats['deals_executed']:>6,}")
         print("=" * 60)
 
     finally:
         await account.channel.close()
 
-# Collect statistics for 5 minutes
+
+# Recopilar estadísticas durante 5 minutos
 asyncio.run(collect_trade_statistics(300))
 ```
 
-### 6) Real-time trade synchronizer
+### 6) Sincronizador de trading en tiempo real
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 
+
 class TradeSynchronizer:
     def __init__(self):
-        self.positions = {}  # index -> position data
-        self.orders = {}     # index -> order data
+        self.positions = {}  # index -> datos de la posición
+        self.orders = {}     # index -> datos de la orden
 
     async def sync_trades(self, account):
-        """Synchronize local state with MT5 account"""
+        """Sincronizar el estado local con la cuenta MT5"""
         async for trade_data in account.on_trade():
             event = trade_data.event_data
 
-            # Sync positions
+            # Sincronizar posiciones
             for pos in event.new_positions:
                 self.positions[pos.index] = pos
-                print(f"[SYNC] Added position #{pos.index}")
+                print(f"[SINCRONIZACIÓN] Posición añadida #{pos.index}")
 
             for pos in event.disappeared_positions:
                 if pos.index in self.positions:
                     del self.positions[pos.index]
-                    print(f"[SYNC] Removed position #{pos.index}")
+                    print(f"[SINCRONIZACIÓN] Posición eliminada #{pos.index}")
 
             for pos in event.updated_positions:
                 if pos.index in self.positions:
-                    # Update position data
-                    print(f"[SYNC] Updated position #{pos.index}")
+                    # Actualizar los datos de la posición
+                    print(f"[SINCRONIZACIÓN] Posición actualizada #{pos.index}")
 
-            # Sync orders
+            # Sincronizar órdenes
             for order in event.new_orders:
                 self.orders[order.index] = order
-                print(f"[SYNC] Added order #{order.index}")
+                print(f"[SINCRONIZACIÓN] Orden añadida #{order.index}")
 
             for order in event.disappeared_orders:
                 if order.index in self.orders:
                     del self.orders[order.index]
-                    print(f"[SYNC] Removed order #{order.index}")
+                    print(f"[SINCRONIZACIÓN] Orden eliminada #{order.index}")
 
-            # Show current state
-            print(f"\n[STATE] Local state: {len(self.positions)} positions, "
-                  f"{len(self.orders)} orders\n")
+            # Mostrar el estado actual
+            print(f"\n[ESTADO] Estado local: {len(self.positions)} posiciones, "
+                  f"{len(self.orders)} órdenes\n")
+
 
 async def main():
     account = MT5Account(
@@ -739,18 +775,20 @@ async def main():
     try:
         await synchronizer.sync_trades(account)
     except KeyboardInterrupt:
-        print("\nStopping synchronizer...")
+        print("\nDeteniendo el sincronizador...")
     finally:
         await account.channel.close()
+
 
 asyncio.run(main())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [OnTradeTransaction](./on_trade_transaction.md) - More detailed transaction events
-* [OnPositionProfit](./on_position_profit.md) - Stream position profit updates
-* [OpenedOrders](../3.%20Positions_Orders/opened_orders.md) - Get current positions snapshot
-* [OrderHistory](../3.%20Positions_Orders/order_history.md) - Get historical orders
+- [OnTradeTransaction](./on_trade_transaction.md) - Eventos de transacciones más detallados.
+- [OnPositionProfit](./on_position_profit.md) - Flujo de actualizaciones del beneficio de las posiciones.
+- [OpenedOrders](../3.%20Positions_Orders/opened_orders.md) - Obtener una instantánea de las posiciones actuales.
+- [OrderHistory](../3.%20Positions_Orders/order_history.md) - Obtener las órdenes históricas.
+

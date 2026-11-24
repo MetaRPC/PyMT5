@@ -1,22 +1,23 @@
-# Unsubscribe from Market Depth
+# Cancelar la suscripción a la profundidad de mercado
 
-> **Request:** Unsubscribe from Depth of Market (order book) updates for a symbol.
+> **Solicitud:** Cancelar la suscripción a las actualizaciones de profundidad de mercado (libro de órdenes) de un símbolo.
 
-**API Information:**
+**Información de la API:**
 
-* **Python API:** `MT5Account.market_book_release(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.MarketInfo`
-* **Proto definition:** `MarketBookRelease` (defined in `mt5-term-api-market-info.proto`)
-* **Enums in this method:** 0 enums (simple boolean result)
+- **API de Python:** `MT5Account.market_book_release(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.MarketInfo`
+- **Definición Proto:** `MarketBookRelease` (definido en `mt5-term-api-market-info.proto`)
+- **Enums en este método:** 0 enums (resultado booleano simple)
 
 ### RPC
 
-* **Service:** `mt5_term_api.MarketInfo`
-* **Method:** `MarketBookRelease(MarketBookReleaseRequest) -> MarketBookReleaseReply`
-* **Low-level client (generated):** `MarketInfoStub.MarketBookRelease(request, metadata)`
+- **Servicio:** `mt5_term_api.MarketInfo`
+- **Método:** `MarketBookRelease(MarketBookReleaseRequest) -> MarketBookReleaseReply`
+- **Cliente de bajo nivel (generado):** `MarketInfoStub.MarketBookRelease(request, metadata)`
 
 ```python
 from MetaRpcMT5 import MT5Account
+
 
 class MT5Account:
     # ...
@@ -28,92 +29,94 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ) -> market_info_pb2.MarketBookReleaseData:
         """
-        Closes the Depth of Market (DOM) for a symbol and unsubscribes from updates.
+        Cierra la profundidad de mercado (DOM) de un símbolo y cancela la suscripción a sus actualizaciones.
 
         Returns:
-            MarketBookReleaseData: Unsubscription result.
+            MarketBookReleaseData: Resultado de la cancelación de la suscripción.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 MarketBookReleaseRequest {
-  string symbol = 1;  // Symbol name
+  string symbol = 1;  // Nombre del símbolo
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `symbol`             | `str`                          | Symbol name (e.g., "EURUSD")                  |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
-
----
-
-## ⬆️ Output
-
-Returns `MarketBookReleaseData` object.
-
-**MarketBookReleaseData fields:**
-
-| Field                  | Type   | Description                          |
-| ---------------------- | ------ | ------------------------------------ |
-| `closed_successfully`  | `bool` | True if unsubscription was successful|
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `symbol` | `str` | Nombre del símbolo (por ejemplo, "EURUSD") |
+| `deadline` | `Optional[datetime]` | Plazo límite de la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
 ---
 
-## 💬 Just the essentials
+## ⬆️ Salida
 
-* **What it is.** Unsubscribes from Level 2 market data (order book) for a symbol.
-* **Why you need it.** Clean up resources and stop receiving DOM updates when no longer needed.
-* **Best practice.** Always call when done monitoring DOM to free resources.
+Devuelve un objeto `MarketBookReleaseData`.
+
+**Campos de `MarketBookReleaseData`:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `closed_successfully` | `bool` | True si la cancelación de la suscripción se realizó correctamente |
 
 ---
 
-## 🎯 Purpose
+## 💬 Lo esencial
 
-Use it to:
+- **Qué es.** Cancela la suscripción a los datos de mercado de Nivel 2 (libro de órdenes) de un símbolo.
+- **Para qué sirve.** Liberar recursos y dejar de recibir actualizaciones del DOM cuando ya no sean necesarias.
+- **Buena práctica.** Llama siempre a este método cuando termines de supervisar el DOM para liberar recursos.
 
-* Unsubscribe from DOM updates
-* Free system resources
-* Clean up after DOM analysis
-* Stop market depth monitoring
-* Manage subscription lifecycle
-* Reduce bandwidth usage
+---
+
+## 🎯 Finalidad
+
+Utilízalo para:
+
+- Cancelar la suscripción a las actualizaciones del DOM.
+- Liberar recursos del sistema.
+- Realizar la limpieza después del análisis del DOM.
+- Detener la supervisión de la profundidad de mercado.
+- Gestionar el ciclo de vida de las suscripciones.
+- Reducir el uso del ancho de banda.
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[MarketBookRelease - How it works](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_release_HOW.md)**
+Para obtener una explicación detallada, línea por línea y con ejemplos, consulta:
+
+**[MarketBookRelease - Cómo funciona](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_release_HOW.md)**
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **Resource cleanup:** Always call this when done with DOM monitoring.
-* **No error if not subscribed:** Safe to call even if not currently subscribed.
-* **Per-symbol basis:** Each symbol must be released separately.
-* **Paired with add:** Every `market_book_add` should have a matching `market_book_release`.
-* **Session cleanup:** Subscriptions persist until explicitly released or session ends.
-* **Check success:** Always verify `closed_successfully == True`.
+- **Reconexión automática:** Todos los métodos de `MT5Account` incorporan protección contra errores gRPC transitorios, con reconexión automática mediante `execute_with_reconnect`.
+- **Liberación de recursos:** Llama siempre a este método cuando termines de supervisar el DOM.
+- **Sin errores si no hay suscripción:** Es seguro llamar al método incluso si no existe una suscripción activa.
+- **Por símbolo:** Cada símbolo debe liberarse por separado.
+- **Emparejado con add:** Cada llamada a `market_book_add` debe tener su correspondiente llamada a `market_book_release`.
+- **Limpieza de sesión:** Las suscripciones permanecen activas hasta que se cancelan explícitamente o finaliza la sesión.
+- **Comprobar el resultado:** Verifica siempre que `closed_successfully == True`.
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Basic unsubscribe
+### 1) Cancelación básica de la suscripción
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def unsubscribe_dom():
     account = MT5Account(
@@ -130,48 +133,52 @@ async def unsubscribe_dom():
     try:
         symbol = "EURUSD"
 
-        # Subscribe to DOM
+        # Suscribirse al DOM
         add_result = await account.market_book_add(symbol)
         if add_result.opened_successfully:
-            print(f"[SUBSCRIBED] {symbol} DOM")
+            print(f"[SUSCRITO] DOM de {symbol}")
 
-        # Do some analysis...
+        # Realizar el análisis...
         dom_data = await account.market_book_get(symbol)
-        print(f"[ANALYSIS] {len(dom_data.mql_book_infos)} DOM levels")
+        print(f"[ANÁLISIS] {len(dom_data.mql_book_infos)} niveles DOM")
 
-        # Unsubscribe when done
+        # Cancelar la suscripción al terminar
         release_result = await account.market_book_release(symbol)
         if release_result.closed_successfully:
-            print(f"[UNSUBSCRIBED] {symbol} DOM released")
+            print(f"[CANCELACIÓN] Suscripción al DOM de {symbol} liberada")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(unsubscribe_dom())
 ```
 
-### 2) Context manager pattern
+### 2) Patrón con administrador de contexto
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 from contextlib import asynccontextmanager
 
+
 @asynccontextmanager
 async def dom_subscription(account, symbol):
-    """Context manager for automatic DOM subscription cleanup"""
+    """Administrador de contexto para la limpieza automática de la suscripción DOM"""
     try:
-        # Subscribe
+        # Suscribirse
         result = await account.market_book_add(symbol)
         if not result.opened_successfully:
-            raise Exception(f"Failed to subscribe to {symbol} DOM")
+            raise Exception(f"No se pudo suscribir al DOM de {symbol}")
 
-        print(f"[SUBSCRIBED] {symbol} DOM")
+        print(f"[SUSCRITO] DOM de {symbol}")
         yield
+
     finally:
-        # Always release on exit
+        # Liberar siempre al salir
         await account.market_book_release(symbol)
-        print(f"[RELEASED] {symbol} DOM")
+        print(f"[LIBERADO] DOM de {symbol}")
+
 
 async def main():
     account = MT5Account(
@@ -187,22 +194,24 @@ async def main():
 
     try:
         async with dom_subscription(account, "EURUSD"):
-            # DOM is active here
+            # El DOM está activo aquí
             dom_data = await account.market_book_get("EURUSD")
-            print(f"[ANALYSIS] {len(dom_data.mql_book_infos)} DOM levels")
-        # DOM automatically released here
+            print(f"[ANÁLISIS] {len(dom_data.mql_book_infos)} niveles DOM")
+        # El DOM se libera automáticamente aquí
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(main())
 ```
 
-### 3) Release multiple symbols
+### 3) Liberar varios símbolos
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 async def release_multiple_symbols():
     account = MT5Account(
@@ -219,34 +228,36 @@ async def release_multiple_symbols():
     symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
     try:
-        # Subscribe to multiple symbols
-        print("[SUBSCRIBING] To multiple symbols...")
+        # Suscribirse a varios símbolos
+        print("[SUSCRIPCIÓN] Suscribiéndose a varios símbolos...")
         for symbol in symbols:
             result = await account.market_book_add(symbol)
             if result.opened_successfully:
-                print(f"  [OK] {symbol} subscribed")
+                print(f"  [OK] Suscripción a {symbol} realizada")
 
-        # Do analysis...
+        # Realizar el análisis...
         await asyncio.sleep(5)
 
-        # Release all symbols
-        print("\n[RELEASING] All subscriptions...")
+        # Liberar todos los símbolos
+        print("\n[LIBERACIÓN] Liberando todas las suscripciones...")
         for symbol in symbols:
             result = await account.market_book_release(symbol)
             if result.closed_successfully:
-                print(f"  [OK] {symbol} released")
+                print(f"  [OK] {symbol} liberado")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(release_multiple_symbols())
 ```
 
-### 4) Error handling and cleanup
+### 4) Gestión de errores y limpieza
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account, ApiExceptionMT5
+
 
 async def safe_dom_usage():
     account = MT5Account(
@@ -264,47 +275,49 @@ async def safe_dom_usage():
     subscribed = False
 
     try:
-        # Subscribe
+        # Suscribirse
         add_result = await account.market_book_add(symbol)
         if not add_result.opened_successfully:
-            print(f"[ERROR] Failed to subscribe to {symbol}")
+            print(f"[ERROR] No se pudo suscribir a {symbol}")
             return
 
         subscribed = True
-        print(f"[SUBSCRIBED] {symbol} DOM")
+        print(f"[SUSCRITO] DOM de {symbol}")
 
-        # Perform analysis
+        # Realizar el análisis
         dom_data = await account.market_book_get(symbol)
-        print(f"[ANALYSIS] {len(dom_data.mql_book_infos)} levels")
+        print(f"[ANÁLISIS] {len(dom_data.mql_book_infos)} niveles")
 
     except ApiExceptionMT5 as e:
-        print(f"[API ERROR] {e}")
+        print(f"[ERROR DE API] {e}")
 
     except Exception as e:
-        print(f"[ERROR] Unexpected error: {e}")
+        print(f"[ERROR] Error inesperado: {e}")
 
     finally:
-        # Always clean up if subscribed
+        # Realizar siempre la limpieza si existe una suscripción
         if subscribed:
             try:
                 release_result = await account.market_book_release(symbol)
                 if release_result.closed_successfully:
-                    print(f"[CLEANUP] {symbol} DOM released successfully")
+                    print(f"[LIMPIEZA] DOM de {symbol} liberado correctamente")
                 else:
-                    print(f"[WARNING] Failed to release {symbol} DOM")
+                    print(f"[ADVERTENCIA] No se pudo liberar el DOM de {symbol}")
             except Exception as e:
-                print(f"[CLEANUP ERROR] {e}")
+                print(f"[ERROR DE LIMPIEZA] {e}")
 
         await account.channel.close()
+
 
 asyncio.run(safe_dom_usage())
 ```
 
-### 5) Subscription manager class
+### 5) Clase administradora de suscripciones
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
+
 
 class DOMSubscriptionManager:
     def __init__(self, account):
@@ -312,45 +325,46 @@ class DOMSubscriptionManager:
         self.active_subscriptions = set()
 
     async def subscribe(self, symbol: str):
-        """Subscribe to DOM with tracking"""
+        """Suscribirse al DOM y registrar la suscripción"""
         result = await self.account.market_book_add(symbol)
 
         if result.opened_successfully:
             self.active_subscriptions.add(symbol)
-            print(f"[SUBSCRIBED] {symbol} (Total: {len(self.active_subscriptions)})")
+            print(f"[SUSCRITO] {symbol} (Total: {len(self.active_subscriptions)})")
             return True
         else:
-            print(f"[FAILED] Could not subscribe to {symbol}")
+            print(f"[ERROR] No se pudo suscribir a {symbol}")
             return False
 
     async def unsubscribe(self, symbol: str):
-        """Unsubscribe from DOM"""
+        """Cancelar la suscripción al DOM"""
         if symbol not in self.active_subscriptions:
-            print(f"[WARNING] {symbol} not in active subscriptions")
+            print(f"[ADVERTENCIA] {symbol} no está entre las suscripciones activas")
             return False
 
         result = await self.account.market_book_release(symbol)
 
         if result.closed_successfully:
             self.active_subscriptions.remove(symbol)
-            print(f"[UNSUBSCRIBED] {symbol} (Remaining: {len(self.active_subscriptions)})")
+            print(f"[CANCELACIÓN] {symbol} (Restantes: {len(self.active_subscriptions)})")
             return True
         else:
-            print(f"[FAILED] Could not unsubscribe from {symbol}")
+            print(f"[ERROR] No se pudo cancelar la suscripción de {symbol}")
             return False
 
     async def release_all(self):
-        """Release all active subscriptions"""
-        print(f"[RELEASING] All {len(self.active_subscriptions)} subscriptions...")
+        """Liberar todas las suscripciones activas"""
+        print(f"[LIBERACIÓN] Liberando las {len(self.active_subscriptions)} suscripciones...")
 
         for symbol in list(self.active_subscriptions):
             await self.unsubscribe(symbol)
 
-        print(f"[DONE] All subscriptions released")
+        print(f"[FINALIZADO] Todas las suscripciones han sido liberadas")
 
     def list_active(self):
-        """List all active subscriptions"""
+        """Enumerar todas las suscripciones activas"""
         return list(self.active_subscriptions)
+
 
 async def main():
     account = MT5Account(
@@ -367,57 +381,60 @@ async def main():
     manager = DOMSubscriptionManager(account)
 
     try:
-        # Subscribe to multiple symbols
+        # Suscribirse a varios símbolos
         await manager.subscribe("EURUSD")
         await manager.subscribe("GBPUSD")
         await manager.subscribe("USDJPY")
 
-        print(f"\n[ACTIVE] Subscriptions: {manager.list_active()}")
+        print(f"\n[ACTIVAS] Suscripciones: {manager.list_active()}")
 
-        # Do analysis...
+        # Realizar el análisis...
         await asyncio.sleep(5)
 
-        # Release specific symbol
+        # Liberar un símbolo específico
         await manager.unsubscribe("GBPUSD")
 
-        # Release all remaining
+        # Liberar todas las suscripciones restantes
         await manager.release_all()
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(main())
 ```
 
-### 6) Temporary DOM snapshot helper
+### 6) Función auxiliar para obtener una instantánea temporal del DOM
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 
+
 async def get_dom_snapshot(account, symbol: str):
     """
-    Helper function to get a quick DOM snapshot with automatic cleanup.
-    Subscribe -> Get data -> Release
+    Función auxiliar para obtener rápidamente una instantánea del DOM con limpieza automática.
+    Suscribirse -> Obtener datos -> Liberar
     """
     try:
-        # Subscribe
+        # Suscribirse
         add_result = await account.market_book_add(symbol)
         if not add_result.opened_successfully:
-            print(f"[ERROR] Failed to subscribe to {symbol}")
+            print(f"[ERROR] No se pudo suscribir a {symbol}")
             return None
 
-        # Get DOM data
+        # Obtener los datos DOM
         dom_data = await account.market_book_get(symbol)
 
         return dom_data
 
     finally:
-        # Always release
+        # Liberar siempre
         try:
             await account.market_book_release(symbol)
         except Exception as e:
-            print(f"[WARNING] Cleanup error: {e}")
+            print(f"[ADVERTENCIA] Error durante la limpieza: {e}")
+
 
 async def main():
     account = MT5Account(
@@ -435,7 +452,7 @@ async def main():
         symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
         for symbol in symbols:
-            print(f"\n[SNAPSHOT] Getting {symbol} DOM...")
+            print(f"\n[INSTANTÁNEA] Obteniendo el DOM de {symbol}...")
 
             dom_data = await get_dom_snapshot(account, symbol)
 
@@ -443,22 +460,23 @@ async def main():
                 sell_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [0, 2])
                 buy_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [1, 3])
 
-                print(f"  Levels: {len(dom_data.mql_book_infos)}")
-                print(f"  BUY volume: {buy_volume:.2f} lots")
-                print(f"  SELL volume: {sell_volume:.2f} lots")
+                print(f"  Niveles: {len(dom_data.mql_book_infos)}")
+                print(f"  Volumen de COMPRA: {buy_volume:.2f} lotes")
+                print(f"  Volumen de VENTA: {sell_volume:.2f} lotes")
 
-            await asyncio.sleep(1)  # Brief pause between snapshots
+            await asyncio.sleep(1)  # Breve pausa entre instantáneas
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(main())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [MarketBookAdd](./market_book_add.md) - Subscribe to DOM updates
-* [MarketBookGet](./market_book_get.md) - Get DOM data
-* [SymbolSelect](../2.%20Symbol_Information/symbol_select.md) - Manage Market Watch symbols
+- [MarketBookAdd](./market_book_add.md) - Suscribirse a las actualizaciones del DOM.
+- [MarketBookGet](./market_book_get.md) - Obtener los datos del DOM.
+- [SymbolSelect](../2.%20Symbol_Information/symbol_select.md) - Gestionar los símbolos de Market Watch.

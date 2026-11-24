@@ -1,6 +1,6 @@
 # Obtener posiciones históricas cerradas
 
-**Solicitud:** obtener posiciones históricas cerradas dentro de un intervalo de tiempo, con soporte para ordenación y paginación.
+**Solicitud:** obtener posiciones históricas cerradas dentro de un intervalo de tiempo, con opciones de ordenación y paginación.
 
 **Información de la API:**
 
@@ -149,9 +149,9 @@ data = await account.positions_history(
 | `take_profit` | `double` | Nivel de Take Profit |
 | `market_value` | `double` | Valor de mercado |
 | `commission` | `double` | Comisión cobrada |
-| `fee` | `double` | Comisiones adicionales |
+| `fee` | `double` | Cargo adicional |
 | `profit` | `double` | Ganancia/pérdida de la posición |
-| `swap` | `double` | Swap (cargo por rollover) |
+| `swap` | `double` | Swap (cargo por mantener la posición abierta) |
 | `comment` | `string` | Comentario |
 | `symbol` | `string` | Nombre del símbolo |
 | `magic` | `int64` | Número Magic (identificador del EA) |
@@ -461,7 +461,7 @@ async def export_positions_to_csv(
     with open(filename, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow([
-            'Ticket', 'Symbol', 'Hora de apertura', 'Hora de cierre',
+            'Ticket', 'Símbolo', 'Hora de apertura', 'Hora de cierre',
             'Volumen', 'Precio de apertura', 'Precio de cierre',
             'Ganancia', 'Comisión', 'Swap', 'Total'
         ])

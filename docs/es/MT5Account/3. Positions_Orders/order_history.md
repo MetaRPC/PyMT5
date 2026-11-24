@@ -159,7 +159,7 @@ data = await account.order_history(
 - `type` (BMT5_ENUM_ORDER_TYPE) - Tipo de orden.
 - `time_expiration` (Timestamp) - Hora de vencimiento de la orden.
 - `type_filling` (BMT5_ENUM_ORDER_TYPE_FILLING) - Tipo de ejecución.
-- `type_time` (BMT5_ENUM_ORDER_TYPE_TIME) - Duración de la orden.
+- `type_time` (BMT5_ENUM_ORDER_TYPE_TIME) - Tipo de vigencia de la orden.
 - `position_id` (uint64) - Ticket de la posición.
 - `symbol` (string) - Nombre del símbolo.
 - `external_id` (string) - ID externo.
@@ -301,13 +301,13 @@ for item in data.history_data:
 
 ### `BMT5_ENUM_ORDER_TYPE_TIME`
 
-Definido en `mt5-term-api-account-helper.proto`. Se utiliza en `OrderHistoryData` para indicar la duración de la orden.
+Definido en `mt5-term-api-account-helper.proto`. Se utiliza en `OrderHistoryData` para indicar el tipo de vigencia de la orden.
 
 | Constante | Valor | Descripción |
 |---|---:|---|
 | `BMT5_ORDER_TIME_GTC` | 0 | Good Till Cancelled (válida hasta su cancelación). |
 | `BMT5_ORDER_TIME_DAY` | 1 | Good Till Day (válida hasta el final del día de trading actual). |
-| `BMT5_ORDER_TIME_SPECIFIED` | 2 | Good Till Specified Time (válida hasta la fecha especificada). |
+| `BMT5_ORDER_TIME_SPECIFIED` | 2 | Good Till Specified Time (válida hasta la fecha y hora especificadas). |
 | `BMT5_ORDER_TIME_SPECIFIED_DAY` | 3 | Good Till Specified Day (válida hasta el día especificado). |
 
 **Uso:**
@@ -315,7 +315,7 @@ Definido en `mt5-term-api-account-helper.proto`. Se utiliza en `OrderHistoryData
 ```python
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as pb2
 
-# Comprobar el tipo de duración
+# Comprobar el tipo de vigencia
 for item in data.history_data:
     if item.history_order.type_time == pb2.BMT5_ORDER_TIME_GTC:
         print(f"Orden GTC: {item.history_order.ticket}")
@@ -329,7 +329,7 @@ Definido en `mt5-term-api-account-helper.proto`. Se utiliza en `DealHistoryData`
 |---|---:|---|
 | `BMT5_DEAL_ENTRY_IN` | 0 | Entrada (apertura). |
 | `BMT5_DEAL_ENTRY_OUT` | 1 | Salida (cierre). |
-| `BMT5_DEAL_ENTRY_INOUT` | 2 | Inversión de posición. |
+| `BMT5_DEAL_ENTRY_INOUT` | 2 | Reversión de posición. |
 | `BMT5_DEAL_ENTRY_OUT_BY` | 3 | Cierre mediante una posición opuesta. |
 
 **Uso:**
@@ -361,7 +361,7 @@ Definido en `mt5-term-api-account-helper.proto`. Se utiliza en `DealHistoryData`
 | `BMT5_DEAL_TYPE_COMMISSION_MONTHLY` | 9 | Comisión mensual. |
 | `BMT5_DEAL_TYPE_COMMISSION_AGENT_DAILY` | 10 | Comisión diaria del agente. |
 | `BMT5_DEAL_TYPE_COMMISSION_AGENT_MONTHLY` | 11 | Comisión mensual del agente. |
-| `BMT5_DEAL_TYPE_INTEREST` | 12 | Tipo de interés. |
+| `BMT5_DEAL_TYPE_INTEREST` | 12 | Intereses (cargo por intereses). |
 | `BMT5_DEAL_TYPE_BUY_CANCELED` | 13 | Operación de compra cancelada. |
 | `BMT5_DEAL_TYPE_SELL_CANCELED` | 14 | Operación de venta cancelada. |
 | `BMT5_DEAL_DIVIDEND` | 15 | Dividendo. |
@@ -394,7 +394,7 @@ Definido en `mt5-term-api-account-helper.proto`. Se utiliza en `DealHistoryData`
 | `BMT5_DEAL_REASON_SL` | 4 | Operación realizada debido a un Stop Loss. |
 | `BMT5_DEAL_REASON_TP` | 5 | Operación realizada debido a un Take Profit. |
 | `BMT5_DEAL_REASON_SO` | 6 | Operación realizada debido a un Stop Out. |
-| `BMT5_DEAL_REASON_ROLLOVER` | 7 | Operación debido al rollover. |
+| `BMT5_DEAL_REASON_ROLLOVER` | 7 | Operación por traspaso al día siguiente (rollover). |
 | `BMT5_DEAL_REASON_VMARGIN` | 8 | Operación debido al margen de variación. |
 | `BMT5_DEAL_REASON_SPLIT` | 9 | Operación debido a una división de acciones (split). |
 | `BMT5_DEAL_REASON_CORPORATE_ACTION` | 10 | Operación debido a una acción corporativa. |

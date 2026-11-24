@@ -1,8 +1,8 @@
 
 
-# Obtener los identificadores de ticket de las órdenes y posiciones abiertas
+# Obtener los identificadores de ticket de las órdenes pendientes y posiciones abiertas
 
-**Solicitud:** obtener los identificadores de ticket de todas las órdenes y posiciones que están abiertas actualmente (una alternativa ligera a la obtención de todos los detalles).
+**Solicitud:** obtener los identificadores de ticket de todas las órdenes pendientes y posiciones abiertas actualmente (una alternativa ligera a la obtención de todos los detalles).
 
 **Información de la API:**
 
@@ -18,8 +18,8 @@
 
 ## 💬 Lo esencial
 
-- **Qué es.** Permite obtener únicamente los identificadores de ticket de las órdenes y posiciones abiertas, sin recuperar todos sus detalles.
-- **Por qué lo necesitas.** Permite comprobar de forma ligera qué órdenes y posiciones existen. Es más eficiente que utilizar `opened_orders()`.
+- **Qué es.** Permite obtener únicamente los identificadores de ticket de las órdenes pendientes y posiciones abiertas, sin recuperar todos sus detalles.
+- **Por qué lo necesitas.** Permite comprobar de forma ligera qué órdenes pendientes y posiciones abiertas existen. Es más eficiente que utilizar `opened_orders()`.
 - **Cuándo utilizarlo.** Utiliza este método cuando solo necesites los identificadores de ticket. Para obtener todos los detalles, utiliza `opened_orders()`.
 
 ---
@@ -28,7 +28,7 @@
 
 Utiliza este método para obtener únicamente los identificadores de ticket:
 
-- Comprobar qué órdenes y posiciones están abiertas actualmente.
+- Comprobar qué órdenes pendientes y posiciones abiertas hay actualmente.
 - Guardar los identificadores de ticket para realizar consultas posteriores.
 - Supervisar de forma eficiente las órdenes nuevas y cerradas.
 - Obtener una respuesta más ligera que con `opened_orders()`.
@@ -89,7 +89,7 @@ message OpenedOrdersTicketsData {
 
 **No hay parámetros adicionales:** este método devuelve únicamente los identificadores de ticket.
 
-**Opciones de deadline:**
+**Opciones de plazo límite:**
 
 ```python
 from datetime import datetime, timedelta, timezone
@@ -231,7 +231,7 @@ async def monitor_tickets(account: MT5Account, interval: float = 5.0):
 
 ```python
 async def get_all_tickets(account: MT5Account) -> list[int]:
-    """Obtiene conjuntamente todos los tickets de órdenes y posiciones"""
+    """Obtiene conjuntamente todos los tickets de órdenes pendientes y posiciones abiertas"""
     data = await account.opened_orders_tickets()
 
     all_tickets = list(data.opened_orders_tickets) + list(data.opened_position_tickets)
@@ -289,7 +289,7 @@ async def compare_tickets(
 
 ```python
 async def get_tickets_count(account: MT5Account) -> dict:
-    """Obtiene el número de órdenes y posiciones"""
+    """Obtiene el número de órdenes pendientes y posiciones abiertas"""
     data = await account.opened_orders_tickets()
     return {
         "orders": len(data.opened_orders_tickets),
@@ -314,7 +314,7 @@ async def get_ticket_sets(account: MT5Account) -> tuple:
 
 ## 📚 Véase también
 
-- [opened_orders](./opened_orders.md) - Obtener todos los detalles de las órdenes y posiciones.
+- [opened_orders](./opened_orders.md) - Obtener todos los detalles de las órdenes pendientes y posiciones abiertas.
 - [positions_total](./positions_total.md) - Obtener únicamente el recuento (una opción aún más ligera).
 - [positions_history](./positions_history.md) - Obtener el historial de posiciones cerradas.
 

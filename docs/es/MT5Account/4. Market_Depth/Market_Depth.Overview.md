@@ -1,73 +1,77 @@
-# MT5Account - Market Depth - Overview
 
-> Subscribe to, retrieve, and manage Depth of Market (DOM) data: monitor order book, analyze liquidity, track bid/ask levels.
 
-## 📁 What lives here
+# MT5Account - Profundidad de mercado - Descripción general
 
-### DOM Operations
+> Suscribirse a los datos de profundidad de mercado (DOM), obtenerlos y gestionarlos: supervisar el libro de órdenes, analizar la liquidez y seguir los niveles de compra y venta.
 
-* **[market_book_add](./market_book_add.md)** - subscribe to DOM updates for a symbol.
-* **[market_book_get](./market_book_get.md)** - retrieve current DOM data.
-* **[market_book_release](./market_book_release.md)** - unsubscribe from DOM updates.
+## 📁 Contenido de esta sección
 
----
+### Operaciones DOM
 
-## 📚 Step-by-step tutorials
-
-**Note:** All DOM operations are async methods. Check individual method pages for detailed examples.
-
-* **[market_book_add](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_add_HOW.md)** - Subscription examples
-* **[market_book_get](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_get_HOW.md)** - DOM analysis patterns
-* **[market_book_release](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_release_HOW.md)** - Resource cleanup examples
+- **[market_book_add](./market_book_add.md)** - suscribirse a las actualizaciones DOM de un símbolo.
+- **[market_book_get](./market_book_get.md)** - obtener los datos DOM actuales.
+- **[market_book_release](./market_book_release.md)** - cancelar la suscripción a las actualizaciones DOM.
 
 ---
 
-## 🧭 Plain English
+## 📚 Tutoriales paso a paso
 
-* **market_book_add** -> **subscribe** to Level 2 market data (order book).
-* **market_book_get** -> **retrieve** current DOM snapshot with bid/ask levels.
-* **market_book_release** -> **unsubscribe** and free resources when done.
+**Nota:** Todas las operaciones DOM son métodos asíncronos. Consulta las páginas de cada método para ver ejemplos detallados.
 
-> Rule of thumb: **subscribe once** with `market_book_add`, **poll repeatedly** with `market_book_get`, **cleanup** with `market_book_release`.
-
----
-
-## Quick choose
-
-| If you need...                                   | Use                   | Returns                    | Key inputs                          |
-| ------------------------------------------------ | --------------------- | -------------------------- | ----------------------------------- |
-| Subscribe to DOM updates                         | `market_book_add`     | MarketBookAddData          | symbol                              |
-| Get current order book snapshot                  | `market_book_get`     | MarketBookGetData          | symbol                              |
-| Unsubscribe from DOM                             | `market_book_release` | MarketBookReleaseData      | symbol                              |
-| Analyze bid/ask liquidity                        | `market_book_get`     | MarketBookGetData          | symbol                              |
-| Monitor order flow                               | `market_book_get`     | MarketBookGetData          | symbol (in loop)                    |
-| Find support/resistance levels                   | `market_book_get`     | MarketBookGetData          | symbol                              |
+- **[market_book_add](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_add_HOW.md)** - ejemplos de suscripción.
+- **[market_book_get](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_get_HOW.md)** - patrones de análisis DOM.
+- **[market_book_release](../HOW_IT_WORK/4. Market_Depth(DOM)_HOW/market_book_release_HOW.md)** - ejemplos de liberación de recursos.
 
 ---
 
-## ℹ️ Cross-refs & gotchas
+## 🧭 En términos sencillos
 
-* **Broker support:** Not all brokers provide DOM data - check with your broker.
-* **Subscription required:** Must call `market_book_add` before `market_book_get`.
-* **Symbol must be selected:** Ensure symbol is in Market Watch before subscribing.
-* **Always release:** Call `market_book_release` when done to free resources.
-* **Empty data:** Returns empty list if no DOM data available or not subscribed.
-* **Async methods:** All DOM operations are async - use `await`.
-* **Automatic reconnection:** All methods have built-in reconnection via `execute_with_reconnect`.
-* **Per-symbol basis:** Subscribe/unsubscribe each symbol separately.
-* **Type enum:** In `MrpcMqlBookInfo`, type 1 = SELL orders, type 2 = BUY orders.
-* **Volume fields:** Use `volume_real` (double) instead of `volume` (int64).
-* **Real-time data:** DOM is updated in real-time, call `market_book_get` repeatedly for monitoring.
+- **market_book_add** -> **suscribirse** a los datos de mercado de Nivel 2 (libro de órdenes).
+- **market_book_get** -> **obtener** una instantánea del DOM actual con los niveles de compra y venta.
+- **market_book_release** -> **cancelar la suscripción** y liberar los recursos cuando ya no sean necesarios.
+
+> Regla general: **suscribirse una vez** con `market_book_add`, **consultar repetidamente** con `market_book_get` y **liberar los recursos** con `market_book_release`.
 
 ---
 
-## 🟢 Minimal snippets
+## Selección rápida
+
+| Si necesitas... | Usar | Devuelve | Parámetros clave |
+|---|---|---|---|
+| Suscribirte a las actualizaciones DOM | `market_book_add` | MarketBookAddData | symbol |
+| Obtener una instantánea del libro de órdenes actual | `market_book_get` | MarketBookGetData | symbol |
+| Cancelar la suscripción al DOM | `market_book_release` | MarketBookReleaseData | symbol |
+| Analizar la liquidez de compra y venta | `market_book_get` | MarketBookGetData | symbol |
+| Supervisar el flujo de órdenes | `market_book_get` | MarketBookGetData | symbol (en un bucle) |
+| Encontrar niveles de soporte y resistencia | `market_book_get` | MarketBookGetData | symbol |
+
+---
+
+## ℹ️ Referencias cruzadas y aspectos importantes
+
+- **Compatibilidad del bróker:** no todos los brókeres proporcionan datos DOM. Comprueba la disponibilidad con tu bróker.
+- **Suscripción obligatoria:** debes llamar a `market_book_add` antes de utilizar `market_book_get`.
+- **El símbolo debe estar seleccionado:** asegúrate de que el símbolo esté en Market Watch antes de suscribirte.
+- **Liberar siempre los recursos:** llama a `market_book_release` cuando hayas terminado.
+- **Datos vacíos:** devuelve una lista vacía si no hay datos DOM disponibles o si no existe una suscripción activa.
+- **Métodos asíncronos:** todas las operaciones DOM son asíncronas; utiliza `await`.
+- **Reconexión automática:** todos los métodos incluyen reconexión integrada mediante `execute_with_reconnect`.
+- **Por símbolo:** cada símbolo debe suscribirse y cancelar su suscripción por separado.
+- **Enum de tipo:** en `MrpcMqlBookInfo`, el tipo 1 corresponde a órdenes SELL y el tipo 2 a órdenes BUY.
+- **Campos de volumen:** utiliza `volume_real` (double) en lugar de `volume` (int64).
+- **Datos en tiempo real:** el DOM se actualiza en tiempo real. Llama repetidamente a `market_book_get` para supervisarlo.
+
+---
+
+## 🟢 Fragmentos mínimos de código
+
+### Suscribirse al DOM
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 
-# Subscribe to DOM
+# Suscribirse al DOM
 async def subscribe_dom():
     account = MT5Account(
         user=12345,
@@ -81,13 +85,13 @@ async def subscribe_dom():
     )
 
     try:
-        # Subscribe to EURUSD DOM
+        # Suscribirse al DOM de EURUSD
         result = await account.market_book_add("EURUSD")
 
         if result.opened_successfully:
-            print(f"[SUCCESS] Subscribed to EURUSD DOM")
+            print(f"[ÉXITO] Suscripción al DOM de EURUSD realizada")
         else:
-            print(f"[FAILED] Could not subscribe")
+            print(f"[ERROR] No se pudo realizar la suscripción")
 
     finally:
         await account.channel.close()
@@ -95,8 +99,10 @@ async def subscribe_dom():
 asyncio.run(subscribe_dom())
 ```
 
+### Obtener datos DOM
+
 ```python
-# Get DOM data
+# Obtener datos DOM
 async def get_dom():
     account = MT5Account(
         user=12345,
@@ -110,15 +116,15 @@ async def get_dom():
     )
 
     try:
-        # Subscribe first
+        # Suscribirse primero
         await account.market_book_add("EURUSD")
 
-        # Get DOM snapshot
+        # Obtener una instantánea del DOM
         dom_data = await account.market_book_get("EURUSD")
 
-        print(f"[DOM] EURUSD has {len(dom_data.mql_book_infos)} levels")
+        print(f"[DOM] EURUSD tiene {len(dom_data.mql_book_infos)} niveles")
 
-        for entry in dom_data.mql_book_infos[:5]:  # Show first 5
+        for entry in dom_data.mql_book_infos[:5]:  # Mostrar los primeros 5
             entry_type = "SELL" if entry.type in [0, 2] else "BUY"
             print(f"{entry_type:<6} {entry.price:.5f} Vol: {entry.volume_real:.2f}")
 
@@ -128,8 +134,10 @@ async def get_dom():
 asyncio.run(get_dom())
 ```
 
+### Cancelar la suscripción al DOM
+
 ```python
-# Unsubscribe from DOM
+# Cancelar la suscripción al DOM
 async def unsubscribe_dom():
     account = MT5Account(
         user=12345,
@@ -143,18 +151,18 @@ async def unsubscribe_dom():
     )
 
     try:
-        # Subscribe
+        # Suscribirse
         await account.market_book_add("EURUSD")
 
-        # Do analysis...
+        # Realizar el análisis...
         dom_data = await account.market_book_get("EURUSD")
-        print(f"[ANALYSIS] {len(dom_data.mql_book_infos)} levels")
+        print(f"[ANÁLISIS] {len(dom_data.mql_book_infos)} niveles")
 
-        # Unsubscribe when done
+        # Cancelar la suscripción cuando se haya terminado
         result = await account.market_book_release("EURUSD")
 
         if result.closed_successfully:
-            print(f"[SUCCESS] DOM released")
+            print(f"[ÉXITO] Suscripción DOM liberada")
 
     finally:
         await account.channel.close()
@@ -162,8 +170,10 @@ async def unsubscribe_dom():
 asyncio.run(unsubscribe_dom())
 ```
 
+### Flujo de trabajo DOM completo
+
 ```python
-# Complete DOM workflow
+# Flujo de trabajo DOM completo
 async def dom_workflow():
     account = MT5Account(
         user=12345,
@@ -179,33 +189,33 @@ async def dom_workflow():
     symbol = "EURUSD"
 
     try:
-        # 1. Subscribe to DOM
+        # 1. Suscribirse al DOM
         add_result = await account.market_book_add(symbol)
         if not add_result.opened_successfully:
-            print(f"[ERROR] Could not subscribe to {symbol}")
+            print(f"[ERROR] No se pudo realizar la suscripción a {symbol}")
             return
 
-        print(f"[1] Subscribed to {symbol} DOM")
+        print(f"[1] Suscripción al DOM de {symbol} realizada")
 
-        # 2. Monitor DOM for 10 seconds
-        print(f"[2] Monitoring DOM...")
+        # 2. Supervisar el DOM durante 10 segundos
+        print(f"[2] Supervisando el DOM...")
 
         for i in range(10):
             dom_data = await account.market_book_get(symbol)
 
-            # Calculate liquidity
+            # Calcular la liquidez
             sell_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [0, 2])
             buy_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [1, 3])
 
-            print(f"  [{i+1}/10] Levels: {len(dom_data.mql_book_infos)}, "
+            print(f"  [{i+1}/10] Niveles: {len(dom_data.mql_book_infos)}, "
                   f"BUY: {buy_volume:.2f}, SELL: {sell_volume:.2f}")
 
             await asyncio.sleep(1)
 
-        # 3. Unsubscribe
+        # 3. Cancelar la suscripción
         release_result = await account.market_book_release(symbol)
         if release_result.closed_successfully:
-            print(f"[3] DOM released successfully")
+            print(f"[3] DOM liberado correctamente")
 
     finally:
         await account.channel.close()
@@ -213,8 +223,10 @@ async def dom_workflow():
 asyncio.run(dom_workflow())
 ```
 
+### Analizar el spread entre compra y venta
+
 ```python
-# Analyze bid/ask spread
+# Analizar el spread entre compra y venta
 async def analyze_spread():
     account = MT5Account(
         user=12345,
@@ -230,11 +242,11 @@ async def analyze_spread():
     try:
         symbol = "EURUSD"
 
-        # Subscribe and get DOM
+        # Suscribirse y obtener el DOM
         await account.market_book_add(symbol)
         dom_data = await account.market_book_get(symbol)
 
-        # Separate buy and sell orders
+        # Separar las órdenes de compra y venta
         sell_orders = [e for e in dom_data.mql_book_infos if e.type in [0, 2]]
         buy_orders = [e for e in dom_data.mql_book_infos if e.type in [1, 3]]
 
@@ -246,11 +258,11 @@ async def analyze_spread():
             spread_pips = spread / 0.0001
 
             print(f"[SPREAD] {symbol}")
-            print(f"  Best Bid: {best_bid.price:.5f}")
-            print(f"  Best Ask: {best_ask.price:.5f}")
+            print(f"  Mejor Bid: {best_bid.price:.5f}")
+            print(f"  Mejor Ask: {best_ask.price:.5f}")
             print(f"  Spread: {spread_pips:.1f} pips")
 
-        # Cleanup
+        # Liberar recursos
         await account.market_book_release(symbol)
 
     finally:
@@ -259,8 +271,10 @@ async def analyze_spread():
 asyncio.run(analyze_spread())
 ```
 
+### Supervisar varios símbolos
+
 ```python
-# Monitor multiple symbols
+# Supervisar varios símbolos
 async def monitor_multiple_symbols():
     account = MT5Account(
         user=12345,
@@ -276,16 +290,16 @@ async def monitor_multiple_symbols():
     symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
     try:
-        # Subscribe to all symbols
+        # Suscribirse a todos los símbolos
         for symbol in symbols:
             result = await account.market_book_add(symbol)
             if result.opened_successfully:
-                print(f"[SUBSCRIBED] {symbol}")
+                print(f"[SUSCRITO] {symbol}")
 
-        # Monitor all symbols
-        print("\n[MONITORING] DOM for all symbols:")
+        # Supervisar todos los símbolos
+        print("\n[SUPERVISIÓN] DOM de todos los símbolos:")
 
-        for _ in range(5):  # Monitor for 5 iterations
+        for _ in range(5):  # Supervisar durante 5 iteraciones
             print("\n" + "="*50)
 
             for symbol in symbols:
@@ -294,13 +308,13 @@ async def monitor_multiple_symbols():
                 sell_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [0, 2])
                 buy_volume = sum(e.volume_real for e in dom_data.mql_book_infos if e.type in [1, 3])
 
-                print(f"{symbol:<8} Levels: {len(dom_data.mql_book_infos):<4} "
+                print(f"{symbol:<8} Niveles: {len(dom_data.mql_book_infos):<4} "
                       f"BUY: {buy_volume:>8.2f}  SELL: {sell_volume:>8.2f}")
 
             await asyncio.sleep(2)
 
-        # Unsubscribe from all symbols
-        print("\n[RELEASING] All subscriptions...")
+        # Cancelar las suscripciones de todos los símbolos
+        print("\n[LIBERACIÓN] Todas las suscripciones...")
         for symbol in symbols:
             await account.market_book_release(symbol)
 
@@ -310,20 +324,23 @@ async def monitor_multiple_symbols():
 asyncio.run(monitor_multiple_symbols())
 ```
 
+### Administrador de contexto para la liberación automática de recursos
+
 ```python
-# Context manager for automatic cleanup
+# Administrador de contexto para la liberación automática de recursos
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def dom_subscription(account, symbol):
-    """Context manager for automatic DOM subscription cleanup"""
+    """Administrador de contexto para la liberación automática de la suscripción DOM"""
     try:
         result = await account.market_book_add(symbol)
         if not result.opened_successfully:
-            raise Exception(f"Failed to subscribe to {symbol} DOM")
+            raise Exception(f"No se pudo realizar la suscripción al DOM de {symbol}")
         yield
     finally:
         await account.market_book_release(symbol)
+
 
 async def main():
     account = MT5Account(
@@ -338,10 +355,10 @@ async def main():
     )
 
     try:
-        # DOM is automatically released on exit
+        # El DOM se libera automáticamente al salir del bloque
         async with dom_subscription(account, "EURUSD"):
             dom_data = await account.market_book_get("EURUSD")
-            print(f"[DOM] {len(dom_data.mql_book_infos)} levels")
+            print(f"[DOM] {len(dom_data.mql_book_infos)} niveles")
 
     finally:
         await account.channel.close()
@@ -349,8 +366,10 @@ async def main():
 asyncio.run(main())
 ```
 
+### Encontrar niveles clave de liquidez
+
 ```python
-# Find key liquidity levels
+# Encontrar niveles clave de liquidez
 async def find_key_levels():
     account = MT5Account(
         user=12345,
@@ -369,18 +388,18 @@ async def find_key_levels():
         await account.market_book_add(symbol)
         dom_data = await account.market_book_get(symbol)
 
-        # Find top 5 volume levels
+        # Encontrar los 5 niveles con mayor volumen
         sorted_levels = sorted(dom_data.mql_book_infos,
-                             key=lambda x: x.volume_real,
-                             reverse=True)
+                                key=lambda x: x.volume_real,
+                                reverse=True)
 
-        print(f"[KEY LEVELS] {symbol} - Top 5 volume levels:\n")
+        print(f"[NIVELES CLAVE] {symbol} - Los 5 niveles con mayor volumen:\n")
 
         for i, entry in enumerate(sorted_levels[:5], 1):
             entry_type = "SELL" if entry.type in [0, 2] else "BUY"
-            print(f"{i}. {entry_type:<6} {entry.price:.5f} - {entry.volume_real:.2f} lots")
+            print(f"{i}. {entry_type:<6} {entry.price:.5f} - {entry.volume_real:.2f} lotes")
 
-        # Cleanup
+        # Liberar recursos
         await account.market_book_release(symbol)
 
     finally:
@@ -391,8 +410,9 @@ asyncio.run(find_key_levels())
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* **Symbols:** [symbol_select](../2.%20Symbol_Information/symbol_select.md) - add symbol to Market Watch before subscribing
-* **Prices:** [symbol_info_tick](../2.%20Symbol_Information/symbol_info_tick.md) - get current tick prices
-* **Streaming:** [on_symbol_tick](../6.%20Streaming_Methods/on_symbol_tick.md) - real-time tick stream
+- **Símbolos:** [symbol_select](../2.%20Symbol_Information/symbol_select.md) - añadir un símbolo a Market Watch antes de suscribirse.
+- **Precios:** [symbol_info_tick](../2.%20Symbol_Information/symbol_info_tick.md) - obtener los precios actuales del tick.
+- **Transmisión de datos:** [on_symbol_tick](../6.%20Streaming_Methods/on_symbol_tick.md) - flujo de ticks en tiempo real.
+

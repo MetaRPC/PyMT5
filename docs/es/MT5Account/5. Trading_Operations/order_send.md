@@ -1,50 +1,52 @@
-# Send Market or Pending Order
+# Enviar una orden de mercado o pendiente
 
-> **Request:** Send a market or pending order to the trading server.
+> **Solicitud:** Enviar una orden de mercado o pendiente al servidor de trading.
 
-**API Information:**
+**Información de la API:**
 
-* **Python API:** `MT5Account.order_send(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.TradingHelper`
-* **Proto definition:** `OrderSend` (defined in `mt5-term-api-trading-helper.proto`)
-* **Enums in this method:** 2 enums with 13 constants (2 input)
+- **API de Python:** `MT5Account.order_send(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.TradingHelper`
+- **Definición Proto:** `OrderSend` (definido en `mt5-term-api-trading-helper.proto`)
+- **Enums de este método:** 2 enums con 13 constantes (2 de entrada)
 
 ### RPC
 
-* **Service:** `mt5_term_api.TradingHelper`
-* **Method:** `OrderSend(OrderSendRequest) -> OrderSendReply`
-* **Low-level client (generated):** `TradingHelperStub.OrderSend(request, metadata)`
+- **Servicio:** `mt5_term_api.TradingHelper`
+- **Método:** `OrderSend(OrderSendRequest) -> OrderSendReply`
+- **Cliente de bajo nivel (generado):** `TradingHelperStub.OrderSend(request, metadata)`
 
 ---
 
-## 💬 Just the essentials
+## 💬 Lo esencial
 
-* **What it is.** Sends market or pending orders to the MT5 trading server.
-* **Why you need it.** Primary method for opening positions and placing pending orders.
-* **Success code.** Return code 10009 means success.
+- **Qué es:** Envía órdenes de mercado o pendientes al servidor de trading de MT5.
+- **Para qué sirve:** Es el método principal para abrir posiciones y colocar órdenes pendientes.
+- **Código de éxito:** El código de retorno 10009 indica que la operación se ha realizado correctamente.
 
 ---
 
-## 🎯 Purpose
+## 🎯 Propósito
 
-Use it to:
+Utiliza este método para:
 
-* Open market positions (BUY or SELL)
-* Place pending orders (LIMIT, STOP, STOP_LIMIT)
-* Set Stop Loss and Take Profit levels
-* Specify order expiration
-* Add order comments and magic numbers
+- Abrir posiciones de mercado (BUY o SELL).
+- Colocar órdenes pendientes (LIMIT, STOP, STOP_LIMIT).
+- Establecer niveles de Stop Loss y Take Profit.
+- Especificar el vencimiento de una orden.
+- Añadir comentarios y números mágicos a las órdenes.
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[OrderSend - How it works](../HOW_IT_WORK/5. Trading_Operations_HOW/order_send_HOW.md)**
+Para obtener una explicación detallada línea por línea con ejemplos, consulta:
+
+**[OrderSend - Cómo funciona](../HOW_IT_WORK/5. Trading_Operations_HOW/order_send_HOW.md)**
 
 ```python
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 class MT5Account:
     # ...
@@ -56,117 +58,119 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ) -> trading_pb2.OrderSendData:
         """
-        Sends a market or pending order to the trading server asynchronously.
+        Envía una orden de mercado o pendiente al servidor de trading de forma asíncrona.
 
         Returns:
-            OrderSendData: Response with deal/order confirmation data.
+            OrderSendData: Respuesta con los datos de confirmación de la operación/orden.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 message OrderSendRequest {
-  string symbol = 1;                             // Trading symbol
-  TMT5_ENUM_ORDER_TYPE operation = 2;            // Order type (BUY, SELL, BUY_LIMIT, etc.)
-  double volume = 3;                             // Order volume in lots
-  double price = 4;                              // Order price (for pending orders)
-  uint64 slippage = 5;                           // Max slippage in points
-  double stop_loss = 6;                          // Stop loss price (optional)
-  double take_profit = 7;                        // Take profit price (optional)
-  string comment = 8;                            // Order comment
-  uint64 expert_id = 9;                          // Expert Advisor ID (magic number)
-  double stop_limit_price = 10;                  // Stop limit price (for STOP_LIMIT orders)
-  TMT5_ENUM_ORDER_TYPE_TIME expiration_time_type = 11;  // Expiration type (GTC, DAY, etc.)
-  google.protobuf.Timestamp expiration_time = 12;       // Expiration time
+  string symbol = 1;                              // Símbolo de trading
+  TMT5_ENUM_ORDER_TYPE operation = 2;             // Tipo de orden (BUY, SELL, BUY_LIMIT, etc.)
+  double volume = 3;                              // Volumen de la orden en lotes
+  double price = 4;                               // Precio de la orden (para órdenes pendientes)
+  uint64 slippage = 5;                             // Deslizamiento máximo en puntos
+  double stop_loss = 6;                            // Precio de Stop Loss (opcional)
+  double take_profit = 7;                          // Precio de Take Profit (opcional)
+  string comment = 8;                              // Comentario de la orden
+  uint64 expert_id = 9;                            // ID del Asesor Experto (número mágico)
+  double stop_limit_price = 10;                    // Precio Stop Limit (para órdenes STOP_LIMIT)
+  TMT5_ENUM_ORDER_TYPE_TIME expiration_time_type = 11;  // Tipo de vencimiento (GTC, DAY, etc.)
+  google.protobuf.Timestamp expiration_time = 12;       // Fecha y hora de vencimiento
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `request`            | `OrderSendRequest`             | Order request (see fields above)              |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
-
----
-
-## ⬆️ Output
-
-Returns `OrderSendData` object.
-
-**OrderSendData fields:**
-
-| Field                         | Type      | Description                          |
-| ----------------------------- | --------- | ------------------------------------ |
-| `returned_code`               | `uint32`  | Return code (10009 = success)        |
-| `deal`                        | `uint32`  | Deal ticket (for market orders)      |
-| `order`                       | `uint32`  | Order ticket (for pending orders)    |
-| `volume`                      | `double`  | Executed volume                      |
-| `price`                       | `double`  | Execution price                      |
-| `bid`                         | `double`  | Current Bid price                    |
-| `ask`                         | `double`  | Current Ask price                    |
-| `comment`                     | `string`  | Broker comment                       |
-| `request_id`                  | `uint32`  | Request ID                           |
-| `ret_code_external`           | `uint64`  | External return code                 |
-| `returned_string_code`        | `string`  | String return code                   |
-| `returned_code_description`   | `string`  | Description of return code           |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `request` | `OrderSendRequest` | Solicitud de orden (véanse los campos anteriores) |
+| `deadline` | `Optional[datetime]` | Límite de tiempo para la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
 ---
 
-## 🧱 Related enums (from proto)
+## ⬆️ Salida
+
+Devuelve un objeto `OrderSendData`.
+
+**Campos de OrderSendData:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `returned_code` | `uint32` | Código de retorno (10009 = éxito) |
+| `deal` | `uint32` | Ticket de la operación (para órdenes de mercado) |
+| `order` | `uint32` | Ticket de la orden (para órdenes pendientes) |
+| `volume` | `double` | Volumen ejecutado |
+| `price` | `double` | Precio de ejecución |
+| `bid` | `double` | Precio Bid actual |
+| `ask` | `double` | Precio Ask actual |
+| `comment` | `string` | Comentario del bróker |
+| `request_id` | `uint32` | ID de la solicitud |
+| `ret_code_external` | `uint64` | Código de retorno externo |
+| `returned_string_code` | `string` | Código de retorno en formato de cadena |
+| `returned_code_description` | `string` | Descripción del código de retorno |
+
+---
+
+## 🧱 Enums relacionados (de proto)
 
 ### `TMT5_ENUM_ORDER_TYPE`
 
-Used in `OrderSendRequest` to specify order type.
+Se utiliza en `OrderSendRequest` para especificar el tipo de orden.
 
-| Constant Name                     | Value | Description                          |
-| --------------------------------- | ----- | ------------------------------------ |
-| `TMT5_ORDER_TYPE_BUY`             | 0     | Market buy order                     |
-| `TMT5_ORDER_TYPE_SELL`            | 1     | Market sell order                    |
-| `TMT5_ORDER_TYPE_BUY_LIMIT`       | 2     | Buy limit pending order              |
-| `TMT5_ORDER_TYPE_SELL_LIMIT`      | 3     | Sell limit pending order             |
-| `TMT5_ORDER_TYPE_BUY_STOP`        | 4     | Buy stop pending order               |
-| `TMT5_ORDER_TYPE_SELL_STOP`       | 5     | Sell stop pending order              |
-| `TMT5_ORDER_TYPE_BUY_STOP_LIMIT`  | 6     | Buy stop limit pending order         |
-| `TMT5_ORDER_TYPE_SELL_STOP_LIMIT` | 7     | Sell stop limit pending order        |
-| `TMT5_ORDER_TYPE_CLOSE_BY`        | 8     | Close by opposite position           |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `TMT5_ORDER_TYPE_BUY` | 0 | Orden de compra a mercado |
+| `TMT5_ORDER_TYPE_SELL` | 1 | Orden de venta a mercado |
+| `TMT5_ORDER_TYPE_BUY_LIMIT` | 2 | Orden pendiente Buy Limit |
+| `TMT5_ORDER_TYPE_SELL_LIMIT` | 3 | Orden pendiente Sell Limit |
+| `TMT5_ORDER_TYPE_BUY_STOP` | 4 | Orden pendiente Buy Stop |
+| `TMT5_ORDER_TYPE_SELL_STOP` | 5 | Orden pendiente Sell Stop |
+| `TMT5_ORDER_TYPE_BUY_STOP_LIMIT` | 6 | Orden pendiente Buy Stop Limit |
+| `TMT5_ORDER_TYPE_SELL_STOP_LIMIT` | 7 | Orden pendiente Sell Stop Limit |
+| `TMT5_ORDER_TYPE_CLOSE_BY` | 8 | Cierre mediante una posición opuesta |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
-# Access enum values
-trading_pb2.TMT5_ORDER_TYPE_BUY             # = 0
-trading_pb2.TMT5_ORDER_TYPE_SELL            # = 1
-trading_pb2.TMT5_ORDER_TYPE_BUY_LIMIT       # = 2
-trading_pb2.TMT5_ORDER_TYPE_SELL_LIMIT      # = 3
-trading_pb2.TMT5_ORDER_TYPE_BUY_STOP        # = 4
-trading_pb2.TMT5_ORDER_TYPE_SELL_STOP       # = 5
-trading_pb2.TMT5_ORDER_TYPE_BUY_STOP_LIMIT  # = 6
-trading_pb2.TMT5_ORDER_TYPE_SELL_STOP_LIMIT # = 7
-trading_pb2.TMT5_ORDER_TYPE_CLOSE_BY        # = 8
+# Acceder a los valores del enum
+trading_pb2.TMT5_ORDER_TYPE_BUY              # = 0
+trading_pb2.TMT5_ORDER_TYPE_SELL             # = 1
+trading_pb2.TMT5_ORDER_TYPE_BUY_LIMIT        # = 2
+trading_pb2.TMT5_ORDER_TYPE_SELL_LIMIT       # = 3
+trading_pb2.TMT5_ORDER_TYPE_BUY_STOP         # = 4
+trading_pb2.TMT5_ORDER_TYPE_SELL_STOP        # = 5
+trading_pb2.TMT5_ORDER_TYPE_BUY_STOP_LIMIT   # = 6
+trading_pb2.TMT5_ORDER_TYPE_SELL_STOP_LIMIT  # = 7
+trading_pb2.TMT5_ORDER_TYPE_CLOSE_BY         # = 8
 ```
 
 ### `TMT5_ENUM_ORDER_TYPE_TIME`
 
-Used in `OrderSendRequest` to specify order lifetime.
+Se utiliza en `OrderSendRequest` para especificar el período de validez de la orden.
 
-| Constant Name                   | Value | Description                          |
-| ------------------------------- | ----- | ------------------------------------ |
-| `TMT5_ORDER_TIME_GTC`           | 0     | Good till cancelled                  |
-| `TMT5_ORDER_TIME_DAY`           | 1     | Good till current trading day        |
-| `TMT5_ORDER_TIME_SPECIFIED`     | 2     | Good till specified date             |
-| `TMT5_ORDER_TIME_SPECIFIED_DAY` | 3     | Good till specified day              |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `TMT5_ORDER_TIME_GTC` | 0 | Válida hasta su cancelación |
+| `TMT5_ORDER_TIME_DAY` | 1 | Válida hasta el final del día de negociación actual |
+| `TMT5_ORDER_TIME_SPECIFIED` | 2 | Válida hasta la fecha especificada |
+| `TMT5_ORDER_TIME_SPECIFIED_DAY` | 3 | Válida hasta el día especificado |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
-# Access enum values
+# Acceder a los valores del enum
 trading_pb2.TMT5_ORDER_TIME_GTC            # = 0
 trading_pb2.TMT5_ORDER_TIME_DAY            # = 1
 trading_pb2.TMT5_ORDER_TIME_SPECIFIED      # = 2
@@ -175,27 +179,28 @@ trading_pb2.TMT5_ORDER_TIME_SPECIFIED_DAY  # = 3
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **Return code:** Always check `returned_code == 10009` to verify success.
-* **Market vs Pending:** Use operation 0 (BUY) or 1 (SELL) for market orders, other codes for pending orders.
-* **Slippage:** Set appropriate slippage for market orders to allow price movement.
-* **Volume:** Volume is specified in lots (e.g., 0.01 = 1 micro lot).
-* **SL/TP:** Can be set during order placement or modified later.
-* **Magic number:** Use `expert_id` to identify orders from your EA.
-* **Validation:** Use `order_check` before sending to validate the order.
+- **Reconexión automática:** Todos los métodos de `MT5Account` incluyen protección integrada contra errores gRPC transitorios, con reconexión automática mediante `execute_with_reconnect`.
+- **Código de retorno:** Comprueba siempre `returned_code == 10009` para verificar que la operación se ha realizado correctamente.
+- **Mercado frente a pendiente:** Utiliza la operación 0 (BUY) o 1 (SELL) para órdenes de mercado; utiliza los demás códigos para órdenes pendientes.
+- **Deslizamiento:** Establece un valor de deslizamiento adecuado para las órdenes de mercado, permitiendo movimientos del precio.
+- **Volumen:** El volumen se especifica en lotes (por ejemplo, 0.01 = 1 microlote).
+- **SL/TP:** Se pueden establecer al enviar la orden o modificarse posteriormente.
+- **Número mágico:** Utiliza `expert_id` para identificar las órdenes de tu EA.
+- **Validación:** Utiliza `order_check` antes del envío para validar la orden.
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Send market BUY order
+### 1) Enviar una orden de mercado BUY
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 async def market_buy():
     account = MT5Account(
@@ -210,46 +215,48 @@ async def market_buy():
     )
 
     try:
-        # Create market BUY order request
+        # Crear una solicitud de orden de mercado BUY
         request = trading_pb2.OrderSendRequest(
             symbol="EURUSD",
             operation=trading_pb2.TMT5_ORDER_TYPE_BUY,
-            volume=0.01,  # 0.01 lots (1 micro lot)
-            price=0,      # 0 for market orders
-            slippage=20,  # 20 points max slippage
-            stop_loss=0,  # No SL
-            take_profit=0,  # No TP
+            volume=0.01,  # 0.01 lotes (1 microlote)
+            price=0,       # 0 para órdenes de mercado
+            slippage=20,   # Deslizamiento máximo de 20 puntos
+            stop_loss=0,   # Sin SL
+            take_profit=0, # Sin TP
             comment="Market BUY",
             expert_id=12345
         )
 
-        # Send order
+        # Enviar la orden
         result = await account.order_send(request)
 
-        # Check result
+        # Comprobar el resultado
         if result.returned_code == 10009:
-            print(f"[SUCCESS] Order executed!")
-            print(f"  Deal: #{result.deal}")
-            print(f"  Volume: {result.volume}")
-            print(f"  Price: {result.price}")
+            print(f"[ÉXITO] ¡Orden ejecutada!")
+            print(f"  Operación: #{result.deal}")
+            print(f"  Volumen: {result.volume}")
+            print(f"  Precio: {result.price}")
             print(f"  Bid: {result.bid}, Ask: {result.ask}")
         else:
-            print(f"[FAILED] Code: {result.returned_code}")
-            print(f"  Description: {result.returned_code_description}")
-            print(f"  Comment: {result.comment}")
+            print(f"[ERROR] Código: {result.returned_code}")
+            print(f"  Descripción: {result.returned_code_description}")
+            print(f"  Comentario: {result.comment}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(market_buy())
 ```
 
-### 2) Send market order with SL/TP
+### 2) Enviar una orden de mercado con SL/TP
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 async def market_order_with_sl_tp():
     account = MT5Account(
@@ -264,7 +271,7 @@ async def market_order_with_sl_tp():
     )
 
     try:
-        # Get current price first
+        # Primero, obtener el precio actual
         import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
 
         tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
@@ -273,12 +280,12 @@ async def market_order_with_sl_tp():
         current_ask = tick_data.tick.ask
         current_bid = tick_data.tick.bid
 
-        # Calculate SL/TP levels (50 pips)
+        # Calcular los niveles de SL/TP (50 pips)
         pip_size = 0.0001
-        sl_price = current_ask - (50 * pip_size)  # 50 pips below
-        tp_price = current_ask + (50 * pip_size)  # 50 pips above
+        sl_price = current_ask - (50 * pip_size)  # 50 pips por debajo
+        tp_price = current_ask + (50 * pip_size)  # 50 pips por encima
 
-        # Create BUY order with SL/TP
+        # Crear una orden BUY con SL/TP
         request = trading_pb2.OrderSendRequest(
             symbol="EURUSD",
             operation=trading_pb2.TMT5_ORDER_TYPE_BUY,
@@ -294,26 +301,28 @@ async def market_order_with_sl_tp():
         result = await account.order_send(request)
 
         if result.returned_code == 10009:
-            print(f"[SUCCESS] Order with SL/TP executed!")
-            print(f"  Entry: {result.price:.5f}")
+            print(f"[ÉXITO] ¡Orden con SL/TP ejecutada!")
+            print(f"  Entrada: {result.price:.5f}")
             print(f"  SL: {sl_price:.5f}")
             print(f"  TP: {tp_price:.5f}")
         else:
-            print(f"[FAILED] {result.returned_code_description}")
+            print(f"[ERROR] {result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(market_order_with_sl_tp())
 ```
 
-### 3) Place pending BUY LIMIT order
+### 3) Colocar una orden pendiente BUY LIMIT
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
+
 
 async def buy_limit_order():
     account = MT5Account(
@@ -328,23 +337,23 @@ async def buy_limit_order():
     )
 
     try:
-        # Get current price
+        # Obtener el precio actual
         tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
         tick_data = await account.symbol_info_tick(tick_req)
 
         current_bid = tick_data.tick.bid
 
-        # Place BUY LIMIT 20 pips below current price
+        # Colocar BUY LIMIT 20 pips por debajo del precio actual
         pip_size = 0.0001
         limit_price = current_bid - (20 * pip_size)
 
-        # Create BUY LIMIT order
+        # Crear una orden BUY LIMIT
         request = trading_pb2.OrderSendRequest(
             symbol="EURUSD",
             operation=trading_pb2.TMT5_ORDER_TYPE_BUY_LIMIT,
             volume=0.01,
             price=limit_price,
-            slippage=0,  # Not used for pending orders
+            slippage=0,  # No se utiliza para órdenes pendientes
             stop_loss=0,
             take_profit=0,
             comment="BUY LIMIT order",
@@ -354,20 +363,21 @@ async def buy_limit_order():
         result = await account.order_send(request)
 
         if result.returned_code == 10009:
-            print(f"[SUCCESS] BUY LIMIT order placed!")
-            print(f"  Order: #{result.order}")
-            print(f"  Price: {limit_price:.5f}")
-            print(f"  Current: {current_bid:.5f}")
+            print(f"[ÉXITO] ¡Orden BUY LIMIT colocada!")
+            print(f"  Orden: #{result.order}")
+            print(f"  Precio: {limit_price:.5f}")
+            print(f"  Precio actual: {current_bid:.5f}")
         else:
-            print(f"[FAILED] {result.returned_code_description}")
+            print(f"[ERROR] {result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(buy_limit_order())
 ```
 
-### 4) Place BUY STOP order with expiration
+### 4) Colocar una orden BUY STOP con vencimiento
 
 ```python
 import asyncio
@@ -375,6 +385,7 @@ from datetime import datetime, timedelta
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_pb2
+
 
 async def buy_stop_with_expiration():
     account = MT5Account(
@@ -389,23 +400,23 @@ async def buy_stop_with_expiration():
     )
 
     try:
-        # Get current price
+        # Obtener el precio actual
         tick_req = market_pb2.SymbolInfoTickRequest(symbol="EURUSD")
         tick_data = await account.symbol_info_tick(tick_req)
 
         current_ask = tick_data.tick.ask
 
-        # Place BUY STOP 20 pips above current price
+        # Colocar BUY STOP 20 pips por encima del precio actual
         pip_size = 0.0001
         stop_price = current_ask + (20 * pip_size)
 
-        # Set expiration to 1 hour from now
+        # Establecer el vencimiento dentro de 1 hora
         from google.protobuf.timestamp_pb2 import Timestamp
         expiration = datetime.now() + timedelta(hours=1)
         expiration_timestamp = Timestamp()
         expiration_timestamp.FromDatetime(expiration)
 
-        # Create BUY STOP order
+        # Crear una orden BUY STOP
         request = trading_pb2.OrderSendRequest(
             symbol="EURUSD",
             operation=trading_pb2.TMT5_ORDER_TYPE_BUY_STOP,
@@ -423,25 +434,27 @@ async def buy_stop_with_expiration():
         result = await account.order_send(request)
 
         if result.returned_code == 10009:
-            print(f"[SUCCESS] BUY STOP order placed!")
-            print(f"  Order: #{result.order}")
-            print(f"  Price: {stop_price:.5f}")
-            print(f"  Expires: {expiration.strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"[ÉXITO] ¡Orden BUY STOP colocada!")
+            print(f"  Orden: #{result.order}")
+            print(f"  Precio: {stop_price:.5f}")
+            print(f"  Vence: {expiration.strftime('%Y-%m-%d %H:%M:%S')}")
         else:
-            print(f"[FAILED] {result.returned_code_description}")
+            print(f"[ERROR] {result.returned_code_description}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(buy_stop_with_expiration())
 ```
 
-### 5) Multiple orders with error handling
+### 5) Varias órdenes con gestión de errores
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 async def multiple_orders():
     account = MT5Account(
@@ -481,29 +494,31 @@ async def multiple_orders():
 
                 if result.returned_code == 10009:
                     successful += 1
-                    print(f"[OK] {symbol}: Deal #{result.deal} @ {result.price}")
+                    print(f"[CORRECTO] {symbol}: Operación #{result.deal} @ {result.price}")
                 else:
                     failed += 1
-                    print(f"[FAIL] {symbol}: {result.returned_code_description}")
+                    print(f"[FALLIDO] {symbol}: {result.returned_code_description}")
 
             except Exception as e:
                 failed += 1
                 print(f"[ERROR] {symbol}: {e}")
 
-        print(f"\n[SUMMARY] Successful: {successful}, Failed: {failed}")
+        print(f"\n[RESUMEN] Correctas: {successful}, Fallidas: {failed}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(multiple_orders())
 ```
 
-### 6) Order with retry logic
+### 6) Orden con lógica de reintentos
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 async def order_with_retry():
     account = MT5Account(
@@ -518,7 +533,7 @@ async def order_with_retry():
     )
 
     max_retries = 3
-    retry_delay = 1.0  # seconds
+    retry_delay = 1.0  # segundos
 
     try:
         request = trading_pb2.OrderSendRequest(
@@ -532,37 +547,38 @@ async def order_with_retry():
         )
 
         for attempt in range(1, max_retries + 1):
-            print(f"[ATTEMPT {attempt}/{max_retries}]")
+            print(f"[INTENTO {attempt}/{max_retries}]")
 
             result = await account.order_send(request)
 
             if result.returned_code == 10009:
-                print(f"[SUCCESS] Order executed on attempt {attempt}!")
-                print(f"  Deal: #{result.deal}")
-                print(f"  Price: {result.price}")
+                print(f"[ÉXITO] ¡Orden ejecutada en el intento {attempt}!")
+                print(f"  Operación: #{result.deal}")
+                print(f"  Precio: {result.price}")
                 break
             else:
-                print(f"[FAILED] Code: {result.returned_code}")
-                print(f"  Description: {result.returned_code_description}")
+                print(f"[ERROR] Código: {result.returned_code}")
+                print(f"  Descripción: {result.returned_code_description}")
 
                 if attempt < max_retries:
-                    print(f"  Retrying in {retry_delay} seconds...")
+                    print(f"  Reintentando en {retry_delay} segundos...")
                     await asyncio.sleep(retry_delay)
                 else:
-                    print(f"  Max retries reached. Giving up.")
+                    print(f"  Se alcanzó el número máximo de reintentos. Se cancela el proceso.")
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(order_with_retry())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [OrderCheck](./order_check.md) - Validate order before sending
-* [OrderModify](./order_modify.md) - Modify existing orders
-* [OrderClose](./order_close.md) - Close positions
-* [OrderCalcMargin](./order_calc_margin.md) - Calculate required margin
-* [OrderCalcProfit](./order_calc_profit.md) - Calculate potential profit/loss
+- [OrderCheck](./order_check.md) - Validar una orden antes de enviarla.
+- [OrderModify](./order_modify.md) - Modificar órdenes existentes.
+- [OrderClose](./order_close.md) - Cerrar posiciones.
+- [OrderCalcMargin](./order_calc_margin.md) - Calcular el margen requerido.
+- [OrderCalcProfit](./order_calc_profit.md) - Calcular el beneficio/pérdida potencial.

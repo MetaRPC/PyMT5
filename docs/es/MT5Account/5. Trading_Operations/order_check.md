@@ -1,45 +1,45 @@
-# Check Order Validity
+# Comprobar la validez de una orden
 
-> **Request:** Validate if a trade request can be executed under current market conditions.
+> **Solicitud:** Validar si una solicitud de trading puede ejecutarse en las condiciones actuales del mercado.
 
-**API Information:**
+**Información de la API:**
 
-* **Python API:** `MT5Account.order_check(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.TradeFunctions`
-* **Proto definition:** `OrderCheck` (defined in `mt5-term-api-trade-functions.proto`)
-* **Enums in this method:** 4 enums with 23 constants (4 input)
+- **API de Python:** `MT5Account.order_check(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.TradeFunctions`
+- **Definición Proto:** `OrderCheck` (definido en `mt5-term-api-trade-functions.proto`)
+- **Enums en este método:** 4 enums con 23 constantes (4 parámetros de entrada)
 
 ### RPC
 
-* **Service:** `mt5_term_api.TradeFunctions`
-* **Method:** `OrderCheck(OrderCheckRequest) -> OrderCheckReply`
-* **Low-level client (generated):** `TradeFunctionsStub.OrderCheck(request, metadata)`
+- **Servicio:** `mt5_term_api.TradeFunctions`
+- **Método:** `OrderCheck(OrderCheckRequest) -> OrderCheckReply`
+- **Cliente de bajo nivel (generado):** `TradeFunctionsStub.OrderCheck(request, metadata)`
 
 ---
 
-## 💬 Just the essentials
+## 💬 Lo esencial
 
-* **What it is.** Validates trade requests before execution.
-* **Why you need it.** Check if account has sufficient margin and validate order parameters.
-* **Use before sending.** Always check orders before sending to avoid rejections.
+- **Qué es.** Valida las solicitudes de trading antes de ejecutarlas.
+- **Para qué sirve.** Comprueba si la cuenta dispone de margen suficiente y valida los parámetros de la orden.
+- **Antes de enviar una orden.** Comprueba siempre las órdenes antes de enviarlas para evitar rechazos.
 
 ---
 
-## 🎯 Purpose
+## 🎯 Finalidad
 
-Use it to:
+Utilízalo para:
 
-* Verify sufficient margin before opening positions
-* Validate order parameters (price, volume, SL/TP)
-* Check broker restrictions
-* Calculate margin requirements
-* Estimate balance/equity changes
-* Prevent rejected orders
-
+- Verificar que hay margen suficiente antes de abrir posiciones.
+- Validar los parámetros de la orden (precio, volumen, SL/TP).
+- Comprobar las restricciones del bróker.
+- Calcular los requisitos de margen.
+- Estimar los cambios en el balance y el equity.
+- Evitar que las órdenes sean rechazadas.
 
 ```python
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 class MT5Account:
     # ...
@@ -51,124 +51,129 @@ class MT5Account:
         cancellation_event: Optional[asyncio.Event] = None,
     ) -> trade_pb2.OrderCheckData:
         """
-        Checks whether a trade request can be successfully executed.
+        Comprueba si una solicitud de trading puede ejecutarse correctamente.
 
         Returns:
-            OrderCheckData: Result of the trade request check.
+            OrderCheckData: Resultado de la comprobación de la solicitud de trading.
         """
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 message OrderCheckRequest {
-  MrpcMqlTradeRequest mql_trade_request = 1;  // Trade request to validate
+  MrpcMqlTradeRequest mql_trade_request = 1;  // Solicitud de trading que se va a validar
 }
 
+
 message MrpcMqlTradeRequest {
-  MRPC_ENUM_TRADE_REQUEST_ACTIONS action = 1;  // Trade operation type
-  uint64 expert_advisor_magic_number = 2;      // Expert Advisor ID
-  uint64 order = 3;                            // Order ticket
-  string symbol = 4;                           // Symbol name
-  double volume = 5;                           // Volume in lots
-  double price = 6;                            // Price
-  double stop_limit = 7;                       // Stop limit price
-  double stop_loss = 8;                        // Stop loss price
-  double take_profit = 9;                      // Take profit price
-  uint64 deviation = 10;                       // Maximum deviation from price
-  ENUM_ORDER_TYPE_TF order_type = 11;          // Order type
-  MRPC_ENUM_ORDER_TYPE_FILLING type_filling = 12;  // Filling mode
-  MRPC_ENUM_ORDER_TYPE_TIME type_time = 13;    // Order lifetime
-  google.protobuf.Timestamp expiration = 14;   // Expiration time
-  string comment = 15;                         // Comment
-  uint64 position = 16;                        // Position ticket
-  uint64 position_by = 17;                     // Opposite position ticket
-  google.protobuf.Timestamp expiration_utc = 18;  // Expiration time (UTC)
+  MRPC_ENUM_TRADE_REQUEST_ACTIONS action = 1;  // Tipo de operación de trading
+  uint64 expert_advisor_magic_number = 2;      // ID del Expert Advisor
+  uint64 order = 3;                            // Ticket de la orden
+  string symbol = 4;                           // Nombre del símbolo
+  double volume = 5;                           // Volumen en lotes
+  double price = 6;                            // Precio
+  double stop_limit = 7;                       // Precio Stop Limit
+  double stop_loss = 8;                        // Precio Stop Loss
+  double take_profit = 9;                      // Precio Take Profit
+  uint64 deviation = 10;                       // Desviación máxima respecto al precio
+  ENUM_ORDER_TYPE_TF order_type = 11;          // Tipo de orden
+  MRPC_ENUM_ORDER_TYPE_FILLING type_filling = 12;  // Modo de ejecución
+  MRPC_ENUM_ORDER_TYPE_TIME type_time = 13;    // Duración de la orden
+  google.protobuf.Timestamp expiration = 14;   // Hora de vencimiento
+  string comment = 15;                         // Comentario
+  uint64 position = 16;                        // Ticket de la posición
+  uint64 position_by = 17;                     // Ticket de la posición opuesta
+  google.protobuf.Timestamp expiration_utc = 18;  // Hora de vencimiento (UTC)
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter            | Type                           | Description                                   |
-| -------------------- | ------------------------------ | --------------------------------------------- |
-| `request`            | `OrderCheckRequest`            | Trade request to validate                     |
-| `deadline`           | `Optional[datetime]`           | Deadline for the operation (optional)         |
-| `cancellation_event` | `Optional[asyncio.Event]`      | Event to cancel the request (optional)        |
-
----
-
-## ⬆️ Output
-
-Returns `OrderCheckData` object with validation results.
-
-**OrderCheckData fields:**
-
-| Field                    | Type                          | Description                          |
-| ------------------------ | ----------------------------- | ------------------------------------ |
-| `mql_trade_check_result` | `MrpcMqlTradeCheckResult`     | Validation result structure          |
-
-**MrpcMqlTradeCheckResult fields:**
-
-| Field                | Type      | Description                          |
-| -------------------- | --------- | ------------------------------------ |
-| `returned_code`      | `uint32`  | Return code (0 = success)            |
-| `balance_after_deal` | `double`  | Balance after order execution        |
-| `equity_after_deal`  | `double`  | Equity after order execution         |
-| `profit`             | `double`  | Estimated profit/loss                |
-| `margin`             | `double`  | Required margin                      |
-| `free_margin`        | `double`  | Free margin after order              |
-| `margin_level`       | `double`  | Margin level percentage              |
-| `comment`            | `string`  | Comment or error description         |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `request` | `OrderCheckRequest` | Solicitud de trading que se va a validar |
+| `deadline` | `Optional[datetime]` | Plazo límite de la operación (opcional) |
+| `cancellation_event` | `Optional[asyncio.Event]` | Evento para cancelar la solicitud (opcional) |
 
 ---
 
-## 🧱 Related enums (from proto)
+## ⬆️ Salida
+
+Devuelve un objeto `OrderCheckData` con los resultados de la validación.
+
+**Campos de OrderCheckData:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `mql_trade_check_result` | `MrpcMqlTradeCheckResult` | Estructura con el resultado de la validación |
+
+**Campos de MrpcMqlTradeCheckResult:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `returned_code` | `uint32` | Código de retorno (0 = éxito) |
+| `balance_after_deal` | `double` | Balance después de ejecutar la orden |
+| `equity_after_deal` | `double` | Equity después de ejecutar la orden |
+| `profit` | `double` | Beneficio o pérdida estimados |
+| `margin` | `double` | Margen requerido |
+| `free_margin` | `double` | Margen libre después de la orden |
+| `margin_level` | `double` | Nivel de margen en porcentaje |
+| `comment` | `string` | Comentario o descripción del error |
+
+---
+
+## 🧱 Enums relacionados (del proto)
 
 ### `MRPC_ENUM_TRADE_REQUEST_ACTIONS`
 
-Used in `MrpcMqlTradeRequest` to specify the type of trade operation.
+Se utiliza en `MrpcMqlTradeRequest` para especificar el tipo de operación de trading.
 
-| Constant Name           | Value | Description                          |
-| ----------------------- | ----- | ------------------------------------ |
-| `TRADE_ACTION_DEAL`     | 0     | Place market order                   |
-| `TRADE_ACTION_PENDING`  | 1     | Place pending order                  |
-| `TRADE_ACTION_SLTP`     | 2     | Modify SL/TP                         |
-| `TRADE_ACTION_MODIFY`   | 3     | Modify order                         |
-| `TRADE_ACTION_REMOVE`   | 4     | Remove order                         |
-| `TRADE_ACTION_CLOSE_BY` | 5     | Close by opposite position           |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `TRADE_ACTION_DEAL` | 0 | Colocar una orden de mercado |
+| `TRADE_ACTION_PENDING` | 1 | Colocar una orden pendiente |
+| `TRADE_ACTION_SLTP` | 2 | Modificar SL/TP |
+| `TRADE_ACTION_MODIFY` | 3 | Modificar una orden |
+| `TRADE_ACTION_REMOVE` | 4 | Eliminar una orden |
+| `TRADE_ACTION_CLOSE_BY` | 5 | Cerrar mediante una posición opuesta |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
-# Access enum values
+# Acceder a los valores del enum
+
 trade_pb2.TRADE_ACTION_DEAL     # = 0
 trade_pb2.TRADE_ACTION_PENDING  # = 1
 ```
 
 ### `ENUM_ORDER_TYPE_TF`
 
-Used in `MrpcMqlTradeRequest` to specify order type.
+Se utiliza en `MrpcMqlTradeRequest` para especificar el tipo de orden.
 
-| Constant Name                  | Value | Description                          |
-| ------------------------------ | ----- | ------------------------------------ |
-| `ORDER_TYPE_TF_BUY`            | 0     | Market buy order                     |
-| `ORDER_TYPE_TF_SELL`           | 1     | Market sell order                    |
-| `ORDER_TYPE_TF_BUY_LIMIT`      | 2     | Buy limit pending order              |
-| `ORDER_TYPE_TF_SELL_LIMIT`     | 3     | Sell limit pending order             |
-| `ORDER_TYPE_TF_BUY_STOP`       | 4     | Buy stop pending order               |
-| `ORDER_TYPE_TF_SELL_STOP`      | 5     | Sell stop pending order              |
-| `ORDER_TYPE_TF_BUY_STOP_LIMIT` | 6     | Buy stop limit pending order         |
-| `ORDER_TYPE_TF_SELL_STOP_LIMIT`| 7     | Sell stop limit pending order        |
-| `ORDER_TYPE_TF_CLOSE_BY`       | 8     | Close by opposite position           |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `ORDER_TYPE_TF_BUY` | 0 | Orden de compra a mercado |
+| `ORDER_TYPE_TF_SELL` | 1 | Orden de venta a mercado |
+| `ORDER_TYPE_TF_BUY_LIMIT` | 2 | Orden pendiente Buy Limit |
+| `ORDER_TYPE_TF_SELL_LIMIT` | 3 | Orden pendiente Sell Limit |
+| `ORDER_TYPE_TF_BUY_STOP` | 4 | Orden pendiente Buy Stop |
+| `ORDER_TYPE_TF_SELL_STOP` | 5 | Orden pendiente Sell Stop |
+| `ORDER_TYPE_TF_BUY_STOP_LIMIT` | 6 | Orden pendiente Buy Stop Limit |
+| `ORDER_TYPE_TF_SELL_STOP_LIMIT` | 7 | Orden pendiente Sell Stop Limit |
+| `ORDER_TYPE_TF_CLOSE_BY` | 8 | Cierre mediante una posición opuesta |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
-# Access enum values
+# Acceder a los valores del enum
+
 trade_pb2.ORDER_TYPE_TF_BUY         # = 0
 trade_pb2.ORDER_TYPE_TF_SELL        # = 1
 trade_pb2.ORDER_TYPE_TF_BUY_LIMIT   # = 2
@@ -176,72 +181,78 @@ trade_pb2.ORDER_TYPE_TF_BUY_LIMIT   # = 2
 
 ### `MRPC_ENUM_ORDER_TYPE_FILLING`
 
-Used in `MrpcMqlTradeRequest` to specify order filling mode.
+Se utiliza en `MrpcMqlTradeRequest` para especificar el modo de ejecución de la orden.
 
-| Constant Name           | Value | Description                          |
-| ----------------------- | ----- | ------------------------------------ |
-| `ORDER_FILLING_FOK`     | 0     | Fill or Kill                         |
-| `ORDER_FILLING_IOC`     | 1     | Immediate or Cancel                  |
-| `ORDER_FILLING_RETURN`  | 2     | Return order                         |
-| `ORDER_FILLING_BOC`     | 3     | Book or Cancel                       |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `ORDER_FILLING_FOK` | 0 | Ejecutar completamente o cancelar (Fill or Kill) |
+| `ORDER_FILLING_IOC` | 1 | Ejecutar inmediatamente o cancelar (Immediate or Cancel) |
+| `ORDER_FILLING_RETURN` | 2 | Devolver la orden (Return) |
+| `ORDER_FILLING_BOC` | 3 | Book or Cancel |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
-# Access enum values
-trade_pb2.ORDER_FILLING_FOK     # = 0
-trade_pb2.ORDER_FILLING_IOC     # = 1
+# Acceder a los valores del enum
+
+trade_pb2.ORDER_FILLING_FOK  # = 0
+trade_pb2.ORDER_FILLING_IOC  # = 1
 ```
 
 ### `MRPC_ENUM_ORDER_TYPE_TIME`
 
-Used in `MrpcMqlTradeRequest` to specify order lifetime.
+Se utiliza en `MrpcMqlTradeRequest` para especificar la duración de la orden.
 
-| Constant Name              | Value | Description                          |
-| -------------------------- | ----- | ------------------------------------ |
-| `ORDER_TIME_GTC`           | 0     | Good till cancelled                  |
-| `ORDER_TIME_DAY`           | 1     | Good till current trading day        |
-| `ORDER_TIME_SPECIFIED`     | 2     | Good till specified date             |
-| `ORDER_TIME_SPECIFIED_DAY` | 3     | Good till specified day              |
+| Nombre de la constante | Valor | Descripción |
+|---|---:|---|
+| `ORDER_TIME_GTC` | 0 | Válida hasta su cancelación (Good till cancelled) |
+| `ORDER_TIME_DAY` | 1 | Válida hasta el final del día de trading actual |
+| `ORDER_TIME_SPECIFIED` | 2 | Válida hasta la fecha especificada |
+| `ORDER_TIME_SPECIFIED_DAY` | 3 | Válida hasta el día especificado |
 
-**Usage:**
+**Uso:**
+
 ```python
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 
-# Access enum values
-trade_pb2.ORDER_TIME_GTC        # = 0
-trade_pb2.ORDER_TIME_DAY        # = 1
+# Acceder a los valores del enum
+
+trade_pb2.ORDER_TIME_GTC  # = 0
+trade_pb2.ORDER_TIME_DAY  # = 1
 ```
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**[OrderCheck - How it works](../HOW_IT_WORK/5. Trading_Operations_HOW/order_check_HOW.md)**
+Para obtener una explicación detallada línea por línea, con ejemplos, consulta:
+
+**[OrderCheck - Cómo funciona](../HOW_IT_WORK/5. Trading_Operations_HOW/order_check_HOW.md)**
 
 ---
 
-## 🧩 Notes & Tips
+## 🧩 Notas y consejos
 
-* **Automatic reconnection:** All `MT5Account` methods have built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
-* **No execution:** This method does NOT execute the order, only validates it.
-* **Nested structure:** Request uses `OrderCheckRequest` which contains `MrpcMqlTradeRequest`.
-* **Margin check:** Returns required margin and free margin after order.
-* **Return code:** Check `returned_code` field (0 = success).
-* **Best practice:** Always check before sending, especially for large volumes.
+- **Reconexión automática:** Todos los métodos de `MT5Account` incorporan protección contra errores gRPC transitorios mediante la reconexión automática a través de `execute_with_reconnect`.
+- **No ejecuta la orden:** Este método NO ejecuta la orden; únicamente la valida.
+- **Estructura anidada:** La solicitud utiliza `OrderCheckRequest`, que contiene `MrpcMqlTradeRequest`.
+- **Comprobación del margen:** Devuelve el margen requerido y el margen libre después de la orden.
+- **Código de retorno:** Comprueba el campo `returned_code` (0 = éxito).
+- **Buena práctica:** Comprueba siempre las órdenes antes de enviarlas, especialmente cuando se utilizan volúmenes elevados.
 
 ---
 
-## 🔗 Usage Examples
+## 🔗 Ejemplos de uso
 
-### 1) Basic order validation
+### 1) Validación básica de una orden
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 async def check_order():
     account = MT5Account(
@@ -256,7 +267,7 @@ async def check_order():
     )
 
     try:
-        # Create order check request
+        # Crear la solicitud de comprobación de la orden
         request = trade_pb2.OrderCheckRequest()
         request.mql_trade_request.action = trade_pb2.TRADE_ACTION_DEAL
         request.mql_trade_request.symbol = "EURUSD"
@@ -266,34 +277,36 @@ async def check_order():
         request.mql_trade_request.deviation = 20
         request.mql_trade_request.type_filling = trade_pb2.ORDER_FILLING_FOK
         request.mql_trade_request.type_time = trade_pb2.ORDER_TIME_GTC
-        request.mql_trade_request.comment = "Check order"
+        request.mql_trade_request.comment = "Comprobar orden"
 
-        # Check order validity
+        # Comprobar la validez de la orden
         result = await account.order_check(request)
 
-        if result.mql_trade_check_result.returned_code == 0:  # 0 = valid
-            print(f"[VALID] Order can be executed!")
-            print(f"  Margin required: ${result.mql_trade_check_result.margin:.2f}")
-            print(f"  Free margin after: ${result.mql_trade_check_result.free_margin:.2f}")
-            print(f"  Balance after: ${result.mql_trade_check_result.balance_after_deal:.2f}")
+        if result.mql_trade_check_result.returned_code == 0:  # 0 = válida
+            print(f"[VÁLIDA] ¡La orden puede ejecutarse!")
+            print(f"  Margen requerido: ${result.mql_trade_check_result.margin:.2f}")
+            print(f"  Margen libre después: ${result.mql_trade_check_result.free_margin:.2f}")
+            print(f"  Balance después: ${result.mql_trade_check_result.balance_after_deal:.2f}")
         else:
-            print(f"[INVALID] Order cannot be executed!")
-            print(f"  Code: {result.mql_trade_check_result.returned_code}")
-            print(f"  Comment: {result.mql_trade_check_result.comment}")
+            print(f"[NO VÁLIDA] ¡La orden no puede ejecutarse!")
+            print(f"  Código: {result.mql_trade_check_result.returned_code}")
+            print(f"  Comentario: {result.mql_trade_check_result.comment}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(check_order())
 ```
 
-### 2) Check and send pattern
+### 2) Patrón de comprobación y envío
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
+
 
 async def check_and_send():
     account = MT5Account(
@@ -308,7 +321,7 @@ async def check_and_send():
     )
 
     try:
-        # Create order check request
+        # Crear la solicitud de comprobación de la orden
         check_request = trade_pb2.OrderCheckRequest()
         check_request.mql_trade_request.action = trade_pb2.TRADE_ACTION_DEAL
         check_request.mql_trade_request.symbol = "EURUSD"
@@ -318,49 +331,52 @@ async def check_and_send():
         check_request.mql_trade_request.deviation = 20
         check_request.mql_trade_request.type_filling = trade_pb2.ORDER_FILLING_FOK
         check_request.mql_trade_request.type_time = trade_pb2.ORDER_TIME_GTC
-        check_request.mql_trade_request.comment = "Checked order"
+        check_request.mql_trade_request.comment = "Orden comprobada"
 
-        # First, check the order
+        # Primero, comprobar la orden
         check_result = await account.order_check(check_request)
 
         if check_result.mql_trade_check_result.returned_code == 0:
-            print(f"[CHECK PASSED] Order is valid")
-            print(f"  Margin: ${check_result.mql_trade_check_result.margin:.2f}")
+            print(f"[COMPROBACIÓN SUPERADA] La orden es válida")
+            print(f"  Margen: ${check_result.mql_trade_check_result.margin:.2f}")
 
-            # Now send the order as a market order.
-            # OrderSendRequest is flat (no mql_trade_request) and lives in trading_helper.
+            # Ahora enviar la orden como una orden de mercado.
+            # OrderSendRequest es una estructura plana (sin mql_trade_request)
+            # y se encuentra en trading_helper.
             send_request = trading_pb2.OrderSendRequest(
                 symbol="EURUSD",
                 operation=trading_pb2.TMT5_ORDER_TYPE_BUY,
                 volume=0.05,
                 price=0.0,
                 slippage=20,
-                comment="Checked order",
+                comment="Orden comprobada",
             )
             send_result = await account.order_send(send_request)
 
             if send_result.returned_code == 10009:
-                print(f"[SUCCESS] Order executed!")
-                print(f"  Deal: #{send_result.deal}")
-                print(f"  Price: {send_result.price}")
+                print(f"[ÉXITO] ¡Orden ejecutada!")
+                print(f"  Operación: #{send_result.deal}")
+                print(f"  Precio: {send_result.price}")
             else:
-                print(f"[FAILED] {send_result.returned_code_description}")
+                print(f"[ERROR] {send_result.returned_code_description}")
         else:
-            print(f"[CHECK FAILED] Cannot send order")
-            print(f"  Reason: {check_result.mql_trade_check_result.comment}")
+            print(f"[COMPROBACIÓN FALLIDA] No se puede enviar la orden")
+            print(f"  Motivo: {check_result.mql_trade_check_result.comment}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(check_and_send())
 ```
 
-### 3) Check multiple volumes
+### 3) Comprobar varios volúmenes
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 async def check_multiple_volumes():
     account = MT5Account(
@@ -377,7 +393,7 @@ async def check_multiple_volumes():
     volumes = [0.01, 0.05, 0.10, 0.50, 1.00]
 
     try:
-        print("Checking volumes for EURUSD BUY:")
+        print("Comprobando volúmenes para EURUSD BUY:")
         print("-" * 60)
 
         for volume in volumes:
@@ -394,25 +410,27 @@ async def check_multiple_volumes():
             result = await account.order_check(request)
 
             if result.mql_trade_check_result.returned_code == 0:
-                print(f"[OK] {volume:>6.2f} lots - "
-                      f"Margin: ${result.mql_trade_check_result.margin:>10,.2f}, "
-                      f"Free: ${result.mql_trade_check_result.free_margin:>10,.2f}")
+                print(f"[OK] {volume:>6.2f} lotes - "
+                      f"Margen: ${result.mql_trade_check_result.margin:>10,.2f}, "
+                      f"Libre: ${result.mql_trade_check_result.free_margin:>10,.2f}")
             else:
-                print(f"[FAIL] {volume:>6.2f} lots - "
+                print(f"[ERROR] {volume:>6.2f} lotes - "
                       f"{result.mql_trade_check_result.comment}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(check_multiple_volumes())
 ```
 
-### 4) Find maximum volume
+### 4) Encontrar el volumen máximo
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
+
 
 async def find_max_volume():
     account = MT5Account(
@@ -430,10 +448,10 @@ async def find_max_volume():
         max_volume = 0.01
         step = 0.01
 
-        # Binary search for maximum volume
+        # Búsqueda binaria del volumen máximo
         current = 0.01
 
-        while current <= 10.0:  # Max check up to 10 lots
+        while current <= 10.0:  # Comprobar hasta un máximo de 10 lotes
             request = trade_pb2.OrderCheckRequest()
             request.mql_trade_request.action = trade_pb2.TRADE_ACTION_DEAL
             request.mql_trade_request.symbol = "EURUSD"
@@ -453,21 +471,23 @@ async def find_max_volume():
             else:
                 break
 
-        print(f"[RESULT] Maximum volume: {max_volume:.2f} lots")
+        print(f"[RESULTADO] Volumen máximo: {max_volume:.2f} lotes")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(find_max_volume())
 ```
 
-### 5) Risk calculator
+### 5) Calculadora de riesgo
 
 ```python
 import asyncio
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_pb2
+
 
 async def calculate_risk_percent(volume: float):
     account = MT5Account(
@@ -482,12 +502,12 @@ async def calculate_risk_percent(volume: float):
     )
 
     try:
-        # Get current balance
+        # Obtener el balance actual
         summary_req = account_pb2.AccountSummaryRequest()
         summary = await account.account_summary(summary_req)
         current_balance = summary.balance
 
-        # Check order
+        # Comprobar la orden
         request = trade_pb2.OrderCheckRequest()
         request.mql_trade_request.action = trade_pb2.TRADE_ACTION_DEAL
         request.mql_trade_request.symbol = "EURUSD"
@@ -504,22 +524,23 @@ async def calculate_risk_percent(volume: float):
             margin_required = result.mql_trade_check_result.margin
             risk_percent = (margin_required / current_balance) * 100
 
-            print(f"[RISK ANALYSIS]")
-            print(f"  Volume: {volume:.2f} lots")
-            print(f"  Current balance: ${current_balance:,.2f}")
-            print(f"  Margin required: ${margin_required:,.2f}")
-            print(f"  Risk: {risk_percent:.2f}% of balance")
-            print(f"  Free margin after: ${result.mql_trade_check_result.free_margin:,.2f}")
+            print(f"[ANÁLISIS DE RIESGO]")
+            print(f"  Volumen: {volume:.2f} lotes")
+            print(f"  Balance actual: ${current_balance:,.2f}")
+            print(f"  Margen requerido: ${margin_required:,.2f}")
+            print(f"  Riesgo: {risk_percent:.2f}% del balance")
+            print(f"  Margen libre después: ${result.mql_trade_check_result.free_margin:,.2f}")
         else:
             print(f"[ERROR] {result.mql_trade_check_result.comment}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(calculate_risk_percent(0.10))
 ```
 
-### 6) Validate order before automated trading
+### 6) Validar una orden antes del trading automatizado
 
 ```python
 import asyncio
@@ -527,14 +548,15 @@ from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_trade_functions_pb2 as trade_pb2
 import MetaRpcMT5.mt5_term_api_trading_helper_pb2 as trading_pb2
 
+
 class OrderValidator:
     def __init__(self, account):
         self.account = account
 
     async def validate_and_execute(self, trade_request):
-        """Validate order before execution"""
+        """Validar la orden antes de ejecutarla"""
 
-        # Check order
+        # Comprobar la orden
         check_request = trade_pb2.OrderCheckRequest()
         check_request.mql_trade_request.CopyFrom(trade_request)
         check_result = await self.account.order_check(check_request)
@@ -546,7 +568,7 @@ class OrderValidator:
                 'error': check_result.mql_trade_check_result.comment
             }
 
-        # Check free margin threshold (e.g., 30% minimum)
+        # Comprobar el umbral de margen libre (por ejemplo, un mínimo del 30 %)
         balance = check_result.mql_trade_check_result.balance_after_deal
         margin_free = check_result.mql_trade_check_result.free_margin
 
@@ -554,12 +576,13 @@ class OrderValidator:
             return {
                 'success': False,
                 'stage': 'margin_check',
-                'error': 'Insufficient free margin (< 30%)'
+                'error': 'Margen libre insuficiente (< 30%)'
             }
 
-        # Execute order. OrderSendRequest is flat (no mql_trade_request) and lives
-        # in trading_helper; map the validated fields across (TF and TMT5 order
-        # types share the same numeric values, so order_type -> operation is safe).
+        # Ejecutar la orden. OrderSendRequest es una estructura plana
+        # (sin mql_trade_request) y se encuentra en trading_helper.
+        # Se transfieren los campos validados (los tipos de orden TF y TMT5
+        # comparten los mismos valores numéricos, por lo que order_type -> operation es seguro).
         send_request = trading_pb2.OrderSendRequest(
             symbol=trade_request.symbol,
             operation=trade_request.order_type,
@@ -585,6 +608,7 @@ class OrderValidator:
                 'error': send_result.returned_code_description
             }
 
+
 async def main():
     account = MT5Account(
         user=12345,
@@ -600,7 +624,7 @@ async def main():
     validator = OrderValidator(account)
 
     try:
-        # Create trade request
+        # Crear la solicitud de trading
         trade_request = trade_pb2.MrpcMqlTradeRequest()
         trade_request.action = trade_pb2.TRADE_ACTION_DEAL
         trade_request.symbol = "EURUSD"
@@ -614,21 +638,22 @@ async def main():
         result = await validator.validate_and_execute(trade_request)
 
         if result['success']:
-            print(f"[SUCCESS] Deal: #{result['deal']}, Price: {result['price']}")
+            print(f"[ÉXITO] Operación: #{result['deal']}, Precio: {result['price']}")
         else:
-            print(f"[FAILED] Stage: {result['stage']}, Error: {result['error']}")
+            print(f"[ERROR] Etapa: {result['stage']}, Error: {result['error']}")
 
     finally:
         await account.channel.close()
+
 
 asyncio.run(main())
 ```
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [OrderSend](./order_send.md) - Send orders after validation
-* [OrderCalcMargin](./order_calc_margin.md) - Calculate margin only
-* [OrderCalcProfit](./order_calc_profit.md) - Calculate potential profit/loss
-* [AccountSummary](../1.%20Account_Information/account_summary.md) - Get account balance/margin
+- [OrderSend](./order_send.md) - Enviar órdenes después de validarlas.
+- [OrderCalcMargin](./order_calc_margin.md) - Calcular únicamente el margen.
+- [OrderCalcProfit](./order_calc_profit.md) - Calcular el beneficio o la pérdida potencial.
+- [AccountSummary](../1.%20Account_Information/account_summary.md) - Obtener el balance y el margen de la cuenta.

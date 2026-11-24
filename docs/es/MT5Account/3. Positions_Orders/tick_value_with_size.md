@@ -1,49 +1,50 @@
-# Get Tick Value and Contract Size for Symbols
+# Obtener el valor del tick y el tamaño del contrato de los símbolos
 
-> **Request:** tick value and contract size information for multiple symbols.
+> **Solicitud:** obtener información sobre el valor del tick y el tamaño del contrato de varios símbolos.
 
-**API Information:**
+**Información de la API:**
 
-* **Low-level API:** `MT5Account.tick_value_with_size(...)` (defined in `package/MetaRpcMT5/mt5_account.py`)
-* **gRPC service:** `mt5_term_api.AccountHelper`
-* **Proto definition:** `TickValueWithSize` (defined in `mt5-term-api-account-helper.proto`)
-* **Enums in this method:** 0 enums (simple data structure)
+- **API de bajo nivel:** `MT5Account.tick_value_with_size(...)` (definido en `package/MetaRpcMT5/mt5_account.py`)
+- **Servicio gRPC:** `mt5_term_api.AccountHelper`
+- **Definición Proto:** `TickValueWithSize` (definido en `mt5-term-api-account-helper.proto`)
+- **Enums de este método:** 0 enums (estructura de datos simple)
 
 ### RPC
 
-* **Service:** `mt5_term_api.AccountHelper`
-* **Method:** `TickValueWithSize(TickValueWithSizeRequest) -> TickValueWithSizeReply`
-* **Low-level client (generated):** `AccountHelperStub.TickValueWithSize(request, metadata, timeout)`
+- **Servicio:** `mt5_term_api.AccountHelper`
+- **Método:** `TickValueWithSize(TickValueWithSizeRequest) -> TickValueWithSizeReply`
+- **Cliente de bajo nivel (generado):** `AccountHelperStub.TickValueWithSize(request, metadata, timeout)`
 
-## 💬 Just the essentials
+## 💬 Lo esencial
 
-* **What it is.** Get tick values and contract sizes for multiple symbols in one call.
-* **Why you need it.** Calculate position value, margin requirements, and profit/loss in account currency.
-* **When to use.** Use before trading to understand tick value and contract size for risk calculation.
+- **Qué es.** Obtiene los valores del tick y los tamaños de los contratos de varios símbolos en una sola llamada.
+- **Por qué lo necesitas.** Permite calcular el valor de las posiciones, los requisitos de margen y las ganancias/pérdidas en la divisa de la cuenta.
+- **Cuándo utilizarlo.** Utiliza este método antes de operar para conocer el valor del tick y el tamaño del contrato necesarios para calcular el riesgo.
 
 ---
 
-## 🎯 Purpose
+## 🎯 Propósito
 
-Use it to get critical trading parameters:
+Utiliza este método para obtener parámetros de trading importantes:
 
-* Get tick value (value of one tick movement)
-* Get tick size (minimum price change)
-* Get contract size (lot size)
-* Calculate profit/loss per tick
-* Understand margin requirements
-* Batch query multiple symbols efficiently
+- Obtener el valor del tick (valor de un movimiento de un tick).
+- Obtener el tamaño del tick (cambio mínimo del precio).
+- Obtener el tamaño del contrato (unidades del activo subyacente por lote).
+- Calcular las ganancias/pérdidas por tick.
+- Conocer los requisitos de margen.
+- Consultar varios símbolos en una sola solicitud de forma eficiente.
 
 ---
 
 ## 📚 Tutorial
 
-For a detailed line-by-line explanation with examples, see:
-**-> [tick_value_with_size - How it works](../HOW_IT_WORK/3. Position_Orders_Information_HOW/tick_value_with_size_HOW.md)**
+Para obtener una explicación detallada línea por línea con ejemplos, consulta:
+
+**-> [tick_value_with_size - Cómo funciona](../HOW_IT_WORK/3. Position_Orders_Information_HOW/tick_value_with_size_HOW.md)**
 
 ---
 
-## Method Signature
+## Firma del método
 
 ```python
 async def tick_value_with_size(
@@ -54,43 +55,43 @@ async def tick_value_with_size(
 ) -> account_helper_pb2.TickValueWithSizeData
 ```
 
-**Request message:**
+**Mensaje de solicitud:**
 
 ```protobuf
 message TickValueWithSizeRequest {
-  repeated string symbol_names = 1;
+    repeated string symbol_names = 1;
 }
 ```
 
-**Reply message:**
+**Mensaje de respuesta:**
 
 ```protobuf
 message TickValueWithSizeReply {
-  TickValueWithSizeData data = 1;
-  Error error = 2;
+    TickValueWithSizeData data = 1;
+    Error error = 2;
 }
 
 message TickValueWithSizeData {
-  repeated TickSizeSymbol symbol_tick_size_infos = 1;
+    repeated TickSizeSymbol symbol_tick_size_infos = 1;
 }
 ```
 
 ---
 
-## 🔽 Input
+## 🔽 Entrada
 
-| Parameter     | Type                    | Description                                             |
-| ------------- | ----------------------- | ------------------------------------------------------- |
-| `symbols`     | `list[str]` (required)  | List of symbol names to query                           |
-| `deadline`    | `datetime` (optional)   | Deadline for the gRPC call (UTC datetime)              |
-| `cancellation_event` | `asyncio.Event` (optional) | Event to cancel the operation                    |
+| Parámetro | Tipo | Descripción |
+|---|---|---|
+| `symbols` | `list[str]` (obligatorio) | Lista de nombres de símbolos que se van a consultar |
+| `deadline` | `datetime` (opcional) | Fecha límite para la llamada gRPC (fecha y hora UTC) |
+| `cancellation_event` | `asyncio.Event` (opcional) | Evento para cancelar la operación |
 
-**Usage:**
+**Uso:**
 
 ```python
 from datetime import datetime, timedelta, timezone
 
-# Query multiple symbols
+# Consultar varios símbolos
 symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
 deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
@@ -102,46 +103,47 @@ data = await account.tick_value_with_size(
 
 ---
 
-## ⬆️ Output - `TickValueWithSizeData`
+## ⬆️ Salida - `TickValueWithSizeData`
 
-| Field                    | Type                      | Python Type            | Description                              |
-| ------------------------ | ------------------------- | ---------------------- | ---------------------------------------- |
-| `symbol_tick_size_infos` | `repeated TickSizeSymbol` | `list[TickSizeSymbol]` | List of tick value/size info per symbol |
+| Campo | Tipo | Tipo Python | Descripción |
+|---|---|---|---|
+| `symbol_tick_size_infos` | `repeated TickSizeSymbol` | `list[TickSizeSymbol]` | Lista con información sobre el valor y el tamaño del tick de cada símbolo |
 
-**Each TickSizeSymbol contains:**
+**Cada `TickSizeSymbol` contiene:**
 
-| Field                  | Type     | Python Type | Description                                          |
-| ---------------------- | -------- | ----------- | ---------------------------------------------------- |
-| `Index`                | `int32`  | `int`       | Index in the result set                              |
-| `Name`                 | `string` | `str`       | Symbol name                                          |
-| `TradeTickValue`       | `double` | `float`     | Tick value (for both profit and loss)                |
-| `TradeTickValueProfit` | `double` | `float`     | Tick value for profit calculation                    |
-| `TradeTickValueLoss`   | `double` | `float`     | Tick value for loss calculation                      |
-| `TradeTickSize`        | `double` | `float`     | Minimum price change (tick size)                     |
-| `TradeContractSize`    | `double` | `float`     | Contract size (lot size, e.g., 100000 for EURUSD)    |
-
----
-
-## 🧩 Notes & Tips
-
-* **Batch query:** Query multiple symbols in one call for efficiency.
-* **Tick value:** The value in account currency of one tick movement.
-* **Contract size:** The size of one standard lot (e.g., 100000 units for EURUSD).
-* **Profit/Loss calculation:** Use tick value and tick size to calculate P/L per pip/tick.
-* **Automatic reconnection:** Built-in protection against transient gRPC errors.
-* **Connection required:** Call `connect_by_host_port()` or `connect_by_server_name()` first.
-* **Thread safety:** Safe to call concurrently from multiple asyncio tasks.
+| Campo | Tipo | Tipo Python | Descripción |
+|---|---|---|---|
+| `Index` | `int32` | `int` | Índice en el conjunto de resultados |
+| `Name` | `string` | `str` | Nombre del símbolo |
+| `TradeTickValue` | `double` | `float` | Valor del tick (tanto para el cálculo de ganancias como de pérdidas) |
+| `TradeTickValueProfit` | `double` | `float` | Valor del tick para el cálculo de ganancias |
+| `TradeTickValueLoss` | `double` | `float` | Valor del tick para el cálculo de pérdidas |
+| `TradeTickSize` | `double` | `float` | Cambio mínimo del precio (tamaño del tick) |
+| `TradeContractSize` | `double` | `float` | Unidades del activo subyacente por lote (por ejemplo, 100 000 para EURUSD) |
 
 ---
 
-## 🔗 Usage Examples
+## 🧩 Notas y consejos
 
-### 1) Get tick values for multiple symbols
+- **Consulta por lotes:** consulta varios símbolos en una sola llamada para mejorar la eficiencia.
+- **Valor del tick:** valor, en la divisa de la cuenta, de un movimiento de un tick.
+- **Tamaño del contrato:** unidades del activo subyacente por lote (por ejemplo, 100 000 unidades para EURUSD).
+- **Cálculo de ganancias/pérdidas:** utiliza el valor del tick y el tamaño del tick para calcular las ganancias/pérdidas por pip o tick.
+- **Reconexión automática:** protección integrada contra errores gRPC transitorios.
+- **Se requiere conexión:** llama primero a `connect_by_host_port()` o `connect_by_server_name()`.
+- **Seguridad de hilos:** se puede llamar de forma segura simultáneamente desde varias tareas de asyncio.
+
+---
+
+## 🔗 Ejemplos de uso
+
+### 1) Obtener los valores del tick de varios símbolos
 
 ```python
 import asyncio
 from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
+
 
 async def main():
     account = MT5Account(
@@ -166,17 +168,18 @@ async def main():
 
         for info in data.symbol_tick_size_infos:
             print(f"\n{info.Name}:")
-            print(f"  Tick Value: ${info.TradeTickValue:.2f}")
-            print(f"  Tick Size: {info.TradeTickSize}")
-            print(f"  Contract Size: {info.TradeContractSize:.0f}")
+            print(f"  Valor del tick: ${info.TradeTickValue:.2f}")
+            print(f"  Tamaño del tick: {info.TradeTickSize}")
+            print(f"  Tamaño del contrato: {info.TradeContractSize:.0f}")
 
     finally:
         await account.channel.close()
 
+
 asyncio.run(main())
 ```
 
-### 2) Calculate profit per pip
+### 2) Calcular la ganancia por pip
 
 ```python
 async def calculate_profit_per_pip(
@@ -184,28 +187,29 @@ async def calculate_profit_per_pip(
     symbol: str,
     lots: float
 ) -> float:
-    """Calculate profit per pip for given symbol and volume"""
+    """Calcula la ganancia por pip para el símbolo y el volumen indicados"""
     data = await account.tick_value_with_size(symbols=[symbol])
 
     if not data.symbol_tick_size_infos:
-        raise ValueError(f"Symbol {symbol} not found")
+        raise ValueError(f"Símbolo {symbol} no encontrado")
 
     info = data.symbol_tick_size_infos[0]
 
-    # Calculate profit per pip (assuming 10 ticks per pip for most pairs)
+    # Calcular la ganancia por pip (suponiendo 10 ticks por pip para la mayoría de los pares)
     profit_per_pip = info.TradeTickValue * 10 * lots
 
     print(f"{symbol}:")
-    print(f"  Volume: {lots} lots")
-    print(f"  Profit per pip: ${profit_per_pip:.2f}")
+    print(f"  Volumen: {lots} lotes")
+    print(f"  Ganancia por pip: ${profit_per_pip:.2f}")
 
     return profit_per_pip
 
-# Usage:
+
+# Uso:
 profit_per_pip = await calculate_profit_per_pip(account, "EURUSD", 1.0)
 ```
 
-### 3) Calculate margin requirement
+### 3) Calcular el margen requerido
 
 ```python
 async def calculate_margin(
@@ -215,36 +219,37 @@ async def calculate_margin(
     price: float,
     leverage: int
 ) -> float:
-    """Calculate margin requirement for position"""
+    """Calcula el margen requerido para una posición"""
     data = await account.tick_value_with_size(symbols=[symbol])
 
     if not data.symbol_tick_size_infos:
-        raise ValueError(f"Symbol {symbol} not found")
+        raise ValueError(f"Símbolo {symbol} no encontrado")
 
     info = data.symbol_tick_size_infos[0]
 
-    # Margin = (Contract Size * Lots * Price) / Leverage
+    # Margen = (Tamaño del contrato * Lotes * Precio) / Apalancamiento
     contract_value = info.TradeContractSize * lots * price
     margin = contract_value / leverage
 
-    print(f"Margin calculation for {symbol}:")
-    print(f"  Volume: {lots} lots")
-    print(f"  Price: {price}")
-    print(f"  Leverage: 1:{leverage}")
-    print(f"  Contract Size: {info.TradeContractSize:.0f}")
-    print(f"  Required Margin: ${margin:.2f}")
+    print(f"Cálculo del margen para {symbol}:")
+    print(f"  Volumen: {lots} lotes")
+    print(f"  Precio: {price}")
+    print(f"  Apalancamiento: 1:{leverage}")
+    print(f"  Tamaño del contrato: {info.TradeContractSize:.0f}")
+    print(f"  Margen requerido: ${margin:.2f}")
 
     return margin
 
-# Usage:
+
+# Uso:
 margin = await calculate_margin(account, "EURUSD", 1.0, 1.10000, 100)
 ```
 
-### 4) Get tick info for all major pairs
+### 4) Obtener información del tick de los principales pares
 
 ```python
 async def get_major_pairs_info(account: MT5Account):
-    """Get tick value info for major currency pairs"""
+    """Obtiene información sobre el valor del tick de los principales pares de divisas"""
     major_pairs = [
         "EURUSD", "GBPUSD", "USDJPY", "USDCHF",
         "AUDUSD", "USDCAD", "NZDUSD"
@@ -252,8 +257,8 @@ async def get_major_pairs_info(account: MT5Account):
 
     data = await account.tick_value_with_size(symbols=major_pairs)
 
-    print("\nMajor Pairs Tick Information:")
-    print(f"{'Symbol':<10} {'Tick Value':<12} {'Tick Size':<12} {'Contract Size':<15}")
+    print("\nInformación de los ticks de los principales pares:")
+    print(f"{'Símbolo':<10} {'Valor del tick':<12} {'Tamaño del tick':<12} {'Tamaño del contrato':<15}")
     print("-" * 60)
 
     for info in data.symbol_tick_size_infos:
@@ -262,11 +267,12 @@ async def get_major_pairs_info(account: MT5Account):
 
     return data
 
-# Usage:
+
+# Uso:
 await get_major_pairs_info(account)
 ```
 
-### 5) Calculate position value
+### 5) Calcular el valor de una posición
 
 ```python
 async def calculate_position_value(
@@ -275,15 +281,15 @@ async def calculate_position_value(
     lots: float,
     price: float
 ) -> dict:
-    """Calculate total position value"""
+    """Calcula el valor total de una posición"""
     data = await account.tick_value_with_size(symbols=[symbol])
 
     if not data.symbol_tick_size_infos:
-        raise ValueError(f"Symbol {symbol} not found")
+        raise ValueError(f"Símbolo {symbol} no encontrado")
 
     info = data.symbol_tick_size_infos[0]
 
-    # Position value = Contract Size * Lots * Price
+    # Valor de la posición = Tamaño del contrato * Lotes * Precio
     position_value = info.TradeContractSize * lots * price
 
     result = {
@@ -296,45 +302,47 @@ async def calculate_position_value(
         "tick_size": info.TradeTickSize
     }
 
-    print(f"\nPosition Value Calculation:")
-    print(f"  Symbol: {symbol}")
-    print(f"  Volume: {lots} lots")
-    print(f"  Price: {price}")
-    print(f"  Contract Size: {info.TradeContractSize:.0f}")
-    print(f"  Position Value: ${position_value:,.2f}")
+    print(f"\nCálculo del valor de la posición:")
+    print(f"  Símbolo: {symbol}")
+    print(f"  Volumen: {lots} lotes")
+    print(f"  Precio: {price}")
+    print(f"  Tamaño del contrato: {info.TradeContractSize:.0f}")
+    print(f"  Valor de la posición: ${position_value:,.2f}")
 
     return result
 
-# Usage:
+
+# Uso:
 value = await calculate_position_value(account, "EURUSD", 1.0, 1.10000)
 ```
 
-### 6) Compare tick values across symbols
+### 6) Comparar los valores del tick entre símbolos
 
 ```python
 async def compare_tick_values(account: MT5Account, symbols: list[str]):
-    """Compare tick values across multiple symbols"""
+    """Compara los valores del tick de varios símbolos"""
     data = await account.tick_value_with_size(symbols=symbols)
 
-    # Sort by tick value
+    # Ordenar por valor del tick
     sorted_infos = sorted(
         data.symbol_tick_size_infos,
         key=lambda x: x.TradeTickValue,
         reverse=True
     )
 
-    print("\nSymbols sorted by tick value:")
+    print("\nSímbolos ordenados por valor del tick:")
     for i, info in enumerate(sorted_infos, 1):
-        print(f"{i}. {info.Name}: ${info.TradeTickValue:.2f} per tick")
+        print(f"{i}. {info.Name}: ${info.TradeTickValue:.2f} por tick")
 
     return sorted_infos
 
-# Usage:
+
+# Uso:
 symbols = ["EURUSD", "GBPUSD", "USDJPY", "GOLD", "OIL"]
 await compare_tick_values(account, symbols)
 ```
 
-### 7) Calculate stop loss distance
+### 7) Calcular la distancia del Stop Loss
 
 ```python
 async def calculate_sl_distance(
@@ -343,38 +351,39 @@ async def calculate_sl_distance(
     lots: float,
     max_loss: float
 ) -> float:
-    """Calculate maximum SL distance for given max loss"""
+    """Calcula la distancia máxima del SL para la pérdida máxima indicada"""
     data = await account.tick_value_with_size(symbols=[symbol])
 
     if not data.symbol_tick_size_infos:
-        raise ValueError(f"Symbol {symbol} not found")
+        raise ValueError(f"Símbolo {symbol} no encontrado")
 
     info = data.symbol_tick_size_infos[0]
 
-    # Calculate pips allowed
+    # Calcular los pips permitidos (suponiendo 10 ticks por pip; la mayoría de los pares)
     profit_per_pip = info.TradeTickValue * 10 * lots
     max_pips = max_loss / profit_per_pip if profit_per_pip > 0 else 0
 
-    print(f"\nStop Loss Calculation for {symbol}:")
-    print(f"  Volume: {lots} lots")
-    print(f"  Max Loss: ${max_loss:.2f}")
-    print(f"  Profit per pip: ${profit_per_pip:.2f}")
-    print(f"  Max SL distance: {max_pips:.1f} pips")
+    print(f"\nCálculo del Stop Loss para {symbol}:")
+    print(f"  Volumen: {lots} lotes")
+    print(f"  Pérdida máxima: ${max_loss:.2f}")
+    print(f"  Ganancia por pip: ${profit_per_pip:.2f}")
+    print(f"  Distancia máxima del SL: {max_pips:.1f} pips")
 
     return max_pips
 
-# Usage:
+
+# Uso:
 max_pips = await calculate_sl_distance(account, "EURUSD", 1.0, 100.0)
 ```
 
-### 8) Validate symbols exist
+### 8) Validar la existencia de los símbolos
 
 ```python
 async def validate_symbols(
     account: MT5Account,
     symbols: list[str]
 ) -> dict:
-    """Check which symbols are valid and available"""
+    """Comprueba qué símbolos son válidos y están disponibles"""
     data = await account.tick_value_with_size(symbols=symbols)
 
     returned_symbols = {info.Name for info in data.symbol_tick_size_infos}
@@ -390,34 +399,35 @@ async def validate_symbols(
         "invalid_count": len(invalid)
     }
 
-    print(f"\nSymbol Validation:")
-    print(f"  Valid symbols: {valid}")
+    print(f"\nValidación de símbolos:")
+    print(f"  Símbolos válidos: {valid}")
     if invalid:
-        print(f"  Invalid symbols: {invalid}")
+        print(f"  Símbolos no válidos: {invalid}")
 
     return result
 
-# Usage:
+
+# Uso:
 symbols = ["EURUSD", "INVALID_SYMBOL", "GBPUSD"]
 validation = await validate_symbols(account, symbols)
 ```
 
 ---
 
-## Common Patterns
+## Patrones comunes
 
-### Get tick value for single symbol
+### Obtener el valor del tick de un solo símbolo
 
 ```python
 async def get_symbol_tick_value(account: MT5Account, symbol: str) -> float:
-    """Get tick value for single symbol"""
+    """Obtiene el valor del tick de un solo símbolo"""
     data = await account.tick_value_with_size(symbols=[symbol])
     if data.symbol_tick_size_infos:
         return data.symbol_tick_size_infos[0].TradeTickValue
     return 0.0
 ```
 
-### Calculate risk per position
+### Calcular el riesgo por posición
 
 ```python
 async def calculate_risk(
@@ -426,12 +436,13 @@ async def calculate_risk(
     lots: float,
     sl_pips: float
 ) -> float:
-    """Calculate risk amount for position with SL"""
+    """Calcula el importe del riesgo de una posición con SL"""
     data = await account.tick_value_with_size(symbols=[symbol])
     if not data.symbol_tick_size_infos:
         return 0.0
 
     info = data.symbol_tick_size_infos[0]
+    # suponiendo 10 ticks por pip (la mayoría de los pares)
     profit_per_pip = info.TradeTickValue * 10 * lots
     risk = profit_per_pip * sl_pips
 
@@ -440,7 +451,7 @@ async def calculate_risk(
 
 ---
 
-## 📚 See also
+## 📚 Véase también
 
-* [opened_orders](./opened_orders.md) - Get currently open positions
-* [positions_total](./positions_total.md) - Get count of open positions
+- [opened_orders](./opened_orders.md) - Obtener las posiciones abiertas actualmente
+- [positions_total](./positions_total.md) - Obtener el número de posiciones abiertas
