@@ -284,17 +284,17 @@ async def can_open_position(
 
 # Usage
 if await can_open_position(account, "EURUSD", 2.0):
-    print("Safe to open 2.0 lot position")
+    print("The account has enough free margin to open the 2.0 lot position (per this estimate)")
 ```
 
 ### 5) Get margin rates with timeout
 
 ```python
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Set deadline
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
 try:
     rates = await account.symbol_info_margin_rate(

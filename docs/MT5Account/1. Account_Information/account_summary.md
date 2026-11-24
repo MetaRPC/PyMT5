@@ -110,10 +110,10 @@ message AccountSummaryData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # 1. With deadline (recommended)
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 summary = await account.account_summary(deadline=deadline)
 
 # 2. With cancellation event
@@ -201,7 +201,7 @@ if summary.account_trade_mode == account_helper_pb2.MRPC_ACCOUNT_TRADE_MODE_REAL
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5.mt5_account import MT5Account
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
@@ -218,7 +218,7 @@ async def main():
 
     try:
         # Set deadline
-        deadline = datetime.utcnow() + timedelta(seconds=3)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
         # Get summary
         summary = await account.account_summary(deadline=deadline)
@@ -351,25 +351,22 @@ async def get_server_time(account: MT5Account):
     """Get server time and timezone info"""
     summary = await account.account_summary()
 
-    # Convert protobuf Timestamp to datetime
-    server_time = summary.server_time.ToDatetime()
+    # Server's current time in UTC (unambiguous, timezone-aware)
+    from datetime import timezone, timedelta
+    server_utc = summary.server_time_utc.ToDatetime(tzinfo=timezone.utc)
 
-    # Get timezone offset
+    # Server timezone offset from UTC
     tz_offset_minutes = summary.utc_timezone_server_time_shift_minutes
     tz_offset_hours = tz_offset_minutes / 60
 
-    print(f"Server Time: {server_time}")
-    print(f"UTC Offset: {tz_offset_hours:+.1f} hours")
+    # Server's local wall-clock time = server UTC + offset
+    server_local = server_utc + timedelta(minutes=tz_offset_minutes)
 
-    # Calculate local time
-    from datetime import timedelta
-    utc_time = datetime.utcnow()
-    server_time_calculated = utc_time + timedelta(minutes=tz_offset_minutes)
+    print(f"Server time (UTC): {server_utc}")
+    print(f"UTC offset: {tz_offset_hours:+.1f} hours")
+    print(f"Server local time: {server_local}")
 
-    print(f"UTC Time: {utc_time}")
-    print(f"Server Time (calculated): {server_time_calculated}")
-
-    return server_time
+    return server_utc
 
 # Usage:
 server_time = await get_server_time(account)

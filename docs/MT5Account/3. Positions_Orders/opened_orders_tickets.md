@@ -89,10 +89,10 @@ message OpenedOrdersTicketsData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # With deadline
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 data = await account.opened_orders_tickets(deadline=deadline)
 
 # Without deadline
@@ -135,7 +135,7 @@ No enums used by this method.
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
 
 async def main():
@@ -151,7 +151,7 @@ async def main():
     )
 
     try:
-        deadline = datetime.utcnow() + timedelta(seconds=3)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
         data = await account.opened_orders_tickets(deadline=deadline)
 
         print(f"Order tickets: {data.opened_orders_tickets}")

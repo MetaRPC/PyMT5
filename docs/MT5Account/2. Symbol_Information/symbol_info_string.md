@@ -290,9 +290,9 @@ await display_symbol_metadata(account, "EURUSD")
 
 ```python
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
 try:
     result = await account.symbol_info_string(

@@ -35,7 +35,7 @@ async def account_info_integer(
 
 ```python
 async def validate_account_for_trading(account: MT5Account) -> bool:
-    deadline = datetime.utcnow() + timedelta(seconds=5)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
     # Check: is trading allowed on the account
     trade_allowed = await account.account_info_integer(

@@ -61,7 +61,7 @@ Want detailed explanations with line-by-line code breakdown? Check these guides:
 ```python
 from MetaRpcMT5.mt5_account import MT5Account
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Get complete account snapshot
 summary = await account.account_summary()
@@ -73,7 +73,7 @@ print(f"Balance: ${summary.account_balance:.2f}, "
 
 ```python
 # Get single property - account balance
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
 balance = await account.account_info_double(
     property_id=account_info_pb2.ACCOUNT_BALANCE,

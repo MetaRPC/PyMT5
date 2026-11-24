@@ -88,12 +88,12 @@ message TickValueWithSizeData {
 **Usage:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Query multiple symbols
 symbols = ["EURUSD", "GBPUSD", "USDJPY"]
 
-deadline = datetime.utcnow() + timedelta(seconds=5)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 data = await account.tick_value_with_size(
     symbols=symbols,
     deadline=deadline
@@ -140,7 +140,7 @@ data = await account.tick_value_with_size(
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
 
 async def main():
@@ -157,7 +157,7 @@ async def main():
 
     try:
         symbols = ["EURUSD", "GBPUSD", "USDJPY"]
-        deadline = datetime.utcnow() + timedelta(seconds=5)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
         data = await account.tick_value_with_size(
             symbols=symbols,

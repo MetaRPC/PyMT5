@@ -1,0 +1,32 @@
+{#- Custom language switcher: visible [CODE ▾] button, dropdown of [CODE] badge + native name -#}
+{% set badges = {
+  "en":"EN","zh":"CN","ja":"JP","ko":"KR","vi":"VN","th":"TH","id":"ID",
+  "zh-TW":"TW","hi":"IN","ar":"AR","ms":"MY","tl":"PH","tr":"TR","fa":"IR",
+  "ur":"PK","bn":"BD","ta":"TA","my":"MM","km":"KH","lo":"LA","he":"IL",
+  "es":"ES","pt-BR":"BR","ru":"RU","fr":"FR","de":"DE","it":"IT","pl":"PL"
+} %}
+{% set cur_badge = badges[config.theme.language] | default(config.theme.language | upper) %}
+<div class="md-header__option">
+  <div class="md-select md-select--lang">
+    <button class="md-header__button md-lang-button" aria-label="{{ lang.t('select.language') }}">
+      {% set icon = config.theme.icon.alternate or "material/translate" %}
+      <span class="md-lang-globe md-icon">{% include ".icons/" ~ icon ~ ".svg" %}</span>
+      <span class="md-lang-current">{{ cur_badge }}</span>
+      <span class="md-lang-caret">▾</span>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        {% for alt in config.extra.alternate %}
+          {% set cur = (alt.lang == config.theme.language) %}
+          <li class="md-select__item">
+            <a href="{{ alt.link | url }}" hreflang="{{ alt.lang }}"
+               class="md-select__link lang-link{% if cur %} lang-link--active{% endif %}">
+              <span class="lang-badge">{{ badges[alt.lang] | default(alt.lang | upper) }}</span>
+              <span class="lang-name">{{ alt.name }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>

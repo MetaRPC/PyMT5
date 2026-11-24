@@ -90,11 +90,11 @@ message OpenedOrdersData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
 # With sort mode and deadline
-deadline = datetime.utcnow() + timedelta(seconds=5)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 data = await account.opened_orders(
     sort_mode=account_helper_pb2.BMT5_OPENED_ORDER_SORT_BY_OPEN_TIME_ASC,
     deadline=deadline
@@ -358,7 +358,7 @@ for pos in data.position_infos:
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
@@ -375,7 +375,7 @@ async def main():
     )
 
     try:
-        deadline = datetime.utcnow() + timedelta(seconds=5)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
         data = await account.opened_orders(
             sort_mode=account_helper_pb2.BMT5_OPENED_ORDER_SORT_BY_OPEN_TIME_ASC,

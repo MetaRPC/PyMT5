@@ -35,7 +35,7 @@ Key points:
 
 ```python
 async def verify_server_connection(account: MT5Account, expected_server: str) -> bool:
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     server = await account.account_info_string(
         property_id=account_info_pb2.AccountInfoStringPropertyType.ACCOUNT_SERVER,

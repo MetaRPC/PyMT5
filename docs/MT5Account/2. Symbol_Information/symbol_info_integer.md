@@ -164,7 +164,7 @@ Defined in `mt5-term-api-market-info.proto`.
 | Constant | Value | Description |
 |----------|-------|-------------|
 | `SYMBOL_TRADE_CALC_MODE` | 21 | Contract price calculation mode |
-| `SYMBOL_TRADE_MODE` | 22 | Order execution type |
+| `SYMBOL_TRADE_MODE` | 22 | Allowed trading mode for the symbol |
 | `SYMBOL_TRADE_STOPS_LEVEL` | 25 | Minimal distance of stops |
 | `SYMBOL_TRADE_FREEZE_LEVEL` | 26 | Distance to freeze trading operations |
 | `SYMBOL_TRADE_EXEMODE` | 27 | Deal execution mode |

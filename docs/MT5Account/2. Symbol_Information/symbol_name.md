@@ -285,10 +285,10 @@ symbols = await get_symbols_safe(account, selected_only=True)
 
 ```python
 import MetaRpcMT5.mt5_term_api_market_info_pb2 as market_info_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Set deadline
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
 try:
     symbol_data = await account.symbol_name(

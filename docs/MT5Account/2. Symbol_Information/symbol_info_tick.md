@@ -99,14 +99,14 @@ message MrpcMqlTick {
 
 | Field         | Type     | Python Type | Description                                      |
 | ------------- | -------- | ----------- | ------------------------------------------------ |
-| `time`        | `int64`  | `int`       | Tick time in seconds since epoch (UTC)           |
-| `time_utc`    | `int64`  | `int`       | Tick time in seconds since epoch (broker UTC)    |
+| `time`        | `int64`  | `int`       | Tick time, Unix timestamp in the broker server's time zone (seconds)           |
+| `time_utc`    | `int64`  | `int`       | `time` expressed in UTC (same instant)    |
 | `bid`         | `double` | `float`     | Current best bid price                           |
 | `ask`         | `double` | `float`     | Current best ask price                           |
 | `last`        | `double` | `float`     | Last deal price (if applicable)                  |
 | `volume`      | `uint64` | `int`       | Tick volume (number of ticks)                    |
-| `time_msc`    | `int64`  | `int`       | Tick time in milliseconds since epoch (UTC)      |
-| `time_msc_utc`| `int64`  | `int`       | Tick time in milliseconds since epoch (broker UTC)|
+| `time_msc`    | `int64`  | `int`       | Tick time in the broker server's time zone (milliseconds)      |
+| `time_msc_utc`| `int64`  | `int`       | `time_msc` expressed in UTC (same instant)|
 | `flags`       | `uint32` | `int`       | Tick flags bitmask (MT5 tick flags)              |
 | `volume_real` | `double` | `float`     | Real volume (if provided by broker)              |
 
@@ -119,7 +119,7 @@ message MrpcMqlTick {
 * **Automatic reconnection:** Built-in protection against transient gRPC errors with automatic reconnection via `execute_with_reconnect`.
 * **Default timeout:** If `deadline` is `None`, the method will wait indefinitely (or until server timeout).
 * **Symbol synchronization:** Symbol must be selected and synchronized for valid data. If bid/ask are zero, call `symbol_select()` and `symbol_is_synchronized()` first.
-* **Time fields:** `time` is in seconds, `time_msc` is in milliseconds. Both represent Unix epoch UTC timestamps.
+* **Time fields:** `time` (seconds) and `time_msc` (milliseconds) are Unix timestamps in the broker server's time zone. Use `time_utc` / `time_msc_utc` for the same instants in UTC.
 * **Spread calculation:** Spread = `ask - bid`. Mid price = `(ask + bid) / 2`.
 * **Volume fields:** `volume` is tick count (uint64), `volume_real` is actual traded volume (double).
 * **Flags field:** Bitmask indicating tick properties (bid change, ask change, last change, volume change).
@@ -154,9 +154,9 @@ from datetime import datetime, timezone
 # Get tick and check age
 tick = await account.symbol_info_tick(symbol="XAUUSD")
 
-if tick.time > 0:
+if tick.time_utc > 0:
     current_time = datetime.now(timezone.utc).timestamp()
-    age_seconds = int(current_time - tick.time)
+    age_seconds = int(current_time - tick.time_utc)
 
     print(f"Tick age: {age_seconds} seconds")
 
@@ -217,14 +217,14 @@ from datetime import datetime, timezone
 tick = await account.symbol_info_tick(symbol="GBPUSD")
 
 # Convert timestamps
-if tick.time > 0:
-    time_dt = datetime.fromtimestamp(tick.time, tz=timezone.utc)
+if tick.time_utc > 0:
+    time_dt = datetime.fromtimestamp(tick.time_utc, tz=timezone.utc)
     print(f"Tick time: {time_dt.isoformat()}")
 
-if tick.time_msc > 0:
-    time_msc_dt = datetime.fromtimestamp(tick.time_msc / 1000, tz=timezone.utc)
+if tick.time_msc_utc > 0:
+    time_msc_dt = datetime.fromtimestamp(tick.time_msc_utc / 1000, tz=timezone.utc)
     print(f"Tick time (ms): {time_msc_dt.isoformat()}")
-    print(f"Milliseconds precision: {tick.time_msc % 1000}ms")
+    print(f"Milliseconds precision: {tick.time_msc_utc % 1000}ms")
 ```
 
 ### 6) Get tick with timeout
@@ -274,9 +274,9 @@ async def validate_tick(account, symbol: str) -> bool:
             return False
 
         # Check tick freshness (less than 10 seconds old)
-        if tick.time > 0:
+        if tick.time_utc > 0:
             current_time = datetime.now(timezone.utc).timestamp()
-            age = current_time - tick.time
+            age = current_time - tick.time_utc
 
             if age > 10:
                 print(f"Tick too old: {age} seconds")

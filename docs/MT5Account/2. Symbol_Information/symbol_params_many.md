@@ -85,7 +85,7 @@ message SymbolParamsManyData {
 
 **SymbolParameters structure:**
 
-The `SymbolParameters` message contains **112 fields** grouped by category:
+The `SymbolParameters` message contains **116 fields** grouped by category:
 
 **1. Price Data (9 fields)**
 
@@ -107,7 +107,7 @@ The `SymbolParameters` message contains **112 fields** grouped by category:
 - `digits` - Decimal digits
 - `point` - Point value
 
-**4. Contract & Trade Parameters (9 fields)**
+**4. Contract & Trade Parameters (10 fields)**
 
 - `trade_contract_size` - Contract size
 - `trade_tick_size` - Tick size
@@ -124,14 +124,14 @@ The `SymbolParameters` message contains **112 fields** grouped by category:
 - `margin_hedged` - Hedged margin
 - `margin_hedged_use_leg` - Use leg for hedged margin
 
-**6. Swap Data (12 fields)**
+**6. Swap Data (11 fields)**
 
 - `swap_long`, `swap_short` - Long/short swap
 - `swap_sunday`, `swap_monday`, `swap_tuesday`, `swap_wednesday`, `swap_thursday`, `swap_friday`, `swap_saturday` - Daily swaps
 - `swap_mode` - Swap calculation mode
 - `swap_rollover_3days` - Triple swap day
 
-**7. Session Statistics (16 fields)**
+**7. Session Statistics (14 fields)**
 
 - `session_volume`, `session_turnover`, `session_interest` - Session totals
 - `session_buy_orders_volume`, `session_sell_orders_volume` - Order volumes
@@ -158,13 +158,15 @@ The `SymbolParameters` message contains **112 fields** grouped by category:
 - `price_change` - Price change
 - `price_volatility` - Volatility
 
-**11. Timestamps (4 fields)**
+**11. Timestamps (8 fields)**
 
-- `time`, `time_msc` - Last update time
+- `time`, `time_msc` - Last update time (broker server time zone)
 - `start_time` - Trading start time
 - `expiration_time` - Expiration time
+- `time_utc`, `time_msc_utc` - Last update time in UTC
+- `start_time_utc`, `expiration_time_utc` - Trading start / expiration time in UTC
 
-**12. Trading Modes (10 fields)**
+**12. Trading Modes (9 fields)**
 
 - `trade_calc_mode` - Calculation mode
 - `trade_mode` - Trading mode
@@ -208,7 +210,7 @@ The `SymbolParameters` message contains **112 fields** grouped by category:
 
 - `exchange` - Exchange name
 
-**Total: 112 fields** providing comprehensive symbol information in a single efficient call.
+**Total: 116 fields** providing comprehensive symbol information in a single efficient call.
 
 ---
 
@@ -768,14 +770,14 @@ for symbol in symbols_to_compare:
 
 ```python
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Create request
 request = account_helper_pb2.SymbolParamsManyRequest()
 request.symbol_name = "EURUSD"
 
 # Set deadline
-deadline = datetime.utcnow() + timedelta(seconds=5)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
 try:
     data = await account.symbol_params_many(

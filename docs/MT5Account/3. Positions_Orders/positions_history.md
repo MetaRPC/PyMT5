@@ -104,11 +104,11 @@ message PositionsHistoryData {
 **Usage:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
 # Get positions opened in last 7 days
-to_dt = datetime.utcnow()
+to_dt = datetime.now(timezone.utc)
 from_dt = to_dt - timedelta(days=7)
 
 data = await account.positions_history(
@@ -226,7 +226,7 @@ for pos in data.history_positions:
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5 import MT5Account
 import MetaRpcMT5.mt5_term_api_account_helper_pb2 as account_helper_pb2
 
@@ -244,7 +244,7 @@ async def main():
 
     try:
         # Last 30 days
-        to_dt = datetime.utcnow()
+        to_dt = datetime.now(timezone.utc)
         from_dt = to_dt - timedelta(days=30)
 
         data = await account.positions_history(
@@ -301,8 +301,8 @@ async def calculate_closed_profit(
     return net_profit
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 profit = await calculate_closed_profit(account, from_dt, to_dt)
 ```
 
@@ -360,8 +360,8 @@ async def analyze_closed_positions(
     return result
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 stats = await analyze_closed_positions(account, from_dt, to_dt)
 ```
 
@@ -398,8 +398,8 @@ async def get_best_worst_positions(
     return {"best": best, "worst": worst}
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 results = await get_best_worst_positions(account, from_dt, to_dt)
 ```
 
@@ -432,8 +432,8 @@ async def get_symbol_closed_positions(
     return symbol_positions
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 eurusd_positions = await get_symbol_closed_positions(account, "EURUSD", from_dt, to_dt)
 ```
 
@@ -485,8 +485,8 @@ async def export_positions_to_csv(
     print(f"[OK] Exported {len(data.history_positions)} positions to {filename}")
 
 # Usage:
-from_dt = datetime.utcnow() - timedelta(days=30)
-to_dt = datetime.utcnow()
+from_dt = datetime.now(timezone.utc) - timedelta(days=30)
+to_dt = datetime.now(timezone.utc)
 await export_positions_to_csv(account, from_dt, to_dt)
 ```
 

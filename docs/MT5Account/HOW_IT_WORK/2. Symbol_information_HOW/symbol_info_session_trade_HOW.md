@@ -40,7 +40,7 @@ Key points:
 
 ```python
 async def is_trading_allowed(account, symbol: str) -> bool:
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     day_of_week = now.weekday() + 1
     if day_of_week == 7:  # Sunday
@@ -73,7 +73,7 @@ In this example, the method is used to check **a single trading session** at the
 ### 1️⃣ Determining Current Day of Week
 
 ```python
-now = datetime.utcnow()
+now = datetime.now(timezone.utc)
 day_of_week = now.weekday() + 1
 if day_of_week == 7:
     day_of_week = 0

@@ -88,11 +88,11 @@ message AccountInfoDoubleData {
 **Deadline options:**
 
 ```python
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
 
 # 1. With deadline (recommended)
-deadline = datetime.utcnow() + timedelta(seconds=3)
+deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 value = await account.account_info_double(
     property_id=account_info_pb2.ACCOUNT_BALANCE,
     deadline=deadline
@@ -183,7 +183,7 @@ property_id = account_info_pb2.AccountInfoDoublePropertyType.ACCOUNT_BALANCE  # 
 
 ```python
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from MetaRpcMT5.mt5_account import MT5Account
 import MetaRpcMT5.mt5_term_api_account_information_pb2 as account_info_pb2
 
@@ -200,7 +200,7 @@ async def main():
 
     try:
         # Set deadline
-        deadline = datetime.utcnow() + timedelta(seconds=3)
+        deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
         # Get balance
         balance = await account.account_info_double(
@@ -221,7 +221,7 @@ asyncio.run(main())
 ```python
 async def get_equity(account: MT5Account) -> float:
     """Get current account equity"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     equity = await account.account_info_double(
         property_id=account_info_pb2.ACCOUNT_EQUITY,
@@ -252,7 +252,7 @@ async def check_margin_level(account: MT5Account, min_level: float = 200.0) -> b
     Raises:
         ValueError: If margin level is below minimum
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     margin_level = await account.account_info_double(
         property_id=account_info_pb2.ACCOUNT_MARGIN_LEVEL,
@@ -300,7 +300,7 @@ async def monitor_profit(account: MT5Account, interval: float = 5.0):
     """Monitor floating P/L every N seconds"""
     while True:
         try:
-            deadline = datetime.utcnow() + timedelta(seconds=3)
+            deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
             profit = await account.account_info_double(
                 property_id=account_info_pb2.ACCOUNT_PROFIT,
@@ -334,7 +334,7 @@ class MarginInfo:
 
 async def get_margin_info(account: MT5Account) -> MarginInfo:
     """Get comprehensive margin information"""
-    deadline = datetime.utcnow() + timedelta(seconds=10)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=10)
 
     # Get used margin
     used_margin = await account.account_info_double(
@@ -420,7 +420,7 @@ async def can_trade(account: MT5Account, required_margin: float) -> bool:
     Returns:
         True if sufficient margin available
     """
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     free_margin = await account.account_info_double(
         property_id=account_info_pb2.ACCOUNT_MARGIN_FREE,
@@ -440,7 +440,7 @@ async def can_trade(account: MT5Account, required_margin: float) -> bool:
 ```python
 async def check_margin_warning(account: MT5Account):
     """Check margin level and warn if too low"""
-    deadline = datetime.utcnow() + timedelta(seconds=3)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=3)
 
     level = await account.account_info_double(
         property_id=account_info_pb2.ACCOUNT_MARGIN_LEVEL,
@@ -462,7 +462,7 @@ async def check_margin_warning(account: MT5Account):
 ```python
 async def check_account_health(account: MT5Account):
     """Comprehensive account health check"""
-    deadline = datetime.utcnow() + timedelta(seconds=5)
+    deadline = datetime.now(timezone.utc) + timedelta(seconds=5)
 
     # Get all critical metrics
     balance = await account.account_info_double(
