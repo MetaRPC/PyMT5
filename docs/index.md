@@ -1,14 +1,27 @@
 ---
+title: "MetaTrader 5 API — Python SDK"
 hide:
   - navigation
   - toc
 ---
 
-# PyMT5 SDK Documentation
+# MetaTrader 5 API — Python SDK
 
 Start with [three bounded read-only examples](All_Guides/READ_ONLY_EXAMPLES.md): an account snapshot, a terminal dashboard and a quote stream that stops even when no ticks arrive.
 
 > ℹ️ **Account ID / Session ID**: When connecting via `Connect` / `ConnectEx`, MetaRPC automatically generates a terminal session GUID and returns it in `terminalInstanceGuid`. There is no need to call `GetId` or supply an `id` header prior to connecting. Subsequent calls (such as subscriptions or order requests) use this session ID automatically.
+
+!!! info "Use the MT5 SDK with MetaRPC"
+
+    MetaRPC provides APIs and hosted terminal infrastructure for developers. Build your client on Windows, macOS or Linux; you control your broker accounts and trading decisions.
+
+    Start with the API setup guide, try the browser playground, or connect a trade-copying workflow.
+
+    [API setup and pricing](https://mrpc.pro/start/api?lang=en&utm_source=github&utm_medium=referral&utm_campaign=api_sdk_discovery&utm_content=pymt5_setup)
+
+    [Try the API playground](https://mrpc.pro/api?lang=en&utm_source=github&utm_medium=referral&utm_campaign=api_sdk_discovery&utm_content=pymt5_playground#live-code)
+
+    [Explore trade copying](https://mrpc.pro/start/copier?lang=en&utm_source=github&utm_medium=referral&utm_campaign=api_sdk_discovery&utm_content=pymt5_copier)
 
 <div class="hx-wrap" markdown="0">
 
